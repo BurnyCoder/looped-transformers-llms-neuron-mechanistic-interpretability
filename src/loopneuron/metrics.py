@@ -28,9 +28,11 @@ class Embedder:
         self.name = name
         self.m = SentenceTransformer(name, device=device)
 
-    def __call__(self, texts: list[str], batch_size: int = 256) -> np.ndarray:
-        return self.m.encode(texts, batch_size=batch_size, normalize_embeddings=True, convert_to_numpy=True,
-                             show_progress_bar=False)
+    def __call__(self, texts: list[str], batch_size: int = 64) -> np.ndarray:
+        out = self.m.encode(texts, batch_size=batch_size, normalize_embeddings=True, convert_to_numpy=True,
+                            show_progress_bar=False)
+        torch.cuda.empty_cache()  # return the embedder's activation memory so generation's KV cache never spills (8 GB GPU)
+        return out
 
 
 def concept_direction(top_emb: np.ndarray, rand_mean: np.ndarray) -> np.ndarray:
