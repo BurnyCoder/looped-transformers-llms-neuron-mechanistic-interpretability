@@ -1,0 +1,20 @@
+2026-10-24 16:51:46,961 | INFO    | loopneuron.setup_check | log file: C:\Users\Happy\Documents\projects\looped-transformers-llms-neuron-mechanistic-interpretability\logs\20261024-165146_setup_check.log
+2026-10-24 16:51:46,962 | INFO    | loopneuron.setup_check | === phase: setup_check ===
+2026-10-24 16:51:46,966 | INFO    | loopneuron.setup_check | loading ByteDance/Ouro-1.4B @ 574fa66cb8bf5abdc979642d01cf2b79b16bfab1 (T=4)
+2026-10-24 16:51:54,171 | INFO    | loopneuron.setup_check | held-out loss T=1: 4.0295 nats (ppl 56.23)
+2026-10-24 16:51:57,567 | INFO    | loopneuron.setup_check | held-out loss T=2: 2.8261 nats (ppl 16.88)
+2026-10-24 16:52:02,524 | INFO    | loopneuron.setup_check | held-out loss T=3: 2.5433 nats (ppl 12.72)
+2026-10-24 16:52:09,065 | INFO    | loopneuron.setup_check | held-out loss T=4: 2.5081 nats (ppl 12.28)
+2026-10-24 16:52:17,265 | INFO    | loopneuron.setup_check | held-out loss T=5: 2.5557 nats (ppl 12.88)
+2026-10-24 16:52:27,073 | INFO    | loopneuron.setup_check | held-out loss T=6: 2.5474 nats (ppl 12.77)
+2026-10-24 16:52:38,493 | INFO    | loopneuron.setup_check | held-out loss T=7: 2.5554 nats (ppl 12.88)
+2026-10-24 16:52:51,509 | INFO    | loopneuron.setup_check | held-out loss T=8: 2.5620 nats (ppl 12.96)
+2026-10-24 16:52:53,251 | INFO    | loopneuron.setup_check | default early-exit path disagrees with fixed last-loop exit on 0.0000 of positions
+2026-10-24 16:53:06,726 | INFO    | loopneuron.setup_check | SAMPLE prompt='Harris announced he would be stepping down as rabbi in '
+  continuation='2021, he was asked by the congregation to stay on as a visiting rabbi.\n\n"I was asked to be the rabbi for the next three years," he said. "I was very happy to do that."\n'
+2026-10-24 16:53:06,726 | INFO    | loopneuron.setup_check | SAMPLE prompt="Gloire's wooden hull was modelled on that of a"
+  continuation=' ship which was wrecked in the early 17th century. In 1988, the wreck of the Gloire was discovered in 130 m of water off the coast of Mauritania. This ship is the'
+2026-10-24 16:53:06,726 | INFO    | loopneuron.setup_check | SAMPLE prompt="Many of the residents' original grievances were addressed with the passing"
+  continuation=" of the new zoning law.  \nB. The new zoning law has reduced traffic congestion in the area.  \nC. The residents' opposition to the new zoning law was based on misinformation.  \nD. The new zoning law"
+2026-10-24 16:53:06,727 | INFO    | loopneuron.setup_check | SAMPLE prompt='On the morning of September 1, 3rd Battalion'
+  continuation=', 1st Battalion, 22nd Infantry Regiment, 25th Infantry Division, was ordered to take the village of Kernville, 4.5 miles south of the village of La Fosse.\n\nAs'

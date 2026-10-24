@@ -1,0 +1,8 @@
+2026-10-24 18:26:53,906 | INFO    | loopneuron.dryrun | log file: C:\Users\Happy\Documents\projects\looped-transformers-llms-neuron-mechanistic-interpretability\logs\20261024-182653_dryrun.log
+2026-10-24 18:26:53,907 | INFO    | loopneuron.dryrun | === phase: confirm_steering ===
+2026-10-24 18:26:56,168 | INFO    | loopneuron.dryrun | loading ByteDance/Ouro-1.4B @ 574fa66cb8bf5abdc979642d01cf2b79b16bfab1 (T=4)
+2026-10-24 18:27:26,226 | INFO    | loopneuron.dryrun | confirm: 300 prompts x 3 samples x 48 tokens, 1 candidates, R=3
+2026-10-24 18:36:01,305 | INFO    | loopneuron.dryrun | null generations done for layer 3 pole 0 alpha 4.0 (3 neurons)
+2026-10-24 18:36:01,551 | INFO    | loopneuron.dryrun | CONFIRM 3_5043_0 alpha=4.0 meanDC=0.0005 CI=[-0.0028  0.0038] p_wil=4.35e-01 p_null=0.5000 ppl_ratio=1.10 robust=-0.0002
+2026-10-24 18:36:01,965 | INFO    | loopneuron.dryrun | DECISION 3_5043_0: not significant (holm p_wil=4.35e-01, holm p_null=0.5000, ppl=1.10)
+2026-10-24 18:36:01,969 | INFO    | loopneuron.dryrun | wrote C:\Users\Happy\Documents\projects\looped-transformers-llms-neuron-mechanistic-interpretability\results\Ouro-1.4B-dryrun\confirm.json

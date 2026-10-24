@@ -1,0 +1,2927 @@
+2026-10-24 19:24:59,791 | INFO    | loopneuron.dryrun | log file: C:\Users\Happy\Documents\projects\looped-transformers-llms-neuron-mechanistic-interpretability\logs\20261024-192459_dryrun.log
+2026-10-24 19:24:59,792 | INFO    | loopneuron.dryrun | === phase: audit ===
+2026-10-24 19:25:11,405 | INFO    | loopneuron.dryrun | loading ByteDance/Ouro-1.4B @ 574fa66cb8bf5abdc979642d01cf2b79b16bfab1 (T=4)
+2026-10-24 19:25:40,773 | INFO    | loopneuron.dryrun | wrote C:\Users\Happy\Documents\projects\looped-transformers-llms-neuron-mechanistic-interpretability\results\Ouro-1.4B-dryrun\loop_structure.json
+2026-10-24 19:25:50,187 | INFO    | loopneuron.dryrun | llama-server ready: C:\Users\Happy\Documents\projects\looped-transformers-llms-neuron-mechanistic-interpretability\tools\llama.cpp\llama-server.exe -m C:\Users\Happy\Documents\projects\looped-transformers-llms-neuron-mechanistic-interpretability\cache\gguf\Qwen3.5-9B-Q4_K_M.gguf -ngl 99 -c 16384 --port 8093 --jinja -np 1
+2026-10-24 19:25:54,949 | INFO    | loopneuron.dryrun | LLM CALL 1 explain audit L7N4701 loop1
+--- PROMPT ---
+[system]
+You are a meticulous AI researcher conducting an important investigation into patterns found in language. Your task is to analyze text and provide an explanation that thoroughly encapsulates possible patterns found in it.
+Guidelines:
+
+You will be given a list of text examples on which special words are selected and between delimiters like <<this>>. If a sequence of consecutive tokens all are important, the entire sequence of tokens will be contained between delimiters <<just like this>>. How important each token is for the behavior is listed after each example in parentheses.
+
+- Try to produce a concise final description. Simply describe the text latents that are common in the examples, and what patterns you found.
+- If the examples are uninformative, you don't need to mention them. Don't focus on giving examples of important tokens, but try to summarize the patterns found in the examples.
+- Do not mention the marker tokens (<< >>) in your explanation.
+- Do not make lists of possible explanations. Keep your explanations short and concise.
+- The last line of your response must be the formatted explanation, using [EXPLANATION]:
+
+[user]
+Example 1: ignored” if it is generated. Mostly used for known bugs which are not considered as failure but still relevant enough to<< appears>> on the HTML report.
+Example of (10)
+Example 2:  <testPath refid="target.@{prefix}.path"/> <testIgnoredPath refid="tests.<<@>>{prefix}.ignored.path" (7)
+Example 3:  surname is).
+
+7. Of course, this discussion could cause Peter to post a clip of
+Nat King Cole<<
+>>(giess what his real surname is (6)
+Example 4: !-- exclude global report -->
+</fileset>
+<report format="noframes" todir="\<<$>>{target.test.html}/@ (5)
+Example 5:  location of the current test.
+
+The test suite engine provides the following properties to the harness script giving all the inform<<ations>> to start the test:
+
+h (4)
+Example 6:  piano lessons and test-prep courses instead of just leaving them to improvise on their own; playtime versus r?m<<?>>uilding.
+Discussions about play force (4)
+Example 7:  to the classname of the current test.
+testsuite.test.classpath The classpath of the current test<<.>>
+<!-- Launch test suite --> (4)
+Example 8: DirProperty The name of the Ant property in which is store the path of the directory of the final report. Path is<< [>>outputDir]/[label]. testsuite (4)
+Example 9: 0
+October 7-13, 1999
+New Bay Times
+| Homepage |
+<<|>> Back to Archives |<|endoftext|># MicroE (4)
+Example 10:  that Austen’s impact on the world is no less important than Jefferson’s. The effect of Jane’s writing<< maybe>> more subtle than that of the Virginian (4)
+Example 11: HIV can be passed on when infected bodily fluid, such as blood or semen, is passed into an uninfected person.<< Sem>>en is the liquid which is released from (4)
+Example 12: , he looks  to me a bit like Laurence Olivier…
+
+11 Responses to “Bayes and his<< >>Theorem”
+
+1. Bry (4)
+--- OUTPUT ---
+The selected tokens consistently appear at the boundaries of variable placeholders, dynamic content markers, or specific punctuation sequences within technical documentation and code snippets. These latents function as delimiters that signal the start or end of a substitutable value, a special character set, or a structural break in the text, distinguishing static context from dynamic or variable data.
+
+[EXPLANATION]: The identified latents serve as boundary markers for variable placeholders, dynamic content, and specific punctuation sequences, signaling the transition between static context and substitutable or variable data within technical and code-related text.
+--- END ---
+2026-10-24 19:25:58,791 | INFO    | loopneuron.dryrun | LLM CALL 2 explain audit L7N4701 loop4
+--- PROMPT ---
+[system]
+You are a meticulous AI researcher conducting an important investigation into patterns found in language. Your task is to analyze text and provide an explanation that thoroughly encapsulates possible patterns found in it.
+Guidelines:
+
+You will be given a list of text examples on which special words are selected and between delimiters like <<this>>. If a sequence of consecutive tokens all are important, the entire sequence of tokens will be contained between delimiters <<just like this>>. How important each token is for the behavior is listed after each example in parentheses.
+
+- Try to produce a concise final description. Simply describe the text latents that are common in the examples, and what patterns you found.
+- If the examples are uninformative, you don't need to mention them. Don't focus on giving examples of important tokens, but try to summarize the patterns found in the examples.
+- Do not mention the marker tokens (<< >>) in your explanation.
+- Do not make lists of possible explanations. Keep your explanations short and concise.
+- The last line of your response must be the formatted explanation, using [EXPLANATION]:
+
+[user]
+Example 1: ).
+
+7. Of course, this discussion could cause Peter to post a clip of
+Nat King Cole
+(<<gi>>ess what his real surname is).
+ (10)
+Example 2:  possible health and economic impacts of using pricing strategies to promote consumption of healthy foods and beverages and discourage consumption of unhealthy products.<<<|endoftext|>>>This section provides primary sources that document how (6)
+Example 3:  Phillip Newman Specific rights apply.
+A service of: ASD at NASA / GSFC
+& Michigan Tech. U.<<<|endoftext|>>>Network With (6)
+Example 4: Unless="${microej.testsuite.retry.unless}" > <testPath refid="target.<<@>>{prefix}.path"/> <testIgn (4)
+Example 5: 't be transmitted by things like coughing, sneezing, kissing, sharing a toilet seat, swimming pools, sweat and tears.<<<|endoftext|>>>CTComms sends on average 2 (4)
+Example 6: , he looks  to me a bit like Laurence Olivier…
+
+11 Responses to “Bayes and his<< >>Theorem”
+
+1. Bry (4)
+Example 7: ignored” if it is generated. Mostly used for known bugs which are not considered as failure but still relevant enough to<< appears>> on the HTML report.
+Example of (3)
+Example 8:  children for piano lessons and test-prep courses instead of just leaving them to improvise on their own; playtime versus r<<?>>m?uilding.
+Discussions about (3)
+Example 9: .
+A Court in Exile: The Stuarts in France, 1689-171<<8>> by Edward Corp. After James II was (3)
+Example 10: 
+| Homepage |
+| Back to Archives |<|endoftext|># MicroEJ Test Suite Engine¶
+
+##<< Introduction>>¶
+
+The MicroEJ (2)
+Example 11:  water technology," Cohen said. "The reason for this is simple: If we are to accelerate the transfer of knowledge technology<< from>> the university to the real world, where (2)
+Example 12: !-- exclude global report -->
+</fileset>
+<report format="noframes" todir="\<<$>>{target.test.html}/@ (2)
+--- OUTPUT ---
+The selected tokens consistently appear at the boundaries of specific syntactic or semantic units, marking the transition between a preceding context and a following clause, phrase, or entity. These markers frequently delineate the start of a proper noun, a technical parameter, a section header, or a distinct logical segment within a sentence. They often function as anchors for external references, variable names, or specific titles, indicating that the immediate following text carries a unique identity or value separate from the surrounding narrative flow.
+
+[EXPLANATION]: The highlighted tokens consistently mark the beginning of distinct semantic or syntactic units, such as proper nouns, technical parameters, section headers, or specific titles. They frequently serve as anchors for external references or variable names, indicating that the immediately following text possesses a unique identity or value separate from the surrounding narrative context.
+--- END ---
+2026-10-24 19:25:59,903 | INFO    | loopneuron.dryrun | LLM CALL 3 detect same
+--- PROMPT ---
+[system]
+You are an intelligent and meticulous linguistics researcher.
+
+You will be given a certain latent of text, such as "male pronouns" or "text with negative sentiment".
+
+You will then be given several text examples. Your task is to determine which examples possess the latent.
+
+For each example in turn, return 1 if the sentence is correctly labeled or 0 if the tokens are mislabeled. You must return your response in a valid Python list. Do not return anything else besides a Python list.
+
+[user]
+Latent explanation: Words related to American football positions, specifically the tight end position.
+
+Test examples:
+
+Example 0:<|endoftext|>Getty Images
+
+Patriots tight end Rob Gronkowski had his boss's
+Example 1: names of months used in The Lord of the Rings:
+
+"...the
+Example 2: Media Day 2015
+
+LSU defensive end Isaiah Washington (94) speaks to the
+Example 3: shown, is generally not eligible for ads. For example, videos about recent tragedies,
+Example 4: line, with the left side -- namely tackle Byron Bell at tackle and guard Amini
+
+[assistant]
+[1,0,0,0,1]
+[user]
+Latent explanation: The word "guys" in the phrase "you guys".
+
+Test examples:
+
+Example 0: enact an individual health insurance mandate?", Pelosi's response was to dismiss both
+Example 1: birth control access<|endoftext|> but I assure you women in Kentucky aren't laughing as they struggle
+Example 2: du Soleil Fall Protection Program with construction requirements that do not apply to theater settings because
+Example 3:
+<|endoftext|> distasteful. Amidst the slime lurk bits of Schadenfre
+Example 4: the<|endoftext|>"I want to remind you all that 10 days ago (director Massimil
+
+[assistant]
+[0,0,0,0,0]
+[user]
+Latent explanation: "of" before words that start with a capital letter.
+
+Test examples:
+
+Example 0: climate, Tomblin's Chief of Staff Charlie Lorensen said.
+
+Example 1: no wonderworking relics, no true Body and Blood of Christ, no true Baptism
+Example 2:
+
+Deborah Sathe, Head of Talent Development and Production at Film London,
+Example 3:
+
+It has been devised by Director of Public Prosecutions (DPP)
+Example 4: and fair investigation not even include the Director of Athletics? · Finally, we believe the
+
+[assistant]
+[1,1,1,1,1]
+[user]
+Latent explanation: The identified latents serve as boundary markers for variable placeholders, dynamic content, and specific punctuation sequences, signaling the transition between static context and substitutable or variable data within technical and code-related text.
+
+Text examples:
+
+Example 0: , if it is set to .options, a test named xxx/Test1.class will be associated with xxx/Test1.options. If a
+Example 1: : Long-term warming, short-term variability: Why climate change is still an issue<|endoftext|>Bolivia: Coca-chewing protest outside US embassy
+Indigenous activists
+Example 2: y edges
+Narrow body with pointy edges
+May grow berries
+Good for sap & color
+3 distinct leafs
+May grow nuts
+This is your
+Example 3: ," as long as you have the right number of client licenses (see the section below for more on that). However, when you're running certain server products on a
+Example 4:  a task which will generate an HTML report from a list of JUnit report files.
+
+### The testsuite Task¶
+
+The following attributes are mandatory
+Example 5:  tedious, difficult task. Many volume licensing programs provide an online account which is automatically updated when you obtain or activate a copy of that company's software. These accounts can
+Example 6:  in the filesystem.
+testsuite.test.properties The absolute path to the custom properties of the current test (see the property customPropertiesExtension)
+testsuite
+Example 7:  cauliflower.
+
+The surname “Cole” and the variant “Coles” are fairly common in England and Wales, but are not related to the latin
+Example 8:  the best-seller list for the last nine months -- and its step-by-step instructions for activities like
+Example 9:  Trials like this are usually called Bernoulli trials, after Daniel Bernoulli. If we ask the question “what is the probability of exactly x successes from the
+
+--- OUTPUT ---
+[0,0,0,0,0,0,0,0,0,0]
+--- END ---
+2026-10-24 19:26:00,407 | INFO    | loopneuron.dryrun | LLM CALL 4 detect same
+--- PROMPT ---
+[system]
+You are an intelligent and meticulous linguistics researcher.
+
+You will be given a certain latent of text, such as "male pronouns" or "text with negative sentiment".
+
+You will then be given several text examples. Your task is to determine which examples possess the latent.
+
+For each example in turn, return 1 if the sentence is correctly labeled or 0 if the tokens are mislabeled. You must return your response in a valid Python list. Do not return anything else besides a Python list.
+
+[user]
+Latent explanation: Words related to American football positions, specifically the tight end position.
+
+Test examples:
+
+Example 0:<|endoftext|>Getty Images
+
+Patriots tight end Rob Gronkowski had his boss's
+Example 1: names of months used in The Lord of the Rings:
+
+"...the
+Example 2: Media Day 2015
+
+LSU defensive end Isaiah Washington (94) speaks to the
+Example 3: shown, is generally not eligible for ads. For example, videos about recent tragedies,
+Example 4: line, with the left side -- namely tackle Byron Bell at tackle and guard Amini
+
+[assistant]
+[1,0,0,0,1]
+[user]
+Latent explanation: The word "guys" in the phrase "you guys".
+
+Test examples:
+
+Example 0: enact an individual health insurance mandate?", Pelosi's response was to dismiss both
+Example 1: birth control access<|endoftext|> but I assure you women in Kentucky aren't laughing as they struggle
+Example 2: du Soleil Fall Protection Program with construction requirements that do not apply to theater settings because
+Example 3:
+<|endoftext|> distasteful. Amidst the slime lurk bits of Schadenfre
+Example 4: the<|endoftext|>"I want to remind you all that 10 days ago (director Massimil
+
+[assistant]
+[0,0,0,0,0]
+[user]
+Latent explanation: "of" before words that start with a capital letter.
+
+Test examples:
+
+Example 0: climate, Tomblin's Chief of Staff Charlie Lorensen said.
+
+Example 1: no wonderworking relics, no true Body and Blood of Christ, no true Baptism
+Example 2:
+
+Deborah Sathe, Head of Talent Development and Production at Film London,
+Example 3:
+
+It has been devised by Director of Public Prosecutions (DPP)
+Example 4: and fair investigation not even include the Director of Athletics? · Finally, we believe the
+
+[assistant]
+[1,1,1,1,1]
+[user]
+Latent explanation: The identified latents serve as boundary markers for variable placeholders, dynamic content, and specific punctuation sequences, signaling the transition between static context and substitutable or variable data within technical and code-related text.
+
+Text examples:
+
+Example 0:  Bernoulli. If we ask the question “what is the probability of exactly x successes from the possible n?”, the answer is given by the binomial distribution
+Example 1:  £1 admin fee. If only a handful of external users access your Windows servers, you're better off acquiring User CALs. Also, an ECL only applies
+Example 2:  their tombs can be seen there today.
+
+2. Steve Warren Says:
+
+You may be remembered in history as the discoverer of coleslaw
+Example 3:  2013
+
+technician
+
+Reluctance to change...as in a paddle wheel.
+
+Last edited: May 12,
+Example 4:  Windows will let 40 authenticated users have access. The 41st user will be denied access. However, in per server mode, each CAL is tied
+Example 5:  status of the writer made any difference in his or her appraisal of the practice of self-immolation.
+The three sources by Indian men and one by an Indian
+
+--- OUTPUT ---
+[0,0,0,0,0,0]
+--- END ---
+2026-10-24 19:26:01,137 | INFO    | loopneuron.dryrun | LLM CALL 5 detect same
+--- PROMPT ---
+[system]
+You are an intelligent and meticulous linguistics researcher.
+
+You will be given a certain latent of text, such as "male pronouns" or "text with negative sentiment".
+
+You will then be given several text examples. Your task is to determine which examples possess the latent.
+
+For each example in turn, return 1 if the sentence is correctly labeled or 0 if the tokens are mislabeled. You must return your response in a valid Python list. Do not return anything else besides a Python list.
+
+[user]
+Latent explanation: Words related to American football positions, specifically the tight end position.
+
+Test examples:
+
+Example 0:<|endoftext|>Getty Images
+
+Patriots tight end Rob Gronkowski had his boss's
+Example 1: names of months used in The Lord of the Rings:
+
+"...the
+Example 2: Media Day 2015
+
+LSU defensive end Isaiah Washington (94) speaks to the
+Example 3: shown, is generally not eligible for ads. For example, videos about recent tragedies,
+Example 4: line, with the left side -- namely tackle Byron Bell at tackle and guard Amini
+
+[assistant]
+[1,0,0,0,1]
+[user]
+Latent explanation: The word "guys" in the phrase "you guys".
+
+Test examples:
+
+Example 0: enact an individual health insurance mandate?", Pelosi's response was to dismiss both
+Example 1: birth control access<|endoftext|> but I assure you women in Kentucky aren't laughing as they struggle
+Example 2: du Soleil Fall Protection Program with construction requirements that do not apply to theater settings because
+Example 3:
+<|endoftext|> distasteful. Amidst the slime lurk bits of Schadenfre
+Example 4: the<|endoftext|>"I want to remind you all that 10 days ago (director Massimil
+
+[assistant]
+[0,0,0,0,0]
+[user]
+Latent explanation: "of" before words that start with a capital letter.
+
+Test examples:
+
+Example 0: climate, Tomblin's Chief of Staff Charlie Lorensen said.
+
+Example 1: no wonderworking relics, no true Body and Blood of Christ, no true Baptism
+Example 2:
+
+Deborah Sathe, Head of Talent Development and Production at Film London,
+Example 3:
+
+It has been devised by Director of Public Prosecutions (DPP)
+Example 4: and fair investigation not even include the Director of Athletics? · Finally, we believe the
+
+[assistant]
+[1,1,1,1,1]
+[user]
+Latent explanation: The highlighted tokens consistently mark the beginning of distinct semantic or syntactic units, such as proper nouns, technical parameters, section headers, or specific titles. They frequently serve as anchors for external references or variable names, indicating that the immediately following text possesses a unique identity or value separate from the surrounding narrative context.
+
+Text examples:
+
+Example 0:  in 2004, “that the measurement of these inflammatory ‘mediators’ and their suppression may be useful in the treatment of lung cancer.”
+CO
+Example 1:  January only if there were no objections.<|endoftext|>Breaking the COX code
+Using the team approach
+Editor’s Note: This story, first published in 
+Example 2:  Bentinck and England as representing the secular and sacred aspects of British criticism of sati. A comparison of Bentinck’s minute with the subsequent legislation also
+Example 3:  poetry. While searching through the myriad options on ReadWriteThink, I came upon "Building Reading Comprehension Through Think-Alouds."
+At first, I planned to
+Example 4: . May 12, 2013
+
+tapan_ydv
+
+Hi,
+
+I understand that some physical quantities in electromagnetism
+Example 5:  tedious, difficult task. Many volume licensing programs provide an online account which is automatically updated when you obtain or activate a copy of that company's software. These accounts can
+Example 6:  in the filesystem.
+testsuite.test.properties The absolute path to the custom properties of the current test (see the property customPropertiesExtension)
+testsuite
+Example 7: Cole” and the variant “Coles” are fairly common in England and Wales, but are not related to the latin word for cabbage. Both are dimin
+Example 8:  the best-seller list for the last nine months -- and its step-by-step instructions for activities like
+Example 9:  Trials like this are usually called Bernoulli trials, after Daniel Bernoulli. If we ask the question “what is the probability of exactly x successes from the
+
+--- OUTPUT ---
+[0,0,0,0,0,0,0,0,0,0]
+--- END ---
+2026-10-24 19:26:01,607 | INFO    | loopneuron.dryrun | LLM CALL 6 detect same
+--- PROMPT ---
+[system]
+You are an intelligent and meticulous linguistics researcher.
+
+You will be given a certain latent of text, such as "male pronouns" or "text with negative sentiment".
+
+You will then be given several text examples. Your task is to determine which examples possess the latent.
+
+For each example in turn, return 1 if the sentence is correctly labeled or 0 if the tokens are mislabeled. You must return your response in a valid Python list. Do not return anything else besides a Python list.
+
+[user]
+Latent explanation: Words related to American football positions, specifically the tight end position.
+
+Test examples:
+
+Example 0:<|endoftext|>Getty Images
+
+Patriots tight end Rob Gronkowski had his boss's
+Example 1: names of months used in The Lord of the Rings:
+
+"...the
+Example 2: Media Day 2015
+
+LSU defensive end Isaiah Washington (94) speaks to the
+Example 3: shown, is generally not eligible for ads. For example, videos about recent tragedies,
+Example 4: line, with the left side -- namely tackle Byron Bell at tackle and guard Amini
+
+[assistant]
+[1,0,0,0,1]
+[user]
+Latent explanation: The word "guys" in the phrase "you guys".
+
+Test examples:
+
+Example 0: enact an individual health insurance mandate?", Pelosi's response was to dismiss both
+Example 1: birth control access<|endoftext|> but I assure you women in Kentucky aren't laughing as they struggle
+Example 2: du Soleil Fall Protection Program with construction requirements that do not apply to theater settings because
+Example 3:
+<|endoftext|> distasteful. Amidst the slime lurk bits of Schadenfre
+Example 4: the<|endoftext|>"I want to remind you all that 10 days ago (director Massimil
+
+[assistant]
+[0,0,0,0,0]
+[user]
+Latent explanation: "of" before words that start with a capital letter.
+
+Test examples:
+
+Example 0: climate, Tomblin's Chief of Staff Charlie Lorensen said.
+
+Example 1: no wonderworking relics, no true Body and Blood of Christ, no true Baptism
+Example 2:
+
+Deborah Sathe, Head of Talent Development and Production at Film London,
+Example 3:
+
+It has been devised by Director of Public Prosecutions (DPP)
+Example 4: and fair investigation not even include the Director of Athletics? · Finally, we believe the
+
+[assistant]
+[1,1,1,1,1]
+[user]
+Latent explanation: The highlighted tokens consistently mark the beginning of distinct semantic or syntactic units, such as proper nouns, technical parameters, section headers, or specific titles. They frequently serve as anchors for external references or variable names, indicating that the immediately following text possesses a unique identity or value separate from the surrounding narrative context.
+
+Text examples:
+
+Example 0:  Bernoulli. If we ask the question “what is the probability of exactly x successes from the possible n?”, the answer is given by the binomial distribution
+Example 1:  £1 admin fee. If only a handful of external users access your Windows servers, you're better off acquiring User CALs. Also, an ECL only applies
+Example 2:  their tombs can be seen there today.
+
+2. Steve Warren Says:
+
+You may be remembered in history as the discoverer of coleslaw
+Example 3: .level}"
+>
+<testPath refid="target.testkf.path"/>
+</testsuite:testsuite>
+
+
+### The java
+Example 4:  the school newspaper, and teaching yoga in the evenings.<|endoftext|>King James II of England (who was also James VII of Scotland) inherited the throne in 16
+Example 5:  status of the writer made any difference in his or her appraisal of the practice of self-immolation.
+The three sources by Indian men and one by an Indian
+
+--- OUTPUT ---
+[0,0,0,0,0]
+--- END ---
+2026-10-24 19:26:02,327 | INFO    | loopneuron.dryrun | LLM CALL 7 detect cross
+--- PROMPT ---
+[system]
+You are an intelligent and meticulous linguistics researcher.
+
+You will be given a certain latent of text, such as "male pronouns" or "text with negative sentiment".
+
+You will then be given several text examples. Your task is to determine which examples possess the latent.
+
+For each example in turn, return 1 if the sentence is correctly labeled or 0 if the tokens are mislabeled. You must return your response in a valid Python list. Do not return anything else besides a Python list.
+
+[user]
+Latent explanation: Words related to American football positions, specifically the tight end position.
+
+Test examples:
+
+Example 0:<|endoftext|>Getty Images
+
+Patriots tight end Rob Gronkowski had his boss's
+Example 1: names of months used in The Lord of the Rings:
+
+"...the
+Example 2: Media Day 2015
+
+LSU defensive end Isaiah Washington (94) speaks to the
+Example 3: shown, is generally not eligible for ads. For example, videos about recent tragedies,
+Example 4: line, with the left side -- namely tackle Byron Bell at tackle and guard Amini
+
+[assistant]
+[1,0,0,0,1]
+[user]
+Latent explanation: The word "guys" in the phrase "you guys".
+
+Test examples:
+
+Example 0: enact an individual health insurance mandate?", Pelosi's response was to dismiss both
+Example 1: birth control access<|endoftext|> but I assure you women in Kentucky aren't laughing as they struggle
+Example 2: du Soleil Fall Protection Program with construction requirements that do not apply to theater settings because
+Example 3:
+<|endoftext|> distasteful. Amidst the slime lurk bits of Schadenfre
+Example 4: the<|endoftext|>"I want to remind you all that 10 days ago (director Massimil
+
+[assistant]
+[0,0,0,0,0]
+[user]
+Latent explanation: "of" before words that start with a capital letter.
+
+Test examples:
+
+Example 0: climate, Tomblin's Chief of Staff Charlie Lorensen said.
+
+Example 1: no wonderworking relics, no true Body and Blood of Christ, no true Baptism
+Example 2:
+
+Deborah Sathe, Head of Talent Development and Production at Film London,
+Example 3:
+
+It has been devised by Director of Public Prosecutions (DPP)
+Example 4: and fair investigation not even include the Director of Athletics? · Finally, we believe the
+
+[assistant]
+[1,1,1,1,1]
+[user]
+Latent explanation: The identified latents serve as boundary markers for variable placeholders, dynamic content, and specific punctuation sequences, signaling the transition between static context and substitutable or variable data within technical and code-related text.
+
+Text examples:
+
+Example 0:  in 2004, “that the measurement of these inflammatory ‘mediators’ and their suppression may be useful in the treatment of lung cancer.”
+CO
+Example 1:  January only if there were no objections.<|endoftext|>Breaking the COX code
+Using the team approach
+Editor’s Note: This story, first published in 
+Example 2:  Bentinck and England as representing the secular and sacred aspects of British criticism of sati. A comparison of Bentinck’s minute with the subsequent legislation also
+Example 3:  poetry. While searching through the myriad options on ReadWriteThink, I came upon "Building Reading Comprehension Through Think-Alouds."
+At first, I planned to
+Example 4: . May 12, 2013
+
+tapan_ydv
+
+Hi,
+
+I understand that some physical quantities in electromagnetism
+Example 5:  tedious, difficult task. Many volume licensing programs provide an online account which is automatically updated when you obtain or activate a copy of that company's software. These accounts can
+Example 6:  in the filesystem.
+testsuite.test.properties The absolute path to the custom properties of the current test (see the property customPropertiesExtension)
+testsuite
+Example 7: Cole” and the variant “Coles” are fairly common in England and Wales, but are not related to the latin word for cabbage. Both are dimin
+Example 8:  the best-seller list for the last nine months -- and its step-by-step instructions for activities like
+Example 9:  Trials like this are usually called Bernoulli trials, after Daniel Bernoulli. If we ask the question “what is the probability of exactly x successes from the
+
+--- OUTPUT ---
+[0,0,0,0,0,0,0,0,0,0]
+--- END ---
+2026-10-24 19:26:02,783 | INFO    | loopneuron.dryrun | LLM CALL 8 detect cross
+--- PROMPT ---
+[system]
+You are an intelligent and meticulous linguistics researcher.
+
+You will be given a certain latent of text, such as "male pronouns" or "text with negative sentiment".
+
+You will then be given several text examples. Your task is to determine which examples possess the latent.
+
+For each example in turn, return 1 if the sentence is correctly labeled or 0 if the tokens are mislabeled. You must return your response in a valid Python list. Do not return anything else besides a Python list.
+
+[user]
+Latent explanation: Words related to American football positions, specifically the tight end position.
+
+Test examples:
+
+Example 0:<|endoftext|>Getty Images
+
+Patriots tight end Rob Gronkowski had his boss's
+Example 1: names of months used in The Lord of the Rings:
+
+"...the
+Example 2: Media Day 2015
+
+LSU defensive end Isaiah Washington (94) speaks to the
+Example 3: shown, is generally not eligible for ads. For example, videos about recent tragedies,
+Example 4: line, with the left side -- namely tackle Byron Bell at tackle and guard Amini
+
+[assistant]
+[1,0,0,0,1]
+[user]
+Latent explanation: The word "guys" in the phrase "you guys".
+
+Test examples:
+
+Example 0: enact an individual health insurance mandate?", Pelosi's response was to dismiss both
+Example 1: birth control access<|endoftext|> but I assure you women in Kentucky aren't laughing as they struggle
+Example 2: du Soleil Fall Protection Program with construction requirements that do not apply to theater settings because
+Example 3:
+<|endoftext|> distasteful. Amidst the slime lurk bits of Schadenfre
+Example 4: the<|endoftext|>"I want to remind you all that 10 days ago (director Massimil
+
+[assistant]
+[0,0,0,0,0]
+[user]
+Latent explanation: "of" before words that start with a capital letter.
+
+Test examples:
+
+Example 0: climate, Tomblin's Chief of Staff Charlie Lorensen said.
+
+Example 1: no wonderworking relics, no true Body and Blood of Christ, no true Baptism
+Example 2:
+
+Deborah Sathe, Head of Talent Development and Production at Film London,
+Example 3:
+
+It has been devised by Director of Public Prosecutions (DPP)
+Example 4: and fair investigation not even include the Director of Athletics? · Finally, we believe the
+
+[assistant]
+[1,1,1,1,1]
+[user]
+Latent explanation: The identified latents serve as boundary markers for variable placeholders, dynamic content, and specific punctuation sequences, signaling the transition between static context and substitutable or variable data within technical and code-related text.
+
+Text examples:
+
+Example 0:  Bernoulli. If we ask the question “what is the probability of exactly x successes from the possible n?”, the answer is given by the binomial distribution
+Example 1:  £1 admin fee. If only a handful of external users access your Windows servers, you're better off acquiring User CALs. Also, an ECL only applies
+Example 2:  their tombs can be seen there today.
+
+2. Steve Warren Says:
+
+You may be remembered in history as the discoverer of coleslaw
+Example 3: .level}"
+>
+<testPath refid="target.testkf.path"/>
+</testsuite:testsuite>
+
+
+### The java
+Example 4:  the school newspaper, and teaching yoga in the evenings.<|endoftext|>King James II of England (who was also James VII of Scotland) inherited the throne in 16
+Example 5:  status of the writer made any difference in his or her appraisal of the practice of self-immolation.
+The three sources by Indian men and one by an Indian
+
+--- OUTPUT ---
+[0,0,0,0,0]
+--- END ---
+2026-10-24 19:26:03,503 | INFO    | loopneuron.dryrun | LLM CALL 9 detect cross
+--- PROMPT ---
+[system]
+You are an intelligent and meticulous linguistics researcher.
+
+You will be given a certain latent of text, such as "male pronouns" or "text with negative sentiment".
+
+You will then be given several text examples. Your task is to determine which examples possess the latent.
+
+For each example in turn, return 1 if the sentence is correctly labeled or 0 if the tokens are mislabeled. You must return your response in a valid Python list. Do not return anything else besides a Python list.
+
+[user]
+Latent explanation: Words related to American football positions, specifically the tight end position.
+
+Test examples:
+
+Example 0:<|endoftext|>Getty Images
+
+Patriots tight end Rob Gronkowski had his boss's
+Example 1: names of months used in The Lord of the Rings:
+
+"...the
+Example 2: Media Day 2015
+
+LSU defensive end Isaiah Washington (94) speaks to the
+Example 3: shown, is generally not eligible for ads. For example, videos about recent tragedies,
+Example 4: line, with the left side -- namely tackle Byron Bell at tackle and guard Amini
+
+[assistant]
+[1,0,0,0,1]
+[user]
+Latent explanation: The word "guys" in the phrase "you guys".
+
+Test examples:
+
+Example 0: enact an individual health insurance mandate?", Pelosi's response was to dismiss both
+Example 1: birth control access<|endoftext|> but I assure you women in Kentucky aren't laughing as they struggle
+Example 2: du Soleil Fall Protection Program with construction requirements that do not apply to theater settings because
+Example 3:
+<|endoftext|> distasteful. Amidst the slime lurk bits of Schadenfre
+Example 4: the<|endoftext|>"I want to remind you all that 10 days ago (director Massimil
+
+[assistant]
+[0,0,0,0,0]
+[user]
+Latent explanation: "of" before words that start with a capital letter.
+
+Test examples:
+
+Example 0: climate, Tomblin's Chief of Staff Charlie Lorensen said.
+
+Example 1: no wonderworking relics, no true Body and Blood of Christ, no true Baptism
+Example 2:
+
+Deborah Sathe, Head of Talent Development and Production at Film London,
+Example 3:
+
+It has been devised by Director of Public Prosecutions (DPP)
+Example 4: and fair investigation not even include the Director of Athletics? · Finally, we believe the
+
+[assistant]
+[1,1,1,1,1]
+[user]
+Latent explanation: The highlighted tokens consistently mark the beginning of distinct semantic or syntactic units, such as proper nouns, technical parameters, section headers, or specific titles. They frequently serve as anchors for external references or variable names, indicating that the immediately following text possesses a unique identity or value separate from the surrounding narrative context.
+
+Text examples:
+
+Example 0: , if it is set to .options, a test named xxx/Test1.class will be associated with xxx/Test1.options. If a
+Example 1: : Long-term warming, short-term variability: Why climate change is still an issue<|endoftext|>Bolivia: Coca-chewing protest outside US embassy
+Indigenous activists
+Example 2: y edges
+Narrow body with pointy edges
+May grow berries
+Good for sap & color
+3 distinct leafs
+May grow nuts
+This is your
+Example 3: ," as long as you have the right number of client licenses (see the section below for more on that). However, when you're running certain server products on a
+Example 4:  a task which will generate an HTML report from a list of JUnit report files.
+
+### The testsuite Task¶
+
+The following attributes are mandatory
+Example 5:  tedious, difficult task. Many volume licensing programs provide an online account which is automatically updated when you obtain or activate a copy of that company's software. These accounts can
+Example 6:  in the filesystem.
+testsuite.test.properties The absolute path to the custom properties of the current test (see the property customPropertiesExtension)
+testsuite
+Example 7:  cauliflower.
+
+The surname “Cole” and the variant “Coles” are fairly common in England and Wales, but are not related to the latin
+Example 8:  the best-seller list for the last nine months -- and its step-by-step instructions for activities like
+Example 9:  Trials like this are usually called Bernoulli trials, after Daniel Bernoulli. If we ask the question “what is the probability of exactly x successes from the
+
+--- OUTPUT ---
+[0,0,0,0,0,0,0,0,0,0]
+--- END ---
+2026-10-24 19:26:04,114 | INFO    | loopneuron.dryrun | LLM CALL 10 detect cross
+--- PROMPT ---
+[system]
+You are an intelligent and meticulous linguistics researcher.
+
+You will be given a certain latent of text, such as "male pronouns" or "text with negative sentiment".
+
+You will then be given several text examples. Your task is to determine which examples possess the latent.
+
+For each example in turn, return 1 if the sentence is correctly labeled or 0 if the tokens are mislabeled. You must return your response in a valid Python list. Do not return anything else besides a Python list.
+
+[user]
+Latent explanation: Words related to American football positions, specifically the tight end position.
+
+Test examples:
+
+Example 0:<|endoftext|>Getty Images
+
+Patriots tight end Rob Gronkowski had his boss's
+Example 1: names of months used in The Lord of the Rings:
+
+"...the
+Example 2: Media Day 2015
+
+LSU defensive end Isaiah Washington (94) speaks to the
+Example 3: shown, is generally not eligible for ads. For example, videos about recent tragedies,
+Example 4: line, with the left side -- namely tackle Byron Bell at tackle and guard Amini
+
+[assistant]
+[1,0,0,0,1]
+[user]
+Latent explanation: The word "guys" in the phrase "you guys".
+
+Test examples:
+
+Example 0: enact an individual health insurance mandate?", Pelosi's response was to dismiss both
+Example 1: birth control access<|endoftext|> but I assure you women in Kentucky aren't laughing as they struggle
+Example 2: du Soleil Fall Protection Program with construction requirements that do not apply to theater settings because
+Example 3:
+<|endoftext|> distasteful. Amidst the slime lurk bits of Schadenfre
+Example 4: the<|endoftext|>"I want to remind you all that 10 days ago (director Massimil
+
+[assistant]
+[0,0,0,0,0]
+[user]
+Latent explanation: "of" before words that start with a capital letter.
+
+Test examples:
+
+Example 0: climate, Tomblin's Chief of Staff Charlie Lorensen said.
+
+Example 1: no wonderworking relics, no true Body and Blood of Christ, no true Baptism
+Example 2:
+
+Deborah Sathe, Head of Talent Development and Production at Film London,
+Example 3:
+
+It has been devised by Director of Public Prosecutions (DPP)
+Example 4: and fair investigation not even include the Director of Athletics? · Finally, we believe the
+
+[assistant]
+[1,1,1,1,1]
+[user]
+Latent explanation: The highlighted tokens consistently mark the beginning of distinct semantic or syntactic units, such as proper nouns, technical parameters, section headers, or specific titles. They frequently serve as anchors for external references or variable names, indicating that the immediately following text possesses a unique identity or value separate from the surrounding narrative context.
+
+Text examples:
+
+Example 0:  Bernoulli. If we ask the question “what is the probability of exactly x successes from the possible n?”, the answer is given by the binomial distribution
+Example 1:  £1 admin fee. If only a handful of external users access your Windows servers, you're better off acquiring User CALs. Also, an ECL only applies
+Example 2:  their tombs can be seen there today.
+
+2. Steve Warren Says:
+
+You may be remembered in history as the discoverer of coleslaw
+Example 3:  2013
+
+technician
+
+Reluctance to change...as in a paddle wheel.
+
+Last edited: May 12,
+Example 4:  Windows will let 40 authenticated users have access. The 41st user will be denied access. However, in per server mode, each CAL is tied
+Example 5:  status of the writer made any difference in his or her appraisal of the practice of self-immolation.
+The three sources by Indian men and one by an Indian
+
+--- OUTPUT ---
+[1, 1, 1, 1, 1, 1]
+--- END ---
+2026-10-24 19:26:04,115 | INFO    | loopneuron.dryrun | AUDIT 1/3 L7 N4701 same={0: 0.5, 3: 0.5} cross={0: 0.5, 3: 0.38} | The highlighted tokens consistently mark the beginning of distinct semantic or syntactic units, such as proper nouns, technical parameters, section headers, or specific titles. They frequently serve as anchors for external references or variable names, indicating that the immediately following text possesses a unique identity or value separate from the surrounding narrative context.
+2026-10-24 19:26:07,172 | INFO    | loopneuron.dryrun | LLM CALL 11 explain audit L15N4582 loop1
+--- PROMPT ---
+[system]
+You are a meticulous AI researcher conducting an important investigation into patterns found in language. Your task is to analyze text and provide an explanation that thoroughly encapsulates possible patterns found in it.
+Guidelines:
+
+You will be given a list of text examples on which special words are selected and between delimiters like <<this>>. If a sequence of consecutive tokens all are important, the entire sequence of tokens will be contained between delimiters <<just like this>>. How important each token is for the behavior is listed after each example in parentheses.
+
+- Try to produce a concise final description. Simply describe the text latents that are common in the examples, and what patterns you found.
+- If the examples are uninformative, you don't need to mention them. Don't focus on giving examples of important tokens, but try to summarize the patterns found in the examples.
+- Do not mention the marker tokens (<< >>) in your explanation.
+- Do not make lists of possible explanations. Keep your explanations short and concise.
+- The last line of your response must be the formatted explanation, using [EXPLANATION]:
+
+[user]
+Example 1:  Bryn Jones Says:
+
+The Royal Society is providing free access to electronic versions of its journals until the end of<< this>> month. Readers of this blog might like (10)
+Example 2:  optics or dust in the instrument will scatter the light, making the images too noisy to be useful. Discovering almost 1<<,>>000 comets since SOHO's (7)
+Example 3:  is freedom and independence. Independence of thought and the freedom to choose.
+Elizabeth’s refusal of Mr. Collins offer<< of>> marriage showed an independence seldom seen in hero (7)
+Example 4: PropertiesExtension value. .properties
+commonProperties The properties to apply to every test of the test suite. Those options might<< be>> overridden by the custom properties of each (7)
+Example 5: testsuiteReportDirProperty The name of the Ant property in which is store the path of the directory of the final report<<.>> Path is [outputDir]/[label (7)
+Example 6:  pages for Microsoft software do a good job of describing the differences between products, so we'll focus on the common threads in<< this>> article.
+Moreover, Microsoft often lets (7)
+Example 7: suite.jvmArgs}" lockPort="${microej.testsuite.lockPort}"
+retryCount<<=">>${microej.testsuite (7)
+Example 8: Report> <fileset dir="${@{prefix}.testsuite.report.dir}">
+<include<< name>>="** (7)
+Example 9:  is the script which will be called for each test by the test suite engine. It is called with a basedir located<< at>> output location of the current test.
+ (6)
+Example 10:  Suite is used.<|endoftext|>The Solar and Heliospheric Observatory (SOHO) spacecraft is expected to discover its 1<<,>>000TH comet this summer. (6)
+Example 11:  Windows will let 40 authenticated users have access. The 41st user will be denied access. However,<< in>> per server mode, each CAL is tied (6)
+Example 12: 8, require client access licenses for all authenticated internal users (for example, employees, contractors, volunteers, etc.). On<< the>> other hand, SQL Server 20 (6)
+--- OUTPUT ---
+The selected tokens consistently mark the boundaries of numerical values (such as "1,000"), prepositional phrases indicating location or contrast (such as "in", "at", "on"), and specific article usage. These latents function as structural anchors that delineate quantitative data points and spatial or logical relationships within the text, ensuring precise parsing of numbers and directional prepositions.
+
+[EXPLANATION]: The identified latents serve as critical delimiters for numerical figures and prepositional phrases, highlighting the model's focus on accurately segmenting quantitative data and spatial or logical connectors to maintain syntactic integrity.
+--- END ---
+2026-10-24 19:26:10,533 | INFO    | loopneuron.dryrun | LLM CALL 12 explain audit L15N4582 loop4
+--- PROMPT ---
+[system]
+You are a meticulous AI researcher conducting an important investigation into patterns found in language. Your task is to analyze text and provide an explanation that thoroughly encapsulates possible patterns found in it.
+Guidelines:
+
+You will be given a list of text examples on which special words are selected and between delimiters like <<this>>. If a sequence of consecutive tokens all are important, the entire sequence of tokens will be contained between delimiters <<just like this>>. How important each token is for the behavior is listed after each example in parentheses.
+
+- Try to produce a concise final description. Simply describe the text latents that are common in the examples, and what patterns you found.
+- If the examples are uninformative, you don't need to mention them. Don't focus on giving examples of important tokens, but try to summarize the patterns found in the examples.
+- Do not mention the marker tokens (<< >>) in your explanation.
+- Do not make lists of possible explanations. Keep your explanations short and concise.
+- The last line of your response must be the formatted explanation, using [EXPLANATION]:
+
+[user]
+Example 1: , etc.). On the other hand, SQL Server 2008 and other products don't require any client licenses<<.>> Read the product description at CTXchange (10)
+Example 2:  generated by the test suite. • A nested element report: • format: The format of the generated HTML report. Must<< be>> noframes or frames. When noframes (9)
+Example 3: (A|BC) = K^{-1} P(AB|C)$
+
+where
+
+$K<<=>>P(A|C).$
+ (9)
+Example 4: . Bryn Jones Says:
+
+The Royal Society is providing free access to electronic versions of its journals until the end<< of>> this month. Readers of this blog might (9)
+Example 5:  this type of licensing include System Center Configuration Manager 2007 and System Center Operations Manager 2007<<.>> Any desktop or workstation managed by one (8)
+Example 6: in s) with no activity on the stream before closing the stream. Set it to 0 to disable timeout (default<< value>> is 0).
+• stopE (7)
+Example 7: .
+
+### Specific Custom Properties¶
+
+Some custom properties are specifics and retrieved from the test suite engine in<< the>> custom properties file of a test.
+ (7)
+Example 8:  User CAL or a Device CAL in either mode. Per seat mode is the default mode, and the one used most frequently<<.>> The description of User CALs and Device (7)
+Example 9:  of the current test.
+<!-- Launch test suite -->
+<testsuite:javaTestsuite
+verboseLevel<<=">>${microej.testsuite (7)
+Example 10: ReportDirProperty The name of the Ant property in which is store the path of the directory of the final report. Path<< is>> [outputDir]/[label]. test (7)
+Example 11:  actually on the point of going as governess! What could he mean by such horrible indelicacy? To suffer her<< to>> engage herself — to suffer her even to (7)
+Example 12:  as they want (for example, desktop computers, laptops, smartphones, etc.). User CALs are a popular licensing option<<.>>
+Device CALs: Device CALs (6)
+--- OUTPUT ---
+The selected tokens consistently mark the boundaries of semantic units, specifically highlighting the termination of clauses, the completion of sentences, or the definition of specific values and constraints. The patterns indicate that the model identifies critical delimiters for syntactic closure (such as periods and conjunctions) and precise technical specifications (such as attribute values, default settings, and file paths). These latents function to isolate complete thoughts or definitive parameters within the text, distinguishing them from surrounding context.
+
+[EXPLANATION]: The identified latents consistently demarcate the end of syntactic clauses, the completion of sentences, and the precise boundaries of technical values or constraints, serving to isolate complete semantic units and definitive parameters within the text.
+--- END ---
+2026-10-24 19:26:11,437 | INFO    | loopneuron.dryrun | LLM CALL 13 detect same
+--- PROMPT ---
+[system]
+You are an intelligent and meticulous linguistics researcher.
+
+You will be given a certain latent of text, such as "male pronouns" or "text with negative sentiment".
+
+You will then be given several text examples. Your task is to determine which examples possess the latent.
+
+For each example in turn, return 1 if the sentence is correctly labeled or 0 if the tokens are mislabeled. You must return your response in a valid Python list. Do not return anything else besides a Python list.
+
+[user]
+Latent explanation: Words related to American football positions, specifically the tight end position.
+
+Test examples:
+
+Example 0:<|endoftext|>Getty Images
+
+Patriots tight end Rob Gronkowski had his boss's
+Example 1: names of months used in The Lord of the Rings:
+
+"...the
+Example 2: Media Day 2015
+
+LSU defensive end Isaiah Washington (94) speaks to the
+Example 3: shown, is generally not eligible for ads. For example, videos about recent tragedies,
+Example 4: line, with the left side -- namely tackle Byron Bell at tackle and guard Amini
+
+[assistant]
+[1,0,0,0,1]
+[user]
+Latent explanation: The word "guys" in the phrase "you guys".
+
+Test examples:
+
+Example 0: enact an individual health insurance mandate?", Pelosi's response was to dismiss both
+Example 1: birth control access<|endoftext|> but I assure you women in Kentucky aren't laughing as they struggle
+Example 2: du Soleil Fall Protection Program with construction requirements that do not apply to theater settings because
+Example 3:
+<|endoftext|> distasteful. Amidst the slime lurk bits of Schadenfre
+Example 4: the<|endoftext|>"I want to remind you all that 10 days ago (director Massimil
+
+[assistant]
+[0,0,0,0,0]
+[user]
+Latent explanation: "of" before words that start with a capital letter.
+
+Test examples:
+
+Example 0: climate, Tomblin's Chief of Staff Charlie Lorensen said.
+
+Example 1: no wonderworking relics, no true Body and Blood of Christ, no true Baptism
+Example 2:
+
+Deborah Sathe, Head of Talent Development and Production at Film London,
+Example 3:
+
+It has been devised by Director of Public Prosecutions (DPP)
+Example 4: and fair investigation not even include the Director of Athletics? · Finally, we believe the
+
+[assistant]
+[1,1,1,1,1]
+[user]
+Latent explanation: The identified latents serve as critical delimiters for numerical figures and prepositional phrases, highlighting the model's focus on accurately segmenting quantitative data and spatial or logical connectors to maintain syntactic integrity.
+
+Text examples:
+
+Example 0:  LASCO's field of view as they pass close by the star.
+"Building coronagraphs like LASCO is still more art than science, because
+Example 1:  timeout defined for the MicroEJ Test Suite is used.<|endoftext|>The Solar and Heliospheric Observatory (SOHO) spacecraft is expected to discover its 1,
+Example 2:  the number of distinct combinations of x objects that can be drawn from a pool of n.
+
+You can probably see immediately how this arises. The probability of x
+Example 3:  grounded in evolutionary biology and experimental neuroscience, some scientists have shown themselves eager -- at times perhaps a little too eager -- to promote a scientific argument for play. They have
+Example 4:  £76 administrative fee, while a User CAL for Windows Server 2008 carries a £1 admin fee. If only a handful of external users access
+Example 5:  appear in the current issue of the Journal of Materials Chemistry.
+Reverse-osmosis (RO) desalination uses high pressure to force polluted water through the pores
+Example 6:  in the intersection between testIgnoredPath and testPath will be executed by the test suite, but will not appear in the JUnit final report. It will still
+Example 7:  technology," Cohen said. "The reason for this is simple: If we are to accelerate the transfer of knowledge technology from the university to the real world, where those
+Example 8:  greater misery of the victims, I do not know where it lies.”
+That same sentiment is emphasized in Emma’s shock when Mrs. Weston tells her of
+Example 9:  tags, failing if the success tag is not found.
+• The SerialTraceAnalyzer will analyze the data from a serial connection.
+
+Here is the common
+
+--- OUTPUT ---
+[0,0,0,0,0,0,0,0,0,0]
+--- END ---
+2026-10-24 19:26:11,895 | INFO    | loopneuron.dryrun | LLM CALL 14 detect same
+--- PROMPT ---
+[system]
+You are an intelligent and meticulous linguistics researcher.
+
+You will be given a certain latent of text, such as "male pronouns" or "text with negative sentiment".
+
+You will then be given several text examples. Your task is to determine which examples possess the latent.
+
+For each example in turn, return 1 if the sentence is correctly labeled or 0 if the tokens are mislabeled. You must return your response in a valid Python list. Do not return anything else besides a Python list.
+
+[user]
+Latent explanation: Words related to American football positions, specifically the tight end position.
+
+Test examples:
+
+Example 0:<|endoftext|>Getty Images
+
+Patriots tight end Rob Gronkowski had his boss's
+Example 1: names of months used in The Lord of the Rings:
+
+"...the
+Example 2: Media Day 2015
+
+LSU defensive end Isaiah Washington (94) speaks to the
+Example 3: shown, is generally not eligible for ads. For example, videos about recent tragedies,
+Example 4: line, with the left side -- namely tackle Byron Bell at tackle and guard Amini
+
+[assistant]
+[1,0,0,0,1]
+[user]
+Latent explanation: The word "guys" in the phrase "you guys".
+
+Test examples:
+
+Example 0: enact an individual health insurance mandate?", Pelosi's response was to dismiss both
+Example 1: birth control access<|endoftext|> but I assure you women in Kentucky aren't laughing as they struggle
+Example 2: du Soleil Fall Protection Program with construction requirements that do not apply to theater settings because
+Example 3:
+<|endoftext|> distasteful. Amidst the slime lurk bits of Schadenfre
+Example 4: the<|endoftext|>"I want to remind you all that 10 days ago (director Massimil
+
+[assistant]
+[0,0,0,0,0]
+[user]
+Latent explanation: "of" before words that start with a capital letter.
+
+Test examples:
+
+Example 0: climate, Tomblin's Chief of Staff Charlie Lorensen said.
+
+Example 1: no wonderworking relics, no true Body and Blood of Christ, no true Baptism
+Example 2:
+
+Deborah Sathe, Head of Talent Development and Production at Film London,
+Example 3:
+
+It has been devised by Director of Public Prosecutions (DPP)
+Example 4: and fair investigation not even include the Director of Athletics? · Finally, we believe the
+
+[assistant]
+[1,1,1,1,1]
+[user]
+Latent explanation: The identified latents serve as critical delimiters for numerical figures and prepositional phrases, highlighting the model's focus on accurately segmenting quantitative data and spatial or logical connectors to maintain syntactic integrity.
+
+Text examples:
+
+Example 0:  physical quantities in heat transfer. For instance, electric field is analogous to temperature
+Example 1:  I believe that Austen’s impact on the world is no less important than Jefferson’s. The effect of Jane’s writing maybe more subtle than that of the
+Example 2:  expected to pay to continue using it.
+End User Licensing Agreement (EULA).
+When you acquire software yourself, directly from a vendor or retailer, or
+Example 3:  James II was unpopular because of his attempts to increase the power of the monarchy and restore the Catholic faith. Deposed in the "Glorious Revolution" of 
+Example 4:  software yourself, directly from a vendor or retailer, or directly from the vendor's Web site, you usually have to indicate by clicking a box that you accept the licensing
+Example 5:  a tremendous opportunity to work with industry, government and local agencies."
+A paper providing a preliminary introduction to the new membrane also appeared in the Journal of Membrane Science
+
+--- OUTPUT ---
+[0,0,0,0,0]
+--- END ---
+2026-10-24 19:26:12,629 | INFO    | loopneuron.dryrun | LLM CALL 15 detect same
+--- PROMPT ---
+[system]
+You are an intelligent and meticulous linguistics researcher.
+
+You will be given a certain latent of text, such as "male pronouns" or "text with negative sentiment".
+
+You will then be given several text examples. Your task is to determine which examples possess the latent.
+
+For each example in turn, return 1 if the sentence is correctly labeled or 0 if the tokens are mislabeled. You must return your response in a valid Python list. Do not return anything else besides a Python list.
+
+[user]
+Latent explanation: Words related to American football positions, specifically the tight end position.
+
+Test examples:
+
+Example 0:<|endoftext|>Getty Images
+
+Patriots tight end Rob Gronkowski had his boss's
+Example 1: names of months used in The Lord of the Rings:
+
+"...the
+Example 2: Media Day 2015
+
+LSU defensive end Isaiah Washington (94) speaks to the
+Example 3: shown, is generally not eligible for ads. For example, videos about recent tragedies,
+Example 4: line, with the left side -- namely tackle Byron Bell at tackle and guard Amini
+
+[assistant]
+[1,0,0,0,1]
+[user]
+Latent explanation: The word "guys" in the phrase "you guys".
+
+Test examples:
+
+Example 0: enact an individual health insurance mandate?", Pelosi's response was to dismiss both
+Example 1: birth control access<|endoftext|> but I assure you women in Kentucky aren't laughing as they struggle
+Example 2: du Soleil Fall Protection Program with construction requirements that do not apply to theater settings because
+Example 3:
+<|endoftext|> distasteful. Amidst the slime lurk bits of Schadenfre
+Example 4: the<|endoftext|>"I want to remind you all that 10 days ago (director Massimil
+
+[assistant]
+[0,0,0,0,0]
+[user]
+Latent explanation: "of" before words that start with a capital letter.
+
+Test examples:
+
+Example 0: climate, Tomblin's Chief of Staff Charlie Lorensen said.
+
+Example 1: no wonderworking relics, no true Body and Blood of Christ, no true Baptism
+Example 2:
+
+Deborah Sathe, Head of Talent Development and Production at Film London,
+Example 3:
+
+It has been devised by Director of Public Prosecutions (DPP)
+Example 4: and fair investigation not even include the Director of Athletics? · Finally, we believe the
+
+[assistant]
+[1,1,1,1,1]
+[user]
+Latent explanation: The identified latents consistently demarcate the end of syntactic clauses, the completion of sentences, and the precise boundaries of technical values or constraints, serving to isolate complete semantic units and definitive parameters within the text.
+
+Text examples:
+
+Example 0:  LASCO's field of view as they pass close by the star.
+"Building coronagraphs like LASCO is still more art than science, because
+Example 1:  timeout defined for the MicroEJ Test Suite is used.<|endoftext|>The Solar and Heliospheric Observatory (SOHO) spacecraft is expected to discover its 1,
+Example 2:  the number of distinct combinations of x objects that can be drawn from a pool of n.
+
+You can probably see immediately how this arises. The probability of x
+Example 3:  the king, or to England.
+The Crown for a Lie by Jane Lane. Novel about how James II lost his throne. Out of print, but sometimes available
+Example 4:  disable the time-out. 60
+verboseLevel The required level to output messages from the test suite. Can be one of those values: error, warning
+Example 5:  mandatory attributes
+Attribute Name Description
+outputDir The output folder of the test suite. The final report will be generated at [outputDir]/[label]/[report
+Example 6: , and in only nine years," said Dr. Chris St. Cyr. He is senior project scientist for NASA's Living With a Star program at the agency's
+Example 7:  technology," Cohen said. "The reason for this is simple: If we are to accelerate the transfer of knowledge technology from the university to the real world, where those
+Example 8: " that the server software can read. An exception to this occurs when you license Windows Server in per server mode. In this case, if you have 50
+Example 9:  Us
+Join us on Facebook to get the latest news and updates.
+Lauren
+
+--- OUTPUT ---
+[0,0,0,0,0,0,0,0,0,0]
+--- END ---
+2026-10-24 19:26:13,164 | INFO    | loopneuron.dryrun | LLM CALL 16 detect same
+--- PROMPT ---
+[system]
+You are an intelligent and meticulous linguistics researcher.
+
+You will be given a certain latent of text, such as "male pronouns" or "text with negative sentiment".
+
+You will then be given several text examples. Your task is to determine which examples possess the latent.
+
+For each example in turn, return 1 if the sentence is correctly labeled or 0 if the tokens are mislabeled. You must return your response in a valid Python list. Do not return anything else besides a Python list.
+
+[user]
+Latent explanation: Words related to American football positions, specifically the tight end position.
+
+Test examples:
+
+Example 0:<|endoftext|>Getty Images
+
+Patriots tight end Rob Gronkowski had his boss's
+Example 1: names of months used in The Lord of the Rings:
+
+"...the
+Example 2: Media Day 2015
+
+LSU defensive end Isaiah Washington (94) speaks to the
+Example 3: shown, is generally not eligible for ads. For example, videos about recent tragedies,
+Example 4: line, with the left side -- namely tackle Byron Bell at tackle and guard Amini
+
+[assistant]
+[1,0,0,0,1]
+[user]
+Latent explanation: The word "guys" in the phrase "you guys".
+
+Test examples:
+
+Example 0: enact an individual health insurance mandate?", Pelosi's response was to dismiss both
+Example 1: birth control access<|endoftext|> but I assure you women in Kentucky aren't laughing as they struggle
+Example 2: du Soleil Fall Protection Program with construction requirements that do not apply to theater settings because
+Example 3:
+<|endoftext|> distasteful. Amidst the slime lurk bits of Schadenfre
+Example 4: the<|endoftext|>"I want to remind you all that 10 days ago (director Massimil
+
+[assistant]
+[0,0,0,0,0]
+[user]
+Latent explanation: "of" before words that start with a capital letter.
+
+Test examples:
+
+Example 0: climate, Tomblin's Chief of Staff Charlie Lorensen said.
+
+Example 1: no wonderworking relics, no true Body and Blood of Christ, no true Baptism
+Example 2:
+
+Deborah Sathe, Head of Talent Development and Production at Film London,
+Example 3:
+
+It has been devised by Director of Public Prosecutions (DPP)
+Example 4: and fair investigation not even include the Director of Athletics? · Finally, we believe the
+
+[assistant]
+[1,1,1,1,1]
+[user]
+Latent explanation: The identified latents consistently demarcate the end of syntactic clauses, the completion of sentences, and the precise boundaries of technical values or constraints, serving to isolate complete semantic units and definitive parameters within the text.
+
+Text examples:
+
+Example 0:  of human flesh, but of human intellect.”
+“Oh! my dear, human flesh! You quite shock me; if you mean a fling at the slave
+Example 1:  customPropertiesExtension)
+testsuite.common.properties The absolute path to the common properties of all the tests (see the property commonProperties)
+testsuite.
+Example 2:  expected to pay to continue using it.
+End User Licensing Agreement (EULA).
+When you acquire software yourself, directly from a vendor or retailer, or
+Example 3:  James II was unpopular because of his attempts to increase the power of the monarchy and restore the Catholic faith. Deposed in the "Glorious Revolution" of 
+Example 4:  software yourself, directly from a vendor or retailer, or directly from the vendor's Web site, you usually have to indicate by clicking a box that you accept the licensing
+Example 5:  a tremendous opportunity to work with industry, government and local agencies."
+A paper providing a preliminary introduction to the new membrane also appeared in the Journal of Membrane Science
+
+--- OUTPUT ---
+[1, 1, 1, 1, 1]
+--- END ---
+2026-10-24 19:26:13,877 | INFO    | loopneuron.dryrun | LLM CALL 17 detect cross
+--- PROMPT ---
+[system]
+You are an intelligent and meticulous linguistics researcher.
+
+You will be given a certain latent of text, such as "male pronouns" or "text with negative sentiment".
+
+You will then be given several text examples. Your task is to determine which examples possess the latent.
+
+For each example in turn, return 1 if the sentence is correctly labeled or 0 if the tokens are mislabeled. You must return your response in a valid Python list. Do not return anything else besides a Python list.
+
+[user]
+Latent explanation: Words related to American football positions, specifically the tight end position.
+
+Test examples:
+
+Example 0:<|endoftext|>Getty Images
+
+Patriots tight end Rob Gronkowski had his boss's
+Example 1: names of months used in The Lord of the Rings:
+
+"...the
+Example 2: Media Day 2015
+
+LSU defensive end Isaiah Washington (94) speaks to the
+Example 3: shown, is generally not eligible for ads. For example, videos about recent tragedies,
+Example 4: line, with the left side -- namely tackle Byron Bell at tackle and guard Amini
+
+[assistant]
+[1,0,0,0,1]
+[user]
+Latent explanation: The word "guys" in the phrase "you guys".
+
+Test examples:
+
+Example 0: enact an individual health insurance mandate?", Pelosi's response was to dismiss both
+Example 1: birth control access<|endoftext|> but I assure you women in Kentucky aren't laughing as they struggle
+Example 2: du Soleil Fall Protection Program with construction requirements that do not apply to theater settings because
+Example 3:
+<|endoftext|> distasteful. Amidst the slime lurk bits of Schadenfre
+Example 4: the<|endoftext|>"I want to remind you all that 10 days ago (director Massimil
+
+[assistant]
+[0,0,0,0,0]
+[user]
+Latent explanation: "of" before words that start with a capital letter.
+
+Test examples:
+
+Example 0: climate, Tomblin's Chief of Staff Charlie Lorensen said.
+
+Example 1: no wonderworking relics, no true Body and Blood of Christ, no true Baptism
+Example 2:
+
+Deborah Sathe, Head of Talent Development and Production at Film London,
+Example 3:
+
+It has been devised by Director of Public Prosecutions (DPP)
+Example 4: and fair investigation not even include the Director of Athletics? · Finally, we believe the
+
+[assistant]
+[1,1,1,1,1]
+[user]
+Latent explanation: The identified latents serve as critical delimiters for numerical figures and prepositional phrases, highlighting the model's focus on accurately segmenting quantitative data and spatial or logical connectors to maintain syntactic integrity.
+
+Text examples:
+
+Example 0:  LASCO's field of view as they pass close by the star.
+"Building coronagraphs like LASCO is still more art than science, because
+Example 1:  timeout defined for the MicroEJ Test Suite is used.<|endoftext|>The Solar and Heliospheric Observatory (SOHO) spacecraft is expected to discover its 1,
+Example 2:  the number of distinct combinations of x objects that can be drawn from a pool of n.
+
+You can probably see immediately how this arises. The probability of x
+Example 3:  the king, or to England.
+The Crown for a Lie by Jane Lane. Novel about how James II lost his throne. Out of print, but sometimes available
+Example 4:  disable the time-out. 60
+verboseLevel The required level to output messages from the test suite. Can be one of those values: error, warning
+Example 5:  mandatory attributes
+Attribute Name Description
+outputDir The output folder of the test suite. The final report will be generated at [outputDir]/[label]/[report
+Example 6: , and in only nine years," said Dr. Chris St. Cyr. He is senior project scientist for NASA's Living With a Star program at the agency's
+Example 7:  technology," Cohen said. "The reason for this is simple: If we are to accelerate the transfer of knowledge technology from the university to the real world, where those
+Example 8: " that the server software can read. An exception to this occurs when you license Windows Server in per server mode. In this case, if you have 50
+Example 9:  Us
+Join us on Facebook to get the latest news and updates.
+Lauren
+
+--- OUTPUT ---
+[0,0,0,0,0,0,0,0,0,0]
+--- END ---
+2026-10-24 19:26:14,464 | INFO    | loopneuron.dryrun | LLM CALL 18 detect cross
+--- PROMPT ---
+[system]
+You are an intelligent and meticulous linguistics researcher.
+
+You will be given a certain latent of text, such as "male pronouns" or "text with negative sentiment".
+
+You will then be given several text examples. Your task is to determine which examples possess the latent.
+
+For each example in turn, return 1 if the sentence is correctly labeled or 0 if the tokens are mislabeled. You must return your response in a valid Python list. Do not return anything else besides a Python list.
+
+[user]
+Latent explanation: Words related to American football positions, specifically the tight end position.
+
+Test examples:
+
+Example 0:<|endoftext|>Getty Images
+
+Patriots tight end Rob Gronkowski had his boss's
+Example 1: names of months used in The Lord of the Rings:
+
+"...the
+Example 2: Media Day 2015
+
+LSU defensive end Isaiah Washington (94) speaks to the
+Example 3: shown, is generally not eligible for ads. For example, videos about recent tragedies,
+Example 4: line, with the left side -- namely tackle Byron Bell at tackle and guard Amini
+
+[assistant]
+[1,0,0,0,1]
+[user]
+Latent explanation: The word "guys" in the phrase "you guys".
+
+Test examples:
+
+Example 0: enact an individual health insurance mandate?", Pelosi's response was to dismiss both
+Example 1: birth control access<|endoftext|> but I assure you women in Kentucky aren't laughing as they struggle
+Example 2: du Soleil Fall Protection Program with construction requirements that do not apply to theater settings because
+Example 3:
+<|endoftext|> distasteful. Amidst the slime lurk bits of Schadenfre
+Example 4: the<|endoftext|>"I want to remind you all that 10 days ago (director Massimil
+
+[assistant]
+[0,0,0,0,0]
+[user]
+Latent explanation: "of" before words that start with a capital letter.
+
+Test examples:
+
+Example 0: climate, Tomblin's Chief of Staff Charlie Lorensen said.
+
+Example 1: no wonderworking relics, no true Body and Blood of Christ, no true Baptism
+Example 2:
+
+Deborah Sathe, Head of Talent Development and Production at Film London,
+Example 3:
+
+It has been devised by Director of Public Prosecutions (DPP)
+Example 4: and fair investigation not even include the Director of Athletics? · Finally, we believe the
+
+[assistant]
+[1,1,1,1,1]
+[user]
+Latent explanation: The identified latents serve as critical delimiters for numerical figures and prepositional phrases, highlighting the model's focus on accurately segmenting quantitative data and spatial or logical connectors to maintain syntactic integrity.
+
+Text examples:
+
+Example 0:  of human flesh, but of human intellect.”
+“Oh! my dear, human flesh! You quite shock me; if you mean a fling at the slave
+Example 1:  customPropertiesExtension)
+testsuite.common.properties The absolute path to the common properties of all the tests (see the property commonProperties)
+testsuite.
+Example 2:  expected to pay to continue using it.
+End User Licensing Agreement (EULA).
+When you acquire software yourself, directly from a vendor or retailer, or
+Example 3:  James II was unpopular because of his attempts to increase the power of the monarchy and restore the Catholic faith. Deposed in the "Glorious Revolution" of 
+Example 4:  software yourself, directly from a vendor or retailer, or directly from the vendor's Web site, you usually have to indicate by clicking a box that you accept the licensing
+Example 5:  a tremendous opportunity to work with industry, government and local agencies."
+A paper providing a preliminary introduction to the new membrane also appeared in the Journal of Membrane Science
+
+--- OUTPUT ---
+[1, 1, 1, 1, 1, 1]
+--- END ---
+2026-10-24 19:26:15,177 | INFO    | loopneuron.dryrun | LLM CALL 19 detect cross
+--- PROMPT ---
+[system]
+You are an intelligent and meticulous linguistics researcher.
+
+You will be given a certain latent of text, such as "male pronouns" or "text with negative sentiment".
+
+You will then be given several text examples. Your task is to determine which examples possess the latent.
+
+For each example in turn, return 1 if the sentence is correctly labeled or 0 if the tokens are mislabeled. You must return your response in a valid Python list. Do not return anything else besides a Python list.
+
+[user]
+Latent explanation: Words related to American football positions, specifically the tight end position.
+
+Test examples:
+
+Example 0:<|endoftext|>Getty Images
+
+Patriots tight end Rob Gronkowski had his boss's
+Example 1: names of months used in The Lord of the Rings:
+
+"...the
+Example 2: Media Day 2015
+
+LSU defensive end Isaiah Washington (94) speaks to the
+Example 3: shown, is generally not eligible for ads. For example, videos about recent tragedies,
+Example 4: line, with the left side -- namely tackle Byron Bell at tackle and guard Amini
+
+[assistant]
+[1,0,0,0,1]
+[user]
+Latent explanation: The word "guys" in the phrase "you guys".
+
+Test examples:
+
+Example 0: enact an individual health insurance mandate?", Pelosi's response was to dismiss both
+Example 1: birth control access<|endoftext|> but I assure you women in Kentucky aren't laughing as they struggle
+Example 2: du Soleil Fall Protection Program with construction requirements that do not apply to theater settings because
+Example 3:
+<|endoftext|> distasteful. Amidst the slime lurk bits of Schadenfre
+Example 4: the<|endoftext|>"I want to remind you all that 10 days ago (director Massimil
+
+[assistant]
+[0,0,0,0,0]
+[user]
+Latent explanation: "of" before words that start with a capital letter.
+
+Test examples:
+
+Example 0: climate, Tomblin's Chief of Staff Charlie Lorensen said.
+
+Example 1: no wonderworking relics, no true Body and Blood of Christ, no true Baptism
+Example 2:
+
+Deborah Sathe, Head of Talent Development and Production at Film London,
+Example 3:
+
+It has been devised by Director of Public Prosecutions (DPP)
+Example 4: and fair investigation not even include the Director of Athletics? · Finally, we believe the
+
+[assistant]
+[1,1,1,1,1]
+[user]
+Latent explanation: The identified latents consistently demarcate the end of syntactic clauses, the completion of sentences, and the precise boundaries of technical values or constraints, serving to isolate complete semantic units and definitive parameters within the text.
+
+Text examples:
+
+Example 0:  LASCO's field of view as they pass close by the star.
+"Building coronagraphs like LASCO is still more art than science, because
+Example 1:  timeout defined for the MicroEJ Test Suite is used.<|endoftext|>The Solar and Heliospheric Observatory (SOHO) spacecraft is expected to discover its 1,
+Example 2:  the number of distinct combinations of x objects that can be drawn from a pool of n.
+
+You can probably see immediately how this arises. The probability of x
+Example 3:  grounded in evolutionary biology and experimental neuroscience, some scientists have shown themselves eager -- at times perhaps a little too eager -- to promote a scientific argument for play. They have
+Example 4:  £76 administrative fee, while a User CAL for Windows Server 2008 carries a £1 admin fee. If only a handful of external users access
+Example 5:  appear in the current issue of the Journal of Materials Chemistry.
+Reverse-osmosis (RO) desalination uses high pressure to force polluted water through the pores
+Example 6:  in the intersection between testIgnoredPath and testPath will be executed by the test suite, but will not appear in the JUnit final report. It will still
+Example 7:  technology," Cohen said. "The reason for this is simple: If we are to accelerate the transfer of knowledge technology from the university to the real world, where those
+Example 8:  greater misery of the victims, I do not know where it lies.”
+That same sentiment is emphasized in Emma’s shock when Mrs. Weston tells her of
+Example 9:  tags, failing if the success tag is not found.
+• The SerialTraceAnalyzer will analyze the data from a serial connection.
+
+Here is the common
+
+--- OUTPUT ---
+[0,0,0,0,0,0,0,0,0,0]
+--- END ---
+2026-10-24 19:26:15,628 | INFO    | loopneuron.dryrun | LLM CALL 20 detect cross
+--- PROMPT ---
+[system]
+You are an intelligent and meticulous linguistics researcher.
+
+You will be given a certain latent of text, such as "male pronouns" or "text with negative sentiment".
+
+You will then be given several text examples. Your task is to determine which examples possess the latent.
+
+For each example in turn, return 1 if the sentence is correctly labeled or 0 if the tokens are mislabeled. You must return your response in a valid Python list. Do not return anything else besides a Python list.
+
+[user]
+Latent explanation: Words related to American football positions, specifically the tight end position.
+
+Test examples:
+
+Example 0:<|endoftext|>Getty Images
+
+Patriots tight end Rob Gronkowski had his boss's
+Example 1: names of months used in The Lord of the Rings:
+
+"...the
+Example 2: Media Day 2015
+
+LSU defensive end Isaiah Washington (94) speaks to the
+Example 3: shown, is generally not eligible for ads. For example, videos about recent tragedies,
+Example 4: line, with the left side -- namely tackle Byron Bell at tackle and guard Amini
+
+[assistant]
+[1,0,0,0,1]
+[user]
+Latent explanation: The word "guys" in the phrase "you guys".
+
+Test examples:
+
+Example 0: enact an individual health insurance mandate?", Pelosi's response was to dismiss both
+Example 1: birth control access<|endoftext|> but I assure you women in Kentucky aren't laughing as they struggle
+Example 2: du Soleil Fall Protection Program with construction requirements that do not apply to theater settings because
+Example 3:
+<|endoftext|> distasteful. Amidst the slime lurk bits of Schadenfre
+Example 4: the<|endoftext|>"I want to remind you all that 10 days ago (director Massimil
+
+[assistant]
+[0,0,0,0,0]
+[user]
+Latent explanation: "of" before words that start with a capital letter.
+
+Test examples:
+
+Example 0: climate, Tomblin's Chief of Staff Charlie Lorensen said.
+
+Example 1: no wonderworking relics, no true Body and Blood of Christ, no true Baptism
+Example 2:
+
+Deborah Sathe, Head of Talent Development and Production at Film London,
+Example 3:
+
+It has been devised by Director of Public Prosecutions (DPP)
+Example 4: and fair investigation not even include the Director of Athletics? · Finally, we believe the
+
+[assistant]
+[1,1,1,1,1]
+[user]
+Latent explanation: The identified latents consistently demarcate the end of syntactic clauses, the completion of sentences, and the precise boundaries of technical values or constraints, serving to isolate complete semantic units and definitive parameters within the text.
+
+Text examples:
+
+Example 0:  physical quantities in heat transfer. For instance, electric field is analogous to temperature
+Example 1:  I believe that Austen’s impact on the world is no less important than Jefferson’s. The effect of Jane’s writing maybe more subtle than that of the
+Example 2:  expected to pay to continue using it.
+End User Licensing Agreement (EULA).
+When you acquire software yourself, directly from a vendor or retailer, or
+Example 3:  James II was unpopular because of his attempts to increase the power of the monarchy and restore the Catholic faith. Deposed in the "Glorious Revolution" of 
+Example 4:  software yourself, directly from a vendor or retailer, or directly from the vendor's Web site, you usually have to indicate by clicking a box that you accept the licensing
+Example 5:  a tremendous opportunity to work with industry, government and local agencies."
+A paper providing a preliminary introduction to the new membrane also appeared in the Journal of Membrane Science
+
+--- OUTPUT ---
+[0,0,0,0,0]
+--- END ---
+2026-10-24 19:26:15,629 | INFO    | loopneuron.dryrun | AUDIT 2/3 L15 N4582 same={0: 0.5, 3: 0.5} cross={0: 0.38, 3: 0.5} | The identified latents consistently demarcate the end of syntactic clauses, the completion of sentences, and the precise boundaries of technical values or constraints, serving to isolate complete semantic units and definitive parameters within the text.
+2026-10-24 19:26:18,970 | INFO    | loopneuron.dryrun | LLM CALL 21 explain audit L23N5088 loop1
+--- PROMPT ---
+[system]
+You are a meticulous AI researcher conducting an important investigation into patterns found in language. Your task is to analyze text and provide an explanation that thoroughly encapsulates possible patterns found in it.
+Guidelines:
+
+You will be given a list of text examples on which special words are selected and between delimiters like <<this>>. If a sequence of consecutive tokens all are important, the entire sequence of tokens will be contained between delimiters <<just like this>>. How important each token is for the behavior is listed after each example in parentheses.
+
+- Try to produce a concise final description. Simply describe the text latents that are common in the examples, and what patterns you found.
+- If the examples are uninformative, you don't need to mention them. Don't focus on giving examples of important tokens, but try to summarize the patterns found in the examples.
+- Do not mention the marker tokens (<< >>) in your explanation.
+- Do not make lists of possible explanations. Keep your explanations short and concise.
+- The last line of your response must be the formatted explanation, using [EXPLANATION]:
+
+[user]
+Example 1:  downfall and exile, presenting a portrait of a man who planned for great political rewards and popular acclaim.
+James II and<< the>> Trial of the Seven Bishops by William (10)
+Example 2:  independence. Independence of thought and the freedom to choose.
+Elizabeth’s refusal of Mr. Collins offer of marriage showed<< an>> independence seldom seen in heroines of the (9)
+Example 3:  you may need to go to the eOpen Web site to locate your Volume license keys. For more information, check out<< the>> TechSoup Donation Recipient (8)
+Example 4:  "instances" of particular application that you can run using a single license varies from product to product. For more information see<< the>> Volume Licensing Briefs, Microsoft Lic (8)
+Example 5:  the world had ever seen.
+Comparing Austen’s words with Thomas Jefferson’s may seem a trivialization but<< I>> believe that Austen’s impact on the (8)
+Example 6:  and why play evolved in animals, generating insights that can inform our understanding of its evolution in humans too. They are studying<<,>> from an evolutionary perspective, to what extent (8)
+Example 7:  his attempts to increase the power of the monarchy and restore the Catholic faith. Deposed in the "Glorious Revolution<<">> of 1688-8 (8)
+Example 8:  .*PASSED.*).
+• failureTag: the regular expression which is synonym of failure when found (by<< default>> .*FAILED.* (7)
+Example 9:  be able to narrow<< down>> and create a membrane selection system for different (6)
+Example 10:  needles.
+It can't be transmitted by things like coughing, sneezing, kissing, sharing a toilet seat, swimming pools<<,>> sweat and tears.<|endoftext|>CTComms (6)
+Example 11: urn. I leave it as an exercise to calculate the expectation value of the binomial distribution, but the result is not<< surprising>>: E(X)=np. If (6)
+Example 12:  in n independent “trials” each having the same probability of success, p; each “trial” has only two possible<< outcomes>> (“success” or “failure”). Trials (6)
+--- OUTPUT ---
+The selected tokens consistently highlight specific nouns, verbs, or adjectives that function as the primary carriers of semantic weight within their respective sentences. These highlighted elements typically denote the core subject of a clause, the pivotal action driving the narrative, or the definitive conclusion of an argument. In technical and academic contexts, they specifically mark the critical parameters, results, or definitions that distinguish the concept from general background information.
+
+[EXPLANATION]: The highlighted tokens represent the semantic anchors of the text, specifically focusing on key nouns, verbs, and adjectives that define the central subject, action, or conclusion of each sentence. These elements carry the highest informational density, distinguishing the core meaning from surrounding context.
+--- END ---
+2026-10-24 19:26:25,130 | INFO    | loopneuron.dryrun | LLM CALL 22 explain audit L23N5088 loop4
+--- PROMPT ---
+[system]
+You are a meticulous AI researcher conducting an important investigation into patterns found in language. Your task is to analyze text and provide an explanation that thoroughly encapsulates possible patterns found in it.
+Guidelines:
+
+You will be given a list of text examples on which special words are selected and between delimiters like <<this>>. If a sequence of consecutive tokens all are important, the entire sequence of tokens will be contained between delimiters <<just like this>>. How important each token is for the behavior is listed after each example in parentheses.
+
+- Try to produce a concise final description. Simply describe the text latents that are common in the examples, and what patterns you found.
+- If the examples are uninformative, you don't need to mention them. Don't focus on giving examples of important tokens, but try to summarize the patterns found in the examples.
+- Do not mention the marker tokens (<< >>) in your explanation.
+- Do not make lists of possible explanations. Keep your explanations short and concise.
+- The last line of your response must be the formatted explanation, using [EXPLANATION]:
+
+[user]
+Example 1:  as Jefferson did but even as an avowed royalist, I doubt not that Jane Austen firmly believed in his declaration of<< the>> right to life, liberty and the pursuit (10)
+Example 2:  formula for “inverting” the binomial distribution. This distribution gives the probability of x successes in n independent “trials<<”>> each having the same probability of success, (8)
+Example 3:  horrible indelicacy? To suffer her to engage herself — to suffer her even to think of such a measure!”
+<<I>> find it interesting that at the moment of (8)
+Example 4:  independence. Independence of thought and the freedom to choose.
+Elizabeth’s refusal of Mr. Collins offer of marriage showed<< an>> independence seldom seen in heroines of the (8)
+Example 5:  installed copy of the program. On the other hand, volume licenses provide you with a single, organisation-wide activation code<<,>> which makes it much easier to find when (7)
+Example 6: s series.
+James II:<< The>> Triumph and the Tragedy by John C (7)
+Example 7: .
+Now,<< I>> invite you to make this journey.
+ (7)
+Example 8:  from the developers and distributors. In most cases "free software" won't cost you anything, but that's not always<< the>> case – in this instance the word free (6)
+Example 9:  more practical pursuits. Alarming headlines about U.S. students falling behind other countries in science and math, combined with<< the>> ever-more-intense competition to (6)
+Example 10:  one English and one Indian woman have described<< the>> practice of sati, or the self (6)
+Example 11:  other hand, SQL Server 2008 and other products don't require any client licenses. Read the product description<< at>> CTXchange if you're looking for (6)
+Example 12: 
+
+1. Bryn Jones Says:
+
+The Royal Society is providing free access to electronic versions of its journals until<< the>> end of this month. Readers of this (6)
+--- OUTPUT ---
+The selected tokens consistently highlight specific grammatical markers that function as anchors for semantic weight within the sentence structure. The most prevalent pattern involves the definite article "the" and the first-person pronoun "I," which are frequently chosen to denote the introduction of a specific concept, the subject of a clause, or the initiation of a direct address. These tokens often appear at the beginning of a phrase or immediately following a preposition, serving to isolate and emphasize the noun or action that follows. Additionally, punctuation marks like commas and quotation marks are selected to delineate boundaries of clauses or specific terms, suggesting that the model identifies structural delimiters as critical for parsing the flow of information. The commonality across examples is the selection of tokens that define the scope of a statement or introduce a key entity, rather than random words within a phrase.
+
+[EXPLANATION]: The analysis reveals a strong preference for selecting functional words that establish grammatical boundaries and introduce semantic focus. Specifically, the definite article "the" and the pronoun "I" are recurrently highlighted as they serve to anchor specific concepts or initiate direct address. Punctuation marks are also frequently selected to demarcate clauses or quoted terms, indicating that structural delimiters are critical for the model's interpretation of sentence flow. Overall, the pattern suggests that the model prioritizes tokens that define the scope of a statement or introduce key entities over content words embedded within phrases.
+--- END ---
+2026-10-24 19:26:25,985 | INFO    | loopneuron.dryrun | LLM CALL 23 detect same
+--- PROMPT ---
+[system]
+You are an intelligent and meticulous linguistics researcher.
+
+You will be given a certain latent of text, such as "male pronouns" or "text with negative sentiment".
+
+You will then be given several text examples. Your task is to determine which examples possess the latent.
+
+For each example in turn, return 1 if the sentence is correctly labeled or 0 if the tokens are mislabeled. You must return your response in a valid Python list. Do not return anything else besides a Python list.
+
+[user]
+Latent explanation: Words related to American football positions, specifically the tight end position.
+
+Test examples:
+
+Example 0:<|endoftext|>Getty Images
+
+Patriots tight end Rob Gronkowski had his boss's
+Example 1: names of months used in The Lord of the Rings:
+
+"...the
+Example 2: Media Day 2015
+
+LSU defensive end Isaiah Washington (94) speaks to the
+Example 3: shown, is generally not eligible for ads. For example, videos about recent tragedies,
+Example 4: line, with the left side -- namely tackle Byron Bell at tackle and guard Amini
+
+[assistant]
+[1,0,0,0,1]
+[user]
+Latent explanation: The word "guys" in the phrase "you guys".
+
+Test examples:
+
+Example 0: enact an individual health insurance mandate?", Pelosi's response was to dismiss both
+Example 1: birth control access<|endoftext|> but I assure you women in Kentucky aren't laughing as they struggle
+Example 2: du Soleil Fall Protection Program with construction requirements that do not apply to theater settings because
+Example 3:
+<|endoftext|> distasteful. Amidst the slime lurk bits of Schadenfre
+Example 4: the<|endoftext|>"I want to remind you all that 10 days ago (director Massimil
+
+[assistant]
+[0,0,0,0,0]
+[user]
+Latent explanation: "of" before words that start with a capital letter.
+
+Test examples:
+
+Example 0: climate, Tomblin's Chief of Staff Charlie Lorensen said.
+
+Example 1: no wonderworking relics, no true Body and Blood of Christ, no true Baptism
+Example 2:
+
+Deborah Sathe, Head of Talent Development and Production at Film London,
+Example 3:
+
+It has been devised by Director of Public Prosecutions (DPP)
+Example 4: and fair investigation not even include the Director of Athletics? · Finally, we believe the
+
+[assistant]
+[1,1,1,1,1]
+[user]
+Latent explanation: The highlighted tokens represent the semantic anchors of the text, specifically focusing on key nouns, verbs, and adjectives that define the central subject, action, or conclusion of each sentence. These elements carry the highest informational density, distinguishing the core meaning from surrounding context.
+
+Text examples:
+
+Example 0:  a heat transfer analogy,
+
+but a hydraulics analogy is a paddle-wheel
+
+A heavy paddle wheel placed in the current. The mass of the
+Example 1:  them very close to Earth's star. The Kreutz sun grazers pass within 500,000 miles of the star's visible surface. Mercury
+Example 2:  and rights are very similar. The TechSoup product pages for Microsoft software do a good job of describing the differences between products, so we'll focus on the common threads
+Example 3:  successes is p multiplied by itself x times, or px. The probability of (n-x) successive failures is similarly (1-p)n-x
+Example 4: 
+tiny-tim
+
+how?
+
+5. May 12, 2013
+
+techn
+Example 5:  value of the binomial distribution, but the result is not surprising: E(X)=np. If you toss a fair coin ten times the expectation value for the
+Example 6:  you ever hunted for leaves? I wonder if you know the names of five of the trees that live in your neighborhood? I bet the answer is no.
+Well
+Example 7:  waste water are purified.
+The highly permeable, surface-structured membrane can easily be incorporated into today's commercial production system, the researchers say, and could help to
+Example 8:  knew I wanted my students to develop their skills when it came to interacting with text, particularly with poetry. While searching through the myriad options on ReadWriteThink, I
+Example 9:  the Trace Analyzer. The MicroEJ Test Suite comes with an archive containing the Trace Analyzer which can be used to analyze the output trace of an application.
+
+--- OUTPUT ---
+[0,0,0,0,0,0,0,0,0,0]
+--- END ---
+2026-10-24 19:26:26,512 | INFO    | loopneuron.dryrun | LLM CALL 24 detect same
+--- PROMPT ---
+[system]
+You are an intelligent and meticulous linguistics researcher.
+
+You will be given a certain latent of text, such as "male pronouns" or "text with negative sentiment".
+
+You will then be given several text examples. Your task is to determine which examples possess the latent.
+
+For each example in turn, return 1 if the sentence is correctly labeled or 0 if the tokens are mislabeled. You must return your response in a valid Python list. Do not return anything else besides a Python list.
+
+[user]
+Latent explanation: Words related to American football positions, specifically the tight end position.
+
+Test examples:
+
+Example 0:<|endoftext|>Getty Images
+
+Patriots tight end Rob Gronkowski had his boss's
+Example 1: names of months used in The Lord of the Rings:
+
+"...the
+Example 2: Media Day 2015
+
+LSU defensive end Isaiah Washington (94) speaks to the
+Example 3: shown, is generally not eligible for ads. For example, videos about recent tragedies,
+Example 4: line, with the left side -- namely tackle Byron Bell at tackle and guard Amini
+
+[assistant]
+[1,0,0,0,1]
+[user]
+Latent explanation: The word "guys" in the phrase "you guys".
+
+Test examples:
+
+Example 0: enact an individual health insurance mandate?", Pelosi's response was to dismiss both
+Example 1: birth control access<|endoftext|> but I assure you women in Kentucky aren't laughing as they struggle
+Example 2: du Soleil Fall Protection Program with construction requirements that do not apply to theater settings because
+Example 3:
+<|endoftext|> distasteful. Amidst the slime lurk bits of Schadenfre
+Example 4: the<|endoftext|>"I want to remind you all that 10 days ago (director Massimil
+
+[assistant]
+[0,0,0,0,0]
+[user]
+Latent explanation: "of" before words that start with a capital letter.
+
+Test examples:
+
+Example 0: climate, Tomblin's Chief of Staff Charlie Lorensen said.
+
+Example 1: no wonderworking relics, no true Body and Blood of Christ, no true Baptism
+Example 2:
+
+Deborah Sathe, Head of Talent Development and Production at Film London,
+Example 3:
+
+It has been devised by Director of Public Prosecutions (DPP)
+Example 4: and fair investigation not even include the Director of Athletics? · Finally, we believe the
+
+[assistant]
+[1,1,1,1,1]
+[user]
+Latent explanation: The highlighted tokens represent the semantic anchors of the text, specifically focusing on key nouns, verbs, and adjectives that define the central subject, action, or conclusion of each sentence. These elements carry the highest informational density, distinguishing the core meaning from surrounding context.
+
+Text examples:
+
+Example 0:  For example, if you developed software and released it under a "public domain" license, it would qualify as free software, but it isn't copyleft. In
+Example 1:  Adobe Solutions for Nonprofits for other discounts available to not-for-profits. For more software-hunting tips, see A Quick Guide to Discounted Software
+Example 2:  being Bolivia's first indigenous head of state, Mr Morales is also a former coca-grower and leader of a coca-growers trade union.
+Example 3: -for-profits. For more software-hunting tips, see A Quick Guide to Discounted Software Programs.
+Pay close attention to the options and licensing
+Example 4:  choices and are emerging as an important strategy in the movement to reverse the childhood obesity epidemic. For example, when healthy foods like fruits and vegetables are more affordable, children
+Example 5:  integer.
+• The testsuite.test.timeout property allow the user to redefine the time out for each test. If it is negative or not an integer,
+
+--- OUTPUT ---
+[0,0,0,0,0,0]
+--- END ---
+2026-10-24 19:26:27,255 | INFO    | loopneuron.dryrun | LLM CALL 25 detect same
+--- PROMPT ---
+[system]
+You are an intelligent and meticulous linguistics researcher.
+
+You will be given a certain latent of text, such as "male pronouns" or "text with negative sentiment".
+
+You will then be given several text examples. Your task is to determine which examples possess the latent.
+
+For each example in turn, return 1 if the sentence is correctly labeled or 0 if the tokens are mislabeled. You must return your response in a valid Python list. Do not return anything else besides a Python list.
+
+[user]
+Latent explanation: Words related to American football positions, specifically the tight end position.
+
+Test examples:
+
+Example 0:<|endoftext|>Getty Images
+
+Patriots tight end Rob Gronkowski had his boss's
+Example 1: names of months used in The Lord of the Rings:
+
+"...the
+Example 2: Media Day 2015
+
+LSU defensive end Isaiah Washington (94) speaks to the
+Example 3: shown, is generally not eligible for ads. For example, videos about recent tragedies,
+Example 4: line, with the left side -- namely tackle Byron Bell at tackle and guard Amini
+
+[assistant]
+[1,0,0,0,1]
+[user]
+Latent explanation: The word "guys" in the phrase "you guys".
+
+Test examples:
+
+Example 0: enact an individual health insurance mandate?", Pelosi's response was to dismiss both
+Example 1: birth control access<|endoftext|> but I assure you women in Kentucky aren't laughing as they struggle
+Example 2: du Soleil Fall Protection Program with construction requirements that do not apply to theater settings because
+Example 3:
+<|endoftext|> distasteful. Amidst the slime lurk bits of Schadenfre
+Example 4: the<|endoftext|>"I want to remind you all that 10 days ago (director Massimil
+
+[assistant]
+[0,0,0,0,0]
+[user]
+Latent explanation: "of" before words that start with a capital letter.
+
+Test examples:
+
+Example 0: climate, Tomblin's Chief of Staff Charlie Lorensen said.
+
+Example 1: no wonderworking relics, no true Body and Blood of Christ, no true Baptism
+Example 2:
+
+Deborah Sathe, Head of Talent Development and Production at Film London,
+Example 3:
+
+It has been devised by Director of Public Prosecutions (DPP)
+Example 4: and fair investigation not even include the Director of Athletics? · Finally, we believe the
+
+[assistant]
+[1,1,1,1,1]
+[user]
+Latent explanation: The analysis reveals a strong preference for selecting functional words that establish grammatical boundaries and introduce semantic focus. Specifically, the definite article "the" and the pronoun "I" are recurrently highlighted as they serve to anchor specific concepts or initiate direct address. Punctuation marks are also frequently selected to demarcate clauses or quoted terms, indicating that structural delimiters are critical for the model's interpretation of sentence flow. Overall, the pattern suggests that the model prioritizes tokens that define the scope of a statement or introduce key entities over content words embedded within phrases.
+
+Text examples:
+
+Example 0:  a heat transfer analogy,
+
+but a hydraulics analogy is a paddle-wheel
+
+A heavy paddle wheel placed in the current. The mass of the
+Example 1:  them very close to Earth's star. The Kreutz sun grazers pass within 500,000 miles of the star's visible surface. Mercury
+Example 2:  is why my days are spent teaching English, directing plays, organizing the school newspaper, and teaching yoga in the evenings.<|endoftext|>King James II of England (who was
+Example 3: ibris.<|endoftext|>RWJF Priority: Use pricing strategies—both incentives and disincentives—to promote the purchase of healthier foods
+Prices can
+Example 4: 
+Shareware and freeware.
+These terms don't really refer to licensing, and they're confusing in light of the discussion of free software above. Freeware
+Example 5:  value of the binomial distribution, but the result is not surprising: E(X)=np. If you toss a fair coin ten times the expectation value for the
+Example 6:  a national trial to see if long-term use of COX inhibitors will reduce the incidence of the disease.<|endoftext|>Discover the cosmos! Each day a different image or
+Example 7: 
+
+5. “Cole” is an old English word for cabbage, which survives in “cole slaw”. The German
+Example 8:  ministers to be ordained in England. Thomas was himself ordained and for a while worked with his father in the Presbyterian Meeting House in Leather Lane, near Holborn in
+Example 9:  the Trace Analyzer. The MicroEJ Test Suite comes with an archive containing the Trace Analyzer which can be used to analyze the output trace of an application.
+
+--- OUTPUT ---
+[0,0,0,0,0,0,0,0,0,0]
+--- END ---
+2026-10-24 19:26:27,867 | INFO    | loopneuron.dryrun | LLM CALL 26 detect same
+--- PROMPT ---
+[system]
+You are an intelligent and meticulous linguistics researcher.
+
+You will be given a certain latent of text, such as "male pronouns" or "text with negative sentiment".
+
+You will then be given several text examples. Your task is to determine which examples possess the latent.
+
+For each example in turn, return 1 if the sentence is correctly labeled or 0 if the tokens are mislabeled. You must return your response in a valid Python list. Do not return anything else besides a Python list.
+
+[user]
+Latent explanation: Words related to American football positions, specifically the tight end position.
+
+Test examples:
+
+Example 0:<|endoftext|>Getty Images
+
+Patriots tight end Rob Gronkowski had his boss's
+Example 1: names of months used in The Lord of the Rings:
+
+"...the
+Example 2: Media Day 2015
+
+LSU defensive end Isaiah Washington (94) speaks to the
+Example 3: shown, is generally not eligible for ads. For example, videos about recent tragedies,
+Example 4: line, with the left side -- namely tackle Byron Bell at tackle and guard Amini
+
+[assistant]
+[1,0,0,0,1]
+[user]
+Latent explanation: The word "guys" in the phrase "you guys".
+
+Test examples:
+
+Example 0: enact an individual health insurance mandate?", Pelosi's response was to dismiss both
+Example 1: birth control access<|endoftext|> but I assure you women in Kentucky aren't laughing as they struggle
+Example 2: du Soleil Fall Protection Program with construction requirements that do not apply to theater settings because
+Example 3:
+<|endoftext|> distasteful. Amidst the slime lurk bits of Schadenfre
+Example 4: the<|endoftext|>"I want to remind you all that 10 days ago (director Massimil
+
+[assistant]
+[0,0,0,0,0]
+[user]
+Latent explanation: "of" before words that start with a capital letter.
+
+Test examples:
+
+Example 0: climate, Tomblin's Chief of Staff Charlie Lorensen said.
+
+Example 1: no wonderworking relics, no true Body and Blood of Christ, no true Baptism
+Example 2:
+
+Deborah Sathe, Head of Talent Development and Production at Film London,
+Example 3:
+
+It has been devised by Director of Public Prosecutions (DPP)
+Example 4: and fair investigation not even include the Director of Athletics? · Finally, we believe the
+
+[assistant]
+[1,1,1,1,1]
+[user]
+Latent explanation: The analysis reveals a strong preference for selecting functional words that establish grammatical boundaries and introduce semantic focus. Specifically, the definite article "the" and the pronoun "I" are recurrently highlighted as they serve to anchor specific concepts or initiate direct address. Punctuation marks are also frequently selected to demarcate clauses or quoted terms, indicating that structural delimiters are critical for the model's interpretation of sentence flow. Overall, the pattern suggests that the model prioritizes tokens that define the scope of a statement or introduce key entities over content words embedded within phrases.
+
+Text examples:
+
+Example 0: 
+I want to know which physical quantity in heat transfer is analogous to Inductance ("L") ?
+
+Regards,
+
+2. May 12
+Example 1:  .*PASSED.*).
+• failureTag: the regular expression which is synonym of failure when found (by default .*FAILED.*
+Example 2:  being Bolivia's first indigenous head of state, Mr Morales is also a former coca-grower and leader of a coca-growers trade union.
+Example 3: -for-profits. For more software-hunting tips, see A Quick Guide to Discounted Software Programs.
+Pay close attention to the options and licensing
+Example 4:  choices and are emerging as an important strategy in the movement to reverse the childhood obesity epidemic. For example, when healthy foods like fruits and vegetables are more affordable, children
+Example 5:  integer.
+• The testsuite.test.timeout property allow the user to redefine the time out for each test. If it is negative or not an integer,
+
+--- OUTPUT ---
+[1, 0, 0, 0, 0, 1]
+--- END ---
+2026-10-24 19:26:28,565 | INFO    | loopneuron.dryrun | LLM CALL 27 detect cross
+--- PROMPT ---
+[system]
+You are an intelligent and meticulous linguistics researcher.
+
+You will be given a certain latent of text, such as "male pronouns" or "text with negative sentiment".
+
+You will then be given several text examples. Your task is to determine which examples possess the latent.
+
+For each example in turn, return 1 if the sentence is correctly labeled or 0 if the tokens are mislabeled. You must return your response in a valid Python list. Do not return anything else besides a Python list.
+
+[user]
+Latent explanation: Words related to American football positions, specifically the tight end position.
+
+Test examples:
+
+Example 0:<|endoftext|>Getty Images
+
+Patriots tight end Rob Gronkowski had his boss's
+Example 1: names of months used in The Lord of the Rings:
+
+"...the
+Example 2: Media Day 2015
+
+LSU defensive end Isaiah Washington (94) speaks to the
+Example 3: shown, is generally not eligible for ads. For example, videos about recent tragedies,
+Example 4: line, with the left side -- namely tackle Byron Bell at tackle and guard Amini
+
+[assistant]
+[1,0,0,0,1]
+[user]
+Latent explanation: The word "guys" in the phrase "you guys".
+
+Test examples:
+
+Example 0: enact an individual health insurance mandate?", Pelosi's response was to dismiss both
+Example 1: birth control access<|endoftext|> but I assure you women in Kentucky aren't laughing as they struggle
+Example 2: du Soleil Fall Protection Program with construction requirements that do not apply to theater settings because
+Example 3:
+<|endoftext|> distasteful. Amidst the slime lurk bits of Schadenfre
+Example 4: the<|endoftext|>"I want to remind you all that 10 days ago (director Massimil
+
+[assistant]
+[0,0,0,0,0]
+[user]
+Latent explanation: "of" before words that start with a capital letter.
+
+Test examples:
+
+Example 0: climate, Tomblin's Chief of Staff Charlie Lorensen said.
+
+Example 1: no wonderworking relics, no true Body and Blood of Christ, no true Baptism
+Example 2:
+
+Deborah Sathe, Head of Talent Development and Production at Film London,
+Example 3:
+
+It has been devised by Director of Public Prosecutions (DPP)
+Example 4: and fair investigation not even include the Director of Athletics? · Finally, we believe the
+
+[assistant]
+[1,1,1,1,1]
+[user]
+Latent explanation: The highlighted tokens represent the semantic anchors of the text, specifically focusing on key nouns, verbs, and adjectives that define the central subject, action, or conclusion of each sentence. These elements carry the highest informational density, distinguishing the core meaning from surrounding context.
+
+Text examples:
+
+Example 0:  a heat transfer analogy,
+
+but a hydraulics analogy is a paddle-wheel
+
+A heavy paddle wheel placed in the current. The mass of the
+Example 1:  them very close to Earth's star. The Kreutz sun grazers pass within 500,000 miles of the star's visible surface. Mercury
+Example 2:  is why my days are spent teaching English, directing plays, organizing the school newspaper, and teaching yoga in the evenings.<|endoftext|>King James II of England (who was
+Example 3: ibris.<|endoftext|>RWJF Priority: Use pricing strategies—both incentives and disincentives—to promote the purchase of healthier foods
+Prices can
+Example 4: 
+Shareware and freeware.
+These terms don't really refer to licensing, and they're confusing in light of the discussion of free software above. Freeware
+Example 5:  value of the binomial distribution, but the result is not surprising: E(X)=np. If you toss a fair coin ten times the expectation value for the
+Example 6:  a national trial to see if long-term use of COX inhibitors will reduce the incidence of the disease.<|endoftext|>Discover the cosmos! Each day a different image or
+Example 7: 
+
+5. “Cole” is an old English word for cabbage, which survives in “cole slaw”. The German
+Example 8:  ministers to be ordained in England. Thomas was himself ordained and for a while worked with his father in the Presbyterian Meeting House in Leather Lane, near Holborn in
+Example 9:  the Trace Analyzer. The MicroEJ Test Suite comes with an archive containing the Trace Analyzer which can be used to analyze the output trace of an application.
+
+--- OUTPUT ---
+[0,0,0,0,0,0,0,0,0,0]
+--- END ---
+2026-10-24 19:26:29,005 | INFO    | loopneuron.dryrun | LLM CALL 28 detect cross
+--- PROMPT ---
+[system]
+You are an intelligent and meticulous linguistics researcher.
+
+You will be given a certain latent of text, such as "male pronouns" or "text with negative sentiment".
+
+You will then be given several text examples. Your task is to determine which examples possess the latent.
+
+For each example in turn, return 1 if the sentence is correctly labeled or 0 if the tokens are mislabeled. You must return your response in a valid Python list. Do not return anything else besides a Python list.
+
+[user]
+Latent explanation: Words related to American football positions, specifically the tight end position.
+
+Test examples:
+
+Example 0:<|endoftext|>Getty Images
+
+Patriots tight end Rob Gronkowski had his boss's
+Example 1: names of months used in The Lord of the Rings:
+
+"...the
+Example 2: Media Day 2015
+
+LSU defensive end Isaiah Washington (94) speaks to the
+Example 3: shown, is generally not eligible for ads. For example, videos about recent tragedies,
+Example 4: line, with the left side -- namely tackle Byron Bell at tackle and guard Amini
+
+[assistant]
+[1,0,0,0,1]
+[user]
+Latent explanation: The word "guys" in the phrase "you guys".
+
+Test examples:
+
+Example 0: enact an individual health insurance mandate?", Pelosi's response was to dismiss both
+Example 1: birth control access<|endoftext|> but I assure you women in Kentucky aren't laughing as they struggle
+Example 2: du Soleil Fall Protection Program with construction requirements that do not apply to theater settings because
+Example 3:
+<|endoftext|> distasteful. Amidst the slime lurk bits of Schadenfre
+Example 4: the<|endoftext|>"I want to remind you all that 10 days ago (director Massimil
+
+[assistant]
+[0,0,0,0,0]
+[user]
+Latent explanation: "of" before words that start with a capital letter.
+
+Test examples:
+
+Example 0: climate, Tomblin's Chief of Staff Charlie Lorensen said.
+
+Example 1: no wonderworking relics, no true Body and Blood of Christ, no true Baptism
+Example 2:
+
+Deborah Sathe, Head of Talent Development and Production at Film London,
+Example 3:
+
+It has been devised by Director of Public Prosecutions (DPP)
+Example 4: and fair investigation not even include the Director of Athletics? · Finally, we believe the
+
+[assistant]
+[1,1,1,1,1]
+[user]
+Latent explanation: The highlighted tokens represent the semantic anchors of the text, specifically focusing on key nouns, verbs, and adjectives that define the central subject, action, or conclusion of each sentence. These elements carry the highest informational density, distinguishing the core meaning from surrounding context.
+
+Text examples:
+
+Example 0: 
+I want to know which physical quantity in heat transfer is analogous to Inductance ("L") ?
+
+Regards,
+
+2. May 12
+Example 1:  .*PASSED.*).
+• failureTag: the regular expression which is synonym of failure when found (by default .*FAILED.*
+Example 2:  being Bolivia's first indigenous head of state, Mr Morales is also a former coca-grower and leader of a coca-growers trade union.
+Example 3: -for-profits. For more software-hunting tips, see A Quick Guide to Discounted Software Programs.
+Pay close attention to the options and licensing
+Example 4:  choices and are emerging as an important strategy in the movement to reverse the childhood obesity epidemic. For example, when healthy foods like fruits and vegetables are more affordable, children
+Example 5:  integer.
+• The testsuite.test.timeout property allow the user to redefine the time out for each test. If it is negative or not an integer,
+
+--- OUTPUT ---
+[0,0,1,0,0]
+--- END ---
+2026-10-24 19:26:29,914 | INFO    | loopneuron.dryrun | LLM CALL 29 detect cross
+--- PROMPT ---
+[system]
+You are an intelligent and meticulous linguistics researcher.
+
+You will be given a certain latent of text, such as "male pronouns" or "text with negative sentiment".
+
+You will then be given several text examples. Your task is to determine which examples possess the latent.
+
+For each example in turn, return 1 if the sentence is correctly labeled or 0 if the tokens are mislabeled. You must return your response in a valid Python list. Do not return anything else besides a Python list.
+
+[user]
+Latent explanation: Words related to American football positions, specifically the tight end position.
+
+Test examples:
+
+Example 0:<|endoftext|>Getty Images
+
+Patriots tight end Rob Gronkowski had his boss's
+Example 1: names of months used in The Lord of the Rings:
+
+"...the
+Example 2: Media Day 2015
+
+LSU defensive end Isaiah Washington (94) speaks to the
+Example 3: shown, is generally not eligible for ads. For example, videos about recent tragedies,
+Example 4: line, with the left side -- namely tackle Byron Bell at tackle and guard Amini
+
+[assistant]
+[1,0,0,0,1]
+[user]
+Latent explanation: The word "guys" in the phrase "you guys".
+
+Test examples:
+
+Example 0: enact an individual health insurance mandate?", Pelosi's response was to dismiss both
+Example 1: birth control access<|endoftext|> but I assure you women in Kentucky aren't laughing as they struggle
+Example 2: du Soleil Fall Protection Program with construction requirements that do not apply to theater settings because
+Example 3:
+<|endoftext|> distasteful. Amidst the slime lurk bits of Schadenfre
+Example 4: the<|endoftext|>"I want to remind you all that 10 days ago (director Massimil
+
+[assistant]
+[0,0,0,0,0]
+[user]
+Latent explanation: "of" before words that start with a capital letter.
+
+Test examples:
+
+Example 0: climate, Tomblin's Chief of Staff Charlie Lorensen said.
+
+Example 1: no wonderworking relics, no true Body and Blood of Christ, no true Baptism
+Example 2:
+
+Deborah Sathe, Head of Talent Development and Production at Film London,
+Example 3:
+
+It has been devised by Director of Public Prosecutions (DPP)
+Example 4: and fair investigation not even include the Director of Athletics? · Finally, we believe the
+
+[assistant]
+[1,1,1,1,1]
+[user]
+Latent explanation: The analysis reveals a strong preference for selecting functional words that establish grammatical boundaries and introduce semantic focus. Specifically, the definite article "the" and the pronoun "I" are recurrently highlighted as they serve to anchor specific concepts or initiate direct address. Punctuation marks are also frequently selected to demarcate clauses or quoted terms, indicating that structural delimiters are critical for the model's interpretation of sentence flow. Overall, the pattern suggests that the model prioritizes tokens that define the scope of a statement or introduce key entities over content words embedded within phrases.
+
+Text examples:
+
+Example 0:  a heat transfer analogy,
+
+but a hydraulics analogy is a paddle-wheel
+
+A heavy paddle wheel placed in the current. The mass of the
+Example 1:  them very close to Earth's star. The Kreutz sun grazers pass within 500,000 miles of the star's visible surface. Mercury
+Example 2:  and rights are very similar. The TechSoup product pages for Microsoft software do a good job of describing the differences between products, so we'll focus on the common threads
+Example 3:  successes is p multiplied by itself x times, or px. The probability of (n-x) successive failures is similarly (1-p)n-x
+Example 4: 
+tiny-tim
+
+how?
+
+5. May 12, 2013
+
+techn
+Example 5:  value of the binomial distribution, but the result is not surprising: E(X)=np. If you toss a fair coin ten times the expectation value for the
+Example 6:  you ever hunted for leaves? I wonder if you know the names of five of the trees that live in your neighborhood? I bet the answer is no.
+Well
+Example 7:  waste water are purified.
+The highly permeable, surface-structured membrane can easily be incorporated into today's commercial production system, the researchers say, and could help to
+Example 8:  knew I wanted my students to develop their skills when it came to interacting with text, particularly with poetry. While searching through the myriad options on ReadWriteThink, I
+Example 9:  the Trace Analyzer. The MicroEJ Test Suite comes with an archive containing the Trace Analyzer which can be used to analyze the output trace of an application.
+
+--- OUTPUT ---
+[1, 1, 1, 1, 0, 1, 1, 1, 1, 1]
+--- END ---
+2026-10-24 19:26:30,424 | INFO    | loopneuron.dryrun | LLM CALL 30 detect cross
+--- PROMPT ---
+[system]
+You are an intelligent and meticulous linguistics researcher.
+
+You will be given a certain latent of text, such as "male pronouns" or "text with negative sentiment".
+
+You will then be given several text examples. Your task is to determine which examples possess the latent.
+
+For each example in turn, return 1 if the sentence is correctly labeled or 0 if the tokens are mislabeled. You must return your response in a valid Python list. Do not return anything else besides a Python list.
+
+[user]
+Latent explanation: Words related to American football positions, specifically the tight end position.
+
+Test examples:
+
+Example 0:<|endoftext|>Getty Images
+
+Patriots tight end Rob Gronkowski had his boss's
+Example 1: names of months used in The Lord of the Rings:
+
+"...the
+Example 2: Media Day 2015
+
+LSU defensive end Isaiah Washington (94) speaks to the
+Example 3: shown, is generally not eligible for ads. For example, videos about recent tragedies,
+Example 4: line, with the left side -- namely tackle Byron Bell at tackle and guard Amini
+
+[assistant]
+[1,0,0,0,1]
+[user]
+Latent explanation: The word "guys" in the phrase "you guys".
+
+Test examples:
+
+Example 0: enact an individual health insurance mandate?", Pelosi's response was to dismiss both
+Example 1: birth control access<|endoftext|> but I assure you women in Kentucky aren't laughing as they struggle
+Example 2: du Soleil Fall Protection Program with construction requirements that do not apply to theater settings because
+Example 3:
+<|endoftext|> distasteful. Amidst the slime lurk bits of Schadenfre
+Example 4: the<|endoftext|>"I want to remind you all that 10 days ago (director Massimil
+
+[assistant]
+[0,0,0,0,0]
+[user]
+Latent explanation: "of" before words that start with a capital letter.
+
+Test examples:
+
+Example 0: climate, Tomblin's Chief of Staff Charlie Lorensen said.
+
+Example 1: no wonderworking relics, no true Body and Blood of Christ, no true Baptism
+Example 2:
+
+Deborah Sathe, Head of Talent Development and Production at Film London,
+Example 3:
+
+It has been devised by Director of Public Prosecutions (DPP)
+Example 4: and fair investigation not even include the Director of Athletics? · Finally, we believe the
+
+[assistant]
+[1,1,1,1,1]
+[user]
+Latent explanation: The analysis reveals a strong preference for selecting functional words that establish grammatical boundaries and introduce semantic focus. Specifically, the definite article "the" and the pronoun "I" are recurrently highlighted as they serve to anchor specific concepts or initiate direct address. Punctuation marks are also frequently selected to demarcate clauses or quoted terms, indicating that structural delimiters are critical for the model's interpretation of sentence flow. Overall, the pattern suggests that the model prioritizes tokens that define the scope of a statement or introduce key entities over content words embedded within phrases.
+
+Text examples:
+
+Example 0:  For example, if you developed software and released it under a "public domain" license, it would qualify as free software, but it isn't copyleft. In
+Example 1:  Adobe Solutions for Nonprofits for other discounts available to not-for-profits. For more software-hunting tips, see A Quick Guide to Discounted Software
+Example 2:  being Bolivia's first indigenous head of state, Mr Morales is also a former coca-grower and leader of a coca-growers trade union.
+Example 3: -for-profits. For more software-hunting tips, see A Quick Guide to Discounted Software Programs.
+Pay close attention to the options and licensing
+Example 4:  choices and are emerging as an important strategy in the movement to reverse the childhood obesity epidemic. For example, when healthy foods like fruits and vegetables are more affordable, children
+Example 5:  integer.
+• The testsuite.test.timeout property allow the user to redefine the time out for each test. If it is negative or not an integer,
+
+--- OUTPUT ---
+[0,0,0,0,0,0]
+--- END ---
+2026-10-24 19:26:30,425 | INFO    | loopneuron.dryrun | AUDIT 3/3 L23 N5088 same={0: 0.5, 3: 0.5} cross={0: 0.5, 3: 0.56} | The analysis reveals a strong preference for selecting functional words that establish grammatical boundaries and introduce semantic focus. Specifically, the definite article "the" and the pronoun "I" are recurrently highlighted as they serve to anchor specific concepts or initiate direct address. Punctuation marks are also frequently selected to demarcate clauses or quoted terms, indicating that structural delimiters are critical for the model's interpretation of sentence flow. Overall, the pattern suggests that the model prioritizes tokens that define the scope of a statement or introduce key entities over content words embedded within phrases.
+2026-10-24 19:26:31,103 | INFO    | loopneuron.dryrun | LLM CALL 31 detect shuffled
+--- PROMPT ---
+[system]
+You are an intelligent and meticulous linguistics researcher.
+
+You will be given a certain latent of text, such as "male pronouns" or "text with negative sentiment".
+
+You will then be given several text examples. Your task is to determine which examples possess the latent.
+
+For each example in turn, return 1 if the sentence is correctly labeled or 0 if the tokens are mislabeled. You must return your response in a valid Python list. Do not return anything else besides a Python list.
+
+[user]
+Latent explanation: Words related to American football positions, specifically the tight end position.
+
+Test examples:
+
+Example 0:<|endoftext|>Getty Images
+
+Patriots tight end Rob Gronkowski had his boss's
+Example 1: names of months used in The Lord of the Rings:
+
+"...the
+Example 2: Media Day 2015
+
+LSU defensive end Isaiah Washington (94) speaks to the
+Example 3: shown, is generally not eligible for ads. For example, videos about recent tragedies,
+Example 4: line, with the left side -- namely tackle Byron Bell at tackle and guard Amini
+
+[assistant]
+[1,0,0,0,1]
+[user]
+Latent explanation: The word "guys" in the phrase "you guys".
+
+Test examples:
+
+Example 0: enact an individual health insurance mandate?", Pelosi's response was to dismiss both
+Example 1: birth control access<|endoftext|> but I assure you women in Kentucky aren't laughing as they struggle
+Example 2: du Soleil Fall Protection Program with construction requirements that do not apply to theater settings because
+Example 3:
+<|endoftext|> distasteful. Amidst the slime lurk bits of Schadenfre
+Example 4: the<|endoftext|>"I want to remind you all that 10 days ago (director Massimil
+
+[assistant]
+[0,0,0,0,0]
+[user]
+Latent explanation: "of" before words that start with a capital letter.
+
+Test examples:
+
+Example 0: climate, Tomblin's Chief of Staff Charlie Lorensen said.
+
+Example 1: no wonderworking relics, no true Body and Blood of Christ, no true Baptism
+Example 2:
+
+Deborah Sathe, Head of Talent Development and Production at Film London,
+Example 3:
+
+It has been devised by Director of Public Prosecutions (DPP)
+Example 4: and fair investigation not even include the Director of Athletics? · Finally, we believe the
+
+[assistant]
+[1,1,1,1,1]
+[user]
+Latent explanation: The identified latents consistently demarcate the end of syntactic clauses, the completion of sentences, and the precise boundaries of technical values or constraints, serving to isolate complete semantic units and definitive parameters within the text.
+
+Text examples:
+
+Example 0:  the school newspaper, and teaching yoga in the evenings.<|endoftext|>King James II of England (who was also James VII of Scotland) inherited the throne in 16
+Example 1:  UN convention because it says it would weaken the fight against cocaine production.
+In a statement, the US embassy said Washington recognised coca-chewing as a "
+Example 2: .
+
+I want to know which physical quantity in heat transfer is analogous to Inductance ("L") ?
+
+Regards,
+
+2. May 
+Example 3:  in 2004, “that the measurement of these inflammatory ‘mediators’ and their suppression may be useful in the treatment of lung cancer.”
+CO
+Example 4: . May 12, 2013
+
+tapan_ydv
+
+Hi,
+
+I understand that some physical quantities in electromagnetism
+Example 5:  poetry. While searching through the myriad options on ReadWriteThink, I came upon "Building Reading Comprehension Through Think-Alouds."
+At first, I planned to
+Example 6: .level}"
+>
+<testPath refid="target.testkf.path"/>
+</testsuite:testsuite>
+
+
+### The java
+Example 7:  in the instrument is used to make an artificial eclipse, blocking direct light from the sun, so the much fainter corona can be seen. Sun grazing comets
+Example 8: , no matter which device they use to gain access. In other words, if you run five copies of Windows Server 2008 on five separate servers,
+Example 9:  otherwise noted, these books are for sale at Amazon.com. Your purchase through these links will help to support the continued operation and improvement of the Royalty.nu
+
+--- OUTPUT ---
+[0,0,0,0,0,0,0,0,0]
+--- END ---
+2026-10-24 19:26:31,547 | INFO    | loopneuron.dryrun | LLM CALL 32 detect shuffled
+--- PROMPT ---
+[system]
+You are an intelligent and meticulous linguistics researcher.
+
+You will be given a certain latent of text, such as "male pronouns" or "text with negative sentiment".
+
+You will then be given several text examples. Your task is to determine which examples possess the latent.
+
+For each example in turn, return 1 if the sentence is correctly labeled or 0 if the tokens are mislabeled. You must return your response in a valid Python list. Do not return anything else besides a Python list.
+
+[user]
+Latent explanation: Words related to American football positions, specifically the tight end position.
+
+Test examples:
+
+Example 0:<|endoftext|>Getty Images
+
+Patriots tight end Rob Gronkowski had his boss's
+Example 1: names of months used in The Lord of the Rings:
+
+"...the
+Example 2: Media Day 2015
+
+LSU defensive end Isaiah Washington (94) speaks to the
+Example 3: shown, is generally not eligible for ads. For example, videos about recent tragedies,
+Example 4: line, with the left side -- namely tackle Byron Bell at tackle and guard Amini
+
+[assistant]
+[1,0,0,0,1]
+[user]
+Latent explanation: The word "guys" in the phrase "you guys".
+
+Test examples:
+
+Example 0: enact an individual health insurance mandate?", Pelosi's response was to dismiss both
+Example 1: birth control access<|endoftext|> but I assure you women in Kentucky aren't laughing as they struggle
+Example 2: du Soleil Fall Protection Program with construction requirements that do not apply to theater settings because
+Example 3:
+<|endoftext|> distasteful. Amidst the slime lurk bits of Schadenfre
+Example 4: the<|endoftext|>"I want to remind you all that 10 days ago (director Massimil
+
+[assistant]
+[0,0,0,0,0]
+[user]
+Latent explanation: "of" before words that start with a capital letter.
+
+Test examples:
+
+Example 0: climate, Tomblin's Chief of Staff Charlie Lorensen said.
+
+Example 1: no wonderworking relics, no true Body and Blood of Christ, no true Baptism
+Example 2:
+
+Deborah Sathe, Head of Talent Development and Production at Film London,
+Example 3:
+
+It has been devised by Director of Public Prosecutions (DPP)
+Example 4: and fair investigation not even include the Director of Athletics? · Finally, we believe the
+
+[assistant]
+[1,1,1,1,1]
+[user]
+Latent explanation: The identified latents consistently demarcate the end of syntactic clauses, the completion of sentences, and the precise boundaries of technical values or constraints, serving to isolate complete semantic units and definitive parameters within the text.
+
+Text examples:
+
+Example 0: .kf.testsuite.lockPort}" verboseLevel="${testkf.verbose.level}"
+>
+<testPath refid="target
+Example 1:  Bentinck and England as representing the secular and sacred aspects of British criticism of sati. A comparison of Bentinck’s minute with the subsequent legislation also
+Example 2:  January only if there were no objections.<|endoftext|>Breaking the COX code
+Using the team approach
+Editor’s Note: This story, first published in 
+Example 3: Cole” and the variant “Coles” are fairly common in England and Wales, but are not related to the latin word for cabbage. Both are dimin
+Example 4:  describes his court and the close relationships between the British and French royal families.
+King in Exile: James II: Warrior, King and Saint by John C
+Example 5:  common prefix. If the common prefix equals the name of the test, then the output name will be set to the name of the test.
+
+--- OUTPUT ---
+[0,0,0,0,0]
+--- END ---
+2026-10-24 19:26:32,285 | INFO    | loopneuron.dryrun | LLM CALL 33 detect shuffled
+--- PROMPT ---
+[system]
+You are an intelligent and meticulous linguistics researcher.
+
+You will be given a certain latent of text, such as "male pronouns" or "text with negative sentiment".
+
+You will then be given several text examples. Your task is to determine which examples possess the latent.
+
+For each example in turn, return 1 if the sentence is correctly labeled or 0 if the tokens are mislabeled. You must return your response in a valid Python list. Do not return anything else besides a Python list.
+
+[user]
+Latent explanation: Words related to American football positions, specifically the tight end position.
+
+Test examples:
+
+Example 0:<|endoftext|>Getty Images
+
+Patriots tight end Rob Gronkowski had his boss's
+Example 1: names of months used in The Lord of the Rings:
+
+"...the
+Example 2: Media Day 2015
+
+LSU defensive end Isaiah Washington (94) speaks to the
+Example 3: shown, is generally not eligible for ads. For example, videos about recent tragedies,
+Example 4: line, with the left side -- namely tackle Byron Bell at tackle and guard Amini
+
+[assistant]
+[1,0,0,0,1]
+[user]
+Latent explanation: The word "guys" in the phrase "you guys".
+
+Test examples:
+
+Example 0: enact an individual health insurance mandate?", Pelosi's response was to dismiss both
+Example 1: birth control access<|endoftext|> but I assure you women in Kentucky aren't laughing as they struggle
+Example 2: du Soleil Fall Protection Program with construction requirements that do not apply to theater settings because
+Example 3:
+<|endoftext|> distasteful. Amidst the slime lurk bits of Schadenfre
+Example 4: the<|endoftext|>"I want to remind you all that 10 days ago (director Massimil
+
+[assistant]
+[0,0,0,0,0]
+[user]
+Latent explanation: "of" before words that start with a capital letter.
+
+Test examples:
+
+Example 0: climate, Tomblin's Chief of Staff Charlie Lorensen said.
+
+Example 1: no wonderworking relics, no true Body and Blood of Christ, no true Baptism
+Example 2:
+
+Deborah Sathe, Head of Talent Development and Production at Film London,
+Example 3:
+
+It has been devised by Director of Public Prosecutions (DPP)
+Example 4: and fair investigation not even include the Director of Athletics? · Finally, we believe the
+
+[assistant]
+[1,1,1,1,1]
+[user]
+Latent explanation: The analysis reveals a strong preference for selecting functional words that establish grammatical boundaries and introduce semantic focus. Specifically, the definite article "the" and the pronoun "I" are recurrently highlighted as they serve to anchor specific concepts or initiate direct address. Punctuation marks are also frequently selected to demarcate clauses or quoted terms, indicating that structural delimiters are critical for the model's interpretation of sentence flow. Overall, the pattern suggests that the model prioritizes tokens that define the scope of a statement or introduce key entities over content words embedded within phrases.
+
+Text examples:
+
+Example 0:  on the point of going as governess! What could he mean by such horrible indelicacy? To suffer her to engage herself — to suffer her even to think
+Example 1:  answers questions such as:
+The price of the software and the licensing fees, if any, are sometimes discussed in the licensing agreement, but usually it's described elsewhere
+Example 2:  the king, or to England.
+The Crown for a Lie by Jane Lane. Novel about how James II lost his throne. Out of print, but sometimes available
+Example 3:  Us
+Join us on Facebook to get the latest news and updates.
+Lauren
+Example 4:  customPropertiesExtension)
+testsuite.common.properties The absolute path to the common properties of all the tests (see the property commonProperties)
+testsuite.
+Example 5: , and in only nine years," said Dr. Chris St. Cyr. He is senior project scientist for NASA's Living With a Star program at the agency's
+Example 6: .
+Hundreds of people chewed the leaf outside the US embassy in La Paz and in other cities across the country.
+Bolivia wants to amend
+Example 7: , and there are two types of server management licenses – standard and enterprise. You need one or the other but not both. There are also special licensing requirements if you
+Example 8:  disable the time-out. 60
+verboseLevel The required level to output messages from the test suite. Can be one of those values: error, warning
+Example 9:  great political rewards and popular acclaim.
+James II and the Trial of the Seven Bishops by William Gibson. The trial of seven bishops in 1688
+
+--- OUTPUT ---
+[0,0,0,0,0,0,0,0,0,0]
+--- END ---
+2026-10-24 19:26:32,806 | INFO    | loopneuron.dryrun | LLM CALL 34 detect shuffled
+--- PROMPT ---
+[system]
+You are an intelligent and meticulous linguistics researcher.
+
+You will be given a certain latent of text, such as "male pronouns" or "text with negative sentiment".
+
+You will then be given several text examples. Your task is to determine which examples possess the latent.
+
+For each example in turn, return 1 if the sentence is correctly labeled or 0 if the tokens are mislabeled. You must return your response in a valid Python list. Do not return anything else besides a Python list.
+
+[user]
+Latent explanation: Words related to American football positions, specifically the tight end position.
+
+Test examples:
+
+Example 0:<|endoftext|>Getty Images
+
+Patriots tight end Rob Gronkowski had his boss's
+Example 1: names of months used in The Lord of the Rings:
+
+"...the
+Example 2: Media Day 2015
+
+LSU defensive end Isaiah Washington (94) speaks to the
+Example 3: shown, is generally not eligible for ads. For example, videos about recent tragedies,
+Example 4: line, with the left side -- namely tackle Byron Bell at tackle and guard Amini
+
+[assistant]
+[1,0,0,0,1]
+[user]
+Latent explanation: The word "guys" in the phrase "you guys".
+
+Test examples:
+
+Example 0: enact an individual health insurance mandate?", Pelosi's response was to dismiss both
+Example 1: birth control access<|endoftext|> but I assure you women in Kentucky aren't laughing as they struggle
+Example 2: du Soleil Fall Protection Program with construction requirements that do not apply to theater settings because
+Example 3:
+<|endoftext|> distasteful. Amidst the slime lurk bits of Schadenfre
+Example 4: the<|endoftext|>"I want to remind you all that 10 days ago (director Massimil
+
+[assistant]
+[0,0,0,0,0]
+[user]
+Latent explanation: "of" before words that start with a capital letter.
+
+Test examples:
+
+Example 0: climate, Tomblin's Chief of Staff Charlie Lorensen said.
+
+Example 1: no wonderworking relics, no true Body and Blood of Christ, no true Baptism
+Example 2:
+
+Deborah Sathe, Head of Talent Development and Production at Film London,
+Example 3:
+
+It has been devised by Director of Public Prosecutions (DPP)
+Example 4: and fair investigation not even include the Director of Athletics? · Finally, we believe the
+
+[assistant]
+[1,1,1,1,1]
+[user]
+Latent explanation: The analysis reveals a strong preference for selecting functional words that establish grammatical boundaries and introduce semantic focus. Specifically, the definite article "the" and the pronoun "I" are recurrently highlighted as they serve to anchor specific concepts or initiate direct address. Punctuation marks are also frequently selected to demarcate clauses or quoted terms, indicating that structural delimiters are critical for the model's interpretation of sentence flow. Overall, the pattern suggests that the model prioritizes tokens that define the scope of a statement or introduce key entities over content words embedded within phrases.
+
+Text examples:
+
+Example 0: " that the server software can read. An exception to this occurs when you license Windows Server in per server mode. In this case, if you have 50
+Example 1:  mandatory attributes
+Attribute Name Description
+outputDir The output folder of the test suite. The final report will be generated at [outputDir]/[label]/[report
+Example 2:  test suite engine in the custom properties file of a test.
+
+• The testsuite.test.name property is the output name of the current test. Here
+Example 3:  product of the human mast cell and demonstrated its release during allergic asthma.
+With colleagues including Garret A. FitzGerald, M.D., now chair of
+Example 4:  of human flesh, but of human intellect.”
+“Oh! my dear, human flesh! You quite shock me; if you mean a fling at the slave
+Example 5:  a particular server product in an organisation, no matter which device they use to gain access. In other words, if you run five copies of Windows Server 20
+
+--- OUTPUT ---
+[0,0,0,0,0,0]
+--- END ---
+2026-10-24 19:26:33,491 | INFO    | loopneuron.dryrun | LLM CALL 35 detect shuffled
+--- PROMPT ---
+[system]
+You are an intelligent and meticulous linguistics researcher.
+
+You will be given a certain latent of text, such as "male pronouns" or "text with negative sentiment".
+
+You will then be given several text examples. Your task is to determine which examples possess the latent.
+
+For each example in turn, return 1 if the sentence is correctly labeled or 0 if the tokens are mislabeled. You must return your response in a valid Python list. Do not return anything else besides a Python list.
+
+[user]
+Latent explanation: Words related to American football positions, specifically the tight end position.
+
+Test examples:
+
+Example 0:<|endoftext|>Getty Images
+
+Patriots tight end Rob Gronkowski had his boss's
+Example 1: names of months used in The Lord of the Rings:
+
+"...the
+Example 2: Media Day 2015
+
+LSU defensive end Isaiah Washington (94) speaks to the
+Example 3: shown, is generally not eligible for ads. For example, videos about recent tragedies,
+Example 4: line, with the left side -- namely tackle Byron Bell at tackle and guard Amini
+
+[assistant]
+[1,0,0,0,1]
+[user]
+Latent explanation: The word "guys" in the phrase "you guys".
+
+Test examples:
+
+Example 0: enact an individual health insurance mandate?", Pelosi's response was to dismiss both
+Example 1: birth control access<|endoftext|> but I assure you women in Kentucky aren't laughing as they struggle
+Example 2: du Soleil Fall Protection Program with construction requirements that do not apply to theater settings because
+Example 3:
+<|endoftext|> distasteful. Amidst the slime lurk bits of Schadenfre
+Example 4: the<|endoftext|>"I want to remind you all that 10 days ago (director Massimil
+
+[assistant]
+[0,0,0,0,0]
+[user]
+Latent explanation: "of" before words that start with a capital letter.
+
+Test examples:
+
+Example 0: climate, Tomblin's Chief of Staff Charlie Lorensen said.
+
+Example 1: no wonderworking relics, no true Body and Blood of Christ, no true Baptism
+Example 2:
+
+Deborah Sathe, Head of Talent Development and Production at Film London,
+Example 3:
+
+It has been devised by Director of Public Prosecutions (DPP)
+Example 4: and fair investigation not even include the Director of Athletics? · Finally, we believe the
+
+[assistant]
+[1,1,1,1,1]
+[user]
+Latent explanation: The highlighted tokens consistently mark the beginning of distinct semantic or syntactic units, such as proper nouns, technical parameters, section headers, or specific titles. They frequently serve as anchors for external references or variable names, indicating that the immediately following text possesses a unique identity or value separate from the surrounding narrative context.
+
+Text examples:
+
+Example 0: ibris.<|endoftext|>RWJF Priority: Use pricing strategies—both incentives and disincentives—to promote the purchase of healthier foods
+Prices can
+Example 1:  solely responsible for sharing what their Langston Hughes poem conveyed. Based on the meanings behind their group mates' poems, along with using the knowledge of both their poem and
+Example 2:  ministers to be ordained in England. Thomas was himself ordained and for a while worked with his father in the Presbyterian Meeting House in Leather Lane, near Holborn in
+Example 3:  words, if you have an ECL, you still have to get a CAL for all employees and contractors.
+Even though Terminal Services (TS) is built into
+Example 4:  is why my days are spent teaching English, directing plays, organizing the school newspaper, and teaching yoga in the evenings.<|endoftext|>King James II of England (who was
+Example 5:  steps to compute the output name of a test:
+• If the custom properties are enabled and a property named testsuite.test.name is find on the corresponding
+Example 6: 
+I want to know which physical quantity in heat transfer is analogous to Inductance ("L") ?
+
+Regards,
+
+2. May 12
+Example 7:  to 0 to disable timeout (default value is 0).
+• stopEOFReached: boolean value. Set to true to stop analyzing when input stream
+Example 8:  his conversion to Catholicism, and his correspondence with William of Orange.
+A Court in Exile: The Stuarts in France, 1689-
+Example 9: 
+
+5. “Cole” is an old English word for cabbage, which survives in “cole slaw”. The German
+
+--- OUTPUT ---
+[0,0,0,0,0,0,0,0,0]
+--- END ---
+2026-10-24 19:26:33,998 | INFO    | loopneuron.dryrun | LLM CALL 36 detect shuffled
+--- PROMPT ---
+[system]
+You are an intelligent and meticulous linguistics researcher.
+
+You will be given a certain latent of text, such as "male pronouns" or "text with negative sentiment".
+
+You will then be given several text examples. Your task is to determine which examples possess the latent.
+
+For each example in turn, return 1 if the sentence is correctly labeled or 0 if the tokens are mislabeled. You must return your response in a valid Python list. Do not return anything else besides a Python list.
+
+[user]
+Latent explanation: Words related to American football positions, specifically the tight end position.
+
+Test examples:
+
+Example 0:<|endoftext|>Getty Images
+
+Patriots tight end Rob Gronkowski had his boss's
+Example 1: names of months used in The Lord of the Rings:
+
+"...the
+Example 2: Media Day 2015
+
+LSU defensive end Isaiah Washington (94) speaks to the
+Example 3: shown, is generally not eligible for ads. For example, videos about recent tragedies,
+Example 4: line, with the left side -- namely tackle Byron Bell at tackle and guard Amini
+
+[assistant]
+[1,0,0,0,1]
+[user]
+Latent explanation: The word "guys" in the phrase "you guys".
+
+Test examples:
+
+Example 0: enact an individual health insurance mandate?", Pelosi's response was to dismiss both
+Example 1: birth control access<|endoftext|> but I assure you women in Kentucky aren't laughing as they struggle
+Example 2: du Soleil Fall Protection Program with construction requirements that do not apply to theater settings because
+Example 3:
+<|endoftext|> distasteful. Amidst the slime lurk bits of Schadenfre
+Example 4: the<|endoftext|>"I want to remind you all that 10 days ago (director Massimil
+
+[assistant]
+[0,0,0,0,0]
+[user]
+Latent explanation: "of" before words that start with a capital letter.
+
+Test examples:
+
+Example 0: climate, Tomblin's Chief of Staff Charlie Lorensen said.
+
+Example 1: no wonderworking relics, no true Body and Blood of Christ, no true Baptism
+Example 2:
+
+Deborah Sathe, Head of Talent Development and Production at Film London,
+Example 3:
+
+It has been devised by Director of Public Prosecutions (DPP)
+Example 4: and fair investigation not even include the Director of Athletics? · Finally, we believe the
+
+[assistant]
+[1,1,1,1,1]
+[user]
+Latent explanation: The highlighted tokens consistently mark the beginning of distinct semantic or syntactic units, such as proper nouns, technical parameters, section headers, or specific titles. They frequently serve as anchors for external references or variable names, indicating that the immediately following text possesses a unique identity or value separate from the surrounding narrative context.
+
+Text examples:
+
+Example 0:  a national trial to see if long-term use of COX inhibitors will reduce the incidence of the disease.<|endoftext|>Discover the cosmos! Each day a different image or
+Example 1: 
+Shareware and freeware.
+These terms don't really refer to licensing, and they're confusing in light of the discussion of free software above. Freeware
+Example 2:  being damaged by staring at computer screens and video games? Are they missing something when fantasy play is populated with characters from Hollywood's imagination and not their own? Most of
+Example 3:  land of runes, the colorful but elusive glints are caused by atmospheric refraction enhanced by long, low, sight lines and strong atmospheric temperature gradients.
+Authors &
+Example 4:  trees in the woods, today's children are missing out on something essential.
+The success of ''The Dangerous Book for Boys'' -- which has been on
+Example 5:  .*PASSED.*).
+• failureTag: the regular expression which is synonym of failure when found (by default .*FAILED.*
+
+--- OUTPUT ---
+[0,0,0,0,0,0]
+--- END ---
+2026-10-24 19:26:35,151 | INFO    | loopneuron.dryrun | wrote C:\Users\Happy\Documents\projects\looped-transformers-llms-neuron-mechanistic-interpretability\results\Ouro-1.4B-dryrun\audit.json
