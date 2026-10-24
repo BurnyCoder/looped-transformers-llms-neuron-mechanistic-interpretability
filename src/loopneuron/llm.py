@@ -18,13 +18,14 @@ from openai import OpenAI
 class LlamaServer:
     """Context manager running `llama-server` on the GPU (Ouro must be unloaded first: 8 GB VRAM)."""
 
-    def __init__(self, exe: Path, gguf: Path, port: int = 8080, ctx: int = 16384, log=None):
+    def __init__(self, exe: Path, gguf: Path, port: int, log_path: Path, ctx: int = 16384, log=None):
         self.cmd = [str(exe), "-m", str(gguf), "-ngl", "99", "-c", str(ctx), "--port", str(port), "--jinja",
                     "-np", "1"]
-        self.url, self.log, self.proc = f"http://127.0.0.1:{port}", log, None
+        self.url, self.log, self.proc, self.log_path = f"http://127.0.0.1:{port}", log, None, log_path
 
     def __enter__(self):
-        self.proc = subprocess.Popen(self.cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        self._fh = open(self.log_path, "w", encoding="utf-8")  # server stdout/stderr -> logs/ for debugging
+        self.proc = subprocess.Popen(self.cmd, stdout=self._fh, stderr=subprocess.STDOUT)
         for _ in range(300):  # model load can take a while on first start
             try:
                 if requests.get(self.url + "/health", timeout=2).status_code == 200:
@@ -33,12 +34,15 @@ class LlamaServer:
                     return self
             except requests.RequestException:
                 pass
+            if self.proc.poll() is not None:
+                break  # server exited (e.g. port in use) -> fail fast
             time.sleep(1)
-        raise RuntimeError("llama-server did not become healthy")
+        raise RuntimeError(f"llama-server did not become healthy; see {self.log_path}")
 
     def __exit__(self, *exc):
         self.proc.terminate()
         self.proc.wait(timeout=60)
+        self._fh.close()
 
 
 class LLM:

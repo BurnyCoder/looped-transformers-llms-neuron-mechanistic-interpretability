@@ -39,6 +39,45 @@ def loop_structure(atlas: dict) -> dict:
     return out
 
 
+@torch.no_grad()
+def cross_loop_correlation(model, chunks: np.ndarray, T: int, batch: int = 4) -> np.ndarray:
+    """Per-neuron Pearson correlation between loops over the same tokens -> [L, D, T, T] (robust to top-k ties).
+
+    Streaming sums of a_t, a_t^2 and a_t*a_s per neuron (float64) over all positions >= 4 of `chunks`.
+    """
+    from loopneuron.hooks import NeuronHooks
+
+    L, D = model.config.num_hidden_layers, model.config.intermediate_size
+    S1 = torch.zeros(L, T, D, dtype=torch.float64, device="cuda")
+    S2 = torch.zeros(L, T, T, D, dtype=torch.float64, device="cuda")
+    cur, n = {}, 0
+
+    def rec(layer, loop, act):
+        a = act[:, 4:, :].reshape(-1, D)
+        cur[(layer, loop)] = a  # kept in bf16: all layers' earlier loops are alive until loop T-1 (~1 GB at batch 4)
+        a = a.double()
+        S1[layer, loop] += a.sum(0)
+        for s in range(loop + 1):  # products with all earlier loops of this layer (and itself)
+            S2[layer, loop, s] += (a * cur[(layer, s)].double()).sum(0)
+        if loop == T - 1:
+            for s in range(T):
+                cur.pop((layer, s))
+
+    with NeuronHooks(model, T, recorder=rec):
+        for i in range(0, len(chunks), batch):
+            ids = torch.from_numpy(chunks[i:i + batch].astype(np.int64)).cuda()
+            model(ids, use_cache=False)
+            n += ids.shape[0] * (ids.shape[1] - 4)
+    mean = S1 / n
+    cov = torch.zeros(L, T, T, D, dtype=torch.float64, device="cuda")
+    for t in range(T):
+        for s in range(t + 1):
+            cov[:, t, s] = cov[:, s, t] = S2[:, t, s] / n - mean[:, t] * mean[:, s]
+    sd = torch.stack([cov[:, t, t] for t in range(T)], 1).clamp_min(1e-20).sqrt()  # [L, T, D]
+    corr = cov / (sd[:, :, None, :] * sd[:, None, :, :])
+    return corr.permute(0, 3, 1, 2).float().cpu().numpy()
+
+
 def _examples(atlas, chunks, tok, layer, neuron, loop, lo, hi, mark=True):
     ents = cx.neuron_entries(atlas, layer, 0, neuron, loop=loop)[lo:hi]
     return [(cx.window_text(tok, chunks, s, p, mark=mark), v) for s, p, v, _ in ents]

@@ -30,7 +30,7 @@ def _parse_list(text: str, n: int) -> list[int] | None:
     if not m:
         return None
     vals = [int(v) for v in re.findall(r"[01]", m.group(1))]
-    return vals if len(vals) == n else None
+    return vals[:n] if len(vals) >= n else None  # extra trailing entries are ignored; too few -> unusable
 
 
 def detect(llm, explanation: str, texts: list[str], tag: str = "") -> list[int] | None:

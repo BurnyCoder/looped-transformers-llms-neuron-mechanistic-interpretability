@@ -1,0 +1,3 @@
+2026-10-24 18:26:16,104 | INFO    | loopneuron.dryrun | log file: C:\Users\Happy\Documents\projects\looped-transformers-llms-neuron-mechanistic-interpretability\logs\20261024-182616_dryrun.log
+2026-10-24 18:26:16,105 | INFO    | loopneuron.dryrun | === phase: preregister ===
+2026-10-24 18:26:16,253 | INFO    | loopneuron.dryrun | pre-registration written: K=1 n=300 -> C:\Users\Happy\Documents\projects\looped-transformers-llms-neuron-mechanistic-interpretability\results\Ouro-1.4B-dryrun\preregistration.md (commit + push before confirm_steering)

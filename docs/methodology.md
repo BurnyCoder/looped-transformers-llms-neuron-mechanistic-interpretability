@@ -50,8 +50,9 @@ Streaming top-k works per batch. Each sequence is reduced to its maximum per neu
 
 ## 5. Candidate screen (discovery data only)
 1. **Coherence.** Embed each neuron's top contexts, a ±16-token window around the peak, with bge-small-en-v1.5. Coherence is the mean pairwise cosine. Neurons whose top contexts are dominated by a single token, measured by the entropy of the peak-token distribution, or by a single position are excluded as token or position detectors.
-2. **Quick steer.** Clamp each of the ~200 most coherent neurons, across layers, at α = 4 on 25 discovery prompts, and measure ΔC (section 6).
-3. Keep the top K ≤ 10 neurons by ΔC. Selecting on discovery data is allowed, because the confirmatory test uses only fresh prompts and seeds.
+2. **Quick steer.** Take a random pool of 4,000 alive neurons (both poles, so 8,000 units). Clamp each of the 200 most coherent units at α ∈ {1, 2, 4} on 25 discovery prompts (1 sample, 32 tokens), three conditions per `generate` call. Each condition is paired with the same row block of a tiled unsteered batch. Measure ΔC (section 6) and ΔNLL, and keep the best α that passes the fluency guard (median PPL ratio ≤ 2).
+3. Keep the top K ≤ 5 units by ΔC. K is capped so that the permutation test can pass Holm at all: with R = 100 random neurons the smallest attainable p is 1/101 ≈ 0.0099, and Holm requires 0.0099 ≤ 0.05/K, which holds only for K ≤ 5. Selecting on discovery data is allowed, because the confirmatory test uses only fresh prompts and seeds.
+4. **Validation.** Re-run each candidate at its chosen α on 100 *other* discovery prompts (48 tokens). This gives effect sizes that are not inflated by selection (the winner's curse), and they feed the power analysis. Candidates with validation mean ΔC ≤ 0 or median ΔNLL > log 2 are dropped before pre-registration.
 
 ## 6. Metrics
 - **Concept score C.** For each neuron, we build a contrastive concept direction from bge-small-en-v1.5 embeddings: u = normalize(mean emb(top contexts) − mean emb(random atlas contexts)). Then C(text) = cos(emb(text), u). The primary statistic is ΔC = C(steered continuation) − C(unsteered continuation), averaged over the k = 3 paired samples of each prompt.

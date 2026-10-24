@@ -46,15 +46,28 @@ def loss_by_T(setup: dict, path: Path, T_train: int = 4):
 
 def loop_structure(ls: dict, path: Path):
     share = np.array(ls["loop_of_max_share"])  # [L, T]
-    fig, axes = plt.subplots(1, 2, figsize=(10, 3.6))
+    has_corr = "corr_first_last_median" in ls
+    fig, axes = plt.subplots(1, 3 if has_corr else 2, figsize=(15 if has_corr else 10, 3.6))
     im = axes[0].imshow(share.T, aspect="auto", cmap="Blues", vmin=0, vmax=1, origin="lower")
     axes[0].set(xlabel="layer", ylabel="loop", yticks=range(share.shape[1]), yticklabels=range(1, share.shape[1] + 1),
-                title="share of neurons whose strongest context is at loop t")
+                title="share of neurons peaking at loop t")
     axes[0].grid(False)
     fig.colorbar(im, ax=axes[0], fraction=0.04)
-    axes[1].plot(range(len(ls["jaccard_first_last"])), ls["jaccard_first_last"], color=S1, marker="o", ms=4)
-    axes[1].set(xlabel="layer", ylabel="Jaccard overlap", ylim=(0, 1),
-                title="top-20 contexts: loop 1 vs loop 4 overlap")
+    L = range(len(ls["jaccard_first_last"]))
+    adj = np.array(ls["jaccard_adjacent"])  # [L, T-1]
+    for t, colr in zip(range(adj.shape[1]), (S1, S2, S3)):
+        axes[1].plot(L, adj[:, t], color=colr, marker="o", ms=3, label=f"loop {t + 1} vs {t + 2}")
+    axes[1].plot(L, ls["jaccard_first_last"], color=GRAY, marker="o", ms=3, label="loop 1 vs 4")
+    axes[1].set(xlabel="layer", ylabel="Jaccard of top-20 contexts", ylim=(0, 1), title="top-context overlap between loops")
+    axes[1].legend(fontsize=8)
+    if has_corr:
+        cadj = np.array(ls["corr_adjacent_median"])  # [T-1, L]
+        for t, colr in zip(range(cadj.shape[0]), (S1, S2, S3)):
+            axes[2].plot(L, cadj[t], color=colr, marker="o", ms=3, label=f"loop {t + 1} vs {t + 2}")
+        axes[2].plot(L, ls["corr_first_last_median"], color=GRAY, marker="o", ms=3, label="loop 1 vs 4")
+        axes[2].set(xlabel="layer", ylabel="median Pearson r over neurons", ylim=(-0.2, 1),
+                    title="same-token activation correlation between loops")
+        axes[2].legend(fontsize=8)
     return _save(fig, path)
 
 
