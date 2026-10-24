@@ -1,0 +1,31 @@
+{
+  "loss_by_T": {
+    "1": 4.029509809905408,
+    "2": 2.8261433021695006,
+    "3": 2.543342949362362,
+    "4": 2.508144573136872,
+    "5": 2.55573455212163,
+    "6": 2.5473794376148895,
+    "7": 2.555386891084559,
+    "8": 2.5620427150352327
+  },
+  "default_exit_disagreement": 0.0,
+  "samples": [
+    {
+      "prompt": "Harris announced he would be stepping down as rabbi in ",
+      "continuation": "2021, he was asked by the congregation to stay on as a visiting rabbi.\n\n\"I was asked to be the rabbi for the next three years,\" he said. \"I was very happy to do that.\"\n"
+    },
+    {
+      "prompt": "Gloire's wooden hull was modelled on that of a",
+      "continuation": " ship which was wrecked in the early 17th century. In 1988, the wreck of the Gloire was discovered in 130 m of water off the coast of Mauritania. This ship is the"
+    },
+    {
+      "prompt": "Many of the residents' original grievances were addressed with the passing",
+      "continuation": " of the new zoning law.  \nB. The new zoning law has reduced traffic congestion in the area.  \nC. The residents' opposition to the new zoning law was based on misinformation.  \nD. The new zoning law"
+    },
+    {
+      "prompt": "On the morning of September 1, 3rd Battalion",
+      "continuation": ", 1st Battalion, 22nd Infantry Regiment, 25th Infantry Division, was ordered to take the village of Kernville, 4.5 miles south of the village of La Fosse.\n\nAs"
+    }
+  ]
+}

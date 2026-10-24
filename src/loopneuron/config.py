@@ -40,6 +40,11 @@ class Settings:
     gen_tokens: int  # new tokens per steered continuation
     samples_per_prompt: int  # k paired samples per prompt
     null_neurons: int  # R random same-layer neurons in the null distribution
+    screen_pool: int  # random alive neurons profiled (both poles) during screening
+    screen_steer: int  # most coherent units quick-steered during screening
+    n_candidates: int  # K candidates carried into the confirmatory test
+    llm_gguf: str  # GGUF file name under cache/gguf/ served by llama-server
+    audit_per_tercile: int  # neurons per layer tercile in the LLM audit (H4)
     llm_base_url: str  # llama-server OpenAI-compatible endpoint
     llm_model: str  # model alias passed to llama-server
     min_free_gb: float  # disk that must stay free after any download
@@ -76,6 +81,11 @@ def load_settings(**overrides) -> Settings:
         gen_tokens=int(_env("GEN_TOKENS", "48")),
         samples_per_prompt=int(_env("SAMPLES_PER_PROMPT", "3")),
         null_neurons=int(_env("NULL_NEURONS", "100")),
+        screen_pool=int(_env("SCREEN_POOL", "4000")),
+        screen_steer=int(_env("SCREEN_STEER", "200")),
+        n_candidates=int(_env("N_CANDIDATES", "10")),
+        llm_gguf=_env("LLM_GGUF", "Qwen3.5-9B-Q4_K_M.gguf"),
+        audit_per_tercile=int(_env("AUDIT_PER_TERCILE", "50")),
         llm_base_url=_env("LLM_BASE_URL", "http://127.0.0.1:8080/v1"),
         llm_model=_env("LLM_MODEL", "qwen3.5-9b"),
         min_free_gb=float(_env("MIN_FREE_GB", "3")),
