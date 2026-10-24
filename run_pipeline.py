@@ -24,7 +24,8 @@ from loopneuron.data import build_prompt_splits, cached_chunks, load_prompt_spli
 from loopneuron.logging_utils import get_logger
 from loopneuron.model import load_model
 
-PHASES = ["setup_check", "build_atlas", "screen_candidates", "label_candidates", "preregister", "confirm_steering",
+PHASES = ["setup_check", "build_atlas", "screen_candidates", "validate_candidates", "label_candidates", "preregister",
+          "confirm_steering",
           "followups", "audit", "replicate", "report"]
 
 
@@ -109,14 +110,22 @@ def build_atlas(c: Ctx) -> None:
 
 
 def screen_candidates(c: Ctx) -> None:
-    """Discovery-only selection: coherence pool -> quick steer -> K candidates -> validation on fresh discovery prompts."""
-    from loopneuron.screen import screen, validate_candidates
+    """Discovery-only selection: coherence pool -> quick steer of the most coherent units (discovery prompts 0-24)."""
+    from loopneuron.screen import screen
 
-    disc = c.prompts("discovery")
-    res = screen(c.model, c.tok, c.atlas, c.chunks("atlas"), disc, c.s.ut_steps, c.s.seed, c.log,
-                 n_pool=c.s.screen_pool, n_steer=c.s.screen_steer, K=c.s.n_candidates)
-    res["validation"] = validate_candidates(c.model, c.tok, c.atlas, res["candidates"], res["u"], disc[25:125],
-                                            c.s.ut_steps, c.s.seed + 1, c.s.gen_tokens, c.log)
+    res = screen(c.model, c.tok, c.atlas, c.chunks("atlas"), c.prompts("discovery"), c.s.ut_steps, c.s.seed, c.log,
+                 n_pool=c.s.screen_pool, n_steer=c.s.screen_steer, K=2 * c.s.n_candidates)
+    c.write("screen.json", res)
+
+
+def validate_candidates(c: Ctx) -> None:
+    """Top 2K screened units re-tested on discovery prompts 25-124 (selection-free effect sizes, degeneracy check)."""
+    from loopneuron.screen import reselect_and_validate
+
+    res = c.read("screen.json")
+    pool, u, val = reselect_and_validate(c.model, c.tok, c.atlas, c.chunks("atlas"), res, c.prompts("discovery")[25:125],
+                                         c.s.ut_steps, c.s.seed + 1, c.s.gen_tokens, 2 * c.s.n_candidates, c.log)
+    res.update({"candidates": pool, "u": u, "validation": val})
     c.write("screen.json", res)
 
 
@@ -167,11 +176,12 @@ def confirm_steering(c: Ctx) -> None:
     c.write("confirm.json", res)
 
 
-def _focus(c: Ctx) -> list[dict]:
-    """Neurons for follow-ups: all significant candidates, or the best candidate if none passed (labeled post hoc)."""
+def _focus(c: Ctx, exploratory: bool = True) -> list[dict]:
+    """Neurons for follow-ups: significant candidates (or the best one if none passed, labeled post hoc), plus the
+    pre-registered exploratory units (outside the confirmatory family)."""
     res = c.read("confirm.json")["results"]
-    sig = [r for r in res if r["significant"]]
-    return sig or [max(res, key=lambda r: r["mean_delta"])]
+    sig = [r for r in res if r["significant"]] or [max(res, key=lambda r: r["mean_delta"])]
+    return sig + (c.read("candidates.json").get("exploratory", []) if exploratory else [])
 
 
 def followups(c: Ctx) -> None:
@@ -220,7 +230,7 @@ def replicate(c: Ctx) -> None:
     from loopneuron.replicate import max_activation, neuron_correspondence
 
     scr, pre = c.read("screen.json"), c.read("candidates.json")
-    focus = _focus(c)
+    focus = _focus(c, exploratory=False)  # replication tests only confirmatory neurons
     corr = [neuron_correspondence((c.s.model_id, c.s.model_revision), (c.s.repl_model_id, c.s.repl_model_revision),
                                   r["layer"], [r["neuron"]]) for r in focus]
     c.free_model()

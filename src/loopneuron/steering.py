@@ -41,12 +41,12 @@ def generate(model, prompt_ids: torch.Tensor, cond: Cond | None, T: int, n_token
              max_rows: int | None = None) -> np.ndarray:
     """Continuations [P, n_tokens] for all prompts under one condition (row chunks get chunk-specific seeds).
 
-    75 rows/call: decoding is CPU-dispatch-bound (~0.3 s/step regardless of batch), and Ouro's KV cache costs
+    Batching: decoding is CPU-dispatch-bound (~0.3 s/step almost regardless of batch), and Ouro's KV cache costs
     ~0.8 MB per token per row (96 layer-loops), so 75 rows x 60 tokens (~3.5 GB) is the most that fits in 8 GB.
-    The cache grows linearly with T, so rows scale as 300 // T (beyond VRAM, Windows silently spills to system RAM
-    and decoding slows several-fold, as seen at T >= 5 in the dry run).
+    The cache grows linearly with T, so rows scale as 240 // T (60 at T=4, leaving headroom for the embedder);
+    beyond VRAM, Windows silently spills to system RAM and decoding slows several-fold (seen at T >= 5 in the dry run).
     """
-    max_rows = max_rows or max(8, 300 // T)
+    max_rows = max_rows or max(8, 240 // T)
     outs = []
     for i in range(0, len(prompt_ids), max_rows):
         ids = prompt_ids[i:i + max_rows].cuda()

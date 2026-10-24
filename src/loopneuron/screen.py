@@ -18,12 +18,13 @@ import numpy as np
 import torch
 
 from loopneuron import contexts as cx
-from loopneuron.metrics import Embedder, coherence, concept_direction, concept_scores, continuation_nll
+from loopneuron.metrics import Embedder, coherence, concept_direction, concept_scores, continuation_nll, distinct2
 from loopneuron.steering import Cond, clamp_value, generate, generate_multi
 
 ALPHAS = (1.0, 2.0, 4.0)  # clamp multiples of max|a| tried per unit (alpha=4 often breaks fluency in the dry run)
 SCREEN_PROMPTS, SCREEN_TOKENS = 25, 32
 PPL_GUARD = np.log(2.0)  # median Delta NLL <= log 2  <=>  median PPL ratio <= 2
+DISTINCT2_GUARD = 0.6  # median distinct-2 of steered continuations; repetitive loops ("Fib Fib Fib") have LOW perplexity
 GROUP = 3  # conditions per generate call (KV cache of 75 rows fits next to the 2.9 GB model in 8 GB)
 
 
@@ -46,11 +47,12 @@ def unit_profiles(atlas, chunks, tok, emb: Embedder, units, rand_mean, k: int = 
 
 
 def steer_effect(model, tok, emb, T, prompt_ids, base_emb, base_nll, u, cond, n_tokens, seed):
-    """Per-prompt Delta concept score and Delta NLL of one condition vs the shared unsteered baseline."""
+    """Per-prompt Delta concept score, Delta NLL and steered distinct-2 of one condition vs the unsteered baseline."""
     gen = torch.from_numpy(generate(model, prompt_ids, cond, T, n_tokens, seed))
     e = emb([tok.decode(g) for g in gen])
     nll = continuation_nll(model, prompt_ids, gen)
-    return concept_scores(e, u) - concept_scores(base_emb, u), nll - base_nll, [tok.decode(g) for g in gen[:3]]
+    d2 = np.array([distinct2(g.tolist()) for g in gen])
+    return concept_scores(e, u) - concept_scores(base_emb, u), nll - base_nll, [tok.decode(g) for g in gen[:3]], d2
 
 
 def screen(model, tok, atlas, chunks, discovery, T, seed, log, n_pool: int = 4000, n_steer: int = 200, K: int = 10):
@@ -108,16 +110,29 @@ def validate_candidates(model, tok, atlas, cands, u, prompts, T, seed, n_tokens,
     prompt_ids = torch.tensor([p["ids"] for p in prompts])
     base = torch.from_numpy(generate(model, prompt_ids, None, T, n_tokens, seed))
     base_emb, base_nll = emb([tok.decode(g) for g in base]), continuation_nll(model, prompt_ids, base)
+    base_d2 = float(np.median([distinct2(g.tolist()) for g in base]))
     out = []
     for c in cands:
         key = f'{c["layer"]}_{c["neuron"]}_{c["pole"]}'
         cond = Cond(c["layer"], c["neuron"], clamp_value(atlas, c["layer"], c["pole"], c["neuron"], c["best_alpha"]))
-        dC, dN, ex = steer_effect(model, tok, emb, T, prompt_ids, base_emb, base_nll, np.array(u[key]), cond, n_tokens, seed)
+        dC, dN, ex, d2 = steer_effect(model, tok, emb, T, prompt_ids, base_emb, base_nll, np.array(u[key]), cond,
+                                      n_tokens, seed)
         out.append({"key": key, "alpha": c["best_alpha"], "mean_dC": float(dC.mean()), "dz": cohen_dz(dC),
-                    "dNLL_median": float(np.median(dN)), "n": len(dC)})
-        log.info("VALIDATE %s alpha=%s mean dC=%.4f dz=%.3f median dNLL=%.3f", key, c["best_alpha"], dC.mean(),
-                 out[-1]["dz"], np.median(dN))
+                    "dNLL_median": float(np.median(dN)), "distinct2_median": float(np.median(d2)),
+                    "distinct2_unsteered_median": base_d2, "n": len(dC), "examples": ex})
+        log.info("VALIDATE %s alpha=%s mean dC=%.4f dz=%.3f median dNLL=%.3f distinct2=%.2f (unsteered %.2f) | %r",
+                 key, c["best_alpha"], dC.mean(), out[-1]["dz"], np.median(dN), np.median(d2), base_d2, ex[0])
     return out
+
+
+def reselect_and_validate(model, tok, atlas, chunks, res, prompts, T, seed, n_tokens, n_val, log):
+    """Take the top n_val screened units (by screen Delta C, fluency guard passed), recompute their concept directions,
+    and validate them on fresh discovery prompts. Selection and validation never touch confirmatory prompts."""
+    pool = sorted([p for p in res["steered"] if p["best_dC"] > -9], key=lambda p: -p["best_dC"])[:n_val]
+    prof = unit_profiles(atlas, chunks, tok, Embedder(), [(p["layer"], p["neuron"], p["pole"]) for p in pool],
+                         np.array(res["rand_mean"]))
+    u = {f'{p["layer"]}_{p["neuron"]}_{p["pole"]}': p["u"].tolist() for p in prof}
+    return pool, u, validate_candidates(model, tok, atlas, pool, u, prompts, T, seed, n_tokens, log)
 
 
 def save(obj, path):
