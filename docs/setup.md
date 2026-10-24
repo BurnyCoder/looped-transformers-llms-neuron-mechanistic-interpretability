@@ -9,7 +9,7 @@
 This LLM is used only by the labeling, LLM-judge, and audit phases. The primary steering statistic does not use an LLM.
 1. Download a CUDA build of `llama-server` from https://github.com/ggml-org/llama.cpp/releases and unzip it into `tools/llama.cpp/`. This folder is gitignored.
 2. Download a Qwen3.5 GGUF (Q4_K_M) into `cache/gguf/`. This folder is gitignored.
-3. Start the server on port 8080 and set `LLM_BASE_URL` and `LLM_MODEL` in `.env`.
+3. Start the server on port 8093 and set `LLM_BASE_URL` and `LLM_MODEL` in `.env`.
 
 The exact release tag, GGUF repository, and file hash are written here once the setup phase has run.
 

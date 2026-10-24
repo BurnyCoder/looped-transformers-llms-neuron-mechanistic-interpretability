@@ -1,0 +1,19 @@
+2026-10-24 18:21:23,799 | INFO    | loopneuron.dryrun | log file: C:\Users\Happy\Documents\projects\looped-transformers-llms-neuron-mechanistic-interpretability\logs\20261024-182123_dryrun.log
+2026-10-24 18:21:23,800 | INFO    | loopneuron.dryrun | === phase: screen_candidates ===
+2026-10-24 18:21:25,998 | INFO    | loopneuron.dryrun | loading ByteDance/Ouro-1.4B @ 574fa66cb8bf5abdc979642d01cf2b79b16bfab1 (T=4)
+2026-10-24 18:21:40,707 | INFO    | loopneuron.dryrun | profiling 120 units (60 neurons x 2 poles)
+2026-10-24 18:21:41,964 | INFO    | loopneuron.dryrun | token-detector filter kept 117/120; steering top 4 by coherence (min coherence 0.507)
+2026-10-24 18:22:07,208 | INFO    | loopneuron.dryrun | screen 3/8 conditions done
+2026-10-24 18:22:19,049 | INFO    | loopneuron.dryrun | screen 6/8 conditions done
+2026-10-24 18:22:30,450 | INFO    | loopneuron.dryrun | screen 8/8 conditions done
+2026-10-24 18:22:30,451 | INFO    | loopneuron.dryrun | screen L22 N839 pole1 coh=0.529 | {1.0: (-0.0126, -0.012), 4.0: (0.0041, -0.006)}
+2026-10-24 18:22:30,451 | INFO    | loopneuron.dryrun | screen L20 N4994 pole1 coh=0.520 | {1.0: (-0.0063, 0.004), 4.0: (-0.0102, 0.009)}
+2026-10-24 18:22:30,451 | INFO    | loopneuron.dryrun | screen L3 N5043 pole0 coh=0.513 | {1.0: (-0.0066, -0.023), 4.0: (0.002, 0.086)}
+2026-10-24 18:22:30,451 | INFO    | loopneuron.dryrun | screen L2 N2908 pole0 coh=0.507 | {1.0: (-0.0036, 0.0), 4.0: (0.0781, 0.742)}
+2026-10-24 18:22:30,451 | INFO    | loopneuron.dryrun | CANDIDATE L22 N839 pole1 alpha=4.0 dC=0.0041 coherence=0.529 | 2021, while his wife, Susan, will continue as a lay leader. He expressed his commitment to the community's growth and diversity, stating,
+2026-10-24 18:22:30,451 | INFO    | loopneuron.dryrun | CANDIDATE L3 N5043 pole0 alpha=4.0 dC=0.0020 coherence=0.513 | 2013. He was succeeded by Rabbi Eitan Bar-Yosef.
+
+Question: What is the name of the synagogue where the Jewish
+2026-10-24 18:23:51,779 | INFO    | loopneuron.dryrun | VALIDATE 22_839_1 alpha=4.0 mean dC=-0.0053 dz=-0.092 median dNLL=0.048
+2026-10-24 18:24:41,327 | INFO    | loopneuron.dryrun | VALIDATE 3_5043_0 alpha=4.0 mean dC=0.0034 dz=0.068 median dNLL=0.092
+2026-10-24 18:24:41,332 | INFO    | loopneuron.dryrun | wrote C:\Users\Happy\Documents\projects\looped-transformers-llms-neuron-mechanistic-interpretability\results\Ouro-1.4B-dryrun\screen.json
