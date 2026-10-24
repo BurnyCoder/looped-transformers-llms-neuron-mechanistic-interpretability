@@ -1,0 +1,95 @@
+{
+ "created": "2026-10-24 22:06:25",
+ "model": "ByteDance/Ouro-1.4B",
+ "revision": "574fa66cb8bf5abdc979642d01cf2b79b16bfab1",
+ "T": 4,
+ "candidates": [
+  {
+   "key": "18_3066_1",
+   "layer": 18,
+   "neuron": 3066,
+   "pole": 1,
+   "alpha": 1.0,
+   "label": "The highlighted tokens consistently identify core phonetic or orthographic units\u2014such as vowels, consonant categories, letters, and specific words\u2014that serve as the primary subjects of linguistic analysis regarding pronunciation, sound modification, and structural definition.",
+   "coherence": 0.6191425323486328,
+   "validation_dz": 1.1837892356215531,
+   "validation_mean_dC": 0.21000125893563965,
+   "validation_distinct2": 0.9148936170212766,
+   "required_n": 13,
+   "power_at_n": 1.0
+  },
+  {
+   "key": "13_1680_0",
+   "layer": 13,
+   "neuron": 1680,
+   "pole": 0,
+   "alpha": 1.0,
+   "label": "The text latents consistently emphasize metaphysical concepts of non-duality, dependent origination, and the nature of the Self, frequently using negation to distinguish the eternal Self from transient phenomena like the body or mind. Key patterns include the assertion that all things arise dependently, the definition of the Self as a pure witness or consciousness beyond attributes, and the dissolution of personal identity into a singular, undifferentiated reality, with highlighted tokens often marking states of being or identity markers central to these arguments.",
+   "coherence": 0.6336004137992859,
+   "validation_dz": 1.1029209377801568,
+   "validation_mean_dC": 0.15182199328991858,
+   "validation_distinct2": 0.8936170212765957,
+   "required_n": 15,
+   "power_at_n": 0.9999999999999999
+  },
+  {
+   "key": "4_2104_0",
+   "layer": 4,
+   "neuron": 2104,
+   "pole": 0,
+   "alpha": 2.0,
+   "label": "The text latents commonly describe the domain of pedagogical content knowledge, emphasizing the integration of subject matter expertise with teaching methods in academic and professional contexts.",
+   "coherence": 0.65863436460495,
+   "validation_dz": 1.089280264682467,
+   "validation_mean_dC": 0.12060840048113956,
+   "validation_distinct2": 0.9361702127659575,
+   "required_n": 15,
+   "power_at_n": 0.9999999999999998
+  },
+  {
+   "key": "6_3344_1",
+   "layer": 6,
+   "neuron": 3344,
+   "pole": 1,
+   "alpha": 4.0,
+   "label": "The text latents describe interface elements and actions for validating and rewarding content quality in a community forum, specifically focusing on marking answers as correct or accepted, upvoting posts, and awarding community recognition like KUDOS or brainliest.",
+   "coherence": 0.6377789378166199,
+   "validation_dz": 1.0641965311948605,
+   "validation_mean_dC": 0.16370155813119708,
+   "validation_distinct2": 0.851063829787234,
+   "required_n": 16,
+   "power_at_n": 0.9999999999999988
+  },
+  {
+   "key": "18_1735_1",
+   "layer": 18,
+   "neuron": 1735,
+   "pole": 1,
+   "alpha": 2.0,
+   "label": "The text latents commonly describe core quantum mechanical concepts related to atomic structure and chemical bonding, specifically focusing on the terminology for electron containers (orbitals, shells, subshells), the particles themselves (electrons), and their energetic or spatial configurations (valence, outermost, filled, hybridization). The patterns indicate a strong focus on defining how electrons are arranged to achieve stability and how specific orbitals participate in forming chemical bonds.",
+   "coherence": 0.6498198509216309,
+   "validation_dz": 0.8627487667608841,
+   "validation_mean_dC": 0.1481795007884332,
+   "validation_distinct2": 0.9361702127659575,
+   "required_n": 22,
+   "power_at_n": 0.9999999988897154
+  }
+ ],
+ "K": 5,
+ "n_prompts": 100,
+ "k": 3,
+ "n_tokens": 48,
+ "R": 100,
+ "seed": 2234,
+ "alpha_family": 0.05,
+ "exploratory": [
+  {
+   "key": "19_3901_1",
+   "layer": 19,
+   "neuron": 3901,
+   "pole": 1,
+   "alpha": 2.0,
+   "reason": "most interpretable screened unit (programming conditionals / if-else); excluded from K by the distinct-2 guard at alpha=4; follow-ups only, not part of the confirmatory family"
+  }
+ ]
+}
