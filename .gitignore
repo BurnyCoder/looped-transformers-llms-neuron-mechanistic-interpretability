@@ -18,3 +18,4 @@ cache/
 logs/raw/
 results/**/*.pt
 results/**/tokens*.npy
+logs/*console*.txt
