@@ -10,8 +10,8 @@ requires-python = ">=3.12,<3.13"
 dependencies = [
     # CUDA 13.0 wheel (sm_120 / Blackwell needs a CUDA>=12.8 build: https://pytorch.org/get-started/locally/)
     "torch==2.14.1",
-    # Ouro's model card pins transformers<4.56 for its remote code (https://huggingface.co/ByteDance/Ouro-1.4B)
-    "transformers==4.54.1",
+    # Ouro remote code at the pinned revision includes the >=4.56 KV-cache fix (fails on 4.54.1: key_cache has no setter)
+    "transformers==4.57.6",
     "accelerate>=1.9",
     "safetensors>=0.5",
     "huggingface-hub>=0.34,<1.0",
