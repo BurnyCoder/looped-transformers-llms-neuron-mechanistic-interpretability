@@ -66,7 +66,18 @@ def write_tables(res_dir: Path, out_dir: Path) -> list[Path]:
         p.write_text(confirm_table(rd("confirm.json"), labels) + "\n", encoding="utf-8")
         made.append(p)
     if (res_dir / "followups.json").exists():
-        for key, f in rd("followups.json").items():
+        fu = rd("followups.json")
+        if "specificity" in fu:
+            sp = fu["specificity"]
+            M = np.array(sp["matrix"])
+            hdr = "| steered (rows) / scored (columns) | " + " | ".join(sp["keys"]) + " |\n|---|" + "---|" * len(sp["keys"])
+            body = "\n".join(f"| {k} | " + " | ".join(f"{v:.3f}" for v in row) + " |" for k, row in zip(sp["keys"], M))
+            p = out_dir / "specificity.md"
+            p.write_text(hdr + "\n" + body + "\n", encoding="utf-8")
+            made.append(p)
+        for key, f in fu.items():
+            if key == "specificity" or "dose" not in f:
+                continue
             p = out_dir / f"followups_{key}.md"
             p.write_text(f"### Dose-response\n{dose_table(f['dose'])}\n\n### Loop locus\n{locus_table(f['loop_locus'])}\n\n"
                          f"### Test-time loops\n{locus_table(f['t_sweep'], 'T')}\n\n### Ablation\n{ablation_line(f['ablation'])}\n",

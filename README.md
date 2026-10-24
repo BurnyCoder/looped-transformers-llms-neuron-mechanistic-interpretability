@@ -11,14 +11,38 @@ Ouro runs the same 24 layers **four times** (`total_ut_steps = 4`), so every neu
 
 ## Highlights
 
-> **Status: pipeline under construction. No experiment has been run yet.** This section will be filled from `reports/summary.md` once the pre-registered confirmatory test has run. Positive and negative results will both be reported.
+**Main result (pre-registered, positive).** All **5 of 5** pre-registered neurons steer Ouro-1.4B's text toward their concept with statistical significance. For each neuron:
+- clamping that single neuron at all 4 loops raises the concept score of 48-token continuations on 100 held-out prompts (mean ΔC 0.13–0.18, d_z 0.99–1.61);
+- Holm-adjusted Wilcoxon p ≤ 1.1e-15;
+- it beats 99–100 of 100 random neurons from the same layer clamped the same way (Holm-adjusted permutation p = 0.0495, the smallest attainable value; 7–12 SD above the null mean);
+- it passes the fluency guards (perplexity ratio 1.58–1.83, distinct-2 ≥ 0.80).
 
-| Question | Pre-registered test | Result |
+The five neurons and their concepts:
+- L18 N3066−: phonetics and letters
+- L13 N1680+: non-duality
+- L4 N2104+: pedagogy
+- L6 N3344−: forum "accepted answer"
+- L18 N1735−: electron orbitals
+
+Example (confirm prompt 2, sample 0):
+- unsteered: "In the Philippines, Nepartak produced strong winds, heavy *rainfall, and flooding. In the Philippines, a total of 27 people died…*"
+- with L18 N3066 clamped: "…heavy *rains, and severe flooding. The sounds of the letters /p/ and /t/ are softened. In the International Phonetic Alphabet (IPA)…*"
+
+| Question | Test | Result |
 |---|---|---|
-| H1: does ≥1 neuron steer behavior significantly? | Wilcoxon vs unsteered **and** permutation vs 100 random same-layer neurons, Holm-corrected, plus a fluency guard | pending |
-| H2: does steering at a later loop matter more (self-repair)? | single-loop steering t = 1…4 | pending |
-| H3: how does the effect scale with test-time loops T = 1…8? | all-loop steering, saturation fit | pending |
-| H4: are looped neurons "loop-polysemantic"? | cross-loop vs same-loop detection accuracy of explanations | pending |
+| H1: does ≥1 neuron steer behavior significantly? | pre-registered: Wilcoxon vs unsteered **and** permutation vs 100 random same-layer neurons, Holm, fluency and degeneracy guards | **supported: 5/5 neurons** ([report](reports/03_confirmatory_test.md)) |
+| Specificity | steer neuron i, score concept j | each neuron moves its own concept most, 1.4–3.8× the largest other concept ([report](reports/04_followups.md)) |
+| Dose-response | α = 0.5…16 × max activation | monotone then **saturating**, as the sandwich RMSNorm predicts; opposite-sign clamps do nothing |
+| H2: does a later loop matter more? | clamp at a single loop | **mostly no.** For the 5 confirmed neurons, single-loop clamps give ΔC ≤ 0.043, against 0.13–0.17 for all-loop; effects are super-additive across loops (self-repair). Exception: the exploratory if-statement neuron L19 N3901, where the last loop alone gives 56% |
+| H3: more test-time loops? | clamp at all loops for T = 1…8 | effect already present at T = 1, roughly flat in T; next-token KL grows with T |
+| Necessity | zero-ablation vs 100 random ablations | 4 of 6 neurons needed for their own contexts (unadjusted p = 0.0099; exploratory); 2 neurons steer but are not necessary |
+| Loop structure (descriptive) | where each neuron peaks; top-context overlap across loops | 41% of neurons peak at loop 1 vs 13% at loop 4; top-20 contexts at loop 1 vs loop 4 overlap only 1–19% (Jaccard) |
+| H4: are looped neurons "loop-polysemantic"? | same-loop vs cross-loop detection of explanations | running |
+| Replication on Ouro-1.4B-Thinking | same neuron indices, fresh seeds | running |
+
+**Negative and cautionary findings:**
+- **Degeneration.** Perplexity alone fails as a fluency guard. The if-statement neuron and a Fibonacci neuron reach the highest concept scores by degenerating into "ififif…" and "Fib Fib Fib…", which have *low* perplexity. A distinct-2 guard was added before the confirmatory run.
+- **Not every neuron steers.** The five neurons were selected for steerability (existence claims), so they do not show that a typical neuron steers.
 
 ## Methodology (summary)
 

@@ -1,0 +1,43 @@
+# Experiment 1: Model sanity check and neuron atlas
+
+**Status:** done. **Data:** `results/Ouro-1.4B/setup_check.json`, `results/Ouro-1.4B/atlas.pt` (published on Hugging Face, see README), `results/Ouro-1.4B/loop_structure.json`. **Logs:** `logs/20261024-165146_setup_check.log`, `logs/20261024-165339_build_atlas.log`.
+
+## Setup check (phase 0)
+Before any analysis we checked three things:
+- the model behaves like the published Ouro-1.4B;
+- the loop count T can be changed at inference time;
+- the default early-exit path does not change which loop is read out.
+
+Held-out data: 64 FineWeb-Edu chunks of 256 tokens, taken from a parquet shard (`sample/10BT/013_00000`) that the atlas never reads.
+
+| loops T | 1 | 2 | 3 | **4 (trained)** | 5 | 6 | 7 | 8 |
+|---|---|---|---|---|---|---|---|---|
+| loss (nats/token) | 4.030 | 2.826 | 2.543 | **2.508** | 2.556 | 2.547 | 2.555 | 2.562 |
+| perplexity | 56.2 | 16.9 | 12.7 | **12.3** | 12.9 | 12.8 | 12.9 | 13.0 |
+
+- Loss falls steeply up to the trained depth T = 4 and gets slightly worse when extrapolating to T = 5–8. This matches the Ouro paper's description: recurrent steps help up to the trained depth and extrapolation degrades gracefully ([Zhu et al. 2025](https://arxiv.org/abs/2510.25741)). ![loss vs T](../figures/loss_by_T.png)
+- The default early-exit path (threshold 1.0 on a bf16 cumulative exit distribution) and the fixed last-loop exit we use disagreed on **0 of 2,048** positions. We still pin `exit_at_step = T-1`, so the computation is identical by construction.
+- Sampled continuations are fluent; they are in the log.
+
+## Atlas (phase 1)
+- **Neuron definition:** a = silu(gate·x) ⊙ (up·x), read at the input of `down_proj` in all 24 layers × 5,632 neurons = **135,168 neurons**, at each of the 4 loops.
+- **Text:** 8,000,000 tokens (31,250 chunks of 256 tokens), 90% FineWeb-Edu and 10% OpenWebMath, packed with EOS separators.
+- **What is stored:** top-40 contexts per neuron and pole (maximum over positions × loops) and top-20 contexts per loop. Moments are computed on every 8th batch (987,840 tokens per layer and loop).
+- **Runtime:** 72.5 min at ≈ 1,770 tokens/s on an RTX 5070 Laptop GPU. The plain forward pass runs at 2,300 tokens/s; recording all statistics on every batch would have dropped throughput to 800 tokens/s.
+- **Dead neurons:** none (max |a| ≥ 10⁻³ for all 135,168). Median max |a| is 0.64 (1st percentile 0.025, 99th 6.94).
+
+### Loop structure (descriptive, all neurons)
+| statistic | loop 1 | loop 2 | loop 3 | loop 4 |
+|---|---|---|---|---|
+| share of neurons whose strongest context is at this loop (positive pole) | 0.410 | 0.297 | 0.167 | 0.127 |
+
+| top-20 context overlap (Jaccard), mean over layers | loop 1 vs 2 | loop 2 vs 3 | loop 3 vs 4 | loop 1 vs 4 |
+|---|---|---|---|---|
+| | 0.137 | 0.276 | 0.446 | 0.01–0.19 by layer (rising with depth) |
+
+Interpretation: hedged and descriptive. The contexts that drive a neuron hardest change a lot from loop 1 to loop 4, and loops become more similar as computation proceeds. This fits convergence toward a fixed point ([Arroyo et al. 2026](https://arxiv.org/abs/2604.11791)). Top-k overlap is sensitive to near-ties, so the audit phase adds the per-neuron Pearson correlation of activations between loops on the same held-out tokens ([Experiment 5](05_loop_audit.md)).
+
+## Learnings
+- **transformers version.** The model card recommends `transformers<4.56`, but the pinned Ouro revision already contains the KV-cache fix for ≥ 4.56. It fails on 4.54.1 with "`key_cache` has no setter", so we use 4.57.6.
+- **Statistics overhead.** Computing the full statistics on every batch tripled atlas time. Top-k needs every batch; moments do not, so they are subsampled with whole batches, which keeps them unbiased.
+- **Download size.** WikiText's default `load_dataset` call downloads the 300 MB train split. We load the 0.7 MB test parquet directly.
