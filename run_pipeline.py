@@ -255,6 +255,9 @@ def report(c: Ctx) -> None:
     base = c.out if c.s.run_tag else c.s.root  # dry runs keep figures/viewer inside their results folder
     figs = all_figures(c.out, base / "figures")
     c.log.info("figures: %s", [str(f.name) for f in figs])
+    from loopneuron.reporting import write_tables
+
+    c.log.info("tables: %s", [t.name for t in write_tables(c.out, (c.out if c.s.run_tag else base / "reports") / "tables")])
     vdir = base / "docs" / "viewer"
     vdir.mkdir(parents=True, exist_ok=True)
     conf = {r["key"]: r for r in c.read("confirm.json")["results"]} if (c.out / "confirm.json").exists() else {}
