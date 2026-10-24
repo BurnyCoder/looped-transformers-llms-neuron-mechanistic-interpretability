@@ -83,10 +83,10 @@ def load_settings(**overrides) -> Settings:
         null_neurons=int(_env("NULL_NEURONS", "100")),
         screen_pool=int(_env("SCREEN_POOL", "4000")),
         screen_steer=int(_env("SCREEN_STEER", "200")),
-        n_candidates=int(_env("N_CANDIDATES", "10")),
+        n_candidates=int(_env("N_CANDIDATES", "5")),
         llm_gguf=_env("LLM_GGUF", "Qwen3.5-9B-Q4_K_M.gguf"),
         audit_per_tercile=int(_env("AUDIT_PER_TERCILE", "50")),
-        llm_base_url=_env("LLM_BASE_URL", "http://127.0.0.1:8080/v1"),
+        llm_base_url=_env("LLM_BASE_URL", "http://127.0.0.1:8093/v1"),
         llm_model=_env("LLM_MODEL", "qwen3.5-9b"),
         min_free_gb=float(_env("MIN_FREE_GB", "3")),
     )

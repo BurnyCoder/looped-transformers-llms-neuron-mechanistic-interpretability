@@ -57,7 +57,7 @@ a[ℓ, i, t] = silu(gate_proj · x)_i · (up_proj · x)_i          (x = RMSNorm 
 2. **Candidate screen** (discovery data only).
    - Rank neurons by *semantic coherence* of their top contexts: mean pairwise cosine of [bge-small-en-v1.5](https://huggingface.co/BAAI/bge-small-en-v1.5) embeddings.
    - Drop pure token or position detectors ([Voita et al. 2023](https://arxiv.org/abs/2309.04827)).
-   - Quick-steer about 200 neurons and keep at most K = 10 candidates.
+   - Quick-steer about 200 neurons and keep at most K = 5 candidates.
 3. **Labeling.** A local **Qwen3.5** model served by [llama.cpp](https://github.com/ggml-org/llama.cpp) writes explanations from top examples. It uses the Delphi explainer format and **detection scoring** from [Paulo et al. 2024](https://arxiv.org/abs/2410.13928) ([code](https://github.com/EleutherAI/delphi)), with a shuffled-label chance control. Every prompt and output is logged in full.
 4. **Steering.** Clamp `a[ℓ,i,t] := α · max|a|` on the neuron's pole, at all positions and all (or one) loops.
    - Sample k = 3 continuations of 48 tokens per prompt.
@@ -166,7 +166,7 @@ The local labeler/judge is needed only for the labeling, judging, and audit phas
 3. Start the server:
 
 ```bash
-tools/llama.cpp/llama-server -m cache/gguf/Qwen3.5-9B-Q4_K_M.gguf -ngl 99 -c 8192 --port 8080
+tools/llama.cpp/llama-server -m cache/gguf/Qwen3.5-9B-Q4_K_M.gguf -ngl 99 -c 8192 --port 8093
 ```
 
 Exact file names and revisions are recorded in [docs/setup.md](docs/setup.md).

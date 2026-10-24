@@ -19,3 +19,5 @@ logs/raw/
 results/**/*.pt
 results/**/tokens*.npy
 logs/*console*.txt
+logs/llama_server.txt
+results/*-dryrun/

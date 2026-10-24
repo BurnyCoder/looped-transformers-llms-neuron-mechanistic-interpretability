@@ -38,8 +38,15 @@ def clamp_value(atlas: dict, layer: int, pole: int, neuron: int, alpha: float) -
 
 
 def generate(model, prompt_ids: torch.Tensor, cond: Cond | None, T: int, n_tokens: int, seed: int,
-             max_rows: int = 50) -> np.ndarray:
-    """Continuations [P, n_tokens] for all prompts under one condition (row chunks get chunk-specific seeds)."""
+             max_rows: int | None = None) -> np.ndarray:
+    """Continuations [P, n_tokens] for all prompts under one condition (row chunks get chunk-specific seeds).
+
+    75 rows/call: decoding is CPU-dispatch-bound (~0.3 s/step regardless of batch), and Ouro's KV cache costs
+    ~0.8 MB per token per row (96 layer-loops), so 75 rows x 60 tokens (~3.5 GB) is the most that fits in 8 GB.
+    The cache grows linearly with T, so rows scale as 300 // T (beyond VRAM, Windows silently spills to system RAM
+    and decoding slows several-fold, as seen at T >= 5 in the dry run).
+    """
+    max_rows = max_rows or max(8, 300 // T)
     outs = []
     for i in range(0, len(prompt_ids), max_rows):
         ids = prompt_ids[i:i + max_rows].cuda()
@@ -50,6 +57,25 @@ def generate(model, prompt_ids: torch.Tensor, cond: Cond | None, T: int, n_token
             with NeuronHooks(model, T, edits=cond.edits()):
                 outs.append(sample(model, ids, n_tokens, chunk_seed).cpu())
     return torch.cat(outs).numpy()
+
+
+def generate_multi(model, prompt_ids: torch.Tensor, conds: list[Cond | None], T: int, n_tokens: int, seed: int) -> np.ndarray:
+    """Several conditions in ONE generate call: prompts tiled per condition, row-specific edits -> [C, P, n_tokens].
+
+    Pairing: block j of the batch always holds the same prompts, so a condition is paired with the unsteered run
+    only if that run uses the same tiling (call with [None] * len(conds)). Used by screening for ~3x throughput.
+    """
+    P = len(prompt_ids)
+    edits: dict[int, list[Edit]] = {}
+    for j, c in enumerate(conds):
+        if c is not None:
+            rows = torch.arange(j * P, (j + 1) * P)
+            edits.setdefault(c.layer, []).append(Edit(neurons=torch.full((P,), c.neuron), values=torch.full((P,), c.value),
+                                                      rows=rows, loops=c.loops))
+    ids = prompt_ids.repeat(len(conds), 1).cuda()
+    with NeuronHooks(model, T, edits=edits):
+        out = sample(model, ids, n_tokens, seed * 1000).cpu().numpy()
+    return out.reshape(len(conds), P, n_tokens)
 
 
 def generate_samples(model, prompt_ids: torch.Tensor, cond: Cond | None, T: int, n_tokens: int, seed: int,

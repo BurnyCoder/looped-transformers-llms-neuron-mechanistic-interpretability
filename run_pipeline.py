@@ -87,8 +87,9 @@ class Ctx:
 
         self.free_model()
         root = self.s.root
+        port = int(self.s.llm_base_url.rsplit(":", 1)[1].split("/")[0])  # e.g. http://127.0.0.1:8093/v1 -> 8093
         return LlamaServer(root / "tools" / "llama.cpp" / "llama-server.exe", root / "cache" / "gguf" / self.s.llm_gguf,
-                           log=self.log)
+                           port, self.s.logs_dir / "llama_server.txt", log=self.log)
 
 
 def setup_check(c: Ctx) -> None:
@@ -195,10 +196,17 @@ def followups(c: Ctx) -> None:
 
 def audit(c: Ctx) -> None:
     """H4: loop structure over all neurons + local-LLM per-loop explanation/detection audit on sampled neurons."""
-    from loopneuron.audit import llm_audit, loop_structure
+    from loopneuron.audit import cross_loop_correlation, llm_audit, loop_structure
     from loopneuron.llm import LLM
 
-    c.write("loop_structure.json", loop_structure(c.atlas))
+    ls = loop_structure(c.atlas)
+    corr = cross_loop_correlation(c.model, c.chunks("eval")[:128], c.s.ut_steps)  # [L, D, T, T], held-out text
+    np.savez_compressed(c.out / "cross_loop_corr.npz", corr=corr.astype(np.float16))
+    T = c.s.ut_steps
+    ls["corr_first_last_median"] = np.nanmedian(corr[:, :, 0, T - 1], axis=1).tolist()
+    ls["corr_adjacent_median"] = [np.nanmedian(corr[:, :, t, t + 1], axis=1).tolist() for t in range(T - 1)]
+    ls["corr_first_last_quantiles_all"] = np.nanquantile(corr[:, :, 0, T - 1], [0.1, 0.25, 0.5, 0.75, 0.9]).tolist()
+    c.write("loop_structure.json", ls)
     chunks = c.chunks("atlas")
     with c.llm_server():
         res = llm_audit(LLM(c.s.llm_base_url, c.s.llm_model, c.log), c.atlas, chunks, c.tok, c.s.seed, c.log,
@@ -234,9 +242,10 @@ def report(c: Ctx) -> None:
     from loopneuron.plots import all_figures
     from loopneuron.viewer import index_page, neuron_page
 
-    figs = all_figures(c.out, c.s.root / "figures")
+    base = c.out if c.s.run_tag else c.s.root  # dry runs keep figures/viewer inside their results folder
+    figs = all_figures(c.out, base / "figures")
     c.log.info("figures: %s", [str(f.name) for f in figs])
-    vdir = c.s.root / "docs" / "viewer"
+    vdir = base / "docs" / "viewer"
     vdir.mkdir(parents=True, exist_ok=True)
     conf = {r["key"]: r for r in c.read("confirm.json")["results"]} if (c.out / "confirm.json").exists() else {}
     entries = []

@@ -29,6 +29,9 @@ def write_preregistration(screen: dict, s, out_dir, md_path, log) -> dict:
                          "alpha": c["best_alpha"], "label": c.get("label", ""), "coherence": c["coherence"],
                          "validation_dz": v["dz"], "validation_mean_dC": v["mean_dC"]})
     K = max(1, len(kept))
+    p_min = 1 / (s.null_neurons + 1)  # smallest attainable empirical p with R random neurons
+    if p_min > 0.05 / K:
+        raise ValueError(f"R={s.null_neurons} cannot reach Holm threshold 0.05/{K}; raise NULL_NEURONS or lower K")
     req = [required_n(c["validation_dz"], 0.05 / K, 0.9) for c in kept]
     n = int(np.clip(max(req) if req else 300, 100, 300))
     for c, r in zip(kept, req):
@@ -63,7 +66,8 @@ random same-layer neuron null.
 - Test 2: random-neuron null: R = {s.null_neurons} alive neurons from the candidate's layer, clamped at the same alpha x their
   own max on the same pole; statistic = mean Delta C over the first 50 prompts, sample 0, scored with the candidate's
   concept direction; p = (1 + #null >= observed)/(R + 1).
-- Multiplicity: Holm across the K candidates, separately for Test 1 and Test 2, family-wise alpha = 0.05.
+- Multiplicity: Holm across the K candidates, separately for Test 1 and Test 2, family-wise alpha = 0.05
+  (smallest attainable Test-2 p = 1/(R+1) = {1 / (s.null_neurons + 1):.4f} <= 0.05/K = {0.05 / max(1, len(kept)):.4f}).
 - **Decision rule:** a candidate is a "significant steering neuron" iff Holm p (Test 1) < 0.05 AND Holm p (Test 2) < 0.05
   AND median per-prompt continuation-perplexity ratio (steered / unsteered, both scored by the unsteered model) <= 2.
 - Secondary (reported, not part of the decision): all-MiniLM-L6-v2 concept score, distinct-2 change, LLM judge

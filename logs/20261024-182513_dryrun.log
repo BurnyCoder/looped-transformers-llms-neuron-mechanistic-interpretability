@@ -1,0 +1,115 @@
+2026-10-24 18:25:13,587 | INFO    | loopneuron.dryrun | log file: C:\Users\Happy\Documents\projects\looped-transformers-llms-neuron-mechanistic-interpretability\logs\20261024-182513_dryrun.log
+2026-10-24 18:25:13,589 | INFO    | loopneuron.dryrun | === phase: label_candidates ===
+2026-10-24 18:25:23,222 | INFO    | loopneuron.dryrun | llama-server ready: C:\Users\Happy\Documents\projects\looped-transformers-llms-neuron-mechanistic-interpretability\tools\llama.cpp\llama-server.exe -m C:\Users\Happy\Documents\projects\looped-transformers-llms-neuron-mechanistic-interpretability\cache\gguf\Qwen3.5-9B-Q4_K_M.gguf -ngl 99 -c 16384 --port 8093 --jinja -np 1
+2026-10-24 18:25:31,908 | INFO    | loopneuron.dryrun | LLM CALL 1 explain L22N839p1
+--- PROMPT ---
+[system]
+You are a meticulous AI researcher conducting an important investigation into patterns found in language. Your task is to analyze text and provide an explanation that thoroughly encapsulates possible patterns found in it.
+Guidelines:
+
+You will be given a list of text examples on which special words are selected and between delimiters like <<this>>. If a sequence of consecutive tokens all are important, the entire sequence of tokens will be contained between delimiters <<just like this>>. How important each token is for the behavior is listed after each example in parentheses.
+
+- Try to produce a concise final description. Simply describe the text latents that are common in the examples, and what patterns you found.
+- If the examples are uninformative, you don't need to mention them. Don't focus on giving examples of important tokens, but try to summarize the patterns found in the examples.
+- Do not mention the marker tokens (<< >>) in your explanation.
+- Do not make lists of possible explanations. Keep your explanations short and concise.
+- The last line of your response must be the formatted explanation, using [EXPLANATION]:
+
+[user]
+Example 1: 2008 DataCenter edition on a server with two processors, you need a separate license for each processor. SQL<< Server>> 2008 works the same (10)
+Example 2:  their computing devices (for example, laptops, desktop computers, smartphones, PDAs, etc.). We'll focus on Microsoft<< server>> products, but similar issues can arise with (10)
+Example 3:  services on your Windows-based servers, you can obtain CALs to cover their licensing requirements. However, the External Connect<<or>> License (ECL) is a second (9)
+Example 4:  of print, but sometimes available from Alibris.<|endoftext|>RWJF Priority: Use pricing strategies—both incentives<< and>> disincentives—to promote the (9)
+Example 5:  organisation. This TS license is in addition to your Windows Server CALs.
+Microsoft's System Centre products (a line<< of>> enterprise-level administrative software packages) use (8)
+Example 6:  TechSoup's Guide to System Center Products and Licensing and Microsoft's white paper on Systems Center licensing.
+Some Microsoft<< server>> products have two client licensing modes, standard (8)
+Example 7:  situation.
+Choosing a licensing mode for your Windows Server CALs: With Windows Server 2003 and Windows<< Server>> 2008, you use (7)
+Example 8: st user will be denied access. However, in per server mode, each CAL is tied to a particular instance of Windows<< Server>>, and you have to acquire a new (7)
+Example 9:  from an evolutionary perspective, to what extent play is a luxury that can be dispensed with when there are too many other<< competing>> claims on the growing brain, and to (6)
+Example 10:  see A Quick Guide to Discounted Software Programs.
+Pay close attention to the options and licensing requirements when you acquire<< server>>-based software. You might need two (5)
+Example 11: TeR) Center, is currently carrying out specific studies to test the performance of the new membrane's fouling properties under<< field>> conditions.
+"We work directly with (5)
+Example 12: s 3.0 License.
+The latest version of Microsoft Office Professional Plus is an integrated collection of programs, servers<<,>> and services designed to work together to enable (5)
+Example 13:  Designs Deadline Oct. 15-Create your favorite nature scene out<< of>> clay or on paper to win prizes. (4)
+Example 14:  not always the case – in this instance the word free is making no assertion whatsoever about the price of the software. Pro<<pri>>etary software puts more restrictions and limits on (4)
+Example 15:  sign a contract to seal the agreement, that contract usually replaces or supersedes the EULA.
+Most major vendors of<< proprietary>> software offer some type of bulk purchasing and (4)
+Example 16: This section details advanced configuration for users who wish to integrate custom test suites in their<< build>> flow.
+
+The MicroEJ (4)
+Example 17: 
+
+1. May 12, 2013
+
+tapan_ydv
+
+Hi,<<
+>>
+I understand that some physical quantities in (4)
+Example 18:  classroom.
+I have been teaching seventh- and eighth-grade language arts in Delaware for the past five years. I<< grew>> up in Long Island, New York, (4)
+Example 19: -jpf-emb.xml.file}" commonProperties="${microej.kf.launch.<<property>>file}"
+testsuiteResultProperty=" (4)
+Example 20:  country.
+Bolivia wants to amend a UN drugs treaty that bans chewing coca, which is an ancient tradition in<< the>> Andes.
+But the US has said (4)
+--- OUTPUT ---
+The selected tokens consistently highlight specific nouns and prepositions that function as critical anchors for defining technical scope, licensing constraints, and contextual boundaries. The most frequent pattern involves the word "server" (and its variations like "servers"), which acts as a primary classifier for software licensing modes, distinguishing between per-processor and per-instance requirements in enterprise environments. Closely related are terms like "proprietary," "field," and "build," which define the nature of the software (restricted vs. open), the testing environment, and the development workflow, respectively. Additionally, the prepositions "of" and "and" frequently appear to delineate compound concepts or list components within these technical definitions, while "the" and "in" serve to ground abstract concepts in specific contexts or locations. These tokens collectively shape the semantic meaning by specifying the exact domain, legal framework, or operational setting of the text.
+
+[EXPLANATION]: The text latents commonly found in the examples are specific nouns and prepositions that define technical scope, licensing constraints, and contextual boundaries. The most frequent pattern involves the word "server," which acts as a primary classifier for software licensing modes, distinguishing between per-processor and per-instance requirements. Closely related are terms like "proprietary," "field," and "build," which define the nature of the software, the testing environment, and the development workflow. Additionally, prepositions like "of" and "and" frequently appear to delineate compound concepts or list components,
+--- END ---
+2026-10-24 18:25:31,910 | INFO    | loopneuron.dryrun | LABEL L22 N839 pole1: The text latents commonly found in the examples are specific nouns and prepositions that define technical scope, licensing constraints, and contextual boundaries. The most frequent pattern involves the word "server," which acts as a primary classifier for software licensing modes, distinguishing between per-processor and per-instance requirements. Closely related are terms like "proprietary," "field," and "build," which define the nature of the software, the testing environment, and the development workflow. Additionally, prepositions like "of" and "and" frequently appear to delineate compound concepts or list components,
+2026-10-24 18:25:35,021 | INFO    | loopneuron.dryrun | LLM CALL 2 explain L3N5043p0
+--- PROMPT ---
+[system]
+You are a meticulous AI researcher conducting an important investigation into patterns found in language. Your task is to analyze text and provide an explanation that thoroughly encapsulates possible patterns found in it.
+Guidelines:
+
+You will be given a list of text examples on which special words are selected and between delimiters like <<this>>. If a sequence of consecutive tokens all are important, the entire sequence of tokens will be contained between delimiters <<just like this>>. How important each token is for the behavior is listed after each example in parentheses.
+
+- Try to produce a concise final description. Simply describe the text latents that are common in the examples, and what patterns you found.
+- If the examples are uninformative, you don't need to mention them. Don't focus on giving examples of important tokens, but try to summarize the patterns found in the examples.
+- Do not mention the marker tokens (<< >>) in your explanation.
+- Do not make lists of possible explanations. Keep your explanations short and concise.
+- The last line of your response must be the formatted explanation, using [EXPLANATION]:
+
+[user]
+Example 1:  job of describing the differences between products, so we'll focus on the common threads in this article.
+Moreover, Microsoft<< often>> lets you license a single server application in (10)
+Example 2:  learn trust, empathy and social skills when their most frequent playing is done online. Brown told her that while video games do<< have>> some play value, a true sense of (7)
+Example 3: -NoDerivs 3.0 License.
+The latest version of Microsoft Office Professional Plus is an integrated collection<< of>> programs, servers, and services designed to (6)
+Example 4: 's Guide to System Center Products and Licensing and Microsoft's white paper on Systems Center licensing.
+Some Microsoft server products<< have>> two client licensing modes, standard and enterprise (6)
+Example 5:  find at TechSoup, search for "volume licensing not-for-profits software" or just "not-for-<<profits>> software." For example, when we have (6)
+Example 6:  difficult task. Many volume licensing programs provide an online account which is automatically updated when you obtain or activate a copy of that<< company>>'s software. These accounts can also coordinate (5)
+Example 7:  to install and run most server applications usually comes bundled with the software<< itself>>. So you can install and run most (5)
+Example 8:  software (usually small utilities at sites such as Tucows.com) that you can download and install without paying. However<<,>> you don't have the right to view (5)
+Example 9:  use of COX inhibitors will reduce the incidence of the disease.<|endoftext|>Discover the cosmos! Each day a different image or<< photograph>> of our fascinating universe is featured, along (5)
+Example 10:  or a Device CAL in either mode. Per seat mode is the default mode, and the one used most frequently. The<< description>> of User CALs and Device CALs (5)
+Example 11:  Agreement (EULA).
+When you acquire software yourself, directly from a vendor or retailer, or directly from the vendor<<'s>> Web site, you usually have to indicate (5)
+Example 12:  that will access Terminal Services in your organisation. This TS license is in addition to your Windows Server CALs.
+Microsoft<<'s>> System Centre products (a line of enterprise (4)
+Example 13:  Woods Tues. Oct. 12 (10:30-noon)-Hike with a r<<anger>> to a clearing in the woods. Listen (4)
+Example 14:  to be the loss of play in their children's lives. Their concern came, no doubt, from the recent deluge<< of>> eulogies to play . Educators (4)
+Example 15:  as an important strategy in the movement to reverse the childhood obesity epidemic. For example, when healthy foods like fruits and vegetables<< are>> more affordable, children are less likely to (4)
+Example 16:  children being damaged by staring at computer screens and video games? Are they missing something when fantasy play is populated with characters from<< Hollywood>>'s imagination and not their own? Most (4)
+Example 17:  will help to support the continued operation and improvement of the Royalty.nu site.
+James II by John Miller.<< Biography>> from the Yale English Monarch (4)
+Example 18:  about client licensing:
+The licensing scenarios described in this section arise less frequently, and are too complex to cover completely in<< this>> article, so they're described briefly below (4)
+Example 19:  in 1936, are very rapidly metabolized, or broken down, making measurement in the blood difficult.<< Researchers>> at Vanderbilt led by John Oates, (4)
+Example 20:  for the bishops led to widespread welcome for William of Orange's invasion.
+The Making of King James II by John C<<allow>> is about the formative years of the fallen (4)
+--- OUTPUT ---
+The selected tokens consistently function as determiners, possessive markers, or introductory conjunctions that immediately precede or modify a noun phrase, thereby establishing the grammatical relationship between the subject and the object of the sentence. These latents highlight the structural role of words like "of," "the," "this," and possessive suffixes in defining scope, ownership, and categorization within technical and descriptive contexts.
+
+[EXPLANATION]: The identified tokens are primarily functional words that serve as determiners, possessive markers, or introductory conjunctions, establishing the grammatical relationship between subjects and objects by defining scope, ownership, or categorization within the sentence structure.
+--- END ---
+2026-10-24 18:25:35,023 | INFO    | loopneuron.dryrun | LABEL L3 N5043 pole0: The identified tokens are primarily functional words that serve as determiners, possessive markers, or introductory conjunctions, establishing the grammatical relationship between subjects and objects by defining scope, ownership, or categorization within the sentence structure.
+2026-10-24 18:25:36,113 | INFO    | loopneuron.dryrun | wrote C:\Users\Happy\Documents\projects\looped-transformers-llms-neuron-mechanistic-interpretability\results\Ouro-1.4B-dryrun\screen.json
