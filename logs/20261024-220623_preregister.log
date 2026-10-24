@@ -1,0 +1,3 @@
+2026-10-24 22:06:23,488 | INFO    | loopneuron.preregister | log file: C:\Users\Happy\Documents\projects\looped-transformers-llms-neuron-mechanistic-interpretability\logs\20261024-220623_preregister.log
+2026-10-24 22:06:23,490 | INFO    | loopneuron.preregister | === phase: preregister ===
+2026-10-24 22:06:25,915 | INFO    | loopneuron.preregister | pre-registration written: K=5 n=100 -> C:\Users\Happy\Documents\projects\looped-transformers-llms-neuron-mechanistic-interpretability\reports\preregistration.md (commit + push before confirm_steering)
