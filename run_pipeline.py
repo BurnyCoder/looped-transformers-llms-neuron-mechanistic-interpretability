@@ -26,7 +26,7 @@ from loopneuron.model import load_model
 
 PHASES = ["setup_check", "build_atlas", "screen_candidates", "validate_candidates", "label_candidates", "preregister",
           "confirm_steering",
-          "followups", "audit", "replicate", "report"]
+          "followups", "llm_judge", "audit", "replicate", "report"]
 
 
 class Ctx:
@@ -185,13 +185,17 @@ def _focus(c: Ctx, exploratory: bool = True) -> list[dict]:
 
 
 def followups(c: Ctx) -> None:
-    """Secondary causal experiments (dose-response, loop locus H2, T sweep H3, ablation) on 100 confirm prompts, k=1."""
+    """Secondary (post hoc) causal experiments on 60 confirm prompts, k=1: specificity matrix, dose-response, loop locus
+    (H2), test-time loops (H3), zero-ablation."""
     from loopneuron import experiments as ex
 
     scr, pre = c.read("screen.json"), c.read("candidates.json")
-    P = torch.tensor([p["ids"] for p in c.prompts("confirm")[:100]])
-    out = {}
-    for r in _focus(c):
+    P = torch.tensor([p["ids"] for p in c.prompts("confirm")[:60]])  # 60 prompts x 1 sample per condition
+    focus = _focus(c)
+    out = {"specificity": ex.specificity_matrix(c.model, c.tok, c.atlas, focus, scr["u"], P, c.s.ut_steps,
+                                                  pre["n_tokens"], pre["seed"] + 400, c.log)}
+    c.write("followups.json", out)
+    for r in focus:
         cand = {**r, "key": r["key"]}
         u = np.array(scr["u"][r["key"]])
         seed = pre["seed"] + 500
@@ -201,7 +205,23 @@ def followups(c: Ctx) -> None:
             "t_sweep": ex.t_sweep(c.model, c.tok, c.atlas, cand, u, P, c.s.ut_steps, pre["n_tokens"], seed, c.log),
             "ablation": ex.ablation(c.model, c.atlas, c.chunks("atlas"), cand, c.s.ut_steps, pre["R"], seed, c.log),
         }
-    c.write("followups.json", out)
+        c.write("followups.json", out)  # checkpoint after every neuron
+
+
+def llm_judge(c: Ctx) -> None:
+    """Secondary: blind AxBench-style LLM concept/fluency ratings of steered vs unsteered text (50 confirm prompts)."""
+    from loopneuron.judge import generate_for_judge, judge_all
+    from loopneuron.llm import LLM
+
+    pre, scr = c.read("candidates.json"), c.read("screen.json")
+    labels = {f'{x["layer"]}_{x["neuron"]}_{x["pole"]}': x.get("label", "") for x in scr["candidates"]}
+    cands = [r for r in c.read("confirm.json")["results"] if r["significant"]]
+    texts = generate_for_judge(c.model, c.tok, c.atlas, cands, c.prompts("confirm")[:50], c.s.ut_steps,
+                               pre["n_tokens"], pre["seed"])  # same seed base; fresh draws (batch layout differs)
+    c.write("llm_judge_texts.json", texts)
+    with c.llm_server():
+        res = judge_all(LLM(c.s.llm_base_url, c.s.llm_model, c.log), texts, labels, c.s.seed, c.log)
+    c.write("llm_judge.json", res)
 
 
 def audit(c: Ctx) -> None:
@@ -239,8 +259,10 @@ def replicate(c: Ctx) -> None:
     maxes = {r["key"]: max_activation(model, c.atlas, chunks, r, c.s.ut_steps) for r in focus}
     prompts = c.prompts("confirm")[: pre["n_prompts"]]
     cands = [{k: r[k] for k in ("key", "layer", "neuron", "pole", "alpha")} for r in focus]
+    # R=20 random neurons: the replication null is descriptive (z-margin), not a Holm-family test, so a smaller R keeps
+    # the run ~1 h instead of ~2.5 h; the Wilcoxon test vs unsteered is the replication criterion.
     res = confirm(model, c.tok, c.atlas, chunks, cands, scr["u"], scr["rand_mean"], prompts, c.s.ut_steps,
-                  pre["seed"] + 2000, pre["k"], pre["n_tokens"], pre["R"], c.log, c.out)
+                  pre["seed"] + 2000, pre["k"], pre["n_tokens"], 20, c.log, c.out)
     c.write("replication.json", {"model": c.s.repl_model_id, "revision": c.s.repl_model_revision,
                                  "correspondence": corr, "thinking_max_act": maxes,
                                  "base_max_act": {r["key"]: float(c.atlas["top_v"][r["layer"], r["pole"], r["neuron"], 0])

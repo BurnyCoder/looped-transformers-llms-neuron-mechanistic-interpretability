@@ -1,0 +1,7 @@
+| neuron (layer, index, pole) | alpha | concept (Qwen3.5 label, shortened) | mean Delta C [95% CI] | d_z | rank-biserial | p Wilcoxon (Holm) | p random-neuron null (Holm) | null mean / q95 | PPL ratio | steered distinct-2 | MiniLM Delta C | decision |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| L18 N3066 - | 1.0 | The highlighted tokens consistently identify core phonetic or orthographic units—such as v | 0.179 [0.155, 0.204] | 1.42 | 0.99 | 4.8e-18 (2.4e-17) | 0.0099 (0.0495) | 0.010 / 0.017 | 1.58 | 0.90 | 0.248 | **significant** |
+| L13 N1680 + | 1.0 | The text latents consistently emphasize metaphysical concepts of non-duality, dependent or | 0.141 [0.119, 0.163] | 1.26 | 0.95 | 8.3e-17 (1.7e-16) | 0.0099 (0.0495) | -0.003 / 0.011 | 1.62 | 0.87 | 0.177 | **significant** |
+| L4 N2104 + | 2.0 | The text latents commonly describe the domain of pedagogical content knowledge, emphasizin | 0.130 [0.112, 0.148] | 1.43 | 0.98 | 8.5e-18 (2.5e-17) | 0.0198 (0.0495) | -0.000 / 0.018 | 1.65 | 0.91 | 0.166 | **significant** |
+| L6 N3344 - | 4.0 | The text latents describe interface elements and actions for validating and rewarding cont | 0.167 [0.147, 0.188] | 1.61 | 0.99 | 5.3e-18 (2.4e-17) | 0.0099 (0.0495) | 0.005 / 0.046 | 1.83 | 0.80 | 0.108 | **significant** |
+| L18 N1735 - | 2.0 | The text latents commonly describe core quantum mechanical concepts related to atomic stru | 0.127 [0.103, 0.153] | 0.99 | 0.91 | 1.1e-15 (1.1e-15) | 0.0099 (0.0495) | -0.010 / 0.009 | 1.72 | 0.89 | 0.173 | **significant** |

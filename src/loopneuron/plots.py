@@ -147,6 +147,23 @@ def t_sweep(ts: dict, key: str, path: Path, T_train: int = 4):
     return _save(fig, path)
 
 
+def specificity(sp: dict, path: Path):
+    M = np.array(sp["matrix"])
+    keys = [f"L{k.split('_')[0]} N{k.split('_')[1]}{'+' if k.split('_')[2] == '0' else '-'}" for k in sp["keys"]]
+    fig, ax = plt.subplots(figsize=(1.0 * len(keys) + 2.5, 0.8 * len(keys) + 1.8))
+    lim = np.abs(M).max()
+    im = ax.imshow(M, cmap="RdBu_r", vmin=-lim, vmax=lim)  # diverging: blue negative, red positive, white 0
+    for i in range(len(keys)):
+        for j in range(len(keys)):
+            ax.text(j, i, f"{M[i, j]:.2f}", ha="center", va="center", fontsize=8, color=INK)
+    ax.set_xticks(range(len(keys)), keys, rotation=30, ha="right")
+    ax.set_yticks(range(len(keys)), keys)
+    ax.set(xlabel="concept direction scored", ylabel="neuron steered", title="Steering specificity (mean Delta C)")
+    ax.grid(False)
+    fig.colorbar(im, ax=ax, fraction=0.046)
+    return _save(fig, path)
+
+
 def audit_bars(audit: list, path: Path, T: int = 4):
     def col(kind, t):
         return np.array([r[kind][str(t)]["balanced_acc"] if str(t) in r[kind] else r[kind][t]["balanced_acc"] for r in audit])
@@ -181,7 +198,12 @@ def all_figures(res_dir: Path, fig_dir: Path) -> list[Path]:
         best = max(conf["results"], key=lambda r: r["mean_delta"])
         made.append(null_histogram(best, fig_dir / "null_histogram.png"))
     if (res_dir / "followups.json").exists():
-        for key, f in rd("followups.json").items():
+        fu = rd("followups.json")
+        if "specificity" in fu:
+            made.append(specificity(fu["specificity"], fig_dir / "specificity.png"))
+        for key, f in fu.items():
+            if key == "specificity" or "dose" not in f:
+                continue
             made.append(dose(f["dose"], key, fig_dir / f"dose_{key}.png"))
             made.append(loop_locus(f["loop_locus"], key, fig_dir / f"loop_locus_{key}.png"))
             made.append(t_sweep(f["t_sweep"], key, fig_dir / f"t_sweep_{key}.png"))
