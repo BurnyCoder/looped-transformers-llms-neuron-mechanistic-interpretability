@@ -1,0 +1,49 @@
+# Project manifest for uv (https://docs.astral.sh/uv/concepts/projects/config/).
+# Global context: one installable package `loopneuron` (src layout) + the `run_pipeline.py` wrapper.
+[project]
+name = "loopneuron"
+version = "0.1.0"
+description = "Neuron-level mechanistic interpretability and causal steering of the looped language model Ouro-1.4B"
+readme = "README.md"
+authors = [{ name = "Libor Burian" }]
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    # CUDA 13.0 wheel (sm_120 / Blackwell needs a CUDA>=12.8 build: https://pytorch.org/get-started/locally/)
+    "torch==2.14.1",
+    # Ouro's model card pins transformers<4.56 for its remote code (https://huggingface.co/ByteDance/Ouro-1.4B)
+    "transformers==4.54.1",
+    "accelerate>=1.9",
+    "safetensors>=0.5",
+    "huggingface-hub>=0.34,<1.0",
+    "datasets>=3.6,<4",
+    # sentence-transformers 5.x is the last line that supports transformers 4.x
+    "sentence-transformers>=5.1,<6",
+    "numpy>=2.0",
+    "scipy>=1.14",
+    "statsmodels>=0.14.4",
+    "pandas>=2.2",
+    "matplotlib>=3.9",
+    "python-dotenv>=1.0",
+    "openai>=1.90",
+    "tqdm>=4.66",
+    "typst>=0.13",
+]
+
+[dependency-groups]
+dev = ["pytest>=8.3"]
+
+[tool.uv.sources]
+torch = { index = "pytorch-cu130" }
+
+[[tool.uv.index]]
+name = "pytorch-cu130"
+url = "https://download.pytorch.org/whl/cu130"
+explicit = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = ["gpu: needs CUDA + downloaded Ouro weights"]
+
+[build-system]
+requires = ["uv_build>=0.13.0,<0.14.0"]
+build-backend = "uv_build"

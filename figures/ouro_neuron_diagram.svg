@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 420" font-family="Helvetica, Arial, sans-serif" font-size="14">
+  <!-- Diagram of the object of study: Ouro-1.4B loops its full 24-layer stack T=4 times; every SwiGLU MLP neuron is read/steered at the input of down_proj, once per loop. -->
+  <rect width="960" height="420" fill="#ffffff"/>
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#333"/>
+    </marker>
+  </defs>
+  <text x="480" y="28" text-anchor="middle" font-size="18" font-weight="bold" fill="#111">Ouro-1.4B: one 24-layer stack, looped T = 4 times — every MLP neuron fires once per loop</text>
+  <!-- tokens -> embedding -->
+  <rect x="20" y="170" width="90" height="50" rx="8" fill="#eef2f7" stroke="#567"/>
+  <text x="65" y="192" text-anchor="middle">tokens</text>
+  <text x="65" y="210" text-anchor="middle" font-size="12">embed</text>
+  <line x1="110" y1="195" x2="150" y2="195" stroke="#333" stroke-width="2" marker-end="url(#arr)"/>
+  <!-- looped stack -->
+  <rect x="150" y="120" width="300" height="150" rx="10" fill="#fff7e6" stroke="#c80" stroke-width="2"/>
+  <text x="300" y="145" text-anchor="middle" font-weight="bold">shared layers 1…24</text>
+  <text x="300" y="168" text-anchor="middle" font-size="12">h += norm(attn(norm h))</text>
+  <text x="300" y="188" text-anchor="middle" font-size="12">h += norm(down_proj( a ) ), a = silu(gate·x) ⊙ (up·x)</text>
+  <text x="300" y="212" text-anchor="middle" font-size="12">then h ← RMSNorm(h) after every loop</text>
+  <text x="300" y="250" text-anchor="middle" font-size="12" fill="#a50">same weights at loops t = 1, 2, 3, 4</text>
+  <!-- loop arrow -->
+  <path d="M 420 120 C 470 60, 130 60, 180 120" fill="none" stroke="#c80" stroke-width="2.5" marker-end="url(#arr)"/>
+  <text x="300" y="70" text-anchor="middle" fill="#a50" font-weight="bold">loop × 4 (total_ut_steps)</text>
+  <line x1="450" y1="195" x2="500" y2="195" stroke="#333" stroke-width="2" marker-end="url(#arr)"/>
+  <rect x="500" y="170" width="110" height="50" rx="8" fill="#eef2f7" stroke="#567"/>
+  <text x="555" y="192" text-anchor="middle">lm_head</text>
+  <text x="555" y="210" text-anchor="middle" font-size="12">(exit at t = 4)</text>
+  <!-- neuron panel -->
+  <rect x="640" y="60" width="300" height="330" rx="10" fill="#f3f8f2" stroke="#4a7" stroke-width="2"/>
+  <text x="790" y="85" text-anchor="middle" font-weight="bold">neuron (layer ℓ, index i)</text>
+  <text x="790" y="106" text-anchor="middle" font-size="12">24 × 5632 = 135,168 neurons</text>
+  <text x="660" y="135" font-size="12">activation a[ℓ,i] at loop t (signed, ± poles)</text>
+  <!-- small bar trajectories -->
+  <g>
+    <rect x="680" y="150" width="40" height="70" fill="#9cc"/><text x="700" y="238" text-anchor="middle" font-size="12">t=1</text>
+    <rect x="740" y="180" width="40" height="40" fill="#9cc"/><text x="760" y="238" text-anchor="middle" font-size="12">t=2</text>
+    <rect x="800" y="165" width="40" height="55" fill="#9cc"/><text x="820" y="238" text-anchor="middle" font-size="12">t=3</text>
+    <rect x="860" y="195" width="40" height="25" fill="#9cc"/><text x="880" y="238" text-anchor="middle" font-size="12">t=4</text>
+  </g>
+  <text x="660" y="268" font-size="12" font-weight="bold">read:</text>
+  <text x="700" y="268" font-size="12">top-activating texts per pole &amp; per loop</text>
+  <text x="660" y="292" font-size="12" font-weight="bold">steer:</text>
+  <text x="705" y="292" font-size="12">clamp a[ℓ,i] := α · max|a| (all / one loop)</text>
+  <text x="660" y="316" font-size="12" font-weight="bold">test:</text>
+  <text x="697" y="316" font-size="12">Δ concept score vs unsteered and vs</text>
+  <text x="697" y="334" font-size="12">100 random same-layer neurons (Holm)</text>
+  <line x1="450" y1="188" x2="640" y2="140" stroke="#4a7" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#arr)"/>
+</svg>

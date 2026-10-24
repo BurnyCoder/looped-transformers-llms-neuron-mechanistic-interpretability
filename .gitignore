@@ -1,0 +1,20 @@
+# Python / uv build artifacts (https://github.com/github/gitignore/blob/main/Python.gitignore)
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+.venv/
+.pytest_cache/
+
+# Secrets: never commit credentials (.env holds local config / tokens)
+.env
+
+# Large local artifacts: model weights, GGUFs, llama.cpp binaries, raw token caches, raw logs
+*.gguf
+tools/llama.cpp/
+cache/
+logs/raw/
+results/**/*.pt
+results/**/tokens*.npy
