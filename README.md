@@ -125,7 +125,7 @@ flowchart TB
 
 ## Technologies
 - [PyTorch](https://pytorch.org/) 2.14 (CUDA 13.0 wheels, which support Blackwell sm_120)
-- [transformers](https://github.com/huggingface/transformers) 4.54.1, the version Ouro's model card pins for its remote code
+- [transformers](https://github.com/huggingface/transformers) 4.57.6; the pinned Ouro revision includes the KV-cache fix for transformers>=4.56 and fails on 4.54.1
 - [datasets](https://github.com/huggingface/datasets) (streaming)
 - [sentence-transformers](https://www.sbert.net/) with bge-small-en-v1.5 and all-MiniLM-L6-v2
 - [SciPy](https://scipy.org/) and [statsmodels](https://www.statsmodels.org/)
