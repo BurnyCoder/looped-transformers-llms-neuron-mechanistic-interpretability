@@ -20,6 +20,8 @@ def get_logger(run_name: str, log_dir: Path) -> logging.Logger:
     if logger.handlers:  # already configured in this process -> reuse (avoid duplicate lines)
         return logger
     log_dir.mkdir(parents=True, exist_ok=True)  # logs/ may not exist on a fresh clone
+    if hasattr(sys.stdout, "reconfigure"):  # Windows consoles default to cp1252; LLM text contains arbitrary Unicode
+        sys.stdout.reconfigure(encoding="utf-8", errors="replace")
     path = log_dir / f"{time.strftime('%Y%m%d-%H%M%S')}_{run_name}.log"  # timestamped file per run
     for handler in (logging.FileHandler(path, encoding="utf-8"), logging.StreamHandler(sys.stdout)):
         handler.setFormatter(logging.Formatter(_FMT))  # same format in file and terminal
