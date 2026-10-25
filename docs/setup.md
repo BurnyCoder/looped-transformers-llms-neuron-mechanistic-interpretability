@@ -3,7 +3,7 @@
 ## Python environment
 - Run `uv sync`. It installs Python 3.12 and the pinned dependencies from `uv.lock`.
 - `torch==2.14.1` is installed from the PyTorch CUDA 13.0 index (`pyproject.toml` → `[tool.uv.sources]`). Blackwell GPUs (sm_120, e.g. the RTX 50xx series) need a wheel built with CUDA ≥ 12.8 ([PyTorch install matrix](https://pytorch.org/get-started/locally/)).
-- `transformers==4.57.6` is pinned because Ouro ships remote code (`trust_remote_code=True`). The model card recommends `transformers<4.56`, but the pinned revision already contains the KV-cache fix for >=4.56 and fails on 4.54.1 (`key_cache` has no setter). The model revision is pinned in `.env` (`MODEL_REVISION`).
+- `transformers==4.57.6` is pinned because Ouro ships remote code (`trust_remote_code=True`). The model card recommends `transformers<4.56`, but the pinned revision already contains the KV-cache fix for >=4.56 ([commit 7ea635b](https://huggingface.co/ByteDance/Ouro-1.4B/commit/7ea635ba1575ae9ab4ae1d83d83e16a6e47fe696)) and fails on 4.54.1 (`key_cache` has no setter). The model revision is pinned in `.env` (`MODEL_REVISION`).
 
 ## Local labeler / judge LLM (llama.cpp + Qwen3.5 GGUF)
 This LLM is used only by the labeling, LLM-judge, and audit phases. The primary steering statistic does not use an LLM.
@@ -14,12 +14,12 @@ This LLM is used only by the labeling, LLM-judge, and audit phases. The primary 
 uv run python -c "from huggingface_hub import hf_hub_download; hf_hub_download('unsloth/Qwen3.5-9B-GGUF', 'Qwen3.5-9B-Q4_K_M.gguf', local_dir='cache/gguf')"
 ```
 
-3. The pipeline starts and stops `llama-server` itself (`loopneuron.llm.LlamaServer`), with `-ngl 99 -c 16384 --port 8093 --jinja`. It disables thinking per request (`chat_template_kwargs={"enable_thinking": false}`) and writes the server output to `logs/llama_server.txt`.
+3. The pipeline starts and stops `llama-server` itself (`loopneuron.llm.LlamaServer`), with `-ngl 99 -c 16384 --port 8093 --jinja -np 1`. It disables thinking per request (`chat_template_kwargs={"enable_thinking": false}`) and writes the server output to `logs/llama_server.txt`.
    - Port 8093 is used because 8080 was occupied on the development machine. Change it with `LLM_BASE_URL` in `.env`.
    - Ouro is unloaded from the GPU before the server starts, because both do not fit in 8 GB together.
 
 ## Disk budget
-Measured on the development machine after the full run (`du -sh`), ≈ 17 GB in total:
+Measured on the development machine after the full run (`du -sh`), ≈ 17 GB in total (≈ 16.4 GB without the kept dry-run results):
 
 | Item | Size |
 |---|---|
@@ -30,6 +30,7 @@ Measured on the development machine after the full run (`du -sh`), ≈ 17 GB in 
 | Qwen3.5-9B Q4_K_M GGUF (`cache/gguf/`) | 5.68 GB |
 | bge-small-en-v1.5 + all-MiniLM-L6-v2 embedders (HF cache) | ≈ 0.2 GB |
 | token caches (`cache/*.npy`) | 16 MB |
-| atlas + results (`results/`) | 0.99 GB |
+| atlas + results (`results/Ouro-1.4B/`) | 0.5 GB |
+| dry-run atlas + results (`results/Ouro-1.4B-dryrun/`, optional) | 0.5 GB |
 
-`loopneuron.config.disk_guard()` refuses any download that would leave less than `MIN_FREE_GB` (default 3 GB) free.
+`loopneuron.model.load_model` calls `loopneuron.config.disk_guard()` before downloading uncached Ouro weights (base and Thinking) and refuses if the download would leave less than `MIN_FREE_GB` (default 3 GB) free. Other downloads (GGUF, embedders, dataset shards) are not guarded.

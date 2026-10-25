@@ -3,9 +3,10 @@
 == Model and neuron definition
 We study Ouro-1.4B @zhu2025ouro at revision `574fa66`. It has 24 decoder layers (d = 2048, 16-head MHA,
 SwiGLU MLP of width 5632, vocabulary 49,152). The whole stack is applied $T = 4$ times with shared weights. Each layer uses
-sandwich RMSNorm, and the residual stream is RMS-normalized after every loop. We always read the output of the last loop
-(`exit_at_step = T-1`). The default early-exit path, which thresholds a cumulative exit distribution, disagreed with
-fixed last-loop exit on 0 of 2,048 held-out positions (8 chunks × 256), but fixing the exit makes every computation identical by construction.
+sandwich RMSNorm, and the residual stream is RMS-normalized after every loop. Ouro always executes all $T$ loops; we set
+`early_exit_step = T-1`, so the logits always come from the last loop. The default early-exit path, which thresholds a
+cumulative exit distribution, disagreed with the fixed last-loop exit on 0 of 2,048 held-out positions (8 chunks × 256),
+but fixing the exit removes the dependence by construction.
 A *neuron* $(ell, i)$ is element $i$ of the SwiGLU activation entering `down_proj` in layer $ell$:
 $ a_(ell,i,t) = "silu"(g_i^top x) dot (u_i^top x) $
 Here $x$ is the post-attention-normalized residual at loop $t$. There are 24 × 5632 = 135,168 neurons, and each fires
@@ -43,10 +44,13 @@ pre-registered.
 Steering clamps $a_(ell,i,t) := c = ± alpha dot max|a|$ (sign of the pole) at every position and, unless stated
 otherwise, every loop. Because the MLP write is RMS-normalized after `down_proj`, a single clamped neuron's
 contribution per layer and loop is bounded. As $|c| -> infinity$ the write tends to $gamma ⊙ "sign"(c) w_i / "rms"(w_i)$,
-so the dose-response must saturate (scale $c^* approx ||W_"down" a|| \/ ||w_i||$).
+so the dose-response must saturate. The crossover scale is $c^* approx ||r|| \/ ||w_i||$, where $r$ is the write of the
+other neurons; we measure it as the median of $||W_"down" a|| \/ ||w_i||$ over unsteered tokens.
 
 For each prompt we sample $k = 3$ continuations of 48 tokens (temperature 0.7, top-$p$ 0.9). Steered and unsteered runs
-share seeds and batch layout, so each steered sample is paired with an unsteered sample.
+share seeds and batch layout, so each steered sample is paired with an unsteered sample. (The random-neuron null runs
+of Test 2 reuse the seed in a different batch layout, so their pairing is not guaranteed bit-exact; unpaired noise can
+only widen the null.)
 
 The *concept score* of a continuation is the cosine between its bge-small embedding and the unit's
 *contrastive concept direction* $u = "normalize"(overline(e)_"top" - overline(e)_"random")$. Here $overline(e)_"top"$ is
@@ -59,25 +63,28 @@ Candidates, $alpha$, $n$, the tests and the decision rule were written to `repor
 before any confirmatory prompt was used. The pipeline refuses to run the test otherwise.
 
 - *Test 1:* one-sided Wilcoxon signed-rank on per-prompt $Delta C$.
-- *Test 2:* random-neuron null @goodfire2026clean. $R = 100$ alive neurons from the candidate's layer are clamped at the
-  same $alpha$ times their own maximum on the same pole. Each is scored with the *candidate's* concept direction on the
-  first 50 prompts, giving the empirical $p = (1 + \#{"null" >= "obs"}) \/ (R+1)$ @phipson2010permutation.
+- *Test 2:* a random-neuron null, adapting the random same-layer *ablation* control of @goodfire2026clean to steering.
+  $R = 100$ alive neurons from the candidate's layer are clamped at the same $alpha$ times their own maximum on the same
+  pole. The statistic is mean $Delta C$ on the first 50 prompts (sample 0), scored with the *candidate's* concept
+  direction, giving the empirical $p = (1 + \#{"null" >= "obs"}) \/ (R+1)$ @phipson2010permutation.
 - *Multiplicity:* Holm @holm1979 across the $K$ candidates, separately for each test. $K <= 5$ is forced because the
   smallest attainable permutation $p$, $1\/101$, must be at most $0.05\/K$.
 - *Decision rule:* a neuron is a significant steering neuron iff both Holm-adjusted $p < 0.05$, the median perplexity
   ratio of steered to unsteered continuations (both scored by the unsteered model) is at most 2, and the median
   distinct-2 of steered continuations is at least 0.6.
-- *Effect sizes:* $d_z$ and matched-pairs rank-biserial $r$ @kerby2014rank, with bootstrap 95% CIs.
+- *Effect sizes:* mean $Delta C$ with a percentile-bootstrap 95% CI (10,000 resamples); $d_z$ and matched-pairs
+  rank-biserial $r$ @kerby2014rank as point estimates.
 - *Power:* $n$ is chosen from the validation $d_z$ by power analysis (one-sided paired $t$ at $0.05\/K$, power 0.9,
-  divided by the Wilcoxon ARE of 0.955), clipped to [100, 300].
+  divided by the Wilcoxon asymptotic relative efficiency $3 \/ pi approx 0.955$ @hodges1956efficiency), clipped to
+  [100, 300].
 
 == Secondary analyses (post hoc unless stated)
 These analyses are not part of the decision rule:
 - an all-MiniLM-L6-v2 concept score;
 - distinct-2 @li2016diversity;
 - AxBench-style blind LLM ratings @wu2025axbench from a local Qwen3.5-9B @qwen35 served by llama.cpp @llamacpp;
-- teacher-forced shift of next-token probability on each neuron's concept vocabulary, and three further sampling
-  seed sets;
+- teacher-forced shift of next-token probability on each neuron's keyword set (up to 20 tokens over-represented near
+  its atlas peaks), and three further sampling seed sets;
 - dose-response over $alpha$;
 - zero-ablation of the neuron on its held-out top contexts versus 100 random same-layer ablations;
 - *loop locus* (clamping at a single loop);
@@ -90,4 +97,5 @@ The loop structure of all neurons is summarized by:
 
 The interpretability audit asks the local LLM, using the Delphi explainer and detection scorer @paulo2024delphi, to
 describe 150 neurons separately at loop 1 and loop 4, and scores each explanation on held-out contexts from the same and
-from the other loop.
+from the other loop. Same-loop vs cross-loop and same-loop vs shuffled-explanation scores are compared with paired
+two-sided Wilcoxon tests.

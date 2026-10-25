@@ -2,8 +2,8 @@
 Looped (recurrent-depth) language models apply one block of layers several times in sequence, which lets them spend
 more computation per token without adding parameters @geiping2025huginn @zhu2025ouro @prairie2026parcae. Ouro-1.4B
 @zhu2025ouro loops its entire 24-layer stack four times. Its model card reports performance matching
-3–4B-parameter standard transformers. Mechanistic work on looped models has so far studied the residual stream:
-- recurrent blocks converge to cyclic fixed points and repeat the "stages of inference" of feedforward models @arroyo2026mechanistic;
+3–4B-parameter standard transformers @ouro14bcard. Mechanistic work on looped models has so far studied the residual stream:
+- recurrent blocks converge to cyclic fixed points and repeat the "stages of inference" of feedforward models @blayney2026mechanistic;
 - residual-direction steering of Ouro-1.4B-Thinking works best at the last loop, and earlier injections are
   "rotated away" @nesiacel2026recurrent;
 - per-execution-step refusal directions in Ouro-2.6B align from the second pass onward @suiche2026abliterating.

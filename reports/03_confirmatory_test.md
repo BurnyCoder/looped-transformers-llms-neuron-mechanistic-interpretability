@@ -9,7 +9,7 @@
 - **Intervention:** clamp the neuron's activation to α × max|a| (signed by pole) at every position and all 4 loops.
 - **Primary metric:** per-prompt ΔC, the change in cosine similarity between the continuation's bge-small embedding and the neuron's contrastive concept direction.
 - **Test 1:** one-sided Wilcoxon signed-rank.
-- **Test 2:** 100 random alive neurons from the same layer, clamped at the same α times their own maximum on the same pole. Each is scored with the candidate's concept direction on prompts 1–50, sample 0.
+- **Test 2:** 100 random alive neurons from the same layer, clamped at the same α times their own maximum on the same pole. Each is scored with the candidate's concept direction on prompts 1–50, sample 0. The null runs reuse the sample-0 seed but generate the 50 prompts as one batch, while the unsteered baseline was generated in 60-row batches, so their pairing with the baseline is not guaranteed to be bit-exact (`confirm.py`, `steering.generate`). Unpaired noise can only widen the null, which makes Test 2 more conservative; the candidate's own statistic is fully paired.
 - **Multiplicity:** Holm across K = 5, separately for each test.
 - **Decision:** both Holm p < 0.05, median perplexity ratio ≤ 2, and median steered distinct-2 ≥ 0.6.
 
@@ -24,7 +24,7 @@
 
 How to read the table:
 - **z vs null** = (candidate's 50-prompt statistic − mean of the 100 null neurons) / SD of the null neurons. It is post hoc and descriptive.
-- **Null mean / 95th pct** are means over random neurons of the same statistic.
+- **Null mean / 95th pct** are the mean and the 95th percentile, across the 100 null neurons, of the same 50-prompt statistic. z uses the population SD of those 100 values.
 - **MiniLM ΔC** is the secondary robustness embedder.
 - **PPL ratio** is the median over prompts of the perplexity ratio of steered to unsteered continuations, both scored by the unsteered model.
 
@@ -33,12 +33,12 @@ Figures:
 - ![null histogram](../figures/null_histogram.png)
 
 ## Examples
-These are the first prompts of the confirm set, sample 0, so they are not cherry-picked. More are in `confirm_examples.jsonl`.
+`confirm_examples.jsonl` stores sample 0 of confirm prompts 1–8 for every neuron, unselected. The rows below were picked from prompts 2–3 to show visible concept content (prompt 2 for three neurons; prompt 3 for L18 N1735, whose prompt-2 output has no orbital content). L6 N3344 is not shown. Newlines are collapsed.
 
 | neuron | prompt | unsteered | steered |
 |---|---|---|---|
 | L18 N3066 − (phonetics) | "In the Philippines, Nepartak produced strong winds, heavy" | " rainfall, and flooding. In the Philippines, a total of 27 people died due to floods…" | " rains, and severe flooding. The sounds of the letters /p/ and /t/ are softened. In the International Phonetic Alphabet (IPA), the letter 'y' can represent…" |
-| L4 N2104 + (pedagogy) | same | same | " rains, and clear skies. - Aarav, a Hindu sage, taught his students through a unique method. The Role of an Educator: An educator, a dedicated instructor, plays a pivotal…" |
+| L4 N2104 + (pedagogy) | same | same | " rains, and clear skies. - Aarav, a Hindu sage, taught his students through a unique method. The Role of an Educator / An educator, a dedicated instructor, plays a pivotal…" |
 | L18 N1735 − (orbitals) | "Hitler's speech at the end of the book disturbed many" | (see file) | " people, and many of his followers were disappointed with the outcome of the war. The 2-18 orbital is the 2s orbital, and the 1s orbital is filled before the 2s orbital" |
 | L13 N1680 + (non-duality) | "In the Philippines, Nepartak produced strong winds, heavy" | " rainfall, and flooding…" | " rain, and a severe storm. - In the US, Nepartak brought a pleasant, warm, and bright day, with a sense of joy and peace. - In the UK, Nepartak created a sense of peace…" |
 
@@ -50,10 +50,10 @@ These are the first prompts of the confirm set, sample 0, so they are not cherry
   - The random neurons barely move text toward the candidate's concept (null means −0.010 to +0.010).
 - **The Holm-adjusted permutation p of 0.0495 is a resolution floor, not a borderline effect.** With K = 5 and R = 100 it is the smallest value Holm can produce. The candidates sit 7.3–12.1 null SDs above the null mean.
 - **Weakest null margin: L4 N2104.** One random layer-4 neuron scored higher on the 50-prompt statistic. Its maximum null value was 0.131 against the candidate's 0.123.
-- **Fluency cost.** Median perplexity ratio is 1.58–1.83, within the pre-registered guard of 2 but not free. Steered distinct-2 is 0.80–0.91 against ≈ 0.95 unsteered.
+- **Fluency cost.** Median perplexity ratio is 1.58–1.83, within the pre-registered guard of 2 but not free. Steered distinct-2 is 0.80–0.91. For comparison, unsteered continuations had median distinct-2 ≈ 0.95 in the discovery validation run (`screen.json` `validation[*].distinct2_unsteered_median`; `confirm.json` does not store the unsteered median).
 - **Robustness.** The second embedder (all-MiniLM-L6-v2) agrees in sign and order of magnitude (ΔC 0.108–0.248).
 
 ## Limitations
 - **Concept direction.** It is derived from each neuron's own top contexts. It measures movement toward that contrastive direction in one embedding space, not human-judged concept presence. The AxBench-style LLM judge (secondary) is reported in [Experiment 4](04_followups.md).
-- **Clamping.** It is applied at every position, including the prompt. It is an intervention far outside the natural activation pattern, as in Goodfire's "turn the neuron up".
+- **Clamping.** It is applied at every position, including the prompt. It is an intervention far outside the natural activation pattern, as in Goodfire's "turn the neuron up" ([Cammarata 2026](https://already-clean.goodfire.com/)).
 - **Selection.** The five neurons were selected for steerability from a pool of coherent neurons. They show that *such neurons exist* (existence claims). They do not show that a typical neuron steers.
