@@ -5,7 +5,7 @@ Local:
 - dose_response: Delta concept score and PPL ratio over alpha (clamp = alpha x max|a| on the pole), with the
   sandwich-norm saturation scale c* = median ||W_down a|| / ||w_i|| measured on the prompts (docs/methodology.md sec. 2).
 - loop_locus (H2): clamp only at loop t; behavioral Delta C, next-token KL on the prompts, and relative displacement
-  of the final hidden state. Prior residual-direction steering of Ouro found the last loop most effective
+  of the final hidden state. Prior residual-direction steering of Ouro-1.4B-Thinking found the last loop most effective
   (nesiacel 2026, https://www.lesswrong.com/posts/rzcJMpnehFBD686gj/).
 - t_sweep (H3): clamp at all loops while running T = 1..8 loops (T > 4 is extrapolation), each vs its own baseline.
 - ablation: set the neuron to 0 at all loops on its held-out top contexts (atlas ranks 21-40) and measure the NLL

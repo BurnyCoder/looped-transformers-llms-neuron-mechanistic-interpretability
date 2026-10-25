@@ -32,7 +32,7 @@ Example (confirm prompt 2, sample 0):
 |---|---|---|
 | H1: does ≥1 neuron steer behavior significantly? | pre-registered: Wilcoxon vs unsteered **and** permutation vs 100 random same-layer neurons, Holm, fluency and degeneracy guards | **supported: 5/5 neurons** ([report](reports/03_confirmatory_test.md)) |
 | Specificity | steer neuron i, score concept j | each neuron moves its own concept most, 1.4–3.7× the largest other concept ([report](reports/04_followups.md)) |
-| Dose-response | α = 0.5…16 × max activation | rises then **saturates** (4 of 6 neurons level off by α = 16), as the sandwich RMSNorm predicts; opposite-sign clamps do not steer toward the concept (\|ΔC\| ≤ 0.04) |
+| Dose-response | α = 0.5…16 × max activation | rises, then levels off for 4 of 6 neurons by α = 16 (L4 N2104 and L6 N3344 still rise), qualitatively consistent with the sandwich-RMSNorm bound (no curve fitted); opposite-sign clamps do not steer toward the concept (\|ΔC\| ≤ 0.04) |
 | H2: does a later loop matter more? | clamp at a single loop | **mostly no.** For the 5 confirmed neurons, single-loop clamps give ΔC ≤ 0.043, against 0.13–0.17 for all-loop; effects are super-additive across loops (self-repair). Exception: the exploratory if-statement neuron L19 N3901, where the last loop alone gives 56% |
 | LLM judge (secondary) | blind AxBench-style 0–2 ratings by local Qwen3.5-9B, 50 prompts | concept 0–0.02 → 0.06–0.36 (all 5 Holm p ≤ 0.042); fluency 1.50 → 0.90–1.17 |
 | Robustness (post hoc) | 3 new seed sets; teacher-forced keyword probability | stable (ΔC 0.11–0.18 in every seed set, p ≤ 2.9e-8); clamping raises the probability of each neuron's peak-context keywords 1.6–2.6× (p ≈ 2e-18) ([report](reports/07_plan_completion.md)) |
@@ -50,7 +50,7 @@ Example (confirm prompt 2, sample 0):
 </p>
 <p align="center">
 <img src="figures/loop_locus_18_3066_1.png" width="49%" alt="Clamping at a single loop barely steers; clamping at all loops does"/>
-<img src="figures/loop_structure.png" width="49%" alt="Loop structure: most neurons peak at loop 1; activations converge across loops"/>
+<img src="figures/loop_structure.png" width="49%" alt="Loop structure: more neurons peak at loop 1 (41%) than at any later loop; activations converge across loops"/>
 </p>
 
 **Artifacts:**
@@ -86,13 +86,13 @@ a[ℓ, i, t] = silu(gate_proj · x)_i · (up_proj · x)_i          (x = RMSNorm 
 - A forward pre-hook on `down_proj` reads or edits `a`. A per-layer call counter gives the loop index *t*.
 
 **Data.**
-- The **neuron atlas** streams [FineWeb-Edu](https://huggingface.co/datasets/HuggingFaceFW/fineweb-edu) (90%) and [OpenWebMath](https://huggingface.co/datasets/open-web-math/open-web-math) (10%). It uses 8M tokens in 256-token chunks ([FineWeb-Edu paper](https://arxiv.org/abs/2406.17557), [OpenWebMath paper](https://arxiv.org/abs/2310.06786)). Raw text is streamed and never stored; the packed token chunks are cached as uint16 arrays (`cache/tokens_atlas.npy`, 16 MB, and `cache/tokens_eval.npy`).
-- **Steering prompts** are 12-token stems from the [WikiText-103](https://huggingface.co/datasets/Salesforce/wikitext) *test* split. This corpus is disjoint from the atlas text, and using it reduces the chance of memorized continuations.
+- The **neuron atlas** streams documents from [FineWeb-Edu](https://huggingface.co/datasets/HuggingFaceFW/fineweb-edu) (sampled with probability 0.9) and [OpenWebMath](https://huggingface.co/datasets/open-web-math/open-web-math) (0.1; the resulting token share was not measured). It uses 8M tokens in 256-token chunks ([FineWeb-Edu paper](https://arxiv.org/abs/2406.17557), [OpenWebMath paper](https://arxiv.org/abs/2310.06786)). Raw text is streamed and never stored; the packed token chunks are cached as uint16 arrays (`cache/tokens_atlas.npy`, 16 MB, and `cache/tokens_eval.npy`).
+- **Steering prompts** are 12-token stems from the [WikiText-103](https://huggingface.co/datasets/Salesforce/wikitext) *test* split, a different corpus from the atlas text: none of the 750 stems occurs verbatim in the 8M atlas tokens (exact 12-token search, [report 01](reports/01_setup_and_atlas.md)). Memorization of WikiText by Ouro was not tested; it would affect steered and unsteered runs alike.
 - Prompts are split once, with a fixed seed, into a **discovery** set (used for selection) and a **confirmatory** set (used only for the pre-registered test).
 
 **Pipeline.**
 1. **Atlas.** For every neuron and pole, collect:
-   - the top-40 contexts over all positions and loops;
+   - the top-40 contexts over all loops and positions 4–255 (the first 4 positions of each chunk are skipped);
    - the top-20 contexts at each loop;
    - the loop where the activation peaks;
    - per-loop mean, mean |a|, SD, positive fraction and threshold-exceedance counts (all computed on every 8th batch), plus dead-neuron flags.
@@ -103,12 +103,12 @@ a[ℓ, i, t] = silu(gate_proj · x)_i · (up_proj · x)_i          (x = RMSNorm 
    - Quick-steer the 200 most coherent units at α ∈ {1, 2, 4} on 25 discovery prompts.
    - Validate the top 10 on 100 other discovery prompts.
    - Keep the K = 5 units with the largest validation d_z among those that pass the fluency (perplexity) and degeneracy (distinct-2) guards (8 of 10 passed).
-3. **Labeling.** A local **Qwen3.5** model served by [llama.cpp](https://github.com/ggml-org/llama.cpp) writes one explanation per candidate from its top-20 marked contexts, in the Delphi explainer format of [Paulo et al. 2024](https://arxiv.org/abs/2410.13928) ([code](https://github.com/EleutherAI/delphi)). Delphi **detection scoring** with a shuffled-explanation chance control is used in the audit (step 8). Every prompt and output is logged in full.
+3. **Labeling.** A local **Qwen3.5** model served by [llama.cpp](https://github.com/ggml-org/llama.cpp) writes one explanation per candidate from its top-20 marked contexts, with the Delphi explainer system prompt (without Delphi's few-shot demonstrations) of [Paulo et al. 2024](https://arxiv.org/abs/2410.13928) ([code](https://github.com/EleutherAI/delphi)). Delphi **detection scoring** with a shuffled-explanation chance control is used in the audit (step 8). Every prompt and output is logged in full.
 4. **Steering.** Clamp `a[ℓ,i,t] := α · max|a|` on the neuron's pole, at all positions and all (or one) loops.
    - Sample k = 3 continuations of 48 tokens per prompt.
    - Steered and unsteered runs use **the same sampling seeds** and batch layout (paired design). The random-neuron null runs reuse the seed in a different batch layout, so their pairing with the baseline is not guaranteed bit-exact; unpaired noise can only widen the null.
 5. **Primary metric.** The *concept score* is the cosine between the continuation's embedding and the neuron's **contrastive concept direction**: normalize(mean embedding of the neuron's top contexts − mean embedding of random contexts). It involves no LLM, which avoids label circularity.
-   - Secondary metrics: an AxBench-style blind LLM judge ([Wu et al. 2025](https://arxiv.org/abs/2501.17148)), perplexity under the unsteered model, distinct-2 repetition rate ([Li et al. 2016](https://arxiv.org/abs/1510.03055)), and a second embedder ([all-MiniLM-L6-v2](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2)).
+   - Secondary metrics: an AxBench-style blind LLM judge ([Wu et al. 2025](https://arxiv.org/abs/2501.17148)), perplexity under the unsteered model, distinct-2 lexical diversity per continuation (a per-text variant of [Li et al. 2016](https://arxiv.org/abs/1510.03055)), and a second embedder ([all-MiniLM-L6-v2](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2)).
 6. **Statistics.**
    - A one-sided Wilcoxon signed-rank test vs unsteered.
    - An empirical permutation p-value vs **R = 100 random alive neurons from the same layer** steered at the same relative α ([Phipson & Smyth 2010](https://arxiv.org/abs/1603.05766)). The statistic is mean ΔC on the first 50 prompts, sample 0.
@@ -117,7 +117,7 @@ a[ℓ, i, t] = silu(gate_proj · x)_i · (up_proj · x)_i          (x = RMSNorm 
    - Power analysis via `statsmodels` (paired t-test power divided by the Wilcoxon efficiency 3/π, [Hodges & Lehmann 1956](https://doi.org/10.1214/aoms/1177728261)).
    - A pre-registered decision rule that includes a fluency guard (median perplexity ratio ≤ 2) and a degeneracy guard (median steered distinct-2 ≥ 0.6).
 7. **Loop dynamics.**
-   - Steer at a single loop t ∈ {1..4} to test the "late-loop matters most / early injections get repaired" observation reported for Ouro-1.4B-Thinking ([nesiacel, LessWrong 2026](https://www.lesswrong.com/posts/rzcJMpnehFBD686gj/a-recurrent-llm-is-quite-easy-to-interpret-but-complex-to)).
+   - Steer at a single loop t ∈ {1..4} to test the "last loop matters most / early injections get rotated away" observation reported for Ouro-1.4B-Thinking ([nesiacel, LessWrong 2026](https://www.lesswrong.com/posts/rzcJMpnehFBD686gj/a-recurrent-llm-is-quite-easy-to-interpret-but-complex-to)).
    - Sweep the test-time loop count T = 1…8.
    - Test the saturation predicted by the sandwich norm: clamping one neuron to a huge value c makes the layer's MLP write tend to `γ ⊙ sign(c)·w_i / rms(w_i)` (γ = gain of `post_attention_layernorm_2`), which is bounded.
 8. **Interpretability audit.**
@@ -169,12 +169,12 @@ flowchart TB
   AI --> LLM[llm.py + prompts.py<br/>llama-server client]
   JD --> LLM
   PH8 --> PL[plots.py] & VW[viewer.py] & RT[reporting.py] & PB[publish.py]
-  M --> HK
+  M --> CFG
   ST --> HK
 ```
 
 ## Features
-- Loads Ouro deterministically: pinned revision, fixed exit step, no stochastic early exit.
+- Loads Ouro deterministically: pinned revision, fixed exit step, no threshold-based early exit.
 - Records and steers neurons per loop, for both poles, through a single hook object. The hook object is verified by unit tests against a manual SwiGLU recomputation.
 - Builds a streaming GPU top-k neuron atlas (positive and negative poles, per loop) with dead-neuron and loop-of-max statistics.
 - Runs a local, free LLM labeler and judge (Qwen3.5 GGUF via llama.cpp). Outputs are parsed from the published formats (Delphi `[EXPLANATION]:` and `[0,1,...]` lists, AxBench `Rating: [[n]]`), and everything is logged in full.
@@ -296,7 +296,7 @@ logs/                  # timestamped phase logs incl. every LLM prompt/output
 - **Blayney, Arroyo et al., *A Mechanistic Analysis of Looped Reasoning Language Models*** (2026): cyclic fixed points and stages of inference in looped LMs. https://arxiv.org/abs/2604.11791
 - **Residual-direction steering of Ouro across loops**, done with directions rather than single neurons:
   - nesiacel (LessWrong, 2026). https://www.lesswrong.com/posts/rzcJMpnehFBD686gj/a-recurrent-llm-is-quite-easy-to-interpret-but-complex-to
-  - Suiche (2026), *Steering a Loop: Control Vectors Meet the Looped Transformer* (per-pass refusal directions in Ouro-2.6B). https://msuiche.com/posts/abliterating-a-loop-control-vectors-meet-the-looped-transformer/
+  - Suiche (2026), *Steering a Loop: Control Vectors Meet the Looped Transformer* (per-pass refusal directions in Nanbeige4.2-3B and, in a follow-up section, Ouro-2.6B). https://msuiche.com/posts/abliterating-a-loop-control-vectors-meet-the-looped-transformer/
 - **Neuron description at scale:**
   - Transluce, *Scaling Automatic Neuron Description* (Choi et al. 2024): https://transluce.org/neuron-descriptions
   - Gur-Arieh et al. 2025, output-centric feature descriptions: https://arxiv.org/abs/2501.08319
@@ -314,4 +314,4 @@ logs/                  # timestamped phase logs incl. every LLM prompt/output
   - NeurIPS paper checklist: https://neurips.cc/public/guides/PaperChecklist
 
 ## License
-The code is MIT. Third-party components keep their own licenses: Ouro weights Apache-2.0 ([model card](https://huggingface.co/ByteDance/Ouro-1.4B)); Qwen3.5 weights Apache-2.0 ([model card](https://huggingface.co/Qwen/Qwen3.5-9B)); bge-small-en-v1.5 MIT; all-MiniLM-L6-v2 Apache-2.0; FineWeb-Edu and OpenWebMath ODC-By 1.0 (the published `tokens_atlas.npy` and decoded contexts derive from them); WikiText CC BY-SA 3.0.
+The code is MIT. Third-party components keep their own licenses: Ouro weights Apache-2.0 ([model card](https://huggingface.co/ByteDance/Ouro-1.4B)); Qwen3.5 weights Apache-2.0 ([model card](https://huggingface.co/Qwen/Qwen3.5-9B)); bge-small-en-v1.5 MIT; all-MiniLM-L6-v2 Apache-2.0; FineWeb-Edu and OpenWebMath ODC-By 1.0 plus the [Common Crawl Terms of Use](https://commoncrawl.org/terms-of-use) (the published `tokens_atlas.npy` and decoded contexts derive from them); WikiText CC BY-SA 3.0 (its card also lists GFDL).

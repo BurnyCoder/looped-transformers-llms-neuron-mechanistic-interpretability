@@ -1,6 +1,7 @@
 == Model sanity and the neuron atlas
 Held-out loss falls from 4.03 nats at $T = 1$ to 2.51 at the trained $T = 4$ (perplexity 12.3), and rises slightly when
-extrapolating to $T = 5..8$ (2.55–2.56). This matches the behavior described for Ouro @zhu2025ouro.
+extrapolating to $T = 5..8$ (2.55–2.56). This parallels the benchmark trend reported for Ouro, which improves up to
+the trained depth and degrades moderately beyond it @zhu2025ouro.
 - *Atlas.* 8M tokens, 72.5 min. No neuron is dead. Median $max|a|$ is 0.64.
 - *Peak location.* Strongest activations concentrate in early loops: the share of neurons whose top context occurs at
   loop 1, 2, 3, 4 is 41.0%, 29.7%, 16.7%, 12.7% (both poles pooled).
@@ -8,13 +9,15 @@ extrapolating to $T = 5..8$ (2.55–2.56). This matches the behavior described f
   activations is 0.54 (IQR 0.43–0.63). It rises with depth from $approx 0$ in layer 0 to 0.59–0.65 in layers 14–23.
 - *Convergence.* Adjacent loops converge: median $r(1,2) = 0.65$, $r(2,3) = 0.84$, $r(3,4) = 0.94$, consistent with
   fixed-point dynamics @blayney2026mechanistic.
-- *Top-context overlap* between loop 1 and loop 4 is much lower (Jaccard 0.01–0.19 by layer, highest at layer 19). This mostly reflects how
-  sensitive top-$k$ sets are to near-ties (@fig:loops).
+- *Top-context overlap* between loop 1 and loop 4 is much lower (Jaccard 0.01–0.19 by layer, highest at layer 19;
+  positive pole, 500 random neurons per layer). Top-20 sets cover only the extreme tail of the activations and are
+  sensitive to near-ties; how much of the gap to the correlations this explains was not tested (@fig:loops).
 
 #figure(image("../../figures/loop_structure.png", width: 100%),
-  caption: [Loop structure of all 135,168 neurons. Left: share of neurons whose strongest atlas context occurs at each
-  loop. Middle: Jaccard overlap of top-20 contexts between loops. Right: median same-token activation correlation
-  between loops (held-out text).]) <fig:loops>
+  caption: [Loop structure by layer. Left: share of neuron poles (all 135,168 neurons, both poles) whose strongest
+  atlas context occurs at each loop. Middle: Jaccard overlap of top-20 context chunks between loops (positive pole,
+  500 random alive neurons per layer). Right: median same-token activation correlation between loops over all neurons
+  (32,256 held-out tokens).]) <fig:loops>
 
 #figure(image("../../figures/neuron_loops_18_3066_1.png", width: 100%),
   caption: [Per-loop activations of the phonetics neuron L18 N3066 (negative pole) on its strongest atlas context. The
