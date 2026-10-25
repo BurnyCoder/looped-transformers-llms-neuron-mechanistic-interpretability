@@ -349,7 +349,8 @@ def main() -> None:
     s = load_settings(**over)
     log = get_logger("dryrun" if args.dry_run else (args.phase or "pipeline"), s.logs_dir)
     c = Ctx(s, log)
-    for name in [args.phase] if args.phase else PHASES:
+    phases = [args.phase] if args.phase else [p for p in PHASES if not (args.dry_run and p == "publish")]  # never upload smoke tests
+    for name in phases:
         log.info("=== phase: %s ===", name)
         globals()[name](c)
 
