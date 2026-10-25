@@ -53,9 +53,9 @@ No model was trained or fine-tuned in this study. All experiments are inference-
 | 1 | sanity check + neuron atlas | FineWeb-Edu + OpenWebMath, 8M tokens | loss 4.03 → 2.51 nats from T = 1 → 4; 0 dead neurons; 41% of neurons peak at loop 1, 13% at loop 4 | [01](01_setup_and_atlas.md) |
 | 2 | selection + pre-registration | WikiText-103 test, 125 discovery prompts | 8,000 units → 200 coherent → 10 validated → 5 eligible; distinct-2 guard added before confirmation (repetition has low perplexity) | [02](02_selection_and_preregistration.md) |
 | 3 | **confirmatory steering test (H1)** | 100 held-out prompts × 3 samples | **5/5 neurons significant**: mean ΔC 0.13–0.18, d_z 0.99–1.61, Holm p_Wilcoxon ≤ 1.1e-15, Holm p_null = 0.0495 (floor), PPL ratio ≤ 1.83 | [03](03_confirmatory_test.md) |
-| 4 | follow-ups (post hoc) | 60 held-out prompts | specific (own concept 1.4–3.8× the largest other); saturating dose-response; single-loop clamps ≤ 0.043 vs all-loop 0.13–0.17 (super-additive); flat in T; 4/6 necessary by ablation (exploratory) | [04](04_followups.md) |
-| 5 | loop structure + LLM audit (H4) | 32k held-out tokens; 150 neurons | cross-loop r(1,4) median 0.54; adjacent loops converge (0.65 → 0.84 → 0.94); audit pending | [05](05_loop_audit.md) |
-| 6 | replication on Ouro-1.4B-Thinking | 100 held-out prompts | pending | [06](06_replication.md) |
+| 4 | follow-ups (post hoc) + LLM judge (secondary) | 60 / 50 held-out prompts | specific (own concept 1.4–3.8× the largest other); saturating dose-response; single-loop clamps ≤ 0.043 vs all-loop 0.13–0.17 (super-additive); flat in T; 4/6 necessary by ablation (exploratory); blind LLM judge concept 0 → 0.06–0.36 (all Holm p ≤ 0.042), fluency 1.50 → 0.90–1.17 | [04](04_followups.md) |
+| 5 | loop structure + LLM audit (H4) | 32k held-out tokens; 150 neurons | cross-loop r(1,4) median 0.54; adjacent loops converge (0.65 → 0.84 → 0.94); H4 not supported (same-loop 0.60 vs cross-loop 0.59, p = 0.20; weak explainer) | [05](05_loop_audit.md) |
+| 6 | replication on Ouro-1.4B-Thinking | 100 held-out prompts | 5/5 replicate (ΔC 0.161–0.180, Holm p ≤ 2.1e-16, each beats 20/20 random neurons); SFT leaves neuron weights nearly unchanged (cos ≥ 0.993 for 99%) | [06](06_replication.md) |
 
 ## What would have falsified H1, and what did not happen
 H1 would have been rejected if no candidate had met *all* of the following after Holm correction:

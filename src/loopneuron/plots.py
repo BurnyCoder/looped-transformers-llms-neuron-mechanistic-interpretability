@@ -22,7 +22,7 @@ plt.rcParams.update({
     "figure.facecolor": SURF, "axes.facecolor": SURF, "savefig.facecolor": SURF, "axes.edgecolor": INK2,
     "axes.labelcolor": INK, "xtick.color": INK2, "ytick.color": INK2, "text.color": INK, "font.size": 10,
     "axes.spines.top": False, "axes.spines.right": False, "axes.grid": True, "grid.color": "#e6e5e1",
-    "grid.linewidth": 0.8, "lines.linewidth": 2, "lines.markersize": 7, "legend.frameon": False,
+    "grid.linewidth": 0.8, "lines.linewidth": 2, "lines.markersize": 7, "legend.frameon": False, "axes.axisbelow": True,
 })
 
 
@@ -73,16 +73,18 @@ def loop_structure(ls: dict, path: Path):
 
 def confirm_effects(conf: dict, path: Path):
     rs = conf["results"]
-    fig, ax = plt.subplots(figsize=(7, 0.45 * len(rs) + 1.5))
+    fig, ax = plt.subplots(figsize=(7, 0.45 * len(rs) + 2.0))
     for i, r in enumerate(rs):
         lo, hi = r["ci95"]
         ax.plot([lo, hi], [i, i], color=S1 if r["significant"] else GRAY, lw=2)
         ax.plot(r["mean_delta"], i, "o", color=S1 if r["significant"] else GRAY)
         ax.plot(r["null_q95"], i, "|", color=S2, ms=12, mew=2)
     ax.axvline(0, color=INK2, lw=1)
-    ax.set_yticks(range(len(rs)), [f'L{r["layer"]} N{r["neuron"]} {"+" if r["pole"] == 0 else "-"}  a={r["alpha"]}' for r in rs])
-    ax.set(xlabel="mean Delta concept score (steered - unsteered), 95% bootstrap CI",
-           title="Confirmatory test (blue = significant after Holm; orange tick = random-neuron null 95th pct.)")
+    ax.set_yticks(range(len(rs)), [f'L{r["layer"]} N{r["neuron"]} {"+" if r["pole"] == 0 else "−"}  α={r["alpha"]:g}' for r in rs])
+    ax.set(xlabel="mean ΔC (steered − unsteered), 95% bootstrap CI", title="Pre-registered confirmatory test")
+    ax.plot([], [], "o-", color=S1, label="candidate (significant)")
+    ax.plot([], [], "|", color=S2, ms=12, mew=2, label="random same-layer null, 95th pct.")
+    ax.legend(loc="upper center", bbox_to_anchor=(0.5, -0.22), ncol=2, fontsize=8)
     return _save(fig, path)
 
 
@@ -92,8 +94,8 @@ def null_histogram(r: dict, path: Path):
     ax.axvline(r["null_stat_candidate"], color=S1, lw=2.5)
     ax.text(r["null_stat_candidate"], ax.get_ylim()[1] * 0.95, f' L{r["layer"]} N{r["neuron"]}\n p = {r["p_null"]:.3f}',
             color=INK, va="top")
-    ax.set(xlabel="mean Delta concept score on 50 prompts", ylabel="random same-layer neurons",
-           title=f"Candidate vs {len(r['null_means'])} random neurons (same layer, same alpha)")
+    ax.set(xlabel="mean ΔC on 50 prompts", ylabel="random same-layer neurons",
+           title=f"Candidate vs {len(r['null_means'])} random neurons (same layer, same α)")
     return _save(fig, path)
 
 
@@ -110,11 +112,10 @@ def dose(dr: dict, key: str, path: Path):
         ax.set_xscale("log", base=2)
         ax.axvline(cstar, color=S2, ls="--", lw=1.5)
     axes[0].text(cstar, axes[0].get_ylim()[1], " predicted saturation c*", color=INK2, va="top")
-    axes[0].set(xlabel="alpha (clamp = alpha x max activation)", ylabel="mean Delta concept score",
-                title=f"Dose-response {key}")
+    axes[0].set(xlabel="α (clamp = α × max activation)", ylabel="mean ΔC", title=f"Dose-response {key}")
     axes[1].plot(a, [r["ppl_ratio_median"] for r in rows], color=S2, marker="o")
     axes[1].axhline(2, color=GRAY, ls=":", lw=1)
-    axes[1].set(xlabel="alpha", ylabel="median perplexity ratio", title="Fluency cost (guard at 2)")
+    axes[1].set(xlabel="α", ylabel="median perplexity ratio", title="Fluency cost (guard at 2)")
     return _save(fig, path)
 
 
@@ -125,9 +126,11 @@ def loop_locus(ll: dict, key: str, path: Path):
     m, ci = np.array([r["mean_dC"] for r in rows]), np.array([r["ci95"] for r in rows])
     axes[0].bar(labels, m, color=[GRAY] + [S1] * (len(rows) - 1), width=0.6)
     axes[0].errorbar(labels, m, yerr=[m - ci[:, 0], ci[:, 1] - m], fmt="none", ecolor=INK, lw=1.2, capsize=3)
-    axes[0].set(xlabel="loop(s) where the neuron is clamped", ylabel="mean Delta concept score", title=f"Loop locus {key}")
+    axes[0].set(xlabel="loop(s) where the neuron is clamped", ylabel="mean ΔC", title=f"Loop locus {key}")
     axes[1].bar(labels, [r["kl"] for r in rows], color=[GRAY] + [S3] * (len(rows) - 1), width=0.6)
     axes[1].set(xlabel="loop(s) clamped", ylabel="next-token KL (nats)", title="Effect on next-token distribution")
+    for ax in axes:
+        ax.grid(axis="x", visible=False)  # bars: horizontal grid only
     return _save(fig, path)
 
 
@@ -141,7 +144,7 @@ def t_sweep(ts: dict, key: str, path: Path, T_train: int = 4):
     axes[1].plot(T, [r["kl"] for r in rows], color=S3, marker="o")
     for ax in axes:
         ax.axvline(T_train, color=GRAY, ls="--", lw=1)
-    axes[0].set(xlabel="loops T at inference (clamped at every loop)", ylabel="mean Delta concept score",
+    axes[0].set(xlabel="loops T at inference (clamped at every loop)", ylabel="mean ΔC",
                 title=f"Test-time loops {key}")
     axes[1].set(xlabel="loops T", ylabel="next-token KL (nats)", title="Mechanistic effect vs T")
     return _save(fig, path)
@@ -155,10 +158,11 @@ def specificity(sp: dict, path: Path):
     im = ax.imshow(M, cmap="RdBu_r", vmin=-lim, vmax=lim)  # diverging: blue negative, red positive, white 0
     for i in range(len(keys)):
         for j in range(len(keys)):
-            ax.text(j, i, f"{M[i, j]:.2f}", ha="center", va="center", fontsize=8, color=INK)
+            ax.text(j, i, f"{M[i, j]:.2f}", ha="center", va="center", fontsize=8,
+                    color="white" if abs(M[i, j]) > 0.6 * lim else INK)  # keep labels legible on dark cells
     ax.set_xticks(range(len(keys)), keys, rotation=30, ha="right")
     ax.set_yticks(range(len(keys)), keys)
-    ax.set(xlabel="concept direction scored", ylabel="neuron steered", title="Steering specificity (mean Delta C)")
+    ax.set(xlabel="concept direction scored", ylabel="neuron steered", title="Steering specificity (mean ΔC)")
     ax.grid(False)
     fig.colorbar(im, ax=ax, fraction=0.046)
     return _save(fig, path)
@@ -172,14 +176,17 @@ def audit_bars(audit: list, path: Path, T: int = 4):
               "shuffled label": np.array([r["shuffled"]["balanced_acc"] for r in audit])}
     fig, ax = plt.subplots(figsize=(7, 3.4))
     names = list(groups)
-    for i, n in enumerate(names):
+    for i, n in enumerate(names):  # dot + CI (not bars): the axis does not start at 0
         v = groups[n][np.isfinite(groups[n])]
         se = v.std(ddof=1) / np.sqrt(len(v))
-        ax.bar(i, v.mean(), color=GRAY if "shuffled" in n else (S1 if "same" in n else S2), width=0.6)
-        ax.errorbar(i, v.mean(), yerr=1.96 * se, fmt="none", ecolor=INK, capsize=3, lw=1.2)
+        colr = GRAY if "shuffled" in n else (S1 if "same" in n else S2)
+        ax.errorbar(i, v.mean(), yerr=1.96 * se, fmt="o", color=colr, ecolor=colr, capsize=4, lw=1.5, ms=8)
     ax.axhline(0.5, color=INK2, ls=":", lw=1)
+    ax.text(len(names) - 0.5, 0.505, "chance", color=INK2, ha="right", va="bottom", fontsize=8)
     ax.set_xticks(range(len(names)), names)
-    ax.set(ylabel="detection balanced accuracy", ylim=(0.3, 1.0), title=f"Explanation transfer across loops (n={len(audit)} neurons, 95% CI)")
+    ax.grid(axis="x", visible=False)
+    ax.set(ylabel="detection balanced accuracy", ylim=(0.45, 0.7),
+           title=f"Explanation transfer across loops (n={len(audit)} neurons, mean ± 95% CI)")
     return _save(fig, path)
 
 

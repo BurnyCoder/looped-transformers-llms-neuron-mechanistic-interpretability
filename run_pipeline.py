@@ -12,6 +12,7 @@ from __future__ import annotations
 
 import argparse
 import gc
+import os
 import json
 import subprocess
 
@@ -26,7 +27,7 @@ from loopneuron.model import load_model
 
 PHASES = ["setup_check", "build_atlas", "screen_candidates", "validate_candidates", "label_candidates", "preregister",
           "confirm_steering",
-          "followups", "llm_judge", "audit", "replicate", "report"]
+          "followups", "llm_judge", "audit", "replicate", "report", "publish"]
 
 
 class Ctx:
@@ -89,7 +90,8 @@ class Ctx:
         self.free_model()
         root = self.s.root
         port = int(self.s.llm_base_url.rsplit(":", 1)[1].split("/")[0])  # e.g. http://127.0.0.1:8093/v1 -> 8093
-        return LlamaServer(root / "tools" / "llama.cpp" / "llama-server.exe", root / "cache" / "gguf" / self.s.llm_gguf,
+        exe = root / "tools" / "llama.cpp" / ("llama-server.exe" if os.name == "nt" else "llama-server")
+        return LlamaServer(exe, root / "cache" / "gguf" / self.s.llm_gguf,
                            port, self.s.logs_dir / "llama_server.txt", log=self.log)
 
 
@@ -262,7 +264,7 @@ def replicate(c: Ctx) -> None:
     # R=20 random neurons: the replication null is descriptive (z-margin), not a Holm-family test, so a smaller R keeps
     # the run ~1 h instead of ~2.5 h; the Wilcoxon test vs unsteered is the replication criterion.
     res = confirm(model, c.tok, c.atlas, chunks, cands, scr["u"], scr["rand_mean"], prompts, c.s.ut_steps,
-                  pre["seed"] + 2000, pre["k"], pre["n_tokens"], 20, c.log, c.out)
+                  pre["seed"] + 2000, pre["k"], pre["n_tokens"], 20, c.log, c.out, "replication_examples.jsonl")
     c.write("replication.json", {"model": c.s.repl_model_id, "revision": c.s.repl_model_revision,
                                  "correspondence": corr, "thinking_max_act": maxes,
                                  "base_max_act": {r["key"]: float(c.atlas["top_v"][r["layer"], r["pole"], r["neuron"], 0])
@@ -295,6 +297,45 @@ def report(c: Ctx) -> None:
                     c.s.ut_steps, info, vdir / f)
         entries.append((f, f'L{cand["layer"]} N{cand["neuron"]} {"+" if cand["pole"] == 0 else "-"}: {cand.get("label", "")}'))
     index_page(entries, vdir / "index.html")
+
+
+HF_DATASET = "BurnyCoder/ouro-1.4b-neuron-atlas"
+DATASET_CARD = """---
+license: mit
+tags: [interpretability, mechanistic-interpretability, looped-transformer, neurons, steering, ouro]
+---
+# Ouro-1.4B neuron atlas and steering results
+
+Neuron-level atlas of [ByteDance/Ouro-1.4B](https://huggingface.co/ByteDance/Ouro-1.4B) (revision 574fa66), a looped LM
+that applies its 24 layers 4 times. Produced by
+https://github.com/BurnyCoder/looped-transformers-llms-neuron-mechanistic-interpretability (see its README and reports/).
+
+Files:
+- `atlas.pt`: torch dict for all 135,168 SwiGLU neurons (24 layers x 5632) and both poles (index 0 = positive, 1 = negative).
+  - `top_v`/`top_seq`/`top_pos`/`top_loop` [24, 2, 5632, 40]: top-40 contexts, maximum over positions x loops.
+  - `lt_v`/`lt_seq`/`lt_pos` [24, 4, 2, 5632, 20]: top-20 contexts per loop.
+  - Per-loop `mean`, `mean_abs`, `std`, `frac_pos` [24, 4, 5632].
+  - `exceed` counts and the `dead` flag.
+- `tokens_atlas.npy`: uint16 [31250, 256], the token chunks that `*_seq`/`*_pos` index (Ouro tokenizer;
+  FineWeb-Edu sample-10BT shard 000 + 10% OpenWebMath).
+- `featured_neurons.jsonl`: decoded top contexts (peak token marked <<>>) for the screened and validated candidates.
+- `results/*.json`: pre-registered confirmatory test, follow-ups, audit, replication and LLM-judge results.
+
+Main result: 5/5 pre-registered neurons steer generation toward their concept significantly beyond 100 random
+same-layer neurons (Holm-corrected), and replicate in Ouro-1.4B-Thinking.
+"""
+
+
+def publish(c: Ctx) -> None:
+    """Upload atlas + results to a public HF dataset in the 'Looped-LM neurons' collection (no models are trained)."""
+    from loopneuron.publish import featured_jsonl, publish as upload
+
+    keys = [f'{x["layer"]}_{x["neuron"]}_{x["pole"]}' for x in c.read("screen.json")["candidates"]]
+    feat = featured_jsonl(c.atlas, c.chunks("atlas"), c.tok, keys, c.out / "featured_neurons.jsonl")
+    files = {"atlas.pt": c.out / "atlas.pt", "tokens_atlas.npy": c.s.root / "cache" / "tokens_atlas.npy",
+             "featured_neurons.jsonl": feat}
+    files.update({f"results/{p.name}": p for p in sorted(c.out.glob("*.json"))})
+    upload(HF_DATASET, files, DATASET_CARD, c.log)
 
 
 def main() -> None:

@@ -34,11 +34,22 @@ Example (confirm prompt 2, sample 0):
 | Specificity | steer neuron i, score concept j | each neuron moves its own concept most, 1.4–3.8× the largest other concept ([report](reports/04_followups.md)) |
 | Dose-response | α = 0.5…16 × max activation | monotone then **saturating**, as the sandwich RMSNorm predicts; opposite-sign clamps do nothing |
 | H2: does a later loop matter more? | clamp at a single loop | **mostly no.** For the 5 confirmed neurons, single-loop clamps give ΔC ≤ 0.043, against 0.13–0.17 for all-loop; effects are super-additive across loops (self-repair). Exception: the exploratory if-statement neuron L19 N3901, where the last loop alone gives 56% |
+| LLM judge (secondary) | blind AxBench-style 0–2 ratings by local Qwen3.5-9B, 50 prompts | concept 0 → 0.06–0.36 (all 5 Holm p ≤ 0.042); fluency 1.50 → 0.90–1.17 |
 | H3: more test-time loops? | clamp at all loops for T = 1…8 | effect already present at T = 1, roughly flat in T; next-token KL grows with T |
 | Necessity | zero-ablation vs 100 random ablations | 4 of 6 neurons needed for their own contexts (unadjusted p = 0.0099; exploratory); 2 neurons steer but are not necessary |
 | Loop structure (descriptive) | where each neuron peaks; top-context overlap across loops | 41% of neurons peak at loop 1 vs 13% at loop 4; top-20 contexts at loop 1 vs loop 4 overlap only 1–19% (Jaccard) |
-| H4: are looped neurons "loop-polysemantic"? | same-loop vs cross-loop detection of explanations | running |
-| Replication on Ouro-1.4B-Thinking | same neuron indices, fresh seeds | running |
+| Cross-loop function (descriptive) | same-token activation correlation, loop 1 vs 4 | median r = 0.54; adjacent loops converge (0.65 → 0.84 → 0.94); layer 0 ≈ 0 ([report](reports/05_loop_audit.md)) |
+| H4: are looped neurons "loop-polysemantic"? | same-loop vs cross-loop detection of local-LLM explanations | **not supported** (0.60 vs 0.59, p = 0.20); the explainer is weak (0.60 vs 0.50 chance) |
+| Replication on Ouro-1.4B-Thinking | same neuron indices, fresh seeds | **5/5 replicate** (ΔC 0.16–0.18, Holm p ≤ 2.1e-16, each beats 20/20 random neurons); weights nearly unchanged by SFT (cos ≥ 0.993) ([report](reports/06_replication.md)) |
+
+<p align="center">
+<img src="figures/confirm_effects.png" width="49%" alt="Confirmatory test: mean concept-score change with 95% CIs for the five neurons, far above the random same-layer neuron null"/>
+<img src="figures/specificity.png" width="40%" alt="Specificity matrix: each neuron raises its own concept most"/>
+</p>
+<p align="center">
+<img src="figures/loop_locus_18_3066_1.png" width="49%" alt="Clamping at a single loop barely steers; clamping at all loops does"/>
+<img src="figures/loop_structure.png" width="49%" alt="Loop structure: most neurons peak at loop 1; activations converge across loops"/>
+</p>
 
 **Negative and cautionary findings:**
 - **Degeneration.** Perplexity alone fails as a fluency guard. The if-statement neuron and a Fibonacci neuron reach the highest concept scores by degenerating into "ififif…" and "Fib Fib Fib…", which have *low* perplexity. A distinct-2 guard was added before the confirmatory run.

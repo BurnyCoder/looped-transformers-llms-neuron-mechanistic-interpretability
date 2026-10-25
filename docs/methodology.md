@@ -71,6 +71,16 @@ Streaming top-k works per batch. Each sequence is reduced to its maximum per neu
 - **Power.** `statsmodels.stats.power.TTestPower` is run on the discovery d_z with α = 0.05/K and power 0.9. The Wilcoxon test's asymptotic relative efficiency vs the t-test is ≈ 0.955 under normality, so the required n is inflated by 1/0.955.
 - **Seed sensitivity.** The confirmatory test is repeated with 3 independent seed sets, and each is reported.
 
+## 7b. Follow-ups, LLM judge and replication (as run)
+- **Follow-ups (post hoc).** Run on confirm prompts 1–60, 1 sample each, with seeds distinct from the confirmatory run. They cover:
+  - the specificity matrix (steer neuron i, score concept j);
+  - dose-response over α ∈ {0.5, 1, 2, 4, 8, 16, −1, −4};
+  - loop locus;
+  - T sweep;
+  - zero-ablation on atlas ranks 21–40 against 100 random same-layer ablations.
+- **LLM judge (secondary).** Prompts 1–50. Each continuation is rated in its own call, in shuffled order, for concept (the neuron's Qwen label) and for fluency.
+- **Replication.** Same protocol on Ouro-1.4B-Thinking with seed base +2000 and R = 20. With R = 20 the null is descriptive: 1/21 cannot pass Holm at K = 5. Replication criterion: Holm Wilcoxon p < 0.05, the neuron beats all random neurons, and both guards pass.
+
 ## 8. Loop dynamics
 - **H2 (loop locus).** Clamp only at loop t ∈ {1, 2, 3, 4}. Prior residual-direction steering of Ouro-1.4B-Thinking found the last loop most effective, and found that earlier injections get "rotated away" ([nesiacel 2026](https://www.lesswrong.com/posts/rzcJMpnehFBD686gj/a-recurrent-llm-is-quite-easy-to-interpret-but-complex-to)). We test whether this holds for single neurons. We also measure how much of the injected direction w_i survives at the final norm.
 - **H3 (test-time loops).** Clamp at all loops while varying T ∈ {1..8}. T > 4 is extrapolation beyond training ([Zhu et al. 2025](https://arxiv.org/abs/2510.25741)).
