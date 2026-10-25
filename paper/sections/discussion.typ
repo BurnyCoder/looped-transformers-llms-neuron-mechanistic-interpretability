@@ -13,6 +13,12 @@ All five neurons steer the post-trained model with similar or larger effects:
 - each neuron exceeds all 20 random same-layer neurons;
 - the PPL ratio is at most 1.98.
 
+A second replication on 100 never-used prompts (the reserve split) gives the same picture:
+- $Delta C = 0.157$–$0.179$;
+- Holm-adjusted Wilcoxon $p <= 2.0 times 10^(-16)$;
+- each neuron again beats all 20 random neurons;
+- the PPL ratio is at most 1.97.
+
 #include "results_judge.typ"
 
 = Discussion
@@ -46,6 +52,7 @@ guard, or an LLM fluency judge as in AxBench @wu2025axbench, is necessary.
 = Limitations
 - *Scope.* One looped model family (Ouro-1.4B and its Thinking variant) and 5 confirmed neurons, chosen for steerability
   from a pool of 200 coherent units. These are existence claims and say nothing about how common steerable neurons are.
+  Ouro-2.6B (48 looped layers) was not studied because its weights plus KV cache do not fit the 8 GB GPU used here.
 - *Metric.* The primary metric is an embedding-based concept score built from each neuron's own top contexts. It
   measures movement toward that contrastive direction, not human-judged concept presence. The LLM judge is a secondary
   check from a small local model.
