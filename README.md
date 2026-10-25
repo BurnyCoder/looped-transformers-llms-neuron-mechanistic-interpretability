@@ -93,12 +93,14 @@ a[ℓ, i, t] = silu(gate_proj · x)_i · (up_proj · x)_i          (x = RMSNorm 
    - the top-40 contexts over all positions and loops;
    - the top-20 contexts at each loop;
    - the loop where the activation peaks;
-   - per-loop mean and firing frequency, histograms, and dead-neuron flags.
+   - per-loop mean, mean |a|, SD, positive fraction and threshold-exceedance counts (on every 8th batch), plus dead-neuron flags.
    Top-k is computed by streaming `torch.topk` merges on the GPU, following the max-activating-examples practice of [Bills et al. 2023](https://openaipublic.blob.core.windows.net/neuron-explainer/paper/index.html).
 2. **Candidate screen** (discovery data only).
    - Rank neurons by *semantic coherence* of their top contexts: mean pairwise cosine of [bge-small-en-v1.5](https://huggingface.co/BAAI/bge-small-en-v1.5) embeddings.
    - Drop pure token or position detectors ([Voita et al. 2023](https://arxiv.org/abs/2309.04827)).
-   - Quick-steer about 200 neurons and keep at most K = 5 candidates.
+   - Quick-steer the 200 most coherent units at α ∈ {1, 2, 4} on 25 discovery prompts.
+   - Validate the top 10 on 100 other discovery prompts.
+   - Keep the K = 5 units with the largest validation d_z among those that pass the fluency (perplexity) and degeneracy (distinct-2) guards.
 3. **Labeling.** A local **Qwen3.5** model served by [llama.cpp](https://github.com/ggml-org/llama.cpp) writes explanations from top examples. It uses the Delphi explainer format and **detection scoring** from [Paulo et al. 2024](https://arxiv.org/abs/2410.13928) ([code](https://github.com/EleutherAI/delphi)), with a shuffled-label chance control. Every prompt and output is logged in full.
 4. **Steering.** Clamp `a[ℓ,i,t] := α · max|a|` on the neuron's pole, at all positions and all (or one) loops.
    - Sample k = 3 continuations of 48 tokens per prompt.
@@ -111,12 +113,16 @@ a[ℓ, i, t] = silu(gate_proj · x)_i · (up_proj · x)_i          (x = RMSNorm 
    - Holm correction across candidates.
    - d_z and rank-biserial effect sizes with bootstrap 95% CIs.
    - Power analysis via `statsmodels`.
-   - A pre-registered decision rule that includes a fluency guard: median perplexity ratio ≤ 2.
+   - A pre-registered decision rule that includes a fluency guard (median perplexity ratio ≤ 2) and a degeneracy guard (median steered distinct-2 ≥ 0.6).
 7. **Loop dynamics.**
    - Steer at a single loop t ∈ {1..4} to test the "late-loop matters most / early injections get repaired" observation reported for Ouro-1.4B-Thinking ([nesiacel, LessWrong 2026](https://www.lesswrong.com/posts/rzcJMpnehFBD686gj/a-recurrent-llm-is-quite-easy-to-interpret-but-complex-to)).
    - Sweep the test-time loop count T = 1…8.
    - Test the saturation predicted by the sandwich norm: clamping one neuron to a huge value makes the layer's MLP write tend to `g ⊙ w_i / rms(w_i)`, which is bounded.
-8. **Interpretability audit.** Sample 300 neurons stratified by layer. Write explanations per loop, then score them on the same loop and across loops (loop-polysemanticity).
+8. **Interpretability audit.**
+   - Sample 150 neurons (50 per layer tercile).
+   - Write explanations at loop 1 and at loop 4.
+   - Score each explanation on held-out contexts from the same loop and from the other loop (loop-polysemanticity), with a shuffled-explanation control.
+   - Also compute every neuron's same-token activation correlation between loops on held-out text.
 9. **Replication.** Map neurons by weight similarity and re-test the significant neuron(s) on Ouro-1.4B-Thinking.
 
 ## What happens when you run it (data flow)
@@ -137,19 +143,25 @@ flowchart LR
   E --> K
 ```
 
-Each phase writes timestamped logs to `logs/<run>/` and to the terminal. LLM prompts and outputs are logged in full, never truncated. Results go to `results/<model>/` as JSON, NPZ, and Parquet.
+Each phase writes a timestamped log, `logs/<YYYYmmdd-HHMMSS>_<phase>.log`, and prints to the terminal. LLM prompts and outputs are logged in full, never truncated. Results go to `results/<model>/` as JSON, JSONL, NPZ, and the `atlas.pt` torch file.
 
 ## Code architecture
 
 ```mermaid
 flowchart TB
   RP[run_pipeline.py<br/>phase wrapper] --> CFG[config.py<br/>.env settings]
-  RP --> PH0[setup_check] & PH1[build_atlas] & PH2[screen_candidates] & PH3[preregister] & PH4[confirm_steering] & PH5[loop_dynamics] & PH6[interpretability_audit] & PH7[replicate] & PH8[report]
+  RP --> PH0[setup_check] & PH1[build_atlas] & PH2[screen / validate<br/>candidates] & PH3[label + preregister] & PH4[confirm_steering] & PH5[followups + llm_judge] & PH6[audit] & PH7[replicate] & PH8[report + publish]
+  PH0 --> SN[sanity.py]
   PH1 --> M[model.py] & HK[hooks.py] & DT[data.py] & AT[atlas.py]
-  PH2 --> MT[metrics.py] & ST[steering.py]
-  PH4 --> ST & SS[stats.py]
-  PH6 --> AI[autointerp.py] --> LLM[llm.py<br/>llama-server client]
-  PH8 --> PL[plots.py] & VW[viewer.py]
+  PH2 --> SC[screen.py] --> MT[metrics.py] & ST[steering.py] & CX[contexts.py]
+  PH3 --> PR[prereg.py] & AI[autointerp.py]
+  PH4 --> CF[confirm.py] --> ST & SS[stats.py]
+  PH5 --> EX[experiments.py] & JD[judge.py]
+  PH6 --> AU[audit.py] --> AI
+  PH7 --> RE[replicate.py] --> CF
+  AI --> LLM[llm.py + prompts.py<br/>llama-server client]
+  JD --> LLM
+  PH8 --> PL[plots.py] & VW[viewer.py] & RT[reporting.py] & PB[publish.py]
   M --> HK
   ST --> HK
 ```
@@ -158,7 +170,7 @@ flowchart TB
 - Loads Ouro deterministically: pinned revision, fixed exit step, no stochastic early exit.
 - Records and steers neurons per loop, for both poles, through a single hook object. The hook object is verified by unit tests against a manual SwiGLU recomputation.
 - Builds a streaming GPU top-k neuron atlas (positive and negative poles, per loop) with dead-neuron and loop-of-max statistics.
-- Runs a local, free LLM labeler and judge (Qwen3.5 GGUF via llama.cpp) with JSON-schema outputs and full logging.
+- Runs a local, free LLM labeler and judge (Qwen3.5 GGUF via llama.cpp). Outputs are parsed from the published formats (Delphi `[EXPLANATION]:` and `[0,1,...]` lists, AxBench `Rating: [[n]]`), and everything is logged in full.
 - Runs a pre-registered confirmatory steering test with paired seeds, random same-layer neuron nulls, Holm correction, bootstrap CIs, and a power analysis.
 - Analyzes loop dynamics: single-loop steering, test-time loop sweeps, and saturation predictions.
 - Generates a static HTML "microscope" page per neuron, with token heatmaps per loop.
@@ -201,24 +213,41 @@ uv sync
 cp .env.example .env
 ```
 
-The local labeler/judge is needed only for the labeling, judging, and audit phases. Steering statistics use the LLM-free concept score. Setup:
-1. Download a prebuilt `llama-server` from the [llama.cpp releases](https://github.com/ggml-org/llama.cpp/releases) (CUDA build) into `tools/llama.cpp/`.
-2. Download a Qwen3.5 GGUF into `cache/gguf/`.
-3. Start the server:
+The local labeler/judge is needed only for the labeling, LLM-judge, and audit phases. Steering statistics use the LLM-free concept score. Setup:
+1. Download the llama.cpp CUDA build (release b11854) into `tools/llama.cpp/`.
+2. Download `Qwen3.5-9B-Q4_K_M.gguf` into `cache/gguf/`.
 
-```bash
-tools/llama.cpp/llama-server -m cache/gguf/Qwen3.5-9B-Q4_K_M.gguf -ngl 99 -c 8192 --port 8093
-```
-
-Exact file names and revisions are recorded in [docs/setup.md](docs/setup.md).
+Exact commands are in [docs/setup.md](docs/setup.md). The pipeline starts and stops `llama-server` itself, on port 8093, after unloading Ouro from the GPU.
 
 ## Usage
 
-Run the whole pipeline. Phases are resumable, and each phase skips work whose outputs already exist:
+The model, revision, token budgets, seeds and LLM settings live in `.env` (template: `.env.example`).
+
+Run every phase in order:
 
 ```bash
-uv run python run_pipeline.py --model ByteDance/Ouro-1.4B
+uv run python run_pipeline.py
 ```
+
+The phase order is:
+1. setup_check
+2. build_atlas
+3. screen_candidates
+4. validate_candidates
+5. label_candidates
+6. preregister
+7. confirm_steering
+8. followups
+9. llm_judge
+10. audit
+11. replicate
+12. report
+13. publish
+
+Notes on running it:
+- `build_atlas` skips work if a finished `atlas.pt` exists. Other phases recompute.
+- `confirm_steering` refuses to run until `reports/preregistration.md` is committed to git and unchanged. Commit and push it after `preregister`, then continue with `--phase confirm_steering` and the later phases.
+- `publish` uploads to the Hugging Face dataset named in `run_pipeline.py`. Change `HF_DATASET` to your own repo before using it.
 
 Smoke-test every phase on a tiny budget:
 
@@ -241,13 +270,17 @@ uv run pytest -q
 ## Repository layout
 ```
 run_pipeline.py        # one wrapper calling the named phases
-src/loopneuron/        # config, logging, model, hooks, data, atlas, llm, autointerp, metrics, steering, stats, plots, viewer
-tests/                 # pytest unit tests (hooks, top-k, stats, determinism)
-data/prompts/          # discovery / confirmatory prompt splits
-results/ figures/      # generated outputs
-reports/               # per-experiment reports, summary, pre-registration
-docs/                  # methodology, setup, design notes
-paper/                 # Typst source + PDF
+src/loopneuron/        # config, logging_utils, model, hooks, data, atlas, contexts, metrics, steering, screen, prereg,
+                       # confirm, experiments, judge, audit, replicate, llm, prompts, autointerp, stats, sanity,
+                       # plots, viewer, reporting, publish
+tests/                 # pytest unit tests (hooks vs manual SwiGLU, KV cache, top-k vs brute force, stats, steering logic)
+data/prompts/          # discovery / confirm / reserve prompt splits (WikiText-103 test stems)
+results/Ouro-1.4B/     # all result JSONs (atlas.pt and token caches are gitignored; published on Hugging Face)
+figures/               # all figures (generated by the report phase)
+reports/               # summary, pre-registration, per-experiment reports, generated tables
+docs/                  # methodology, setup, neuron viewer (docs/viewer/)
+paper/                 # Typst source + PDF (build: uv run python paper/build.py)
+logs/                  # timestamped phase logs incl. every LLM prompt/output
 ```
 
 ## Related work
