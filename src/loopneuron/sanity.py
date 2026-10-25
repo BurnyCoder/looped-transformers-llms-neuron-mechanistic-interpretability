@@ -3,7 +3,8 @@
 Checks (all written to results/<model>/setup_check.json and the log):
 0. the checkpoint loads with no missing, unexpected or mismatched state-dict keys;
 1. held-out FineWeb-Edu loss/perplexity for T = 1..8 loops (T>4 is extrapolation; Zhu et al. 2025,
-   https://arxiv.org/abs/2510.25741, report loss improving with recurrent steps up to the trained T=4);
+   https://arxiv.org/abs/2510.25741 §5.3, report benchmark performance improving up to the trained T=4 and degrading
+   moderately beyond it);
 2. how often the model's *default* early-exit path (threshold 1.0 on a bf16 cumulative exit PDF) disagrees with the
    fixed last-loop exit we use everywhere (motivates `model.early_exit_step = T-1`);
 3. a few sampled continuations (logged in full) to eyeball fluency.

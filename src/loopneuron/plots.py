@@ -87,7 +87,7 @@ def confirm_effects(conf: dict, path: Path):
     ax.set_yticks(range(len(rs)), [f'L{r["layer"]} N{r["neuron"]} {"+" if r["pole"] == 0 else "−"}  α={r["alpha"]:g}' for r in rs])
     ax.set(xlabel="mean ΔC (steered − unsteered), 95% bootstrap CI", title="Pre-registered confirmatory test")
     ax.plot([], [], "o-", color=S1, label="candidate (significant)")
-    ax.plot([], [], "|", color=S2, ms=12, mew=2, label="random same-layer null, 95th pct.")
+    ax.plot([], [], "|", color=S2, ms=12, mew=2, label="random same-layer null, 95th pct. (50 prompts, sample 0)")
     ax.legend(loc="upper center", bbox_to_anchor=(0.5, -0.22), ncol=2, fontsize=8)
     return _save(fig, path)
 
@@ -187,6 +187,7 @@ def audit_bars(audit: list, path: Path, T: int = 4):
               "shuffled label": np.array([r["shuffled"]["balanced_acc"] for r in audit])}
     fig, ax = plt.subplots(figsize=(7, 3.4))
     names = list(groups)
+    ns = [int(np.isfinite(groups[n]).sum()) for n in names]  # parsable scores per point (unparsable = NaN, dropped)
     for i, n in enumerate(names):  # dot + CI (not bars): the axis does not start at 0
         v = groups[n][np.isfinite(groups[n])]
         se = v.std(ddof=1) / np.sqrt(len(v))
@@ -197,7 +198,8 @@ def audit_bars(audit: list, path: Path, T: int = 4):
     ax.set_xticks(range(len(names)), names)
     ax.grid(axis="x", visible=False)
     ax.set(ylabel="detection balanced accuracy", ylim=(0.45, 0.7),
-           title=f"Explanation transfer across loops (n={len(audit)} neurons, mean ± 95% CI)")
+           title=f"Explanation transfer across loops ({len(audit)} neurons, mean ± 95% CI)\n"
+                 f"n = {min(ns)}–{max(ns)} parsable scores per point")
     return _save(fig, path)
 
 

@@ -96,7 +96,7 @@ def load_settings(**overrides) -> Settings:
 def disk_guard(required_gb: float, min_free_gb: float, path: Path = ROOT) -> float:
     """Raise if downloading `required_gb` would leave less than `min_free_gb` free on `path`'s drive.
 
-    Returns current free GB. The dev machine has ~25 GB free, so every download goes through this check.
+    Returns current free GB. `load_model` calls it before downloading uncached Ouro weights.
     """
     free_gb = shutil.disk_usage(path).free / 1e9  # bytes -> GB (decimal, like HF file sizes)
     if free_gb - required_gb < min_free_gb:  # projected free space after the download

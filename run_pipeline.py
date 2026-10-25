@@ -373,12 +373,13 @@ https://github.com/BurnyCoder/looped-transformers-llms-neuron-mechanistic-interp
 
 Files:
 - `atlas.pt`: torch dict for all 135,168 SwiGLU neurons (24 layers x 5632) and both poles (index 0 = positive, 1 = negative).
-  - `top_v`/`top_seq`/`top_pos`/`top_loop` [24, 2, 5632, 40]: top-40 contexts, maximum over positions x loops.
+  - `top_v`/`top_seq`/`top_pos`/`top_loop` [24, 2, 5632, 40]: top-40 contexts, maximum over positions 4-255 x loops
+    (the first 4 positions of every chunk are skipped).
   - `lt_v`/`lt_seq`/`lt_pos` [24, 4, 2, 5632, 20]: top-20 contexts per loop.
-  - Per-loop `mean`, `mean_abs`, `std`, `frac_pos` [24, 4, 5632].
+  - Per-loop `mean`, `mean_abs`, `std`, `frac_pos` [24, 4, 5632] (every 8th batch, 987,840 tokens per layer and loop).
   - `exceed` counts and the `dead` flag.
 - `tokens_atlas.npy`: uint16 [31250, 256], the token chunks that `*_seq`/`*_pos` index (Ouro tokenizer;
-  FineWeb-Edu sample-10BT shard 000 + 10% OpenWebMath).
+  documents drawn 90% from FineWeb-Edu sample-10BT shard 000 and 10% from OpenWebMath shard 0).
 - `featured_neurons.jsonl`: decoded top contexts (peak token marked <<>>) for the screened and validated candidates.
 - `results/*.json`: pre-registered confirmatory test, follow-ups, audit, replication and LLM-judge results.
 
@@ -388,8 +389,9 @@ indices also steer Ouro-1.4B-Thinking (replication with a descriptive 20-neuron 
 
 Licenses and attribution: the tables and results produced by this project are MIT-licensed. `tokens_atlas.npy` and the
 decoded contexts in `featured_neurons.jsonl` derive from FineWeb-Edu (https://huggingface.co/datasets/HuggingFaceFW/fineweb-edu)
-and OpenWebMath (https://huggingface.co/datasets/open-web-math/open-web-math), both ODC-By 1.0, and remain subject to
-those terms. Activations come from Ouro-1.4B (Apache-2.0).
+and OpenWebMath (https://huggingface.co/datasets/open-web-math/open-web-math), both ODC-By 1.0 and the Common Crawl
+Terms of Use (https://commoncrawl.org/terms-of-use), and remain subject to those terms. Activations come from Ouro-1.4B
+(Apache-2.0).
 """
 
 
