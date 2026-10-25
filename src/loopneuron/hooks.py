@@ -67,6 +67,7 @@ class NeuronHooks:
     """
 
     def __init__(self, model, ut_steps: int, recorder: Recorder | None = None, edits: dict[int, list[Edit]] | None = None):
+        """Collect every layer's down_proj; hooks are only attached inside the `with` block."""
         self.layers = [layer.mlp.down_proj for layer in model.model.layers]  # Ouro: model.model.layers[l].mlp
         self.T = ut_steps
         self.recorder = recorder
@@ -75,8 +76,10 @@ class NeuronHooks:
         self._handles: list = []
 
     def _make_hook(self, layer: int):
+        """Build the forward pre-hook for `layer` (closure keeps the layer index)."""
         def hook(module, args):
-            loop = self.calls[layer] % self.T  # k-th call of this layer -> loop k mod T
+            """Edit and/or record the activations entering down_proj at the current loop."""
+            loop =self.calls[layer] % self.T  # k-th call of this layer -> loop k mod T
             self.calls[layer] += 1
             act = args[0]  # [B,S,d_mlp] activations entering down_proj
             if layer in self.edits:
@@ -88,11 +91,13 @@ class NeuronHooks:
         return hook
 
     def __enter__(self) -> "NeuronHooks":
-        self.calls = [0] * len(self.layers)
+        """Reset loop counters and register one pre-hook per layer."""
+        self.calls =[0] * len(self.layers)
         self._handles = [m.register_forward_pre_hook(self._make_hook(i)) for i, m in enumerate(self.layers)]
         return self
 
     def __exit__(self, *exc) -> None:
+        """Remove all hooks so later forward passes are unmodified."""
         for h in self._handles:
             h.remove()  # always detach, even on exceptions -> no stale steering
         self._handles = []

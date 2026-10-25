@@ -56,9 +56,12 @@ def _fast_update(self, key_states, value_states, layer_idx, cache_kwargs=None):
 def load_model(model_id: str, revision: str, ut_steps: int = 4, device: str = "cuda", dtype=torch.bfloat16):
     """Return (model, tokenizer): bf16, eval mode, fixed T, last-loop exit, SDPA attention, fast KV cache."""
     tok = AutoTokenizer.from_pretrained(model_id, revision=revision)
-    model = AutoModelForCausalLM.from_pretrained(
-        model_id, revision=revision, trust_remote_code=True, dtype=dtype, attn_implementation="sdpa"
-    ).to(device).eval()
+    model, info = AutoModelForCausalLM.from_pretrained(
+        model_id, revision=revision, trust_remote_code=True, dtype=dtype, attn_implementation="sdpa",
+        output_loading_info=True,  # missing/unexpected/mismatched keys (HF from_pretrained docs)
+    )
+    model = model.to(device).eval()
+    model.loading_info = {k: list(v) for k, v in info.items()}  # checked by setup_check and tests (must be empty)
     set_ut_steps(model, ut_steps)
     sys.modules[type(model).__module__].UniversalTransformerCache.update = _fast_update  # remote-code class
     return model, tok

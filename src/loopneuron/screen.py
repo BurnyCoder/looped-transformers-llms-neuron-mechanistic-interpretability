@@ -55,6 +55,7 @@ def steer_effect(model, tok, emb, T, prompt_ids, base_emb, base_nll, u, cond, n_
 
 
 def screen(model, tok, atlas, chunks, discovery, T, seed, log, n_pool: int = 4000, n_steer: int = 200, K: int = 10):
+    """Profile a random unit pool, quick-steer the most coherent non-token-detector units, rank them by Delta C."""
     emb = Embedder()
     rng = np.random.default_rng(seed)
     alive = np.argwhere(~atlas["dead"].numpy())  # [N, 2] (layer, neuron)

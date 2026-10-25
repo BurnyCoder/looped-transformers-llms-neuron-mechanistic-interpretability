@@ -29,6 +29,7 @@ ALPHA_GRID = (0.5, 1.0, 2.0, 4.0, 8.0, 16.0, -1.0, -4.0)  # negative alpha = opp
 
 
 def _delta_c(model, tok, emb, P, cond, base_s, u, T, n_tokens, seed):
+    """Per-prompt Delta concept score of one condition vs precomputed unsteered scores, plus continuation NLL."""
     gen = generate(model, P, cond, T, n_tokens, seed)
     s = concept_scores(emb([tok.decode(g) for g in gen]), u)
     nll = continuation_nll(model, P, torch.from_numpy(gen))
@@ -36,6 +37,7 @@ def _delta_c(model, tok, emb, P, cond, base_s, u, T, n_tokens, seed):
 
 
 def _row(d, nll_ratio, **kw):
+    """Summary row: mean Delta C with bootstrap CI, one-sided Wilcoxon p, median PPL ratio, plus extra fields."""
     lo, hi = stats.bootstrap_ci(d, n_boot=2000)
     return {**kw, "mean_dC": float(d.mean()), "ci95": [lo, hi], "p_wilcoxon": stats.wilcoxon_greater(d),
             "ppl_ratio_median": float(np.median(nll_ratio))}
@@ -67,6 +69,7 @@ def saturation_scale(model, P, layer: int, neuron: int, T: int) -> dict:
     w = model.model.layers[layer].mlp.down_proj.weight[:, neuron].float().norm().item()
 
     def hook(m, args, out):
+        """Forward hook on down_proj: record ||W_down a|| per token for the current loop."""
         norms[calls["n"] % T].append(out.float().norm(dim=-1).flatten().cpu())
         calls["n"] += 1
 
@@ -77,6 +80,7 @@ def saturation_scale(model, P, layer: int, neuron: int, T: int) -> dict:
 
 
 def dose_response(model, tok, atlas, cand, u, P, T, n_tokens, seed, log) -> dict:
+    """Delta C and PPL ratio for every alpha in ALPHA_GRID, plus the measured saturation scale c*."""
     emb = Embedder()
     base = generate(model, P, None, T, n_tokens, seed)
     base_s = concept_scores(emb([tok.decode(g) for g in base]), u)
@@ -106,6 +110,7 @@ def _mech_effect(model, P, edits, T):
 
 
 def loop_locus(model, tok, atlas, cand, u, P, T, n_tokens, seed, log) -> dict:
+    """H2: behavioral and mechanistic effect of clamping at all loops vs at each single loop."""
     emb = Embedder()
     base = generate(model, P, None, T, n_tokens, seed)
     base_s = concept_scores(emb([tok.decode(g) for g in base]), u)
@@ -122,6 +127,7 @@ def loop_locus(model, tok, atlas, cand, u, P, T, n_tokens, seed, log) -> dict:
 
 
 def t_sweep(model, tok, atlas, cand, u, P, T_train, n_tokens, seed, log, T_max: int = 8) -> dict:
+    """H3: clamp at every loop while running T = 1..T_max loops, each compared with its own unsteered baseline."""
     emb = Embedder()
     val = clamp_value(atlas, cand["layer"], cand["pole"], cand["neuron"], cand["alpha"])
     rows = []
@@ -144,6 +150,7 @@ def t_sweep(model, tok, atlas, cand, u, P, T_train, n_tokens, seed, log, T_max: 
 def _ablation_nll_increase(model, ids, nxt_pos, layer, neurons, T) -> np.ndarray:
     """Mean NLL increase of the token after each peak when `neurons` (one per row block) are zero-ablated."""
     def nll(edits):
+        """NLL of the token after each peak position under the given edits."""
         with NeuronHooks(model, T, edits=edits):
             logp = model(ids, use_cache=False).logits.float().log_softmax(-1)
         rows = torch.arange(len(ids), device=ids.device)
@@ -157,7 +164,8 @@ def _ablation_nll_increase(model, ids, nxt_pos, layer, neurons, T) -> np.ndarray
 
 
 def ablation(model, atlas, chunks, cand, T, R, seed, log) -> dict:
-    ents = [e for e in cx.neuron_entries(atlas, cand["layer"], cand["pole"], cand["neuron"])[20:40]
+    """Necessity: zero-ablate the neuron on held-out top contexts vs R random same-layer ablations (empirical p)."""
+    ents =[e for e in cx.neuron_entries(atlas, cand["layer"], cand["pole"], cand["neuron"])[20:40]
             if e[1] + 1 < chunks.shape[1]]  # held-out top contexts (not used for the concept direction)
     ids = torch.from_numpy(chunks[[e[0] for e in ents]].astype(np.int64)).cuda()
     nxt = torch.tensor([e[1] + 1 for e in ents], device="cuda")

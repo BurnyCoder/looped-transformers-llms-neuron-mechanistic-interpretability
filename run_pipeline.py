@@ -27,25 +27,28 @@ from loopneuron.model import load_model
 
 PHASES = ["setup_check", "build_atlas", "screen_candidates", "validate_candidates", "label_candidates", "preregister",
           "confirm_steering",
-          "followups", "llm_judge", "audit", "replicate", "report", "publish"]
+          "followups", "llm_judge", "audit", "extras", "replicate", "report", "publish"]
 
 
 class Ctx:
     """Lazily loaded shared state (settings, logger, model, tokenizer, data, atlas) passed to every phase."""
 
     def __init__(self, s, log):
+        """Store settings and logger; heavy objects (model, tokenizer, atlas) load on first access."""
         self.s, self.log, self._model, self._tok, self._atlas = s, log, None, None, None
-        self.out = s.results_dir
+        self.out = s.results_dir  # results/<model-name><run_tag>/
         self.out.mkdir(parents=True, exist_ok=True)
 
     @property
     def tok(self):
+        """Ouro tokenizer (pinned revision); available without loading the model onto the GPU."""
         if self._tok is None:
             self._tok = AutoTokenizer.from_pretrained(self.s.model_id, revision=self.s.model_revision)
         return self._tok
 
     @property
     def model(self):
+        """Ouro on the GPU via loopneuron.model.load_model (bf16, fixed T, last-loop exit, fast KV cache)."""
         if self._model is None:
             self.log.info("loading %s @ %s (T=%d)", self.s.model_id, self.s.model_revision, self.s.ut_steps)
             self._model, self._tok = load_model(self.s.model_id, self.s.model_revision, ut_steps=self.s.ut_steps)
@@ -59,6 +62,7 @@ class Ctx:
 
     @property
     def atlas(self) -> dict:
+        """The neuron atlas dict written by build_atlas (CPU tensors, ~0.5 GB)."""
         if self._atlas is None:
             self._atlas = torch.load(self.out / "atlas.pt", weights_only=False)
         return self._atlas
@@ -72,19 +76,23 @@ class Ctx:
         return arr[: n // self.s.seq_len]
 
     def prompts(self, name: str) -> list[dict]:
+        """Prompt split 'discovery' | 'confirm' | 'reserve' (built once from WikiText-103 test if missing)."""
         d = self.s.root / "data" / "prompts"
         if not (d / f"{name}.jsonl").exists():
             build_prompt_splits(self.tok, d, seed=self.s.seed)
         return load_prompt_split(d, name)
 
     def read(self, name: str):
+        """Load a results JSON written by an earlier phase."""
         return json.loads((self.out / name).read_text(encoding="utf-8"))
 
     def write(self, name: str, obj) -> None:
+        """Write a results JSON (floats from numpy are converted by default=float) and log its path."""
         (self.out / name).write_text(json.dumps(obj, indent=1, default=float), encoding="utf-8")
         self.log.info("wrote %s", self.out / name)
 
     def llm_server(self):
+        """Context manager for the local Qwen3.5 llama-server; frees Ouro from the GPU first (8 GB VRAM)."""
         from loopneuron.llm import LlamaServer
 
         self.free_model()
@@ -96,12 +104,14 @@ class Ctx:
 
 
 def setup_check(c: Ctx) -> None:
+    """Phase 0: state-dict keys, held-out loss for T = 1..8, default-exit disagreement, sample continuations."""
     from loopneuron.sanity import setup_check as run
 
     run(c.model, c.tok, c.chunks("eval"), c.prompts("discovery"), c.s.ut_steps, c.out / "setup_check.json", c.log)
 
 
 def build_atlas(c: Ctx) -> None:
+    """Phase 1: per-neuron, per-pole, per-loop top contexts and statistics over the atlas tokens (skips if complete)."""
     from loopneuron.atlas import build_atlas as run
 
     path = c.out / "atlas.pt"
@@ -167,6 +177,7 @@ def _assert_preregistered(c: Ctx) -> None:
 
 
 def confirm_steering(c: Ctx) -> None:
+    """Phase 4: the pre-registered confirmatory test (refuses to run unless the pre-registration is committed)."""
     from loopneuron.confirm import confirm
 
     if c.s.run_tag != "-dryrun":
@@ -224,6 +235,29 @@ def llm_judge(c: Ctx) -> None:
     with c.llm_server():
         res = judge_all(LLM(c.s.llm_base_url, c.s.llm_model, c.log), texts, labels, c.s.seed, c.log)
     c.write("llm_judge.json", res)
+
+
+def extras(c: Ctx) -> None:
+    """Plan-completion secondary analyses (seed sets, alpha=0, concept tokens, self-repair, fits, Wilson CIs, position)."""
+    from loopneuron import extras as xx
+
+    pre, scr = c.read("candidates.json"), c.read("screen.json")
+    cands = [r for r in c.read("confirm.json")["results"] if r["significant"]]
+    P100 = torch.tensor([p["ids"] for p in c.prompts("confirm")[:100]])
+    seeds = [pre["seed"] + 3000, pre["seed"] + 4000, pre["seed"] + 5000]  # never used before
+    seed_res, base = xx.seed_sensitivity(c.model, c.tok, c.atlas, cands, scr["u"], P100, c.s.ut_steps, pre["n_tokens"],
+                                         seeds, c.log)
+    out = {"seed_sets": seeds, "seed_sensitivity": seed_res,
+           "zero_clamp": xx.zero_clamp(c.model, c.tok, c.atlas, cands, scr["u"], P100[:60], c.s.ut_steps,
+                                       pre["n_tokens"], pre["seed"] + 500, c.log),
+           "concept_tokens": xx.concept_token_shift(c.model, c.tok, c.atlas, c.chunks("atlas"), cands, P100, base,
+                                                    c.s.ut_steps, pre["seed"], c.log),
+           "self_repair": xx.self_repair(c.model, c.atlas, cands + pre.get("exploratory", []), P100[:60], c.s.ut_steps,
+                                         c.log),
+           "tsweep_fit": xx.tsweep_fit(c.read("followups.json")),
+           "audit_wilson": xx.audit_wilson(c.read("audit.json")),
+           "positional": xx.positional_check(c.atlas, c.s.seq_len, scr["candidates"])}
+    c.write("extras.json", out)
 
 
 def audit(c: Ctx) -> None:
@@ -339,6 +373,7 @@ def publish(c: Ctx) -> None:
 
 
 def main() -> None:
+    """CLI: run all phases in PHASES order, one phase (--phase), or a tiny smoke test (--dry-run, never publishes)."""
     ap = argparse.ArgumentParser()
     ap.add_argument("--phase", choices=PHASES, help="run only this phase")
     ap.add_argument("--dry-run", action="store_true", help="tiny budgets, separate results folder")

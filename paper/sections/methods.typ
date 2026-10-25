@@ -72,6 +72,8 @@ These analyses are not part of the decision rule:
 - an all-MiniLM-L6-v2 concept score;
 - distinct-2 @li2016diversity;
 - AxBench-style blind LLM ratings @wu2025axbench from a local Qwen3.5-9B @qwen35 served by llama.cpp @llamacpp;
+- teacher-forced shift of next-token probability on each neuron's concept vocabulary, and three further sampling
+  seed sets;
 - dose-response over $alpha$;
 - zero-ablation of the neuron on its held-out top contexts versus 100 random same-layer ablations;
 - *loop locus* (clamping at a single loop);

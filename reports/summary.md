@@ -56,6 +56,26 @@ No model was trained or fine-tuned in this study. All experiments are inference-
 | 4 | follow-ups (post hoc) + LLM judge (secondary) | 60 / 50 held-out prompts | specific (own concept 1.4–3.8× the largest other); saturating dose-response; single-loop clamps ≤ 0.043 vs all-loop 0.13–0.17 (super-additive); flat in T; 4/6 necessary by ablation (exploratory); blind LLM judge concept 0 → 0.06–0.36 (all Holm p ≤ 0.042), fluency 1.50 → 0.90–1.17 | [04](04_followups.md) |
 | 5 | loop structure + LLM audit (H4) | 32k held-out tokens; 150 neurons | cross-loop r(1,4) median 0.54; adjacent loops converge (0.65 → 0.84 → 0.94); H4 not supported (same-loop 0.60 vs cross-loop 0.59, p = 0.20; weak explainer) | [05](05_loop_audit.md) |
 | 6 | replication on Ouro-1.4B-Thinking | 100 held-out prompts | 5/5 replicate (ΔC 0.161–0.180, Holm p ≤ 2.1e-16, each beats 20/20 random neurons); SFT leaves neuron weights nearly unchanged (cos ≥ 0.993 for 99%) | [06](06_replication.md) |
+| 7 | plan-completion analyses (post hoc) | 100 / 60 held-out prompts | effect stable across 3 new seed sets (ΔC 0.11–0.18, p ≤ 2.9e-8); concept-token probability +0.45–0.94 nats (p ≈ 2e-18); single-loop injections at loops 1–3 keep 33–78% of their size at the output vs 67–126% at loop 4 (self-repair); KL saturates in T (τ ≈ 2–4 loops); no positional candidates | [07](07_plan_completion.md) |
+
+## Plan vs. what was executed
+The approved plan is reproduced in spirit in [docs/methodology.md](../docs/methodology.md). Deviations, all decided before the confirmatory data was touched unless marked otherwise:
+
+| plan item | executed | why |
+|---|---|---|
+| model: originally a <1B model (Parcae) | Ouro-1.4B + Ouro-1.4B-Thinking | user's choice |
+| `transformers==4.54.1` (model card) | 4.57.6 | pinned Ouro revision needs ≥ 4.56 (fails with "`key_cache` has no setter") |
+| atlas: log-binned histograms | threshold-exceedance counts on every 8th batch | histograms tripled atlas time; counts give the same coarse distribution |
+| screen: drop token-identity **and positional** neurons | token detectors dropped; positional neurons checked post hoc ([Experiment 7](07_plan_completion.md)) | the positional filter was not implemented before selection |
+| screen: α = 4 only, with a concept-token metric | α ∈ {1, 2, 4}; concept score only (concept-token shift computed post hoc for the 5 confirmed neurons) | α = 4 often broke fluency in the dry run |
+| K ≤ 10 | K = 5 | with R = 100 random neurons, Holm cannot reject for K > 5 |
+| decision rule: PPL guard | PPL guard **plus** distinct-2 ≥ 0.6 | repetition has low perplexity; amendment logged in the pre-registration before confirmation |
+| seed sensitivity (3 seed sets), α = 0 dose, self-repair ratio, T-sweep fit, Wilson CIs | run after the main pass, in the plan-completion phase ([Experiment 7](07_plan_completion.md)) | initially missed; added when the plan was re-checked |
+| audit: 300 neurons, every loop, 10 + 10 detection contexts | 150 neurons, loops 1 and 4, 8 + 8 contexts | local-LLM time on an 8 GB laptop GPU |
+| LLM outputs constrained by JSON schema | published text formats parsed with regexes (Delphi `[EXPLANATION]:` and lists, AxBench `Rating: [[n]]`) | keeps the prompts exactly as published |
+| replication: same null R = 100 | R = 20 (descriptive) | keeps the run near 30 minutes; the Wilcoxon test is the replication criterion |
+| one PR per functional unit (7) | 4 PRs | phases were developed and validated together in the dry run |
+| CLI `--model` | the model is set in `.env` | one fewer way to diverge from the pinned revision |
 
 ## What would have falsified H1, and what did not happen
 H1 would have been rejected if no candidate had met *all* of the following after Holm correction:

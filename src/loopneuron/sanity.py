@@ -1,6 +1,7 @@
 """Phase 0 (setup_check): verify the loaded model behaves like the published Ouro-1.4B before any analysis.
 
 Checks (all written to results/<model>/setup_check.json and the log):
+0. the checkpoint loads with no missing, unexpected or mismatched state-dict keys;
 1. held-out FineWeb-Edu loss/perplexity for T = 1..8 loops (T>4 is extrapolation; Zhu et al. 2025,
    https://arxiv.org/abs/2510.25741, report loss improving with recurrent steps up to the trained T=4);
 2. how often the model's *default* early-exit path (threshold 1.0 on a bf16 cumulative exit PDF) disagrees with the
@@ -47,7 +48,9 @@ def default_exit_disagreement(model, chunks: np.ndarray, T: int) -> float:
 def setup_check(model, tok, eval_chunks: np.ndarray, prompts: list[dict], T: int, out_path, log,
                 max_T: int = 8, n_eval: int = 64) -> dict:
     """Run the three sanity checks and save a JSON summary."""
-    res = {"loss_by_T": {}}
+    res = {"loading_info": model.loading_info, "loss_by_T": {}}
+    bad = {k: v for k, v in model.loading_info.items() if v}
+    log.info("state dict: %s", "all keys matched" if not bad else f"PROBLEMS {bad}")
     for t in range(1, max_T + 1):
         set_ut_steps(model, t)
         loss = eval_loss(model, eval_chunks[:n_eval])

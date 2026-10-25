@@ -2,7 +2,8 @@
 
 Local: the atlas stores only (seq, pos, loop, value); text is recovered from the cached token chunks.
 Marked examples follow the Delphi explainer convention of delimiting the activating token with << >>
-(Paulo et al. 2024, https://github.com/EleutherAI/delphi).
+(Paulo et al. 2024, https://github.com/EleutherAI/delphi). Keywords are tokens over-represented in a neuron's top
+windows relative to random windows (smoothed log-odds), used by the concept-token metric.
 Global context: used by screening (coherence), metrics (concept directions), autointerp (prompts) and viewer.
 """
 from __future__ import annotations
@@ -51,6 +52,27 @@ def peak_token_share(chunks: np.ndarray, entries) -> float:
     return max(toks.values()) / max(1, len(entries)) if toks else 0.0
 
 
+def keyword_ids(chunks: np.ndarray, entries, background: Counter, n_bg: int, radius: int = 3, top: int = 20,
+                min_count: int = 3) -> list[int]:
+    """Tokens over-represented within +-radius of the peaks vs background windows (smoothed log-odds), i.e. the
+    neuron's concept vocabulary used by the concept-token metric (metrics.keyword_logmass)."""
+    fg = Counter()
+    for s, p, *_ in entries:
+        fg.update(chunks[s, max(0, p - radius):p + radius + 1].tolist())
+    n_fg = sum(fg.values())
+    score = {t: np.log((c + 1) / (n_fg + 1)) - np.log((background.get(t, 0) + 1) / (n_bg + 1))
+             for t, c in fg.items() if c >= min_count}
+    return [t for t, _ in sorted(score.items(), key=lambda kv: -kv[1])[:top]]
+
+
+def background_counts(chunks: np.ndarray, entries, radius: int = 3) -> tuple[Counter, int]:
+    """Token counts in windows around random positions (denominator for keyword log-odds)."""
+    bg = Counter()
+    for s, p in entries:
+        bg.update(chunks[s, max(0, p - radius):p + radius + 1].tolist())
+    return bg, sum(bg.values())
+
+
 @torch.no_grad()
 def token_activations(model, chunks: np.ndarray, seqs: list[int], layer: int, neuron: int, T: int) -> np.ndarray:
     """Recompute one neuron's activation at every position and loop for chunks `seqs` -> [len(seqs), T, S]."""
@@ -59,6 +81,7 @@ def token_activations(model, chunks: np.ndarray, seqs: list[int], layer: int, ne
     out = torch.zeros(len(seqs), T, chunks.shape[1])
 
     def rec(l, t, a):
+        """Hook callback: keep only the requested neuron's activations, per loop."""
         if l == layer:
             out[:, t] = a[..., neuron].float().cpu()
 
