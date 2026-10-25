@@ -1,5 +1,8 @@
 """CPU tests for steering bookkeeping: clamp sign per pole, random-null sampling, atlas entry decoding."""
 
+from collections import Counter
+
+import numpy as np
 import torch
 
 from loopneuron import contexts as cx
@@ -7,6 +10,7 @@ from loopneuron.steering import clamp_value, random_same_layer
 
 
 def _toy_atlas():
+    """Tiny atlas: 2 layers x 6 neurons, top-3 tables, one dead neuron (layer 1, neuron 2)."""
     L, D, k = 2, 6, 3
     a = {"top_v": torch.tensor([[[[5.0, 4, 3]] * D, [[2.0, 1, -float("inf")]] * D]] * L),
          "top_seq": torch.zeros(L, 2, D, k, dtype=torch.int32), "top_pos": torch.full((L, 2, D, k), 4, dtype=torch.int32),
@@ -32,3 +36,9 @@ def test_neuron_entries_drops_unfilled_slots():
     assert len(cx.neuron_entries(a, 0, 1, 0)) == 2  # third slot is -inf
 
 
+def test_keyword_ids_prefers_overrepresented_tokens():
+    chunks = np.zeros((4, 20), dtype=np.uint16)
+    chunks[:, 10] = 7  # token 7 always at the peak
+    entries = [(i, 10, 1.0, 0) for i in range(4)]
+    bg, n = Counter({0: 1000, 7: 1}), 1001
+    assert cx.keyword_ids(chunks, entries, bg, n, min_count=2)[0] == 7

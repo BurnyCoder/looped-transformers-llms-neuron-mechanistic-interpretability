@@ -28,6 +28,7 @@ class Cond:
     loops: tuple[int, ...] | None = None  # None = all loops
 
     def edits(self) -> dict[int, list[Edit]]:
+        """The NeuronHooks edit spec implementing this condition."""
         return {self.layer: [Edit.single(self.neuron, self.value, "clamp", loops=self.loops)]}
 
 

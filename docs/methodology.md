@@ -80,6 +80,15 @@ Streaming top-k works per batch. Each sequence is reduced to its maximum per neu
 - **LLM judge (secondary).** Prompts 1–50. Each continuation is rated in its own call, in shuffled order, for concept (the neuron's Qwen label) and for fluency.
 - **Replication.** Same protocol on Ouro-1.4B-Thinking with seed base +2000 and R = 20. With R = 20 the null is descriptive: 1/21 cannot pass Holm at K = 5. Replication criterion: Holm Wilcoxon p < 0.05, the neuron beats all random neurons, and both guards pass.
 
+- **Plan-completion analyses** (`run_pipeline.py --phase extras`, post hoc, see [Experiment 7](../reports/07_plan_completion.md)):
+  - 3 new seed sets (100 prompts, k = 1);
+  - α = 0 clamp;
+  - teacher-forced concept-token probability shift (20 keywords per neuron by smoothed log-odds vs 5,000 random windows);
+  - self-repair ratio (relative residual displacement right after the steered layer vs at the final norm);
+  - saturating-exponential fits of the T sweep;
+  - Wilson CIs for the audit;
+  - a positional-neuron check of the validated candidates.
+
 ## 8. Loop dynamics
 - **H2 (loop locus).** Clamp only at loop t ∈ {1, 2, 3, 4}. Prior residual-direction steering of Ouro-1.4B-Thinking found the last loop most effective, and found that earlier injections get "rotated away" ([nesiacel 2026](https://www.lesswrong.com/posts/rzcJMpnehFBD686gj/a-recurrent-llm-is-quite-easy-to-interpret-but-complex-to)). We test whether this holds for single neurons. We also measure the next-token KL divergence and the relative displacement of the final hidden state that each single-loop clamp causes.
 - **H3 (test-time loops).** Clamp at all loops while varying T ∈ {1..8}. T > 4 is extrapolation beyond training ([Zhu et al. 2025](https://arxiv.org/abs/2510.25741)).

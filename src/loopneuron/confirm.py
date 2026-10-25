@@ -34,6 +34,7 @@ def _scores(emb, tok, gen: np.ndarray, u: np.ndarray) -> np.ndarray:
 
 def confirm(model, tok, atlas, chunks, cands, u, rand_mean, prompts, T, seed, k, n_tokens, R, log, out_dir,
             examples_name: str = "confirm_examples.jsonl") -> dict:
+    """Run the frozen confirmatory protocol for `cands`; returns per-candidate statistics and Holm decisions."""
     emb, emb2 = Embedder(), Embedder(ROBUST_EMBEDDER)
     rand2 = emb2([cx.window_text(tok, chunks, s, p) for s, p in cx.random_entries(chunks, 2000, seed)]).mean(0)
     P = torch.tensor([p["ids"] for p in prompts])

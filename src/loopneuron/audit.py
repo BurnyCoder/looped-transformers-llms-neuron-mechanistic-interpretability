@@ -30,7 +30,8 @@ def loop_structure(atlas: dict) -> dict:
         out["loop_of_max_share"].append([float((lm == t).float().mean()) for t in range(T)])
         out["mean_abs_by_loop"].append(atlas["mean_abs"][layer][:, alive[layer]].mean(1).tolist())
         seqs = atlas["lt_seq"][layer][:, 0][:, alive[layer]]  # [T, n_alive, k] positive pole
-        def jac(a, b):  # per-neuron Jaccard of top-k sequence-id sets
+        def jac(a, b):
+            """Mean over neurons of |A ∩ B| / |A ∪ B| for their top-k chunk-id sets at two loops."""
             return float(np.mean([len(set(x.tolist()) & set(y.tolist())) / len(set(x.tolist()) | set(y.tolist()))
                                   for x, y in zip(a, b)]))
         idx = torch.randperm(seqs.shape[1], generator=torch.Generator().manual_seed(layer))[:500]  # subsample for speed
@@ -53,6 +54,7 @@ def cross_loop_correlation(model, chunks: np.ndarray, T: int, batch: int = 4) ->
     cur, n = {}, 0
 
     def rec(layer, loop, act):
+        """Hook callback: accumulate first and cross moments of this (layer, loop) with earlier loops."""
         a = act[:, 4:, :].reshape(-1, D)
         cur[(layer, loop)] = a  # kept in bf16: all layers' earlier loops are alive until loop T-1 (~1 GB at batch 4)
         a = a.double()
@@ -79,11 +81,13 @@ def cross_loop_correlation(model, chunks: np.ndarray, T: int, batch: int = 4) ->
 
 
 def _examples(atlas, chunks, tok, layer, neuron, loop, lo, hi, mark=True):
+    """(window text, activation) for ranks lo..hi-1 of a neuron's positive-pole top contexts at one loop."""
     ents = cx.neuron_entries(atlas, layer, 0, neuron, loop=loop)[lo:hi]
     return [(cx.window_text(tok, chunks, s, p, mark=mark), v) for s, p, v, _ in ents]
 
 
 def llm_audit(llm, atlas, chunks, tok, seed, log, per_tercile: int = 50) -> list[dict]:
+    """Explain each sampled neuron at loop 1 and loop T; score same-loop, cross-loop and shuffled explanations."""
     rng = np.random.default_rng(seed)
     L, T = atlas["lt_v"].shape[0], atlas["lt_v"].shape[1]
     terciles = np.array_split(np.arange(L), 3)

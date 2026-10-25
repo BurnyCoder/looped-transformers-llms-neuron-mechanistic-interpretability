@@ -27,6 +27,7 @@ plt.rcParams.update({
 
 
 def _save(fig, path: Path):
+    """Tight layout, save as 160-dpi PNG, close the figure, return its path."""
     fig.tight_layout()
     fig.savefig(path, dpi=160)
     plt.close(fig)
@@ -34,6 +35,7 @@ def _save(fig, path: Path):
 
 
 def loss_by_T(setup: dict, path: Path, T_train: int = 4):
+    """Held-out loss vs number of loops at inference (setup check)."""
     T = sorted(int(t) for t in setup["loss_by_T"])
     y = [setup["loss_by_T"][str(t)] if str(t) in setup["loss_by_T"] else setup["loss_by_T"][t] for t in T]
     fig, ax = plt.subplots(figsize=(5, 3.2))
@@ -45,7 +47,8 @@ def loss_by_T(setup: dict, path: Path, T_train: int = 4):
 
 
 def loop_structure(ls: dict, path: Path):
-    share = np.array(ls["loop_of_max_share"])  # [L, T]
+    """Peak-loop shares, top-context Jaccard and same-token correlation between loops, by layer."""
+    share =np.array(ls["loop_of_max_share"])  # [L, T]
     has_corr = "corr_first_last_median" in ls
     fig, axes = plt.subplots(1, 3 if has_corr else 2, figsize=(15 if has_corr else 10, 3.6))
     im = axes[0].imshow(share.T, aspect="auto", cmap="Blues", vmin=0, vmax=1, origin="lower")
@@ -72,7 +75,8 @@ def loop_structure(ls: dict, path: Path):
 
 
 def confirm_effects(conf: dict, path: Path):
-    rs = conf["results"]
+    """Forest plot: mean Delta C with 95% CI per candidate, with the random-neuron null 95th percentile."""
+    rs =conf["results"]
     fig, ax = plt.subplots(figsize=(7, 0.45 * len(rs) + 2.0))
     for i, r in enumerate(rs):
         lo, hi = r["ci95"]
@@ -89,7 +93,8 @@ def confirm_effects(conf: dict, path: Path):
 
 
 def null_histogram(r: dict, path: Path):
-    fig, ax = plt.subplots(figsize=(5.5, 3.2))
+    """Histogram of random same-layer neuron statistics with the candidate's value marked."""
+    fig, ax =plt.subplots(figsize=(5.5, 3.2))
     ax.hist(r["null_means"], bins=25, color=GRAY, edgecolor=SURF, linewidth=1)
     ax.axvline(r["null_stat_candidate"], color=S1, lw=2.5)
     ax.text(r["null_stat_candidate"], ax.get_ylim()[1] * 0.95, f' L{r["layer"]} N{r["neuron"]}\n p = {r["p_null"]:.3f}',
@@ -100,7 +105,8 @@ def null_histogram(r: dict, path: Path):
 
 
 def dose(dr: dict, key: str, path: Path):
-    rows = [r for r in dr["rows"] if r["alpha"] > 0]
+    """Dose-response (Delta C with CI) and fluency cost vs alpha, with the predicted saturation scale c*."""
+    rows =[r for r in dr["rows"] if r["alpha"] > 0]
     a = np.array([r["alpha"] for r in rows])
     fig, axes = plt.subplots(1, 2, figsize=(10, 3.4))
     m = np.array([r["mean_dC"] for r in rows])
@@ -120,7 +126,8 @@ def dose(dr: dict, key: str, path: Path):
 
 
 def loop_locus(ll: dict, key: str, path: Path):
-    rows = ll["rows"]
+    """Bars: Delta C and next-token KL when clamping at all loops vs a single loop."""
+    rows =ll["rows"]
     labels = [str(r["loops"]) for r in rows]
     fig, axes = plt.subplots(1, 2, figsize=(10, 3.4))
     m, ci = np.array([r["mean_dC"] for r in rows]), np.array([r["ci95"] for r in rows])
@@ -135,7 +142,8 @@ def loop_locus(ll: dict, key: str, path: Path):
 
 
 def t_sweep(ts: dict, key: str, path: Path, T_train: int = 4):
-    rows = ts["rows"]
+    """Delta C and next-token KL vs the number of loops T (clamped at every loop)."""
+    rows =ts["rows"]
     T = [r["T"] for r in rows]
     m, ci = np.array([r["mean_dC"] for r in rows]), np.array([r["ci95"] for r in rows])
     fig, axes = plt.subplots(1, 2, figsize=(10, 3.4))
@@ -151,7 +159,8 @@ def t_sweep(ts: dict, key: str, path: Path, T_train: int = 4):
 
 
 def specificity(sp: dict, path: Path):
-    M = np.array(sp["matrix"])
+    """Diverging heatmap: mean Delta C on concept j (columns) when steering neuron i (rows)."""
+    M =np.array(sp["matrix"])
     keys = [f"L{k.split('_')[0]} N{k.split('_')[1]}{'+' if k.split('_')[2] == '0' else '-'}" for k in sp["keys"]]
     fig, ax = plt.subplots(figsize=(1.0 * len(keys) + 2.5, 0.8 * len(keys) + 1.8))
     lim = np.abs(M).max()
@@ -169,7 +178,9 @@ def specificity(sp: dict, path: Path):
 
 
 def audit_bars(audit: list, path: Path, T: int = 4):
+    """Dot plot with 95% CIs: same-loop, cross-loop and shuffled explanation detection accuracy."""
     def col(kind, t):
+        """Balanced accuracies of one score kind at loop index t (JSON keys are strings)."""
         return np.array([r[kind][str(t)]["balanced_acc"] if str(t) in r[kind] else r[kind][t]["balanced_acc"] for r in audit])
     groups = {"same loop (1)": col("same_loop", 0), "same loop (4)": col("same_loop", T - 1),
               "cross 1->4": col("cross_loop", 0), "cross 4->1": col("cross_loop", T - 1),

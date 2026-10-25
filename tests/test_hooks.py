@@ -102,6 +102,13 @@ def test_clamp_changes_logits_and_loop_restriction(ouro):
 
 
 @pytest.mark.gpu
+def test_state_dict_fully_loaded(ouro):
+    """Every checkpoint tensor maps onto the model and vice versa (no silently random-initialised weights)."""
+    model, _, _ = ouro
+    assert all(len(v) == 0 for v in model.loading_info.values()), model.loading_info
+
+
+@pytest.mark.gpu
 def test_forward_deterministic(ouro):
     model, tok, T = ouro
     ids = tok(TEXT, return_tensors="pt").input_ids.cuda()

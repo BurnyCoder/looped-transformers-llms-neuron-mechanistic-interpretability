@@ -35,6 +35,8 @@ Example (confirm prompt 2, sample 0):
 | Dose-response | α = 0.5…16 × max activation | monotone then **saturating**, as the sandwich RMSNorm predicts; opposite-sign clamps do nothing |
 | H2: does a later loop matter more? | clamp at a single loop | **mostly no.** For the 5 confirmed neurons, single-loop clamps give ΔC ≤ 0.043, against 0.13–0.17 for all-loop; effects are super-additive across loops (self-repair). Exception: the exploratory if-statement neuron L19 N3901, where the last loop alone gives 56% |
 | LLM judge (secondary) | blind AxBench-style 0–2 ratings by local Qwen3.5-9B, 50 prompts | concept 0 → 0.06–0.36 (all 5 Holm p ≤ 0.042); fluency 1.50 → 0.90–1.17 |
+| Robustness (post hoc) | 3 new seed sets; teacher-forced concept-token probability | stable (ΔC 0.11–0.18 in every seed set, p ≤ 2.9e-8); clamping raises concept-vocabulary probability 1.6–2.6× (p ≈ 2e-18) ([report](reports/07_plan_completion.md)) |
+| Self-repair (post hoc) | residual displacement kept at the output after a single-loop clamp | loops 1–3 keep 33–78%; loop 4 keeps 67–126% |
 | H3: more test-time loops? | clamp at all loops for T = 1…8 | effect already present at T = 1, roughly flat in T; next-token KL grows with T |
 | Necessity | zero-ablation vs 100 random ablations | 4 of 6 neurons needed for their own contexts (unadjusted p = 0.0099; exploratory); 2 neurons steer but are not necessary |
 | Loop structure (descriptive) | where each neuron peaks; top-context overlap across loops | 41% of neurons peak at loop 1 vs 13% at loop 4; top-20 contexts at loop 1 vs loop 4 overlap only 1–19% (Jaccard) |

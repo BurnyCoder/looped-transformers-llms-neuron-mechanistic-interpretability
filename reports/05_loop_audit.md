@@ -39,7 +39,7 @@ Interpretation (hedged):
 
 - **H4 (explanations are loop-specific) is not supported.** Same-loop minus cross-loop, paired by explanation: +0.012, Wilcoxon p = 0.20, n = 240.
 - **Explanations carry real information** but are weak: same-loop vs shuffled is +0.097, p = 1.4e-7.
-- **Few neurons are well explained:** only 21% (loop 1) and 19% (loop 4) of neurons reach balanced accuracy ≥ 0.75.
+- **Few neurons are well explained:** among parsable scores, only 25% (loop 1; 32/128, Wilson 95% CI 18–33%) and 21% (loop 4; 28/135, CI 15–28%) of neurons reach balanced accuracy ≥ 0.75 ([Experiment 7](07_plan_completion.md); an earlier version counted unparsable neurons as failures).
 - **This is a negative result with a low ceiling.** A 4-bit 9B local labeler working from 12 examples produces explanations that detect activating contexts only modestly. That limits the sensitivity of any cross-loop comparison, so we cannot rule out loop-specific function that a stronger explainer would reveal. The activation correlations in Part A are the more sensitive measure here.
 - **Comparison with Goodfire.** Goodfire's estimate that ≈ 90% of Qwen3-32B neuron poles have "one main job" ([Cammarata 2026](https://already-clean.goodfire.com/)) came from a different procedure: frontier-model and human audits of one dense model. Our numbers are not comparable estimates of the same quantity.
 - **Parse failures.** About 10% of detection calls could not be parsed and were excluded.
