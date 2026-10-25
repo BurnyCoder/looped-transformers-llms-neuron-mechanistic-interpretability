@@ -1,8 +1,9 @@
 """Automated neuron explanations, detection scoring and AxBench-style judging with the local LLM.
 
 Local:
-- `explain`: Delphi explainer prompt over top examples with the peak token marked <<like this>> and its activation
-  on a 0-10 scale relative to the neuron's max (scale convention of Bills et al. 2023).
+- `explain`: Delphi explainer system prompt (without Delphi's few-shot demonstrations) over top examples with the peak
+  token marked <<like this>> and one activation level per example on a 0-10 scale relative to the neuron's max (as in
+  Bills et al. 2023, which floors relu(a); here |a| is rounded).
 - `detection_score`: Delphi detection scorer -> balanced accuracy of the LLM deciding, from the explanation alone,
   which held-out contexts are activating vs random (Paulo et al. 2024, https://arxiv.org/abs/2410.13928).
 - `judge`: AxBench concept/fluency ratings 0-2 with explanation before the score (Wu et al. 2025).

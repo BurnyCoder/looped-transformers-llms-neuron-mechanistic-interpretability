@@ -1,10 +1,12 @@
-"""LLM prompt templates, copied verbatim from established auto-interp / steering-eval work (both Apache-2.0).
+"""LLM prompt templates from established auto-interp / steering-eval work (both repos Apache-2.0).
 
 - EXPLAINER_SYSTEM and DETECTION_* : EleutherAI Delphi (Paulo et al. 2024, https://arxiv.org/abs/2410.13928),
   files delphi/explainers/default/prompts.py and delphi/scorers/classifier/prompts/detection_prompt.py
-  at https://github.com/EleutherAI/delphi .
+  at https://github.com/EleutherAI/delphi . The system and user prompts are verbatim (EXPLAINER_SYSTEM without
+  Delphi's trailing chain-of-thought slot); the few-shot examples are Delphi's, decoded from GPT-2 byte-level BPE
+  strings and ASCII-normalized (one apostrophe became "boss's"). Kept as run, so logs match this file.
 - JUDGE_CONCEPT / JUDGE_FLUENCY : AxBench (Wu et al. 2025, https://arxiv.org/abs/2501.17148),
-  axbench/evaluators/prompt_templates.py at https://github.com/stanfordnlp/axbench .
+  axbench/evaluators/prompt_templates.py at https://github.com/stanfordnlp/axbench (verbatim).
 Global context: autointerp.py formats these; llm.py sends them to the local Qwen3.5 server and logs them in full.
 """
 
@@ -29,7 +31,7 @@ You will then be given several text examples. Your task is to determine which ex
 For each example in turn, return 1 if the sentence is correctly labeled or 0 if the tokens are mislabeled. You must return your response in a valid Python list. Do not return anything else besides a Python list.
 """
 
-DETECTION_FEWSHOT = [  # Delphi's three few-shot examples (Neuronpedia GPT-2 small latents)
+DETECTION_FEWSHOT = [  # Delphi's three few-shot examples (Neuronpedia GPT-2 small latents), decoded from byte-level BPE
     ("""Latent explanation: Words related to American football positions, specifically the tight end position.
 
 Test examples:

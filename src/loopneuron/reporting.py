@@ -1,7 +1,7 @@
-"""Markdown tables rendered directly from results/<model>/*.json (no hand-copied numbers in reports).
+"""Markdown tables rendered directly from results/<model>/*.json (no hand-copied numbers in these tables).
 
-Global context: `run_pipeline.py --phase report` writes reports/tables/*.md; narrative reports include these files'
-content verbatim, so every reported number is traceable to a results file.
+Global context: `run_pipeline.py --phase report` writes reports/tables/*.md. The narrative reports link to these
+tables and copy selected numbers from them or from the results JSON, so every reported number can be traced to a file.
 """
 from __future__ import annotations
 
@@ -123,12 +123,20 @@ def write_tables(res_dir: Path, out_dir: Path) -> list[Path]:
                          f"### Test-time loops\n{locus_table(f['t_sweep'], 'T')}\n\n### Ablation\n{ablation_line(f['ablation'])}\n",
                          encoding="utf-8")
             made.append(p)
-    if (res_dir / "replication.json").exists():
-        rep = rd("replication.json")
-        p = out_dir / "replication.md"
-        p.write_text(confirm_table(rep, labels) + "\n\nWeight correspondence: " + json.dumps(rep["correspondence"]) +
-                     "\n\nMax activation base vs Thinking: " + json.dumps({"base": rep["base_max_act"], "thinking": rep["thinking_max_act"]}) + "\n",
-                     encoding="utf-8")
+    for name in ("replication", "replication_fresh"):  # Thinking checkpoint: confirm prompts, then fresh reserve prompts
+        if not (res_dir / f"{name}.json").exists():
+            continue
+        rep = rd(f"{name}.json")
+        floor = len(rep["results"]) / (rep["R"] + 1)  # smallest Holm-adjusted null p = K / (R + 1)
+        note = (f"\n\nThe decision column applies the confirmatory rule. With R = {rep['R']} random neurons and K = "
+                f"{len(rep['results'])}, the smallest attainable Holm-adjusted null p is {floor:.3f}"
+                + (", so it reads 'not significant' by construction; the replication criterion is in "
+                   "reports/06_replication.md." if floor >= 0.05 else "."))
+        if "correspondence" in rep:  # only the first replication run checks weights and maxima
+            note += ("\n\nWeight correspondence: " + json.dumps(rep["correspondence"]) + "\n\nMax activation base vs Thinking: "
+                     + json.dumps({"base": rep["base_max_act"], "thinking": rep["thinking_max_act"]}))
+        p = out_dir / f"{name}.md"
+        p.write_text(confirm_table(rep, labels) + note + "\n", encoding="utf-8")
         made.append(p)
     if (res_dir / "audit.json").exists() and (res_dir / "llm_judge.json").exists():
         p = out_dir / "audit_judge.md"
