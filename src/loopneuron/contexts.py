@@ -3,7 +3,7 @@
 Local: the atlas stores only (seq, pos, loop, value); text is recovered from the cached token chunks.
 Marked examples follow the Delphi explainer convention of delimiting the activating token with << >>
 (Paulo et al. 2024, https://github.com/EleutherAI/delphi). Keywords are tokens over-represented in a neuron's top
-windows relative to random windows (smoothed log-odds), used by the concept-token metric.
+windows relative to random windows (smoothed log-odds), used by the keyword-probability metric.
 Global context: used by screening (coherence), metrics (concept directions), autointerp (prompts) and viewer.
 """
 from __future__ import annotations
@@ -55,7 +55,7 @@ def peak_token_share(chunks: np.ndarray, entries) -> float:
 def keyword_ids(chunks: np.ndarray, entries, background: Counter, n_bg: int, radius: int = 3, top: int = 20,
                 min_count: int = 3) -> list[int]:
     """Tokens over-represented within +-radius of the peaks vs background windows (smoothed log-odds), i.e. the
-    neuron's concept vocabulary used by the concept-token metric (metrics.keyword_logmass)."""
+    neuron's peak-context keywords (may include function words) used by metrics.keyword_logmass."""
     fg = Counter()
     for s, p, *_ in entries:
         fg.update(chunks[s, max(0, p - radius):p + radius + 1].tolist())

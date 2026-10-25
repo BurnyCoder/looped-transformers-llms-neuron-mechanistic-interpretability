@@ -382,8 +382,14 @@ Files:
 - `featured_neurons.jsonl`: decoded top contexts (peak token marked <<>>) for the screened and validated candidates.
 - `results/*.json`: pre-registered confirmatory test, follow-ups, audit, replication and LLM-judge results.
 
-Main result: 5/5 pre-registered neurons steer generation toward their concept significantly beyond 100 random
-same-layer neurons (Holm-corrected), and replicate in Ouro-1.4B-Thinking.
+Main result: 5/5 pre-registered neurons steer generation toward their concept, significantly against unsteered
+generation and against 100 random same-layer neurons clamped the same way (Holm-corrected), and the same neuron
+indices also steer Ouro-1.4B-Thinking (replication with a descriptive 20-neuron null).
+
+Licenses and attribution: the tables and results produced by this project are MIT-licensed. `tokens_atlas.npy` and the
+decoded contexts in `featured_neurons.jsonl` derive from FineWeb-Edu (https://huggingface.co/datasets/HuggingFaceFW/fineweb-edu)
+and OpenWebMath (https://huggingface.co/datasets/open-web-math/open-web-math), both ODC-By 1.0, and remain subject to
+those terms. Activations come from Ouro-1.4B (Apache-2.0).
 """
 
 

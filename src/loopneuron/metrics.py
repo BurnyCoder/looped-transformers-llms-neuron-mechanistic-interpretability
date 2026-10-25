@@ -81,7 +81,7 @@ def keyword_logmass(model, ids: torch.Tensor, keyword_ids: list[int], start: int
     """Mean over continuation positions of log sum_{k in keywords} p(k | prefix), per row of `ids` -> [B].
 
     Teacher-forced: the same text is scored with and without steering (caller attaches hooks), so the difference is
-    how much the intervention shifts next-token probability mass toward the neuron's concept vocabulary.
+    how much the intervention shifts next-token probability mass toward the neuron's peak-context keywords.
     """
     kw = torch.tensor(keyword_ids, device="cuda")
     out = []
