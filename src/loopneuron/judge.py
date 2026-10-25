@@ -20,7 +20,8 @@ from loopneuron.steering import Cond, clamp_value, generate
 
 
 def generate_for_judge(model, tok, atlas, cands, prompts, T, n_tokens, seed) -> dict:
-    P = torch.tensor([p["ids"] for p in prompts])
+    """Decoded continuations {prompts, unsteered, <key>: steered} for the judge (one sample per prompt)."""
+    P =torch.tensor([p["ids"] for p in prompts])
     out = {"prompts": [p["text"] for p in prompts], "unsteered": [tok.decode(g) for g in generate(model, P, None, T, n_tokens, seed)]}
     for c in cands:
         cond = Cond(c["layer"], c["neuron"], clamp_value(atlas, c["layer"], c["pole"], c["neuron"], c["alpha"]))

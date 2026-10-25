@@ -25,7 +25,8 @@ model and reasoning post-training, and it is specific to each neuron's own conce
 *Looping makes steering cumulative.* A clamp applied at one loop is largely undone by the remaining loops. Only
 repeated injection, at every pass through the shared weights, changes behavior. Steering a neuron at all four loops
 works well, while for four of the five confirmed neurons any single loop is nearly inert (for L13 N1680, single-loop
-effects are small but non-zero). This resembles the "rotated away" behavior reported for residual
+effects are small but non-zero). Mechanistically, an injection at loops 1–3 keeps only 33–78% of its size by the
+time it reaches the output. This resembles the "rotated away" behavior reported for residual
 directions in Ouro @nesiacel2026recurrent and is consistent with the convergence of the residual stream across loops
 (median same-token activation correlation between consecutive loops rises from 0.65 to 0.94).
 

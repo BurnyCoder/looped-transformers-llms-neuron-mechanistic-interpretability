@@ -1,4 +1,10 @@
 {
+  "loading_info": {
+    "missing_keys": [],
+    "unexpected_keys": [],
+    "mismatched_keys": [],
+    "error_msgs": []
+  },
   "loss_by_T": {
     "1": 4.029509809905408,
     "2": 2.8261433021695006,

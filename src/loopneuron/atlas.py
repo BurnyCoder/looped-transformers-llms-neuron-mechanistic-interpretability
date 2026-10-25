@@ -36,6 +36,7 @@ class AtlasRecorder:
 
     def __init__(self, n_layers: int, d_mlp: int, T: int, k: int, k_loop: int, skip_pos: int = 4, device="cuda",
                  stats_every: int = 1):
+        """Allocate GPU top-k tables (overall and per loop, both poles) and float64 moment accumulators."""
         self.L, self.D, self.T, self.k, self.kl, self.skip = n_layers, d_mlp, T, k, k_loop, skip_pos
         self.stats_every = stats_every  # moments/exceedances on every n-th batch only (top-k always uses all batches)
         self.n_batches = 0
@@ -57,6 +58,7 @@ class AtlasRecorder:
         self._best = None  # per-forward running max over loops: (val, pos, loop) per pole
 
     def start_batch(self, seq_ids: torch.Tensor) -> None:
+        """Register the chunk ids of the next forward pass and decide whether this batch also feeds the moments."""
         self.seq_ids = seq_ids.to(self.top_v.device, torch.int32)  # global chunk index of each batch row
         self._best = {}
         self.do_stats = self.n_batches % self.stats_every == 0  # subsampled statistics (unbiased: whole batches)
@@ -64,6 +66,7 @@ class AtlasRecorder:
 
     @torch.no_grad()
     def __call__(self, layer: int, loop: int, act: torch.Tensor) -> None:
+        """Hook callback: reduce [B,S,D] activations of one (layer, loop) into the running tables."""
         a = act[:, self.skip:, :]  # drop first positions (attention-sink / no-context artefacts); stays bf16
         B, S, D = a.shape
         if self.do_stats:

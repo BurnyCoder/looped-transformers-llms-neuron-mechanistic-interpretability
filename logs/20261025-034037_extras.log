@@ -1,0 +1,35 @@
+2026-10-25 03:40:37,378 | INFO    | loopneuron.extras | log file: C:\Users\Happy\Documents\projects\looped-transformers-llms-neuron-mechanistic-interpretability\logs\20261025-034037_extras.log
+2026-10-25 03:40:37,379 | INFO    | loopneuron.extras | === phase: extras ===
+2026-10-25 03:40:39,287 | INFO    | loopneuron.extras | loading ByteDance/Ouro-1.4B @ 574fa66cb8bf5abdc979642d01cf2b79b16bfab1 (T=4)
+2026-10-25 03:41:49,121 | INFO    | loopneuron.extras | SEED 18_3066_1 seed=5234 meanDC=0.1410 p=1.7e-11
+2026-10-25 03:42:20,013 | INFO    | loopneuron.extras | SEED 13_1680_0 seed=5234 meanDC=0.1505 p=1.5e-15
+2026-10-25 03:42:51,162 | INFO    | loopneuron.extras | SEED 4_2104_0 seed=5234 meanDC=0.1287 p=7.5e-15
+2026-10-25 03:43:19,387 | INFO    | loopneuron.extras | SEED 6_3344_1 seed=5234 meanDC=0.1809 p=3.7e-17
+2026-10-25 03:43:47,604 | INFO    | loopneuron.extras | SEED 18_1735_1 seed=5234 meanDC=0.1191 p=9.0e-12
+2026-10-25 03:44:39,945 | INFO    | loopneuron.extras | SEED 18_3066_1 seed=6234 meanDC=0.1650 p=1.2e-13
+2026-10-25 03:45:06,829 | INFO    | loopneuron.extras | SEED 13_1680_0 seed=6234 meanDC=0.1316 p=9.1e-14
+2026-10-25 03:45:32,992 | INFO    | loopneuron.extras | SEED 4_2104_0 seed=6234 meanDC=0.1363 p=4.2e-16
+2026-10-25 03:45:59,619 | INFO    | loopneuron.extras | SEED 6_3344_1 seed=6234 meanDC=0.1597 p=1.7e-16
+2026-10-25 03:46:26,988 | INFO    | loopneuron.extras | SEED 18_1735_1 seed=6234 meanDC=0.1125 p=2.9e-08
+2026-10-25 03:47:16,606 | INFO    | loopneuron.extras | SEED 18_3066_1 seed=7234 meanDC=0.1549 p=7.6e-13
+2026-10-25 03:47:41,685 | INFO    | loopneuron.extras | SEED 13_1680_0 seed=7234 meanDC=0.1534 p=2.7e-17
+2026-10-25 03:48:07,703 | INFO    | loopneuron.extras | SEED 4_2104_0 seed=7234 meanDC=0.1389 p=5.7e-16
+2026-10-25 03:48:33,295 | INFO    | loopneuron.extras | SEED 6_3344_1 seed=7234 meanDC=0.1577 p=9.1e-16
+2026-10-25 03:49:00,251 | INFO    | loopneuron.extras | SEED 18_1735_1 seed=7234 meanDC=0.1129 p=9.5e-10
+2026-10-25 03:49:39,198 | INFO    | loopneuron.extras | ZERO 18_3066_1 meanDC=-0.0014 p=0.68
+2026-10-25 03:49:56,786 | INFO    | loopneuron.extras | ZERO 13_1680_0 meanDC=0.0005 p=0.63
+2026-10-25 03:50:14,511 | INFO    | loopneuron.extras | ZERO 4_2104_0 meanDC=0.0016 p=0.41
+2026-10-25 03:50:32,122 | INFO    | loopneuron.extras | ZERO 6_3344_1 meanDC=-0.0005 p=0.38
+2026-10-25 03:50:49,645 | INFO    | loopneuron.extras | ZERO 18_1735_1 meanDC=-0.0047 p=0.95
+2026-10-25 03:50:54,726 | INFO    | loopneuron.extras | TOKENS 18_3066_1 dlogp=0.828 p=1.9e-18 keywords=[' sounds', ' vowel', ' vowels', 'ow', ' word', ' V', ' sound', 's', '0', ' are']
+2026-10-25 03:50:59,996 | INFO    | loopneuron.extras | TOKENS 13_1680_0 dlogp=0.446 p=2.0e-18 keywords=[' nothing', ' being', ' but', ' which', ' one', ' is', ' it', ' as', ' that', ' of']
+2026-10-25 03:51:04,997 | INFO    | loopneuron.extras | TOKENS 4_2104_0 dlogp=0.487 p=2.0e-18 keywords=[' pedagogy', ' pedagogical', ' Pedagog', 'agog', ' Content', ' instruction', ' knowledge', ' content', 'ped', 'ical']
+2026-10-25 03:51:10,058 | INFO    | loopneuron.extras | TOKENS 6_3344_1 dlogp=0.939 p=1.9e-18 keywords=['ikes', 'Like', ' ADD', ' Enter', ' answers', ' answer', 'L', '|', ' I', ' will']
+2026-10-25 03:51:15,156 | INFO    | loopneuron.extras | TOKENS 18_1735_1 dlogp=0.826 p=1.9e-18 keywords=[' orbit', ' outermost', ' shell', ' orbital', 'als', ' s', ' d', 'd', 's', '2']
+2026-10-25 03:51:16,777 | INFO    | loopneuron.extras | REPAIR 18_3066_1 ratios=[0.507, 0.424, 0.425, 1.256]
+2026-10-25 03:51:18,423 | INFO    | loopneuron.extras | REPAIR 13_1680_0 ratios=[0.782, 0.611, 0.579, 1.138]
+2026-10-25 03:51:20,069 | INFO    | loopneuron.extras | REPAIR 4_2104_0 ratios=[0.459, 0.42, 0.489, 0.714]
+2026-10-25 03:51:21,698 | INFO    | loopneuron.extras | REPAIR 6_3344_1 ratios=[0.407, 0.358, 0.386, 0.669]
+2026-10-25 03:51:23,344 | INFO    | loopneuron.extras | REPAIR 18_1735_1 ratios=[0.51, 0.431, 0.449, 1.194]
+2026-10-25 03:51:24,957 | INFO    | loopneuron.extras | REPAIR 19_3901_1 ratios=[0.397, 0.328, 0.409, 1.169]
+2026-10-25 03:51:25,332 | INFO    | loopneuron.extras | wrote C:\Users\Happy\Documents\projects\looped-transformers-llms-neuron-mechanistic-interpretability\results\Ouro-1.4B\extras.json

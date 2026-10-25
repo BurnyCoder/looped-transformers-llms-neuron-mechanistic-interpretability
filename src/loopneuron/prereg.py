@@ -22,7 +22,8 @@ from loopneuron.stats import WILCOXON_ARE, required_n
 
 
 def write_preregistration(screen: dict, s, out_dir, md_path, log) -> dict:
-    val = {v["key"]: v for v in screen["validation"]}
+    """Apply eligibility rules, choose K and n, write candidates.json + preregistration.md; returns the frozen design."""
+    val ={v["key"]: v for v in screen["validation"]}
     kept = []
     for c in screen["candidates"]:
         key = f'{c["layer"]}_{c["neuron"]}_{c["pole"]}'

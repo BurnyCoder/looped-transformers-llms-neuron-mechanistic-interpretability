@@ -21,6 +21,7 @@ span.t{border-radius:3px}a{color:#2a78d6}table{border-collapse:collapse}td,th{pa
 
 
 def _tok_html(tok, ids, acts, scale):
+    """HTML spans for tokens, background opacity proportional to |activation| / scale (teal +, rust -)."""
     out = []
     for i, a in zip(ids, acts):
         s = html.escape(tok.decode([i])).replace("\n", "&#8629;")
@@ -31,7 +32,8 @@ def _tok_html(tok, ids, acts, scale):
 
 
 def neuron_page(model, tok, atlas, chunks, layer, neuron, pole, T, info: dict, path: Path, n_ctx: int = 8, left=24, right=8):
-    ents = cx.neuron_entries(atlas, layer, pole, neuron, k=n_ctx)
+    """Write one neuron's page: metadata table and its top contexts shaded at every loop."""
+    ents =cx.neuron_entries(atlas, layer, pole, neuron, k=n_ctx)
     acts = cx.token_activations(model, chunks, [e[0] for e in ents], layer, neuron, T)  # [n, T, S]
     scale = max(abs(acts).max(), 1e-6)
     blocks = []
@@ -50,7 +52,8 @@ Each context is shown at every loop of the shared stack.</p>{''.join(blocks)}</b
 
 
 def index_page(entries: list[tuple[str, str]], path: Path):
-    rows = "".join(f'<li><a href="{html.escape(f)}">{html.escape(t)}</a></li>' for f, t in entries)
+    """Write the viewer index linking every neuron page (entries: (file name, title))."""
+    rows ="".join(f'<li><a href="{html.escape(f)}">{html.escape(t)}</a></li>' for f, t in entries)
     path.write_text(f"""<!doctype html><html><head><meta charset="utf-8"><title>Ouro neuron viewer</title><style>{CSS}</style></head>
 <body><h1>Ouro-1.4B neuron viewer</h1><p>Top contexts of featured neurons with activations at each of the 4 loops.</p><ul>{rows}</ul></body></html>""",
                     encoding="utf-8")

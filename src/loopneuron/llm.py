@@ -19,12 +19,14 @@ class LlamaServer:
     """Context manager running `llama-server` on the GPU (Ouro must be unloaded first: 8 GB VRAM)."""
 
     def __init__(self, exe: Path, gguf: Path, port: int, log_path: Path, ctx: int = 16384, log=None):
-        self.cmd = [str(exe), "-m", str(gguf), "-ngl", "99", "-c", str(ctx), "--port", str(port), "--jinja",
+        """Build the server command: all layers on GPU (-ngl 99), one slot, Jinja chat templates."""
+        self.cmd =[str(exe), "-m", str(gguf), "-ngl", "99", "-c", str(ctx), "--port", str(port), "--jinja",
                     "-np", "1"]
         self.url, self.log, self.proc, self.log_path = f"http://127.0.0.1:{port}", log, None, log_path
 
     def __enter__(self):
-        self._fh = open(self.log_path, "w", encoding="utf-8")  # server stdout/stderr -> logs/ for debugging
+        """Start the server and block until /health returns 200 (fail fast if the process exits)."""
+        self._fh =open(self.log_path, "w", encoding="utf-8")  # server stdout/stderr -> logs/ for debugging
         self.proc = subprocess.Popen(self.cmd, stdout=self._fh, stderr=subprocess.STDOUT)
         for _ in range(300):  # model load can take a while on first start
             try:
@@ -40,6 +42,7 @@ class LlamaServer:
         raise RuntimeError(f"llama-server did not become healthy; see {self.log_path}")
 
     def __exit__(self, *exc):
+        """Stop the server (frees the GPU) and close its log file."""
         self.proc.terminate()
         self.proc.wait(timeout=60)
         self._fh.close()
@@ -49,10 +52,12 @@ class LLM:
     """Chat client with full prompt/output logging."""
 
     def __init__(self, base_url: str, model: str, log):
-        self.client = OpenAI(base_url=base_url, api_key="local")  # llama-server ignores the key
+        """OpenAI-compatible client pointed at the local llama-server."""
+        self.client =OpenAI(base_url=base_url, api_key="local")  # llama-server ignores the key
         self.model, self.log, self.n_calls = model, log, 0
 
     def chat(self, messages: list[dict], max_tokens: int = 400, temperature: float = 0.0, tag: str = "") -> str:
+        """One greedy chat completion with thinking disabled; logs the full prompt and full output."""
         self.n_calls += 1
         r = self.client.chat.completions.create(
             model=self.model, messages=messages, max_tokens=max_tokens, temperature=temperature,
