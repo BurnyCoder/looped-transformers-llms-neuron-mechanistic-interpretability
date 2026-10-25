@@ -41,6 +41,24 @@ def _row(d, nll_ratio, **kw):
             "ppl_ratio_median": float(np.median(nll_ratio))}
 
 
+def specificity_matrix(model, tok, atlas, cands: list[dict], u: dict, P, T, n_tokens, seed, log) -> dict:
+    """Post hoc: M[i, j] = mean Delta C on concept j when steering neuron i (diagonal = intended concept).
+
+    A neuron whose effect is concept-specific raises its own concept score more than other neurons' concepts.
+    """
+    emb = Embedder()
+    U = np.stack([np.array(u[c["key"]]) for c in cands])  # [K, dim]
+    base = generate(model, P, None, T, n_tokens, seed)
+    base_e = emb([tok.decode(g) for g in base])
+    M = np.zeros((len(cands), len(cands)))
+    for i, c in enumerate(cands):
+        val = clamp_value(atlas, c["layer"], c["pole"], c["neuron"], c["alpha"])
+        e = emb([tok.decode(g) for g in generate(model, P, Cond(c["layer"], c["neuron"], val), T, n_tokens, seed)])
+        M[i] = ((e - base_e) @ U.T).mean(0)
+        log.info("SPECIFICITY %s -> %s", c["key"], np.round(M[i], 3).tolist())
+    return {"keys": [c["key"] for c in cands], "matrix": M.tolist()}
+
+
 @torch.no_grad()
 def saturation_scale(model, P, layer: int, neuron: int, T: int) -> dict:
     """c* per loop = median over tokens of ||W_down a|| / ||w_i|| (scale where one clamped neuron dominates the MLP)."""

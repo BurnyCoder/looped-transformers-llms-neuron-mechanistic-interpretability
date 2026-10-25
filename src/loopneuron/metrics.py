@@ -7,7 +7,6 @@ Local:
   (https://www.sbert.net/); robustness embedder: sentence-transformers/all-MiniLM-L6-v2.
 - Fluency guard: perplexity of the continuation under the *unsteered* model given the prompt.
 - distinct-2: unique bigrams / bigrams (Li et al. 2016, https://arxiv.org/abs/1510.03055) for repetition confounds.
-- Concept-token mass: log of total next-token probability on the neuron's keyword tokens (teacher-forced).
 Global context: screening and the confirmatory test compute these for every (prompt, sample, condition).
 """
 from __future__ import annotations
@@ -28,9 +27,11 @@ class Embedder:
         self.name = name
         self.m = SentenceTransformer(name, device=device)
 
-    def __call__(self, texts: list[str], batch_size: int = 256) -> np.ndarray:
-        return self.m.encode(texts, batch_size=batch_size, normalize_embeddings=True, convert_to_numpy=True,
-                             show_progress_bar=False)
+    def __call__(self, texts: list[str], batch_size: int = 64) -> np.ndarray:
+        out = self.m.encode(texts, batch_size=batch_size, normalize_embeddings=True, convert_to_numpy=True,
+                            show_progress_bar=False)
+        torch.cuda.empty_cache()  # return the embedder's activation memory so generation's KV cache never spills (8 GB GPU)
+        return out
 
 
 def concept_direction(top_emb: np.ndarray, rand_mean: np.ndarray) -> np.ndarray:
@@ -72,13 +73,3 @@ def continuation_nll(model, prompt_ids: torch.Tensor, cont_ids: torch.Tensor, ba
     return torch.cat(out).numpy()
 
 
-@torch.no_grad()
-def keyword_logmass(model, ids: torch.Tensor, keyword_ids: list[int], start: int, batch: int = 32) -> np.ndarray:
-    """Mean over positions >= start-1 of log sum_{k in keywords} p(k | prefix) for each row of `ids` -> [B]."""
-    kw = torch.tensor(keyword_ids, device="cuda")
-    out = []
-    for i in range(0, len(ids), batch):
-        x = ids[i:i + batch].cuda()
-        logp = model(x, use_cache=False).logits[:, start - 1:-1].float().log_softmax(-1)
-        out.append(torch.logsumexp(logp[..., kw], dim=-1).mean(1).cpu())
-    return torch.cat(out).numpy()

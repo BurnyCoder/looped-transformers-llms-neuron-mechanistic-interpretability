@@ -1,0 +1,21 @@
+2026-10-24 22:07:58,120 | INFO    | loopneuron.confirm_steering | log file: C:\Users\Happy\Documents\projects\looped-transformers-llms-neuron-mechanistic-interpretability\logs\20261024-220758_confirm_steering.log
+2026-10-24 22:07:58,121 | INFO    | loopneuron.confirm_steering | === phase: confirm_steering ===
+2026-10-24 22:08:00,415 | INFO    | loopneuron.confirm_steering | pre-registration committed at 5c8a44fd300f5eb945ec42a14a7850269da516b3
+2026-10-24 22:08:00,517 | INFO    | loopneuron.confirm_steering | loading ByteDance/Ouro-1.4B @ 574fa66cb8bf5abdc979642d01cf2b79b16bfab1 (T=4)
+2026-10-24 22:08:16,081 | INFO    | loopneuron.confirm_steering | confirm: 100 prompts x 3 samples x 48 tokens, 5 candidates, R=100
+2026-10-24 22:38:55,430 | INFO    | loopneuron.confirm_steering | null generations done for layer 18 pole 1 alpha 1.0 (100 neurons)
+2026-10-24 22:38:59,469 | INFO    | loopneuron.confirm_steering | CONFIRM 18_3066_1 alpha=1.0 meanDC=0.1788 CI=[0.1546 0.2036] p_wil=4.80e-18 p_null=0.0099 ppl_ratio=1.58 robust=0.2483
+2026-10-24 23:06:07,442 | INFO    | loopneuron.confirm_steering | null generations done for layer 13 pole 0 alpha 1.0 (100 neurons)
+2026-10-24 23:06:11,539 | INFO    | loopneuron.confirm_steering | CONFIRM 13_1680_0 alpha=1.0 meanDC=0.1408 CI=[0.1195 0.1629] p_wil=8.25e-17 p_null=0.0099 ppl_ratio=1.62 robust=0.1770
+2026-10-24 23:31:48,354 | INFO    | loopneuron.confirm_steering | null generations done for layer 4 pole 0 alpha 2.0 (100 neurons)
+2026-10-24 23:31:52,360 | INFO    | loopneuron.confirm_steering | CONFIRM 4_2104_0 alpha=2.0 meanDC=0.1296 CI=[0.112  0.1481] p_wil=8.45e-18 p_null=0.0198 ppl_ratio=1.65 robust=0.1660
+2026-10-24 23:53:05,425 | INFO    | loopneuron.confirm_steering | null generations done for layer 6 pole 1 alpha 4.0 (100 neurons)
+2026-10-24 23:53:09,115 | INFO    | loopneuron.confirm_steering | CONFIRM 6_3344_1 alpha=4.0 meanDC=0.1671 CI=[0.1469 0.1879] p_wil=5.25e-18 p_null=0.0099 ppl_ratio=1.83 robust=0.1079
+2026-10-25 00:13:14,328 | INFO    | loopneuron.confirm_steering | null generations done for layer 18 pole 1 alpha 2.0 (100 neurons)
+2026-10-25 00:13:17,841 | INFO    | loopneuron.confirm_steering | CONFIRM 18_1735_1 alpha=2.0 meanDC=0.1272 CI=[0.1028 0.1527] p_wil=1.08e-15 p_null=0.0099 ppl_ratio=1.72 robust=0.1729
+2026-10-25 00:13:18,321 | INFO    | loopneuron.confirm_steering | DECISION 18_3066_1: SIGNIFICANT (holm p_wil=2.40e-17, holm p_null=0.0495, ppl=1.58, distinct2=0.90)
+2026-10-25 00:13:18,321 | INFO    | loopneuron.confirm_steering | DECISION 13_1680_0: SIGNIFICANT (holm p_wil=1.65e-16, holm p_null=0.0495, ppl=1.62, distinct2=0.87)
+2026-10-25 00:13:18,321 | INFO    | loopneuron.confirm_steering | DECISION 4_2104_0: SIGNIFICANT (holm p_wil=2.54e-17, holm p_null=0.0495, ppl=1.65, distinct2=0.91)
+2026-10-25 00:13:18,322 | INFO    | loopneuron.confirm_steering | DECISION 6_3344_1: SIGNIFICANT (holm p_wil=2.40e-17, holm p_null=0.0495, ppl=1.83, distinct2=0.80)
+2026-10-25 00:13:18,322 | INFO    | loopneuron.confirm_steering | DECISION 18_1735_1: SIGNIFICANT (holm p_wil=1.08e-15, holm p_null=0.0495, ppl=1.72, distinct2=0.89)
+2026-10-25 00:13:18,329 | INFO    | loopneuron.confirm_steering | wrote C:\Users\Happy\Documents\projects\looped-transformers-llms-neuron-mechanistic-interpretability\results\Ouro-1.4B\confirm.json

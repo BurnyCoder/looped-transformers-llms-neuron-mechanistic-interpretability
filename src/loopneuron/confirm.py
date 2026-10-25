@@ -20,6 +20,7 @@ import torch
 from loopneuron import contexts as cx
 from loopneuron import stats
 from loopneuron.metrics import ROBUST_EMBEDDER, Embedder, concept_direction, concept_scores, continuation_nll, distinct2
+from loopneuron.screen import DISTINCT2_GUARD
 from loopneuron.steering import Cond, clamp_value, generate, generate_samples, random_same_layer
 
 N_NULL = 50
@@ -31,7 +32,8 @@ def _scores(emb, tok, gen: np.ndarray, u: np.ndarray) -> np.ndarray:
     return concept_scores(emb([tok.decode(g) for g in flat]), u).reshape(gen.shape[:-1])
 
 
-def confirm(model, tok, atlas, chunks, cands, u, rand_mean, prompts, T, seed, k, n_tokens, R, log, out_dir) -> dict:
+def confirm(model, tok, atlas, chunks, cands, u, rand_mean, prompts, T, seed, k, n_tokens, R, log, out_dir,
+            examples_name: str = "confirm_examples.jsonl") -> dict:
     emb, emb2 = Embedder(), Embedder(ROBUST_EMBEDDER)
     rand2 = emb2([cx.window_text(tok, chunks, s, p) for s, p in cx.random_entries(chunks, 2000, seed)]).mean(0)
     P = torch.tensor([p["ids"] for p in prompts])
@@ -51,8 +53,8 @@ def confirm(model, tok, atlas, chunks, cands, u, rand_mean, prompts, T, seed, k,
         dC2 = (_scores(emb2, tok, gen, u2) - _scores(emb2, tok, base, u2)).mean(1)
         nll = np.stack([continuation_nll(model, P, torch.from_numpy(gen[:, j])) for j in range(k)], 1)
         ppl_ratio = np.exp((nll - base_nll).mean(1))
-        d2 = np.array([[distinct2(g.tolist()) for g in row] for row in gen]).mean(1) - \
-             np.array([[distinct2(g.tolist()) for g in row] for row in base]).mean(1)
+        d2_steered = np.array([[distinct2(g.tolist()) for g in row] for row in gen]).mean(1)
+        d2 = d2_steered - np.array([[distinct2(g.tolist()) for g in row] for row in base]).mean(1)
         # random same-layer neuron null (shared generations per (layer, pole, alpha); rescored per candidate)
         nkey = (c["layer"], c["pole"], c["alpha"])
         if nkey not in null_cache:
@@ -69,6 +71,7 @@ def confirm(model, tok, atlas, chunks, cands, u, rand_mean, prompts, T, seed, k,
                "null_means": null_means.tolist(), "null_neurons": null_cache[nkey]["neurons"],
                "robust_mean_delta": float(dC2.mean()), "robust_p_wilcoxon": stats.wilcoxon_greater(dC2),
                "ppl_ratio_median": float(np.median(ppl_ratio)), "distinct2_delta_mean": float(d2.mean()),
+               "distinct2_steered_median": float(np.median(d2_steered)),
                "delta_per_prompt": dC.tolist()}
         results.append(res)
         log.info("CONFIRM %s alpha=%s meanDC=%.4f CI=%s p_wil=%.2e p_null=%.4f ppl_ratio=%.2f robust=%.4f",
@@ -81,11 +84,12 @@ def confirm(model, tok, atlas, chunks, cands, u, rand_mean, prompts, T, seed, k,
         for r, a in zip(results, stats.holm([r[fam] for r in results])):
             r[fam + "_holm"] = float(a)
     for r in results:
-        r["significant"] = bool(r["p_wilcoxon_holm"] < 0.05 and r["p_null_holm"] < 0.05 and r["ppl_ratio_median"] <= 2)
-        log.info("DECISION %s: %s (holm p_wil=%.2e, holm p_null=%.4f, ppl=%.2f)", r["key"],
+        r["significant"] = bool(r["p_wilcoxon_holm"] < 0.05 and r["p_null_holm"] < 0.05 and r["ppl_ratio_median"] <= 2
+                                and r["distinct2_steered_median"] >= DISTINCT2_GUARD)
+        log.info("DECISION %s: %s (holm p_wil=%.2e, holm p_null=%.4f, ppl=%.2f, distinct2=%.2f)", r["key"],
                  "SIGNIFICANT" if r["significant"] else "not significant", r["p_wilcoxon_holm"], r["p_null_holm"],
-                 r["ppl_ratio_median"])
-    with open(out_dir / "confirm_examples.jsonl", "w", encoding="utf-8") as f:
+                 r["ppl_ratio_median"], r["distinct2_steered_median"])
+    with open(out_dir / examples_name, "w", encoding="utf-8") as f:
         f.writelines(json.dumps(e) + "\n" for e in examples)
     return {"n_prompts": len(P), "k": k, "n_tokens": n_tokens, "R": R, "n_null_prompts": N_NULL, "seed": seed,
             "results": results}

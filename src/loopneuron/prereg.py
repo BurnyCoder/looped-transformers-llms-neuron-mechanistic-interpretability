@@ -1,7 +1,9 @@
 """Phase 3: freeze the confirmatory analysis (candidates, alpha, n, tests, decision rule) before seeing confirm data.
 
-Local: candidates come from screening; they are kept only if their *validation* run (fresh discovery prompts) shows
-mean Delta C > 0 and median Delta NLL <= log 2. n (prompts) = clip(max_i required_n(d_z,i, 0.05/K, power 0.9), 100, 300)
+Local: the top 2K screened units are validated on fresh discovery prompts; a unit is eligible only if validation shows
+mean Delta C > 0, median Delta NLL <= log 2 and median steered distinct-2 >= 0.6 (repetitive degeneration such as
+"Fib Fib Fib" has low perplexity, so perplexity alone does not catch it); the K eligible units with the largest
+validation d_z are kept. n (prompts) = clip(max_i required_n(d_z,i, 0.05/K, power 0.9), 100, 300)
 using the validation effect sizes (not the selection-biased screening ones). Writes results/<model>/candidates.json
 (machine-readable) and reports/preregistration.md (human-readable, committed to git before confirm_steering runs).
 Global context: confirm_steering refuses to run unless this file is committed and unmodified.
@@ -15,6 +17,7 @@ import numpy as np
 
 from statsmodels.stats.power import TTestPower
 
+from loopneuron.screen import DISTINCT2_GUARD
 from loopneuron.stats import WILCOXON_ARE, required_n
 
 
@@ -24,10 +27,12 @@ def write_preregistration(screen: dict, s, out_dir, md_path, log) -> dict:
     for c in screen["candidates"]:
         key = f'{c["layer"]}_{c["neuron"]}_{c["pole"]}'
         v = val[key]
-        if v["mean_dC"] > 0 and v["dNLL_median"] <= np.log(2):
+        if v["mean_dC"] > 0 and v["dNLL_median"] <= np.log(2) and v["distinct2_median"] >= DISTINCT2_GUARD:
             kept.append({"key": key, "layer": c["layer"], "neuron": c["neuron"], "pole": c["pole"],
                          "alpha": c["best_alpha"], "label": c.get("label", ""), "coherence": c["coherence"],
-                         "validation_dz": v["dz"], "validation_mean_dC": v["mean_dC"]})
+                         "validation_dz": v["dz"], "validation_mean_dC": v["mean_dC"],
+                         "validation_distinct2": v["distinct2_median"]})
+    kept = sorted(kept, key=lambda c: -c["validation_dz"])[: s.n_candidates]
     K = max(1, len(kept))
     p_min = 1 / (s.null_neurons + 1)  # smallest attainable empirical p with R random neurons
     if p_min > 0.05 / K:
@@ -43,7 +48,7 @@ def write_preregistration(screen: dict, s, out_dir, md_path, log) -> dict:
            "n_tokens": s.gen_tokens, "R": s.null_neurons, "seed": s.seed + 1000, "alpha_family": 0.05}
     (out_dir / "candidates.json").write_text(json.dumps(pre, indent=1), encoding="utf-8")
     rows = "\n".join(f'| {c["key"]} | {c["layer"]} | {c["neuron"]} | {"+" if c["pole"] == 0 else "-"} | {c["alpha"]} | '
-                     f'{c["coherence"]:.3f} | {c["validation_mean_dC"]:.4f} | {c["validation_dz"]:.2f} | '
+                     f'{c["coherence"]:.3f} | {c["validation_mean_dC"]:.4f} | {c["validation_dz"]:.2f} | {c["validation_distinct2"]:.2f} | '
                      f'{c["required_n"]} | {c["power_at_n"]:.2f} | {c["label"]} |' for c in kept)
     md = f"""# Pre-registration: confirmatory neuron-steering test on {s.model_id}
 
@@ -69,18 +74,23 @@ random same-layer neuron null.
 - Multiplicity: Holm across the K candidates, separately for Test 1 and Test 2, family-wise alpha = 0.05
   (smallest attainable Test-2 p = 1/(R+1) = {1 / (s.null_neurons + 1):.4f} <= 0.05/K = {0.05 / max(1, len(kept)):.4f}).
 - **Decision rule:** a candidate is a "significant steering neuron" iff Holm p (Test 1) < 0.05 AND Holm p (Test 2) < 0.05
-  AND median per-prompt continuation-perplexity ratio (steered / unsteered, both scored by the unsteered model) <= 2.
+  AND median per-prompt continuation-perplexity ratio (steered / unsteered, both scored by the unsteered model) <= 2
+  AND median distinct-2 of steered continuations >= {DISTINCT2_GUARD} (non-degenerate text).
 - Secondary (reported, not part of the decision): all-MiniLM-L6-v2 concept score, distinct-2 change, LLM judge
   (AxBench concept/fluency 0-2), dose-response over alpha in {{0.5, 1, 2, 4, 8, 16}}, zero-ablation, loop-restricted steering.
 - Falsification: if no candidate meets the decision rule, H1 is rejected for this protocol. At most one further
   pre-registered round may be run on `data/prompts/reserve.jsonl`.
 
 ## Candidates (selected and validated on discovery prompts only)
+Selection: 8,000 units (4,000 random alive neurons x 2 poles) -> token-detector filter -> 200 most coherent -> quick
+steer (discovery prompts 1-25, alpha in {{1, 2, 4}}) -> top {2 * s.n_candidates} by screen Delta C -> validation on
+discovery prompts 26-125 -> eligible if mean Delta C > 0, median Delta NLL <= log 2, median distinct-2 >= {DISTINCT2_GUARD}
+-> the K = {len(kept)} eligible units with the largest validation d_z.
 Power: required n per candidate for one-sided Wilcoxon (t-test power / ARE 0.955) at alpha = 0.05/K, power 0.9, using the
 validation d_z (100 fresh discovery prompts, 1 sample).
 
-| key | layer | neuron | pole | alpha | coherence | validation mean Delta C | validation d_z | required n | power at n | label (local Qwen3.5) |
-|---|---|---|---|---|---|---|---|---|---|---|
+| key | layer | neuron | pole | alpha | coherence | validation mean Delta C | validation d_z | validation distinct-2 | required n | power at n | label (local Qwen3.5) |
+|---|---|---|---|---|---|---|---|---|---|---|---|
 {rows}
 """
     md_path.write_text(md, encoding="utf-8")

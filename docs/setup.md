@@ -7,11 +7,16 @@
 
 ## Local labeler / judge LLM (llama.cpp + Qwen3.5 GGUF)
 This LLM is used only by the labeling, LLM-judge, and audit phases. The primary steering statistic does not use an LLM.
-1. Download a CUDA build of `llama-server` from https://github.com/ggml-org/llama.cpp/releases and unzip it into `tools/llama.cpp/`. This folder is gitignored.
-2. Download a Qwen3.5 GGUF (Q4_K_M) into `cache/gguf/`. This folder is gitignored.
-3. Start the server on port 8093 and set `LLM_BASE_URL` and `LLM_MODEL` in `.env`.
+1. Download llama.cpp release **b11854** (Windows CUDA 13.4 build: `llama-b11854-bin-win-cuda-13.4-x64.zip` plus `cudart-llama-bin-win-cuda-13.4-x64.zip`) from https://github.com/ggml-org/llama.cpp/releases/tag/b11854 and unzip both into `tools/llama.cpp/`. On Linux, use the matching `ubuntu-cuda` build.
+2. Download `Qwen3.5-9B-Q4_K_M.gguf` (5.68 GB) from https://huggingface.co/unsloth/Qwen3.5-9B-GGUF into `cache/gguf/`:
 
-The exact release tag, GGUF repository, and file hash are written here once the setup phase has run.
+```bash
+uv run python -c "from huggingface_hub import hf_hub_download; hf_hub_download('unsloth/Qwen3.5-9B-GGUF', 'Qwen3.5-9B-Q4_K_M.gguf', local_dir='cache/gguf')"
+```
+
+3. The pipeline starts and stops `llama-server` itself (`loopneuron.llm.LlamaServer`), with `-ngl 99 -c 16384 --port 8093 --jinja`. It disables thinking per request (`chat_template_kwargs={"enable_thinking": false}`) and writes the server output to `logs/llama_server.txt`.
+   - Port 8093 is used because 8080 was occupied on the development machine. Change it with `LLM_BASE_URL` in `.env`.
+   - Ouro is unloaded from the GPU before the server starts, because both do not fit in 8 GB together.
 
 ## Disk budget (development machine: 24.7 GB free)
 | Item | Size |

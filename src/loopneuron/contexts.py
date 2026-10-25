@@ -1,9 +1,8 @@
-"""Turn atlas entries (chunk id, position) into readable text windows, Delphi-style marked examples and keyword sets.
+"""Turn atlas entries (chunk id, position) into readable text windows and Delphi-style marked examples.
 
 Local: the atlas stores only (seq, pos, loop, value); text is recovered from the cached token chunks.
 Marked examples follow the Delphi explainer convention of delimiting the activating token with << >>
-(Paulo et al. 2024, https://github.com/EleutherAI/delphi). Keywords are tokens over-represented in a neuron's top
-windows relative to random windows (log-odds with +1 smoothing), used for the concept-token metric.
+(Paulo et al. 2024, https://github.com/EleutherAI/delphi).
 Global context: used by screening (coherence), metrics (concept directions), autointerp (prompts) and viewer.
 """
 from __future__ import annotations
@@ -50,26 +49,6 @@ def peak_token_share(chunks: np.ndarray, entries) -> float:
     """Share of top contexts whose peak token is the single most common peak token (token-detector diagnostic)."""
     toks = Counter(int(chunks[s, p]) for s, p, *_ in entries)
     return max(toks.values()) / max(1, len(entries)) if toks else 0.0
-
-
-def keyword_ids(chunks: np.ndarray, entries, background: Counter, n_bg: int, radius: int = 3, top: int = 20,
-                min_count: int = 3) -> list[int]:
-    """Tokens over-represented within +-radius of the peaks vs background windows (smoothed log-odds)."""
-    fg = Counter()
-    for s, p, *_ in entries:
-        fg.update(chunks[s, max(0, p - radius):p + radius + 1].tolist())
-    n_fg = sum(fg.values())
-    score = {t: np.log((c + 1) / (n_fg + 1)) - np.log((background.get(t, 0) + 1) / (n_bg + 1))
-             for t, c in fg.items() if c >= min_count}
-    return [t for t, _ in sorted(score.items(), key=lambda kv: -kv[1])[:top]]
-
-
-def background_counts(chunks: np.ndarray, entries, radius: int = 3) -> tuple[Counter, int]:
-    """Token counts in windows around random positions (denominator for keyword log-odds)."""
-    bg = Counter()
-    for s, p in entries:
-        bg.update(chunks[s, max(0, p - radius):p + radius + 1].tolist())
-    return bg, sum(bg.values())
 
 
 @torch.no_grad()

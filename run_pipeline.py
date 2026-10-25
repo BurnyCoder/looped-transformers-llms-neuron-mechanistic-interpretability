@@ -12,6 +12,7 @@ from __future__ import annotations
 
 import argparse
 import gc
+import os
 import json
 import subprocess
 
@@ -24,8 +25,9 @@ from loopneuron.data import build_prompt_splits, cached_chunks, load_prompt_spli
 from loopneuron.logging_utils import get_logger
 from loopneuron.model import load_model
 
-PHASES = ["setup_check", "build_atlas", "screen_candidates", "label_candidates", "preregister", "confirm_steering",
-          "followups", "audit", "replicate", "report"]
+PHASES = ["setup_check", "build_atlas", "screen_candidates", "validate_candidates", "label_candidates", "preregister",
+          "confirm_steering",
+          "followups", "llm_judge", "audit", "replicate", "report", "publish"]
 
 
 class Ctx:
@@ -88,7 +90,8 @@ class Ctx:
         self.free_model()
         root = self.s.root
         port = int(self.s.llm_base_url.rsplit(":", 1)[1].split("/")[0])  # e.g. http://127.0.0.1:8093/v1 -> 8093
-        return LlamaServer(root / "tools" / "llama.cpp" / "llama-server.exe", root / "cache" / "gguf" / self.s.llm_gguf,
+        exe = root / "tools" / "llama.cpp" / ("llama-server.exe" if os.name == "nt" else "llama-server")
+        return LlamaServer(exe, root / "cache" / "gguf" / self.s.llm_gguf,
                            port, self.s.logs_dir / "llama_server.txt", log=self.log)
 
 
@@ -109,14 +112,22 @@ def build_atlas(c: Ctx) -> None:
 
 
 def screen_candidates(c: Ctx) -> None:
-    """Discovery-only selection: coherence pool -> quick steer -> K candidates -> validation on fresh discovery prompts."""
-    from loopneuron.screen import screen, validate_candidates
+    """Discovery-only selection: coherence pool -> quick steer of the most coherent units (discovery prompts 0-24)."""
+    from loopneuron.screen import screen
 
-    disc = c.prompts("discovery")
-    res = screen(c.model, c.tok, c.atlas, c.chunks("atlas"), disc, c.s.ut_steps, c.s.seed, c.log,
-                 n_pool=c.s.screen_pool, n_steer=c.s.screen_steer, K=c.s.n_candidates)
-    res["validation"] = validate_candidates(c.model, c.tok, c.atlas, res["candidates"], res["u"], disc[25:125],
-                                            c.s.ut_steps, c.s.seed + 1, c.s.gen_tokens, c.log)
+    res = screen(c.model, c.tok, c.atlas, c.chunks("atlas"), c.prompts("discovery"), c.s.ut_steps, c.s.seed, c.log,
+                 n_pool=c.s.screen_pool, n_steer=c.s.screen_steer, K=2 * c.s.n_candidates)
+    c.write("screen.json", res)
+
+
+def validate_candidates(c: Ctx) -> None:
+    """Top 2K screened units re-tested on discovery prompts 25-124 (selection-free effect sizes, degeneracy check)."""
+    from loopneuron.screen import reselect_and_validate
+
+    res = c.read("screen.json")
+    pool, u, val = reselect_and_validate(c.model, c.tok, c.atlas, c.chunks("atlas"), res, c.prompts("discovery")[25:125],
+                                         c.s.ut_steps, c.s.seed + 1, c.s.gen_tokens, 2 * c.s.n_candidates, c.log)
+    res.update({"candidates": pool, "u": u, "validation": val})
     c.write("screen.json", res)
 
 
@@ -167,21 +178,26 @@ def confirm_steering(c: Ctx) -> None:
     c.write("confirm.json", res)
 
 
-def _focus(c: Ctx) -> list[dict]:
-    """Neurons for follow-ups: all significant candidates, or the best candidate if none passed (labeled post hoc)."""
+def _focus(c: Ctx, exploratory: bool = True) -> list[dict]:
+    """Neurons for follow-ups: significant candidates (or the best one if none passed, labeled post hoc), plus the
+    pre-registered exploratory units (outside the confirmatory family)."""
     res = c.read("confirm.json")["results"]
-    sig = [r for r in res if r["significant"]]
-    return sig or [max(res, key=lambda r: r["mean_delta"])]
+    sig = [r for r in res if r["significant"]] or [max(res, key=lambda r: r["mean_delta"])]
+    return sig + (c.read("candidates.json").get("exploratory", []) if exploratory else [])
 
 
 def followups(c: Ctx) -> None:
-    """Secondary causal experiments (dose-response, loop locus H2, T sweep H3, ablation) on 100 confirm prompts, k=1."""
+    """Secondary (post hoc) causal experiments on 60 confirm prompts, k=1: specificity matrix, dose-response, loop locus
+    (H2), test-time loops (H3), zero-ablation."""
     from loopneuron import experiments as ex
 
     scr, pre = c.read("screen.json"), c.read("candidates.json")
-    P = torch.tensor([p["ids"] for p in c.prompts("confirm")[:100]])
-    out = {}
-    for r in _focus(c):
+    P = torch.tensor([p["ids"] for p in c.prompts("confirm")[:60]])  # 60 prompts x 1 sample per condition
+    focus = _focus(c)
+    out = {"specificity": ex.specificity_matrix(c.model, c.tok, c.atlas, focus, scr["u"], P, c.s.ut_steps,
+                                                  pre["n_tokens"], pre["seed"] + 400, c.log)}
+    c.write("followups.json", out)
+    for r in focus:
         cand = {**r, "key": r["key"]}
         u = np.array(scr["u"][r["key"]])
         seed = pre["seed"] + 500
@@ -191,7 +207,23 @@ def followups(c: Ctx) -> None:
             "t_sweep": ex.t_sweep(c.model, c.tok, c.atlas, cand, u, P, c.s.ut_steps, pre["n_tokens"], seed, c.log),
             "ablation": ex.ablation(c.model, c.atlas, c.chunks("atlas"), cand, c.s.ut_steps, pre["R"], seed, c.log),
         }
-    c.write("followups.json", out)
+        c.write("followups.json", out)  # checkpoint after every neuron
+
+
+def llm_judge(c: Ctx) -> None:
+    """Secondary: blind AxBench-style LLM concept/fluency ratings of steered vs unsteered text (50 confirm prompts)."""
+    from loopneuron.judge import generate_for_judge, judge_all
+    from loopneuron.llm import LLM
+
+    pre, scr = c.read("candidates.json"), c.read("screen.json")
+    labels = {f'{x["layer"]}_{x["neuron"]}_{x["pole"]}': x.get("label", "") for x in scr["candidates"]}
+    cands = [r for r in c.read("confirm.json")["results"] if r["significant"]]
+    texts = generate_for_judge(c.model, c.tok, c.atlas, cands, c.prompts("confirm")[:50], c.s.ut_steps,
+                               pre["n_tokens"], pre["seed"])  # same seed base; fresh draws (batch layout differs)
+    c.write("llm_judge_texts.json", texts)
+    with c.llm_server():
+        res = judge_all(LLM(c.s.llm_base_url, c.s.llm_model, c.log), texts, labels, c.s.seed, c.log)
+    c.write("llm_judge.json", res)
 
 
 def audit(c: Ctx) -> None:
@@ -220,7 +252,7 @@ def replicate(c: Ctx) -> None:
     from loopneuron.replicate import max_activation, neuron_correspondence
 
     scr, pre = c.read("screen.json"), c.read("candidates.json")
-    focus = _focus(c)
+    focus = _focus(c, exploratory=False)  # replication tests only confirmatory neurons
     corr = [neuron_correspondence((c.s.model_id, c.s.model_revision), (c.s.repl_model_id, c.s.repl_model_revision),
                                   r["layer"], [r["neuron"]]) for r in focus]
     c.free_model()
@@ -229,8 +261,10 @@ def replicate(c: Ctx) -> None:
     maxes = {r["key"]: max_activation(model, c.atlas, chunks, r, c.s.ut_steps) for r in focus}
     prompts = c.prompts("confirm")[: pre["n_prompts"]]
     cands = [{k: r[k] for k in ("key", "layer", "neuron", "pole", "alpha")} for r in focus]
+    # R=20 random neurons: the replication null is descriptive (z-margin), not a Holm-family test, so a smaller R keeps
+    # the run ~1 h instead of ~2.5 h; the Wilcoxon test vs unsteered is the replication criterion.
     res = confirm(model, c.tok, c.atlas, chunks, cands, scr["u"], scr["rand_mean"], prompts, c.s.ut_steps,
-                  pre["seed"] + 2000, pre["k"], pre["n_tokens"], pre["R"], c.log, c.out)
+                  pre["seed"] + 2000, pre["k"], pre["n_tokens"], 20, c.log, c.out, "replication_examples.jsonl")
     c.write("replication.json", {"model": c.s.repl_model_id, "revision": c.s.repl_model_revision,
                                  "correspondence": corr, "thinking_max_act": maxes,
                                  "base_max_act": {r["key"]: float(c.atlas["top_v"][r["layer"], r["pole"], r["neuron"], 0])
@@ -245,6 +279,9 @@ def report(c: Ctx) -> None:
     base = c.out if c.s.run_tag else c.s.root  # dry runs keep figures/viewer inside their results folder
     figs = all_figures(c.out, base / "figures")
     c.log.info("figures: %s", [str(f.name) for f in figs])
+    from loopneuron.reporting import write_tables
+
+    c.log.info("tables: %s", [t.name for t in write_tables(c.out, (c.out if c.s.run_tag else base / "reports") / "tables")])
     vdir = base / "docs" / "viewer"
     vdir.mkdir(parents=True, exist_ok=True)
     conf = {r["key"]: r for r in c.read("confirm.json")["results"]} if (c.out / "confirm.json").exists() else {}
@@ -262,6 +299,45 @@ def report(c: Ctx) -> None:
     index_page(entries, vdir / "index.html")
 
 
+HF_DATASET = "BurnyCoder/ouro-1.4b-neuron-atlas"
+DATASET_CARD = """---
+license: mit
+tags: [interpretability, mechanistic-interpretability, looped-transformer, neurons, steering, ouro]
+---
+# Ouro-1.4B neuron atlas and steering results
+
+Neuron-level atlas of [ByteDance/Ouro-1.4B](https://huggingface.co/ByteDance/Ouro-1.4B) (revision 574fa66), a looped LM
+that applies its 24 layers 4 times. Produced by
+https://github.com/BurnyCoder/looped-transformers-llms-neuron-mechanistic-interpretability (see its README and reports/).
+
+Files:
+- `atlas.pt`: torch dict for all 135,168 SwiGLU neurons (24 layers x 5632) and both poles (index 0 = positive, 1 = negative).
+  - `top_v`/`top_seq`/`top_pos`/`top_loop` [24, 2, 5632, 40]: top-40 contexts, maximum over positions x loops.
+  - `lt_v`/`lt_seq`/`lt_pos` [24, 4, 2, 5632, 20]: top-20 contexts per loop.
+  - Per-loop `mean`, `mean_abs`, `std`, `frac_pos` [24, 4, 5632].
+  - `exceed` counts and the `dead` flag.
+- `tokens_atlas.npy`: uint16 [31250, 256], the token chunks that `*_seq`/`*_pos` index (Ouro tokenizer;
+  FineWeb-Edu sample-10BT shard 000 + 10% OpenWebMath).
+- `featured_neurons.jsonl`: decoded top contexts (peak token marked <<>>) for the screened and validated candidates.
+- `results/*.json`: pre-registered confirmatory test, follow-ups, audit, replication and LLM-judge results.
+
+Main result: 5/5 pre-registered neurons steer generation toward their concept significantly beyond 100 random
+same-layer neurons (Holm-corrected), and replicate in Ouro-1.4B-Thinking.
+"""
+
+
+def publish(c: Ctx) -> None:
+    """Upload atlas + results to a public HF dataset in the 'Looped-LM neurons' collection (no models are trained)."""
+    from loopneuron.publish import featured_jsonl, publish as upload
+
+    keys = [f'{x["layer"]}_{x["neuron"]}_{x["pole"]}' for x in c.read("screen.json")["candidates"]]
+    feat = featured_jsonl(c.atlas, c.chunks("atlas"), c.tok, keys, c.out / "featured_neurons.jsonl")
+    files = {"atlas.pt": c.out / "atlas.pt", "tokens_atlas.npy": c.s.root / "cache" / "tokens_atlas.npy",
+             "featured_neurons.jsonl": feat}
+    files.update({f"results/{p.name}": p for p in sorted(c.out.glob("*.json"))})
+    upload(HF_DATASET, files, DATASET_CARD, c.log)
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--phase", choices=PHASES, help="run only this phase")
@@ -273,7 +349,8 @@ def main() -> None:
     s = load_settings(**over)
     log = get_logger("dryrun" if args.dry_run else (args.phase or "pipeline"), s.logs_dir)
     c = Ctx(s, log)
-    for name in [args.phase] if args.phase else PHASES:
+    phases = [args.phase] if args.phase else [p for p in PHASES if not (args.dry_run and p == "publish")]  # never upload smoke tests
+    for name in phases:
         log.info("=== phase: %s ===", name)
         globals()[name](c)
 
