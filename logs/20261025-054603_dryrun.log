@@ -1,0 +1,7 @@
+2026-10-25 05:46:03,231 | INFO    | loopneuron.dryrun | log file: C:\Users\Happy\Documents\projects\looped-transformers-llms-neuron-mechanistic-interpretability\logs\20261025-054603_dryrun.log
+2026-10-25 05:46:03,232 | INFO    | loopneuron.dryrun | === phase: replicate_fresh ===
+2026-10-25 05:46:20,034 | INFO    | loopneuron.dryrun | confirm: 300 prompts x 3 samples x 48 tokens, 1 candidates, R=20
+2026-10-25 06:02:08,029 | INFO    | loopneuron.dryrun | null generations done for layer 2 pole 0 alpha 2.0 (20 neurons)
+2026-10-25 06:02:08,979 | INFO    | loopneuron.dryrun | CONFIRM 2_2908_0 alpha=2.0 meanDC=0.0351 CI=[0.0295 0.0409] p_wil=5.21e-25 p_null=0.1429 ppl_ratio=1.43 robust=0.0270
+2026-10-25 06:02:09,451 | INFO    | loopneuron.dryrun | DECISION 2_2908_0: not significant (holm p_wil=5.21e-25, holm p_null=0.1429, ppl=1.43, distinct2=0.91)
+2026-10-25 06:02:09,456 | INFO    | loopneuron.dryrun | wrote C:\Users\Happy\Documents\projects\looped-transformers-llms-neuron-mechanistic-interpretability\results\Ouro-1.4B-dryrun\replication_fresh.json
