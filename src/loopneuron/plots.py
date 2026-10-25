@@ -201,6 +201,19 @@ def audit_bars(audit: list, path: Path, T: int = 4):
     return _save(fig, path)
 
 
+def neuron_loops(tokens: list[str], acts: np.ndarray, title: str, path: Path):
+    """Heatmap of one neuron's activation on one context: rows = loops, columns = tokens (diverging, 0 = white)."""
+    lim = float(np.abs(acts).max()) or 1.0
+    fig, ax = plt.subplots(figsize=(min(16, 0.42 * len(tokens) + 2), 2.4))
+    im = ax.imshow(acts, cmap="RdBu_r", vmin=-lim, vmax=lim, aspect="auto")
+    ax.set_yticks(range(acts.shape[0]), [f"loop {t + 1}" for t in range(acts.shape[0])])
+    ax.set_xticks(range(len(tokens)), [t.replace("\n", "↵") for t in tokens], rotation=60, ha="right", fontsize=8)
+    ax.grid(False)
+    ax.set_title(title, fontsize=10)
+    fig.colorbar(im, ax=ax, fraction=0.02, label="activation")
+    return _save(fig, path)
+
+
 def all_figures(res_dir: Path, fig_dir: Path) -> list[Path]:
     """Render every figure whose inputs exist."""
     fig_dir.mkdir(parents=True, exist_ok=True)

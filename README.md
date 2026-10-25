@@ -42,7 +42,7 @@ Example (confirm prompt 2, sample 0):
 | Loop structure (descriptive) | where each neuron peaks; top-context overlap across loops | 41% of neurons peak at loop 1 vs 13% at loop 4; top-20 contexts at loop 1 vs loop 4 overlap only 1–19% (Jaccard) |
 | Cross-loop function (descriptive) | same-token activation correlation, loop 1 vs 4 | median r = 0.54; adjacent loops converge (0.65 → 0.84 → 0.94); layer 0 ≈ 0 ([report](reports/05_loop_audit.md)) |
 | H4: are looped neurons "loop-polysemantic"? | same-loop vs cross-loop detection of local-LLM explanations | **not supported** (0.60 vs 0.59, p = 0.20); the explainer is weak (0.60 vs 0.50 chance) |
-| Replication on Ouro-1.4B-Thinking | same neuron indices, fresh seeds | **5/5 replicate** (ΔC 0.16–0.18, Holm p ≤ 2.1e-16, each beats 20/20 random neurons); weights nearly unchanged by SFT (cos ≥ 0.993) ([report](reports/06_replication.md)) |
+| Replication on Ouro-1.4B-Thinking | same neuron indices; fresh seeds on the confirm prompts, and again on 100 fresh reserve prompts | **5/5 replicate in both** (ΔC 0.16–0.18, Holm p ≤ 2.1e-16, each beats 20/20 random neurons); weights nearly unchanged by SFT (cos ≥ 0.993) ([report](reports/06_replication.md)) |
 
 <p align="center">
 <img src="figures/confirm_effects.png" width="49%" alt="Confirmatory test: mean concept-score change with 95% CIs for the five neurons, far above the random same-layer neuron null"/>
@@ -193,11 +193,7 @@ flowchart TB
 Requirements:
 - Windows or Linux.
 - An NVIDIA GPU with at least 8 GB of VRAM. Development used an RTX 5070 Laptop GPU with 8 GB.
-- About 19 GB of free disk:
-  - venv ≈ 5.5 GB
-  - two Ouro checkpoints ≈ 5.7 GB
-  - Qwen3.5-9B Q4_K_M GGUF ≈ 6 GB
-  - llama.cpp ≈ 0.6 GB
+- About 17 GB of free disk (measured breakdown in [docs/setup.md](docs/setup.md#disk-budget)).
 
 ```bash
 git clone https://github.com/BurnyCoder/looped-transformers-llms-neuron-mechanistic-interpretability
@@ -242,9 +238,11 @@ The phase order is:
 8. followups
 9. llm_judge
 10. audit
-11. replicate
-12. report
-13. publish
+11. extras (plan-completion analyses)
+12. replicate
+13. replicate_fresh
+14. report
+15. publish
 
 Notes on running it:
 - `build_atlas` skips work if a finished `atlas.pt` exists. Other phases recompute.
@@ -292,14 +290,21 @@ logs/                  # timestamped phase logs incl. every LLM prompt/output
 - **Residual-direction steering of Ouro across loops**, done with directions rather than single neurons:
   - nesiacel (LessWrong, 2026). https://www.lesswrong.com/posts/rzcJMpnehFBD686gj/a-recurrent-llm-is-quite-easy-to-interpret-but-complex-to
   - Suiche (2026). https://msuiche.com/posts/abliterating-a-loop-control-vectors-meet-the-looped-transformer/
+- **Neuron description at scale:**
+  - Transluce, *Scaling Automatic Neuron Description* (Choi et al. 2024): https://transluce.org/neuron-descriptions
+  - Gur-Arieh et al. 2025, output-centric feature descriptions: https://arxiv.org/abs/2501.08319
+- **Looped-LM steering, negative results:** Kirin 2026, *Operational Proto-Introspection in Looped Language Models*: https://arxiv.org/abs/2607.18553
 - **Neuron studies:**
   - Gurnee et al. 2024, universal neurons: https://arxiv.org/abs/2401.12181
+  - Gerstner & Schütze 2025, gated neurons' input-output functionality: https://arxiv.org/abs/2505.17936
   - Stolfo et al. 2024, confidence-regulation neurons: https://arxiv.org/abs/2406.16254
   - Geva et al. 2022, FFN value vectors: https://arxiv.org/abs/2203.14680
 - **Steering evaluation:**
   - AxBench: https://arxiv.org/abs/2501.17148
   - ActAdd: https://arxiv.org/abs/2308.10248
-- **Methodology:** Lones, *How to avoid machine learning pitfalls*: https://arxiv.org/abs/2108.02497
+- **Methodology:**
+  - Lones, *How to avoid machine learning pitfalls*: https://arxiv.org/abs/2108.02497
+  - NeurIPS paper checklist: https://neurips.cc/public/guides/PaperChecklist
 
 ## License
 The code is MIT. Ouro weights are Apache-2.0 (ByteDance). Qwen3.5 weights are Apache-2.0.

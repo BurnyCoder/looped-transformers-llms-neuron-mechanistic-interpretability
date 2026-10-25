@@ -1,0 +1,4 @@
+2026-10-25 04:50:27,278 | INFO    | loopneuron.dryrun | log file: C:\Users\Happy\Documents\projects\looped-transformers-llms-neuron-mechanistic-interpretability\logs\20261025-045027_dryrun.log
+2026-10-25 04:50:27,279 | INFO    | loopneuron.dryrun | === phase: preregister ===
+2026-10-25 04:50:29,284 | WARNING | loopneuron.dryrun | dry run: R=3 cannot reach Holm threshold 0.05/2; raise NULL_NEURONS or lower K
+2026-10-25 04:50:29,297 | INFO    | loopneuron.dryrun | pre-registration written: K=2 n=300 -> C:\Users\Happy\Documents\projects\looped-transformers-llms-neuron-mechanistic-interpretability\results\Ouro-1.4B-dryrun\preregistration.md (commit + push before confirm_steering)

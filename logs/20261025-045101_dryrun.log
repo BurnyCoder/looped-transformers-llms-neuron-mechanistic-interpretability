@@ -1,0 +1,11 @@
+2026-10-25 04:51:01,871 | INFO    | loopneuron.dryrun | log file: C:\Users\Happy\Documents\projects\looped-transformers-llms-neuron-mechanistic-interpretability\logs\20261025-045101_dryrun.log
+2026-10-25 04:51:01,873 | INFO    | loopneuron.dryrun | === phase: confirm_steering ===
+2026-10-25 04:51:03,684 | INFO    | loopneuron.dryrun | loading ByteDance/Ouro-1.4B @ 574fa66cb8bf5abdc979642d01cf2b79b16bfab1 (T=4)
+2026-10-25 04:51:18,061 | INFO    | loopneuron.dryrun | confirm: 300 prompts x 3 samples x 48 tokens, 2 candidates, R=3
+2026-10-25 05:03:38,833 | INFO    | loopneuron.dryrun | null generations done for layer 2 pole 0 alpha 2.0 (3 neurons)
+2026-10-25 05:03:39,163 | INFO    | loopneuron.dryrun | CONFIRM 2_2908_0 alpha=2.0 meanDC=0.0238 CI=[0.0186 0.0291] p_wil=1.18e-16 p_null=0.2500 ppl_ratio=1.25 robust=0.0184
+2026-10-25 05:08:17,338 | INFO    | loopneuron.dryrun | null generations done for layer 3 pole 0 alpha 4.0 (3 neurons)
+2026-10-25 05:08:17,663 | INFO    | loopneuron.dryrun | CONFIRM 3_5043_0 alpha=4.0 meanDC=-0.0004 CI=[-0.0039  0.0031] p_wil=5.59e-01 p_null=0.5000 ppl_ratio=1.09 robust=0.0021
+2026-10-25 05:08:18,207 | INFO    | loopneuron.dryrun | DECISION 2_2908_0: not significant (holm p_wil=2.36e-16, holm p_null=0.5000, ppl=1.25, distinct2=0.91)
+2026-10-25 05:08:18,208 | INFO    | loopneuron.dryrun | DECISION 3_5043_0: not significant (holm p_wil=5.59e-01, holm p_null=0.5000, ppl=1.09, distinct2=0.91)
+2026-10-25 05:08:18,217 | INFO    | loopneuron.dryrun | wrote C:\Users\Happy\Documents\projects\looped-transformers-llms-neuron-mechanistic-interpretability\results\Ouro-1.4B-dryrun\confirm.json

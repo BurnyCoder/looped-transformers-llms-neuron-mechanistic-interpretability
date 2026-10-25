@@ -1,0 +1,4 @@
+2026-10-25 05:26:53,504 | INFO    | loopneuron.dryrun | log file: C:\Users\Happy\Documents\projects\looped-transformers-llms-neuron-mechanistic-interpretability\logs\20261025-052653_dryrun.log
+2026-10-25 05:26:53,505 | INFO    | loopneuron.dryrun | === phase: extras ===
+2026-10-25 05:26:56,534 | INFO    | loopneuron.dryrun | loading ByteDance/Ouro-1.4B @ 574fa66cb8bf5abdc979642d01cf2b79b16bfab1 (T=4)
+2026-10-25 05:28:45,564 | INFO    | loopneuron.dryrun | wrote C:\Users\Happy\Documents\projects\looped-transformers-llms-neuron-mechanistic-interpretability\results\Ouro-1.4B-dryrun\extras.json

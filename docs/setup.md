@@ -18,14 +18,18 @@ uv run python -c "from huggingface_hub import hf_hub_download; hf_hub_download('
    - Port 8093 is used because 8080 was occupied on the development machine. Change it with `LLM_BASE_URL` in `.env`.
    - Ouro is unloaded from the GPU before the server starts, because both do not fit in 8 GB together.
 
-## Disk budget (development machine: 24.7 GB free)
+## Disk budget
+Measured on the development machine after the full run (`du -sh`), ≈ 17 GB in total:
+
 | Item | Size |
 |---|---|
-| `.venv` | ~5.5 GB |
-| Ouro-1.4B (`model.safetensors`, bf16) | 2.87 GB |
-| Ouro-1.4B-Thinking | 2.87 GB |
-| llama.cpp CUDA binaries | ~0.6 GB |
-| Qwen3.5-9B Q4_K_M GGUF | ~6 GB |
-| atlas + results | < 0.6 GB |
+| `.venv` | 3.5 GB |
+| Ouro-1.4B (`model.safetensors`, bf16, HF cache) | 2.87 GB |
+| Ouro-1.4B-Thinking (HF cache) | 2.87 GB |
+| llama.cpp CUDA binaries (`tools/`) | 0.73 GB |
+| Qwen3.5-9B Q4_K_M GGUF (`cache/gguf/`) | 5.68 GB |
+| bge-small-en-v1.5 + all-MiniLM-L6-v2 embedders (HF cache) | ≈ 0.2 GB |
+| token caches (`cache/*.npy`) | 16 MB |
+| atlas + results (`results/`) | 0.99 GB |
 
 `loopneuron.config.disk_guard()` refuses any download that would leave less than `MIN_FREE_GB` (default 3 GB) free.

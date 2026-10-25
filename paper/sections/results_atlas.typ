@@ -16,6 +16,11 @@ extrapolating to $T = 5..8$ (2.55–2.56). This matches the behavior described f
   loop. Middle: Jaccard overlap of top-20 contexts between loops. Right: median same-token activation correlation
   between loops (held-out text).]) <fig:loops>
 
+#figure(image("../../figures/neuron_loops_18_3066_1.png", width: 100%),
+  caption: [Per-loop activations of the phonetics neuron L18 N3066 (negative pole) on its strongest atlas context. The
+  peak on "vowels" is largest at loop 1 and weakens at later loops, while other tokens gain activation, illustrating
+  partial reuse of one neuron across loops.]) <fig:neuronloops>
+
 == Selection, and a failure mode of the fluency guard <sec:select>
 Of 8,000 neuron poles, 21.2% are token detectors. The 200 most coherent of the remaining units were quick-steered.
 

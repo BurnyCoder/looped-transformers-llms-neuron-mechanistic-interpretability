@@ -1,0 +1,22 @@
+2026-10-25 04:40:44,044 | INFO    | loopneuron.setup_check | log file: C:\Users\Happy\Documents\projects\looped-transformers-llms-neuron-mechanistic-interpretability\logs\20261025-044044_setup_check.log
+2026-10-25 04:40:44,044 | INFO    | loopneuron.setup_check | === phase: setup_check ===
+2026-10-25 04:40:44,048 | INFO    | loopneuron.setup_check | loading ByteDance/Ouro-1.4B @ 574fa66cb8bf5abdc979642d01cf2b79b16bfab1 (T=4)
+2026-10-25 04:40:51,617 | INFO    | loopneuron.setup_check | environment: {'gpu': 'NVIDIA GeForce RTX 5070 Laptop GPU', 'vram_gb': 8.55, 'compute_capability': '12.0', 'torch': '2.14.1+cu130', 'disk_free_gb': 42.4}
+2026-10-25 04:40:51,617 | INFO    | loopneuron.setup_check | state dict: all keys matched
+2026-10-25 04:40:54,094 | INFO    | loopneuron.setup_check | held-out loss T=1: 4.0295 nats (ppl 56.23)
+2026-10-25 04:40:57,409 | INFO    | loopneuron.setup_check | held-out loss T=2: 2.8261 nats (ppl 16.88)
+2026-10-25 04:41:02,270 | INFO    | loopneuron.setup_check | held-out loss T=3: 2.5433 nats (ppl 12.72)
+2026-10-25 04:41:08,728 | INFO    | loopneuron.setup_check | held-out loss T=4: 2.5081 nats (ppl 12.28)
+2026-10-25 04:41:16,748 | INFO    | loopneuron.setup_check | held-out loss T=5: 2.5557 nats (ppl 12.88)
+2026-10-25 04:41:26,369 | INFO    | loopneuron.setup_check | held-out loss T=6: 2.5474 nats (ppl 12.77)
+2026-10-25 04:41:37,555 | INFO    | loopneuron.setup_check | held-out loss T=7: 2.5554 nats (ppl 12.88)
+2026-10-25 04:41:50,360 | INFO    | loopneuron.setup_check | held-out loss T=8: 2.5620 nats (ppl 12.96)
+2026-10-25 04:41:52,096 | INFO    | loopneuron.setup_check | default early-exit path disagrees with fixed last-loop exit on 0.0000 of positions
+2026-10-25 04:42:04,092 | INFO    | loopneuron.setup_check | SAMPLE prompt='Harris announced he would be stepping down as rabbi in '
+  continuation='2021, he was asked by the congregation to stay on as a visiting rabbi.\n\n"I was asked to be the rabbi for the next three years," he said. "I was very happy to do that."\n'
+2026-10-25 04:42:04,094 | INFO    | loopneuron.setup_check | SAMPLE prompt="Gloire's wooden hull was modelled on that of a"
+  continuation=' ship which was wrecked in the early 17th century. In 1988, the wreck of the Gloire was discovered in 130 m of water off the coast of Mauritania. This ship is the'
+2026-10-25 04:42:04,094 | INFO    | loopneuron.setup_check | SAMPLE prompt="Many of the residents' original grievances were addressed with the passing"
+  continuation=" of the new zoning law.  \nB. The new zoning law has reduced traffic congestion in the area.  \nC. The residents' opposition to the new zoning law was based on misinformation.  \nD. The new zoning law"
+2026-10-25 04:42:04,094 | INFO    | loopneuron.setup_check | SAMPLE prompt='On the morning of September 1, 3rd Battalion'
+  continuation=', 1st Battalion, 22nd Infantry Regiment, 25th Infantry Division, was ordered to take the village of Kernville, 4.5 miles south of the village of La Fosse.\n\nAs'

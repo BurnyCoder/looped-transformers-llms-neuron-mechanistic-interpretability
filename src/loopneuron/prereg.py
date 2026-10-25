@@ -37,7 +37,10 @@ def write_preregistration(screen: dict, s, out_dir, md_path, log) -> dict:
     K = max(1, len(kept))
     p_min = 1 / (s.null_neurons + 1)  # smallest attainable empirical p with R random neurons
     if p_min > 0.05 / K:
-        raise ValueError(f"R={s.null_neurons} cannot reach Holm threshold 0.05/{K}; raise NULL_NEURONS or lower K")
+        msg = f"R={s.null_neurons} cannot reach Holm threshold 0.05/{K}; raise NULL_NEURONS or lower K"
+        if not s.run_tag:  # real runs must be able to reject; dry runs (tiny R) only exercise the code path
+            raise ValueError(msg)
+        log.warning("dry run: %s", msg)
     req = [required_n(c["validation_dz"], 0.05 / K, 0.9) for c in kept]
     n = int(np.clip(max(req) if req else 300, 100, 300))
     for c, r in zip(kept, req):
