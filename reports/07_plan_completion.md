@@ -37,7 +37,7 @@ Silencing a neuron does not reduce the concept score on these neutral prompts. T
 
 - Clamping one neuron multiplies the probability mass on its keyword set by e^0.45 to e^0.94, i.e. 1.6–2.6× (a geometric mean over positions and prompts, since Δ is a mean of log-probabilities).
 - This is a direct, LLM-free and embedding-free confirmation of the steering effect at the level of next-token predictions.
-- L13 N1680's keywords are mostly function words ("nothing, being, which, one"). Its top contexts are abstract philosophical prose whose distinctive words are spread out, not concentrated near the peak, so its token-level signal is the least specific.
+- L13 N1680's keywords are mostly function words ("nothing, being, which, one"), so its token-level signal is the least specific. A plausible but untested reason: its top contexts are abstract philosophical prose whose distinctive words are spread out rather than concentrated within ±3 tokens of the peak.
 
 ## 4. Self-repair ratio (H2, mechanistic)
 For a clamp at a single loop t, on 60 prompts, teacher-forced:
@@ -55,7 +55,7 @@ For a clamp at a single loop t, on 60 prompts, teacher-forced:
 | L19 N3901 − (exploratory) | 0.40 | 0.33 | 0.41 | 1.17 |
 
 - An injection at loops 1–3 shrinks to 33–78% of its size by the time it reaches the output, with the minimum usually at loop 2. An injection at the last loop is kept or amplified for 4 of 6 neurons (114–126%); for L4 N2104 and L6 N3344 it still shrinks, to 71% and 67%.
-- This quantifies the self-repair inferred from behavior in [Experiment 4](04_followups.md): later loops actively shrink the perturbation left by an earlier loop.
+- This quantifies the self-repair inferred from behavior in [Experiment 4](04_followups.md): later loops shrink the perturbation left by an earlier loop.
 - Loops 1–3 still leave 33–78% of the injection (22–67% is removed). The residue is not enough to steer behavior from a single loop, but repeated injection at every loop accumulates.
 
 ## 5. Saturation fit of the T sweep (H3)
