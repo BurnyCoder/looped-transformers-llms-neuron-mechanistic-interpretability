@@ -51,6 +51,12 @@ Example (confirm prompt 2, sample 0):
 <img src="figures/loop_structure.png" width="49%" alt="Loop structure: most neurons peak at loop 1; activations converge across loops"/>
 </p>
 
+**Artifacts:**
+- Paper: [paper/paper.pdf](paper/paper.pdf).
+- Reports: [summary](reports/summary.md), [pre-registration](reports/preregistration.md), and per-experiment reports in [reports/](reports/).
+- Neuron viewer: [docs/viewer/](docs/viewer/index.html). Open it locally to see each neuron's top contexts at every loop.
+- Hugging Face dataset with the full atlas and all results: [BurnyCoder/ouro-1.4b-neuron-atlas](https://huggingface.co/datasets/BurnyCoder/ouro-1.4b-neuron-atlas), in the collection [Looped-LM neurons](https://huggingface.co/collections/BurnyCoder/looped-lm-neurons-6add603667c872dddf85b800).
+
 **Negative and cautionary findings:**
 - **Degeneration.** Perplexity alone fails as a fluency guard. The if-statement neuron and a Fibonacci neuron reach the highest concept scores by degenerating into "ififif…" and "Fib Fib Fib…", which have *low* perplexity. A distinct-2 guard was added before the confirmatory run.
 - **Not every neuron steers.** The five neurons were selected for steerability (existence claims), so they do not show that a typical neuron steers.
@@ -98,7 +104,7 @@ a[ℓ, i, t] = silu(gate_proj · x)_i · (up_proj · x)_i          (x = RMSNorm 
    - Sample k = 3 continuations of 48 tokens per prompt.
    - Steered and unsteered runs use **the same sampling seeds** (paired design).
 5. **Primary metric.** The *concept score* is the cosine between the continuation's embedding and the neuron's **contrastive concept direction**: normalize(mean embedding of the neuron's top contexts − mean embedding of random contexts). It involves no LLM, which avoids label circularity.
-   - Secondary metrics: an AxBench-style blind LLM judge ([Wu et al. 2025](https://arxiv.org/abs/2501.17148)), concept-token log-probability, perplexity under the unsteered model, distinct-2 repetition rate, and a second embedder.
+   - Secondary metrics: an AxBench-style blind LLM judge ([Wu et al. 2025](https://arxiv.org/abs/2501.17148)), perplexity under the unsteered model, distinct-2 repetition rate, and a second embedder.
 6. **Statistics.**
    - A one-sided Wilcoxon signed-rank test vs unsteered.
    - An empirical permutation p-value vs **R = 100 random alive neurons from the same layer** steered at the same relative α.

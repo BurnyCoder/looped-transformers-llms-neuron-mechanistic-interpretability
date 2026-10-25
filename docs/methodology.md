@@ -59,7 +59,6 @@ Streaming top-k works per batch. Each sequence is reduced to its maximum per neu
 - **Fluency guard.** We compute the perplexity of the steered continuation under the *unsteered* model. Within each prompt the score is the ratio steered/unsteered, and across prompts we take the median.
 - **Secondary metrics:**
   - An AxBench-style blind LLM judge ([Wu et al. 2025](https://arxiv.org/abs/2501.17148)) scores concept and fluency from 0 to 2, writing its explanation before the score. The order of conditions is shuffled.
-  - The shift in summed probability of concept tokens, defined as the most frequent peak tokens of the neuron's top contexts.
   - The distinct-2 repetition rate.
   - ΔC computed with all-MiniLM-L6-v2, as a robustness check on the embedder.
 
