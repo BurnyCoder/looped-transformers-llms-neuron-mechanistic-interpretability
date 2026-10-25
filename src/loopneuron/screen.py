@@ -12,7 +12,6 @@ Global context: outputs results/<model>/screen.json and candidates.json, consume
 """
 from __future__ import annotations
 
-import json
 
 import numpy as np
 import torch
@@ -135,5 +134,3 @@ def reselect_and_validate(model, tok, atlas, chunks, res, prompts, T, seed, n_to
     return pool, u, validate_candidates(model, tok, atlas, pool, u, prompts, T, seed, n_tokens, log)
 
 
-def save(obj, path):
-    path.write_text(json.dumps(obj, indent=1, default=float), encoding="utf-8")
