@@ -6,7 +6,8 @@ Local: thin, tested wrappers around SciPy/statsmodels so every number in reports
 - Holm step-down correction (statsmodels multipletests: https://www.statsmodels.org/stable/generated/statsmodels.stats.multitest.multipletests.html)
 - matched-pairs rank-biserial correlation (Kerby 2014, doi:10.2466/11.IT.3.1) and Cohen's d_z
 - percentile bootstrap CI (Efron & Tibshirani 1993)
-- power analysis for a one-sided paired t-test (statsmodels TTestPower), inflated by 1/ARE for Wilcoxon (ARE=3/pi~0.955)
+- power analysis for a one-sided paired t-test (statsmodels TTestPower), inflated by 1/ARE for Wilcoxon (ARE=3/pi~0.955;
+  Hodges & Lehmann 1956, https://doi.org/10.1214/aoms/1177728261)
 Global context: steering.py produces per-prompt deltas; this module turns them into the decision table.
 """
 from __future__ import annotations
