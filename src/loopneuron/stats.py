@@ -1,7 +1,7 @@
 """Statistical tests for the pre-registered steering analysis.
 
 Local: thin, tested wrappers around SciPy/statsmodels so every number in reports comes from one place.
-- one-sided Wilcoxon signed-rank (scipy.stats.wilcoxon: https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.wilcoxon.html)
+- one-sided (steering) and two-sided (audit) Wilcoxon signed-rank (scipy.stats.wilcoxon: https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.wilcoxon.html)
 - empirical permutation p-value with the +1 correction (Phipson & Smyth 2010, https://arxiv.org/abs/1603.05766)
 - Holm step-down correction (statsmodels multipletests: https://www.statsmodels.org/stable/generated/statsmodels.stats.multitest.multipletests.html)
 - matched-pairs rank-biserial correlation (Kerby 2014, doi:10.2466/11.IT.3.1) and Cohen's d_z
@@ -27,6 +27,12 @@ def wilcoxon_greater(x: np.ndarray) -> float:
     if np.all(x == 0):
         return 1.0  # no information
     return float(st.wilcoxon(x, alternative="greater", zero_method="wilcox").pvalue)
+
+
+def wilcoxon_two_sided(x: np.ndarray) -> float:
+    """Two-sided p-value for H1: median of paired differences x != 0 (non-directional comparisons, e.g. the H4 audit)."""
+    x = np.asarray(x, dtype=float)
+    return 1.0 if np.all(x == 0) else float(st.wilcoxon(x, zero_method="wilcox").pvalue)
 
 
 def perm_p(observed: float, null: np.ndarray) -> float:
