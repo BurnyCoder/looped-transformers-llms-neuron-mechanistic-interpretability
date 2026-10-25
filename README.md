@@ -42,7 +42,7 @@ Example (confirm prompt 2, sample 0):
 | Loop structure (descriptive) | where each neuron peaks; top-context overlap across loops | 41% of neuron poles peak at loop 1 vs 13% at loop 4; top-20 contexts at loop 1 vs loop 4 overlap only 1–19% (Jaccard) |
 | Cross-loop function (descriptive) | same-token activation correlation, loop 1 vs 4 | median r = 0.54; adjacent loops converge (0.65 → 0.84 → 0.94); layer 0 ≈ 0 ([report](reports/05_loop_audit.md)) |
 | H4: are looped neurons "loop-polysemantic"? | same-loop vs cross-loop detection of local-LLM explanations | **not supported** (0.60 vs 0.59, paired two-sided Wilcoxon p = 0.20); the explainer is weak (0.60 vs 0.50 chance) |
-| Replication on Ouro-1.4B-Thinking | same neuron indices; fresh seeds on the confirm prompts, and again on 100 fresh reserve prompts | **5/5 replicate in both** (ΔC 0.16–0.18, Holm p ≤ 2.1e-16, each beats 20/20 random neurons; part of the replication criterion was set after the run); weights nearly unchanged by SFT (per-neuron cos ≥ 0.993 for 99% of neurons in the candidate layers) ([report](reports/06_replication.md)) |
+| Replication on Ouro-1.4B-Thinking | same neuron indices; fresh seeds on the confirm prompts, and again on 100 fresh reserve prompts | **5/5 replicate in both** (ΔC 0.16–0.18, Holm p ≤ 2.1e-16, each beats 20/20 random neurons; part of the replication criterion was set after the run); weights nearly unchanged by SFT (per-neuron cos ≥ 0.993 for 99% of neurons in the candidate layers, ≥ 0.996 for the five neurons) ([report](reports/06_replication.md)) |
 
 <p align="center">
 <img src="figures/confirm_effects.png" width="49%" alt="Confirmatory test: mean concept-score change with 95% CIs for the five neurons, far above the random same-layer neuron null"/>
@@ -106,7 +106,7 @@ a[ℓ, i, t] = silu(gate_proj · x)_i · (up_proj · x)_i          (x = RMSNorm 
 3. **Labeling.** A local **Qwen3.5** model served by [llama.cpp](https://github.com/ggml-org/llama.cpp) writes one explanation per candidate from its top-20 marked contexts, in the Delphi explainer format of [Paulo et al. 2024](https://arxiv.org/abs/2410.13928) ([code](https://github.com/EleutherAI/delphi)). Delphi **detection scoring** with a shuffled-explanation chance control is used in the audit (step 8). Every prompt and output is logged in full.
 4. **Steering.** Clamp `a[ℓ,i,t] := α · max|a|` on the neuron's pole, at all positions and all (or one) loops.
    - Sample k = 3 continuations of 48 tokens per prompt.
-   - Steered and unsteered runs use **the same sampling seeds** (paired design).
+   - Steered and unsteered runs use **the same sampling seeds** and batch layout (paired design). The random-neuron null runs reuse the seed in a different batch layout, so their pairing with the baseline is not guaranteed bit-exact; unpaired noise can only widen the null.
 5. **Primary metric.** The *concept score* is the cosine between the continuation's embedding and the neuron's **contrastive concept direction**: normalize(mean embedding of the neuron's top contexts − mean embedding of random contexts). It involves no LLM, which avoids label circularity.
    - Secondary metrics: an AxBench-style blind LLM judge ([Wu et al. 2025](https://arxiv.org/abs/2501.17148)), perplexity under the unsteered model, distinct-2 repetition rate ([Li et al. 2016](https://arxiv.org/abs/1510.03055)), and a second embedder ([all-MiniLM-L6-v2](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2)).
 6. **Statistics.**
