@@ -12,7 +12,7 @@ import time
 from pathlib import Path
 
 import requests
-from openai import OpenAI
+from openai import APIError, OpenAI
 
 
 class LlamaServer:
@@ -59,10 +59,18 @@ class LLM:
     def chat(self, messages: list[dict], max_tokens: int = 400, temperature: float = 0.0, tag: str = "") -> str:
         """One greedy chat completion with thinking disabled; logs the full prompt and full output."""
         self.n_calls += 1
-        r = self.client.chat.completions.create(
-            model=self.model, messages=messages, max_tokens=max_tokens, temperature=temperature,
-            extra_body={"chat_template_kwargs": {"enable_thinking": False}},
-        )
+        for attempt in range(3):  # retry transient server/connection errors (openai.APIError covers both)
+            try:
+                r = self.client.chat.completions.create(
+                    model=self.model, messages=messages, max_tokens=max_tokens, temperature=temperature,
+                    extra_body={"chat_template_kwargs": {"enable_thinking": False}},
+                )
+                break
+            except APIError as e:
+                self.log.warning("LLM CALL %d attempt %d failed: %s", self.n_calls, attempt + 1, e)
+                if attempt == 2:
+                    raise
+                time.sleep(2 ** attempt)
         text = r.choices[0].message.content or ""
         prompt = "\n".join(f"[{m['role']}]\n{m['content']}" for m in messages)
         self.log.info("LLM CALL %d %s\n--- PROMPT ---\n%s\n--- OUTPUT ---\n%s\n--- END ---", self.n_calls, tag, prompt, text)
