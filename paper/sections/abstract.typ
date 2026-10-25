@@ -14,8 +14,8 @@ neurons from the same layer, with Holm correction and fluency and degeneracy gua
 - *All five* pre-registered neurons (phonetics, non-duality, pedagogy, forum answers, electron orbitals) steer 48-token
   continuations toward their concept: mean $Delta$concept-score 0.13–0.18, $d_z$ 0.99–1.61, Holm-adjusted Wilcoxon
   $p <= 1.1 times 10^(-15)$, beating 99–100 of 100 random neurons, perplexity ratio $<= 1.83$.
-- The effects are concept-specific, confirmed by a blind LLM judge and by teacher-forced concept-token
-  probabilities, stable across three further seed sets, and replicate at identical indices in the reasoning-tuned
+- The effects are concept-specific, confirmed by a blind LLM judge and by teacher-forced probabilities of
+  each neuron's peak-context keywords, stable across three further seed sets, and replicate at identical indices in the reasoning-tuned
   Ouro-1.4B-Thinking.
 
 *Follow-ups (post hoc).*
