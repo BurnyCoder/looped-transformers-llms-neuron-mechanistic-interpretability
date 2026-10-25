@@ -1,10 +1,11 @@
 == Replication on Ouro-1.4B-Thinking
 The five neuron indices were tested unchanged in Ouro-1.4B-Thinking, which is Ouro-1.4B after supervised fine-tuning on
-about 8.3M reasoning examples. There was no re-selection.
+about 8.3M reasoning examples @zhu2025ouro. There was no re-selection.
 
 Reasoning SFT barely moves the MLP neurons:
-- the per-neuron cosine between base and Thinking weights is $>= 0.993$ for 99% of neurons in the relevant layers;
-- the candidates' maximum activations change by at most 5.1%.
+- the per-neuron cosine between base and Thinking weights (minimum over gate row, up row and down column) is $>= 0.993$
+  for 99% of neurons in the four candidate layers, and $>= 0.996$ for the five candidates;
+- the candidates' maximum activations change by at most 5.1% of the base value.
 
 All five neurons steer the post-trained model with similar or larger effects:
 - $Delta C = 0.161$–$0.180$, against $0.127$–$0.179$ in the base model (larger for four neurons; for L18 N3066 it is
@@ -12,6 +13,10 @@ All five neurons steer the post-trained model with similar or larger effects:
 - Holm-adjusted Wilcoxon $p <= 2.1 times 10^(-16)$;
 - each neuron exceeds all 20 random same-layer neurons;
 - the PPL ratio is at most 1.98.
+
+With $R = 20$ the smallest permutation $p$ is $1 \/ 21$, which cannot pass Holm at $K = 5$, so the random-neuron
+comparison is descriptive here. The code at the start of the run named the Wilcoxon test as the replication criterion;
+the "beats all 20" and guard conditions were written down after the run.
 
 A second replication on 100 never-used prompts (the reserve split) gives the same picture:
 - $Delta C = 0.157$–$0.179$;
@@ -52,7 +57,8 @@ guard, or an LLM fluency judge as in AxBench @wu2025axbench, is necessary.
 = Limitations
 - *Scope.* One looped model family (Ouro-1.4B and its Thinking variant) and 5 confirmed neurons, chosen for steerability
   from a pool of 200 coherent units. These are existence claims and say nothing about how common steerable neurons are.
-  Ouro-2.6B (48 looped layers) was not studied because its weights plus KV cache do not fit the 8 GB GPU used here.
+  Ouro-2.6B (48 looped layers) was not attempted: its bf16 checkpoint is 5.3 GB @ouro26bcard and its KV cache per
+  token is twice Ouro-1.4B's, which leaves too little of the 8 GB GPU for the batched runs used here.
 - *Metric.* The primary metric is an embedding-based concept score built from each neuron's own top contexts. It
   measures movement toward that contrastive direction, not human-judged concept presence. The LLM judge is a secondary
   check from a small local model.
