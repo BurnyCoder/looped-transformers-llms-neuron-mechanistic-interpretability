@@ -11,14 +11,55 @@ Ouro runs the same 24 layers **four times** (`total_ut_steps = 4`), so every neu
 
 ## Highlights
 
-> **Status: pipeline under construction. No experiment has been run yet.** This section will be filled from `reports/summary.md` once the pre-registered confirmatory test has run. Positive and negative results will both be reported.
+**Main result (pre-registered, positive).** All **5 of 5** pre-registered neurons steer Ouro-1.4B's text toward their concept with statistical significance. For each neuron:
+- clamping that single neuron at all 4 loops raises the concept score of 48-token continuations on 100 held-out prompts (mean ΔC 0.13–0.18, d_z 0.99–1.61);
+- Holm-adjusted Wilcoxon p ≤ 1.1e-15;
+- it beats 99–100 of 100 random neurons from the same layer clamped the same way (Holm-adjusted permutation p = 0.0495, the smallest attainable value; 7–12 SD above the null mean);
+- it passes the fluency guards (perplexity ratio 1.58–1.83, distinct-2 ≥ 0.80).
 
-| Question | Pre-registered test | Result |
+The five neurons and their concepts:
+- L18 N3066−: phonetics and letters
+- L13 N1680+: non-duality
+- L4 N2104+: pedagogy
+- L6 N3344−: forum "accepted answer"
+- L18 N1735−: electron orbitals
+
+Example (confirm prompt 2, sample 0):
+- unsteered: "In the Philippines, Nepartak produced strong winds, heavy *rainfall, and flooding. In the Philippines, a total of 27 people died…*"
+- with L18 N3066 clamped: "…heavy *rains, and severe flooding. The sounds of the letters /p/ and /t/ are softened. In the International Phonetic Alphabet (IPA)…*"
+
+| Question | Test | Result |
 |---|---|---|
-| H1: does ≥1 neuron steer behavior significantly? | Wilcoxon vs unsteered **and** permutation vs 100 random same-layer neurons, Holm-corrected, plus a fluency guard | pending |
-| H2: does steering at a later loop matter more (self-repair)? | single-loop steering t = 1…4 | pending |
-| H3: how does the effect scale with test-time loops T = 1…8? | all-loop steering, saturation fit | pending |
-| H4: are looped neurons "loop-polysemantic"? | cross-loop vs same-loop detection accuracy of explanations | pending |
+| H1: does ≥1 neuron steer behavior significantly? | pre-registered: Wilcoxon vs unsteered **and** permutation vs 100 random same-layer neurons, Holm, fluency and degeneracy guards | **supported: 5/5 neurons** ([report](reports/03_confirmatory_test.md)) |
+| Specificity | steer neuron i, score concept j | each neuron moves its own concept most, 1.4–3.8× the largest other concept ([report](reports/04_followups.md)) |
+| Dose-response | α = 0.5…16 × max activation | monotone then **saturating**, as the sandwich RMSNorm predicts; opposite-sign clamps do nothing |
+| H2: does a later loop matter more? | clamp at a single loop | **mostly no.** For the 5 confirmed neurons, single-loop clamps give ΔC ≤ 0.043, against 0.13–0.17 for all-loop; effects are super-additive across loops (self-repair). Exception: the exploratory if-statement neuron L19 N3901, where the last loop alone gives 56% |
+| LLM judge (secondary) | blind AxBench-style 0–2 ratings by local Qwen3.5-9B, 50 prompts | concept 0 → 0.06–0.36 (all 5 Holm p ≤ 0.042); fluency 1.50 → 0.90–1.17 |
+| H3: more test-time loops? | clamp at all loops for T = 1…8 | effect already present at T = 1, roughly flat in T; next-token KL grows with T |
+| Necessity | zero-ablation vs 100 random ablations | 4 of 6 neurons needed for their own contexts (unadjusted p = 0.0099; exploratory); 2 neurons steer but are not necessary |
+| Loop structure (descriptive) | where each neuron peaks; top-context overlap across loops | 41% of neurons peak at loop 1 vs 13% at loop 4; top-20 contexts at loop 1 vs loop 4 overlap only 1–19% (Jaccard) |
+| Cross-loop function (descriptive) | same-token activation correlation, loop 1 vs 4 | median r = 0.54; adjacent loops converge (0.65 → 0.84 → 0.94); layer 0 ≈ 0 ([report](reports/05_loop_audit.md)) |
+| H4: are looped neurons "loop-polysemantic"? | same-loop vs cross-loop detection of local-LLM explanations | **not supported** (0.60 vs 0.59, p = 0.20); the explainer is weak (0.60 vs 0.50 chance) |
+| Replication on Ouro-1.4B-Thinking | same neuron indices, fresh seeds | **5/5 replicate** (ΔC 0.16–0.18, Holm p ≤ 2.1e-16, each beats 20/20 random neurons); weights nearly unchanged by SFT (cos ≥ 0.993) ([report](reports/06_replication.md)) |
+
+<p align="center">
+<img src="figures/confirm_effects.png" width="49%" alt="Confirmatory test: mean concept-score change with 95% CIs for the five neurons, far above the random same-layer neuron null"/>
+<img src="figures/specificity.png" width="40%" alt="Specificity matrix: each neuron raises its own concept most"/>
+</p>
+<p align="center">
+<img src="figures/loop_locus_18_3066_1.png" width="49%" alt="Clamping at a single loop barely steers; clamping at all loops does"/>
+<img src="figures/loop_structure.png" width="49%" alt="Loop structure: most neurons peak at loop 1; activations converge across loops"/>
+</p>
+
+**Artifacts:**
+- Paper: [paper/paper.pdf](paper/paper.pdf).
+- Reports: [summary](reports/summary.md), [pre-registration](reports/preregistration.md), and per-experiment reports in [reports/](reports/).
+- Neuron viewer: [docs/viewer/](docs/viewer/index.html). Open it locally to see each neuron's top contexts at every loop.
+- Hugging Face dataset with the full atlas and all results: [BurnyCoder/ouro-1.4b-neuron-atlas](https://huggingface.co/datasets/BurnyCoder/ouro-1.4b-neuron-atlas), in the collection [Looped-LM neurons](https://huggingface.co/collections/BurnyCoder/looped-lm-neurons-6add603667c872dddf85b800).
+
+**Negative and cautionary findings:**
+- **Degeneration.** Perplexity alone fails as a fluency guard. The if-statement neuron and a Fibonacci neuron reach the highest concept scores by degenerating into "ififif…" and "Fib Fib Fib…", which have *low* perplexity. A distinct-2 guard was added before the confirmatory run.
+- **Not every neuron steers.** The five neurons were selected for steerability (existence claims), so they do not show that a typical neuron steers.
 
 ## Methodology (summary)
 
@@ -52,30 +93,36 @@ a[ℓ, i, t] = silu(gate_proj · x)_i · (up_proj · x)_i          (x = RMSNorm 
    - the top-40 contexts over all positions and loops;
    - the top-20 contexts at each loop;
    - the loop where the activation peaks;
-   - per-loop mean and firing frequency, histograms, and dead-neuron flags.
+   - per-loop mean, mean |a|, SD, positive fraction and threshold-exceedance counts (on every 8th batch), plus dead-neuron flags.
    Top-k is computed by streaming `torch.topk` merges on the GPU, following the max-activating-examples practice of [Bills et al. 2023](https://openaipublic.blob.core.windows.net/neuron-explainer/paper/index.html).
 2. **Candidate screen** (discovery data only).
    - Rank neurons by *semantic coherence* of their top contexts: mean pairwise cosine of [bge-small-en-v1.5](https://huggingface.co/BAAI/bge-small-en-v1.5) embeddings.
    - Drop pure token or position detectors ([Voita et al. 2023](https://arxiv.org/abs/2309.04827)).
-   - Quick-steer about 200 neurons and keep at most K = 5 candidates.
+   - Quick-steer the 200 most coherent units at α ∈ {1, 2, 4} on 25 discovery prompts.
+   - Validate the top 10 on 100 other discovery prompts.
+   - Keep the K = 5 units with the largest validation d_z among those that pass the fluency (perplexity) and degeneracy (distinct-2) guards.
 3. **Labeling.** A local **Qwen3.5** model served by [llama.cpp](https://github.com/ggml-org/llama.cpp) writes explanations from top examples. It uses the Delphi explainer format and **detection scoring** from [Paulo et al. 2024](https://arxiv.org/abs/2410.13928) ([code](https://github.com/EleutherAI/delphi)), with a shuffled-label chance control. Every prompt and output is logged in full.
 4. **Steering.** Clamp `a[ℓ,i,t] := α · max|a|` on the neuron's pole, at all positions and all (or one) loops.
    - Sample k = 3 continuations of 48 tokens per prompt.
    - Steered and unsteered runs use **the same sampling seeds** (paired design).
 5. **Primary metric.** The *concept score* is the cosine between the continuation's embedding and the neuron's **contrastive concept direction**: normalize(mean embedding of the neuron's top contexts − mean embedding of random contexts). It involves no LLM, which avoids label circularity.
-   - Secondary metrics: an AxBench-style blind LLM judge ([Wu et al. 2025](https://arxiv.org/abs/2501.17148)), concept-token log-probability, perplexity under the unsteered model, distinct-2 repetition rate, and a second embedder.
+   - Secondary metrics: an AxBench-style blind LLM judge ([Wu et al. 2025](https://arxiv.org/abs/2501.17148)), perplexity under the unsteered model, distinct-2 repetition rate, and a second embedder.
 6. **Statistics.**
    - A one-sided Wilcoxon signed-rank test vs unsteered.
    - An empirical permutation p-value vs **R = 100 random alive neurons from the same layer** steered at the same relative α.
    - Holm correction across candidates.
    - d_z and rank-biserial effect sizes with bootstrap 95% CIs.
    - Power analysis via `statsmodels`.
-   - A pre-registered decision rule that includes a fluency guard: median perplexity ratio ≤ 2.
+   - A pre-registered decision rule that includes a fluency guard (median perplexity ratio ≤ 2) and a degeneracy guard (median steered distinct-2 ≥ 0.6).
 7. **Loop dynamics.**
    - Steer at a single loop t ∈ {1..4} to test the "late-loop matters most / early injections get repaired" observation reported for Ouro-1.4B-Thinking ([nesiacel, LessWrong 2026](https://www.lesswrong.com/posts/rzcJMpnehFBD686gj/a-recurrent-llm-is-quite-easy-to-interpret-but-complex-to)).
    - Sweep the test-time loop count T = 1…8.
    - Test the saturation predicted by the sandwich norm: clamping one neuron to a huge value makes the layer's MLP write tend to `g ⊙ w_i / rms(w_i)`, which is bounded.
-8. **Interpretability audit.** Sample 300 neurons stratified by layer. Write explanations per loop, then score them on the same loop and across loops (loop-polysemanticity).
+8. **Interpretability audit.**
+   - Sample 150 neurons (50 per layer tercile).
+   - Write explanations at loop 1 and at loop 4.
+   - Score each explanation on held-out contexts from the same loop and from the other loop (loop-polysemanticity), with a shuffled-explanation control.
+   - Also compute every neuron's same-token activation correlation between loops on held-out text.
 9. **Replication.** Map neurons by weight similarity and re-test the significant neuron(s) on Ouro-1.4B-Thinking.
 
 ## What happens when you run it (data flow)
@@ -96,19 +143,25 @@ flowchart LR
   E --> K
 ```
 
-Each phase writes timestamped logs to `logs/<run>/` and to the terminal. LLM prompts and outputs are logged in full, never truncated. Results go to `results/<model>/` as JSON, NPZ, and Parquet.
+Each phase writes a timestamped log, `logs/<YYYYmmdd-HHMMSS>_<phase>.log`, and prints to the terminal. LLM prompts and outputs are logged in full, never truncated. Results go to `results/<model>/` as JSON, JSONL, NPZ, and the `atlas.pt` torch file.
 
 ## Code architecture
 
 ```mermaid
 flowchart TB
   RP[run_pipeline.py<br/>phase wrapper] --> CFG[config.py<br/>.env settings]
-  RP --> PH0[setup_check] & PH1[build_atlas] & PH2[screen_candidates] & PH3[preregister] & PH4[confirm_steering] & PH5[loop_dynamics] & PH6[interpretability_audit] & PH7[replicate] & PH8[report]
+  RP --> PH0[setup_check] & PH1[build_atlas] & PH2[screen / validate<br/>candidates] & PH3[label + preregister] & PH4[confirm_steering] & PH5[followups + llm_judge] & PH6[audit] & PH7[replicate] & PH8[report + publish]
+  PH0 --> SN[sanity.py]
   PH1 --> M[model.py] & HK[hooks.py] & DT[data.py] & AT[atlas.py]
-  PH2 --> MT[metrics.py] & ST[steering.py]
-  PH4 --> ST & SS[stats.py]
-  PH6 --> AI[autointerp.py] --> LLM[llm.py<br/>llama-server client]
-  PH8 --> PL[plots.py] & VW[viewer.py]
+  PH2 --> SC[screen.py] --> MT[metrics.py] & ST[steering.py] & CX[contexts.py]
+  PH3 --> PR[prereg.py] & AI[autointerp.py]
+  PH4 --> CF[confirm.py] --> ST & SS[stats.py]
+  PH5 --> EX[experiments.py] & JD[judge.py]
+  PH6 --> AU[audit.py] --> AI
+  PH7 --> RE[replicate.py] --> CF
+  AI --> LLM[llm.py + prompts.py<br/>llama-server client]
+  JD --> LLM
+  PH8 --> PL[plots.py] & VW[viewer.py] & RT[reporting.py] & PB[publish.py]
   M --> HK
   ST --> HK
 ```
@@ -117,7 +170,7 @@ flowchart TB
 - Loads Ouro deterministically: pinned revision, fixed exit step, no stochastic early exit.
 - Records and steers neurons per loop, for both poles, through a single hook object. The hook object is verified by unit tests against a manual SwiGLU recomputation.
 - Builds a streaming GPU top-k neuron atlas (positive and negative poles, per loop) with dead-neuron and loop-of-max statistics.
-- Runs a local, free LLM labeler and judge (Qwen3.5 GGUF via llama.cpp) with JSON-schema outputs and full logging.
+- Runs a local, free LLM labeler and judge (Qwen3.5 GGUF via llama.cpp). Outputs are parsed from the published formats (Delphi `[EXPLANATION]:` and `[0,1,...]` lists, AxBench `Rating: [[n]]`), and everything is logged in full.
 - Runs a pre-registered confirmatory steering test with paired seeds, random same-layer neuron nulls, Holm correction, bootstrap CIs, and a power analysis.
 - Analyzes loop dynamics: single-loop steering, test-time loop sweeps, and saturation predictions.
 - Generates a static HTML "microscope" page per neuron, with token heatmaps per loop.
@@ -160,24 +213,41 @@ uv sync
 cp .env.example .env
 ```
 
-The local labeler/judge is needed only for the labeling, judging, and audit phases. Steering statistics use the LLM-free concept score. Setup:
-1. Download a prebuilt `llama-server` from the [llama.cpp releases](https://github.com/ggml-org/llama.cpp/releases) (CUDA build) into `tools/llama.cpp/`.
-2. Download a Qwen3.5 GGUF into `cache/gguf/`.
-3. Start the server:
+The local labeler/judge is needed only for the labeling, LLM-judge, and audit phases. Steering statistics use the LLM-free concept score. Setup:
+1. Download the llama.cpp CUDA build (release b11854) into `tools/llama.cpp/`.
+2. Download `Qwen3.5-9B-Q4_K_M.gguf` into `cache/gguf/`.
 
-```bash
-tools/llama.cpp/llama-server -m cache/gguf/Qwen3.5-9B-Q4_K_M.gguf -ngl 99 -c 8192 --port 8093
-```
-
-Exact file names and revisions are recorded in [docs/setup.md](docs/setup.md).
+Exact commands are in [docs/setup.md](docs/setup.md). The pipeline starts and stops `llama-server` itself, on port 8093, after unloading Ouro from the GPU.
 
 ## Usage
 
-Run the whole pipeline. Phases are resumable, and each phase skips work whose outputs already exist:
+The model, revision, token budgets, seeds and LLM settings live in `.env` (template: `.env.example`).
+
+Run every phase in order:
 
 ```bash
-uv run python run_pipeline.py --model ByteDance/Ouro-1.4B
+uv run python run_pipeline.py
 ```
+
+The phase order is:
+1. setup_check
+2. build_atlas
+3. screen_candidates
+4. validate_candidates
+5. label_candidates
+6. preregister
+7. confirm_steering
+8. followups
+9. llm_judge
+10. audit
+11. replicate
+12. report
+13. publish
+
+Notes on running it:
+- `build_atlas` skips work if a finished `atlas.pt` exists. Other phases recompute.
+- `confirm_steering` refuses to run until `reports/preregistration.md` is committed to git and unchanged. Commit and push it after `preregister`, then continue with `--phase confirm_steering` and the later phases.
+- `publish` uploads to the Hugging Face dataset named in `run_pipeline.py`. Change `HF_DATASET` to your own repo before using it.
 
 Smoke-test every phase on a tiny budget:
 
@@ -200,13 +270,17 @@ uv run pytest -q
 ## Repository layout
 ```
 run_pipeline.py        # one wrapper calling the named phases
-src/loopneuron/        # config, logging, model, hooks, data, atlas, llm, autointerp, metrics, steering, stats, plots, viewer
-tests/                 # pytest unit tests (hooks, top-k, stats, determinism)
-data/prompts/          # discovery / confirmatory prompt splits
-results/ figures/      # generated outputs
-reports/               # per-experiment reports, summary, pre-registration
-docs/                  # methodology, setup, design notes
-paper/                 # Typst source + PDF
+src/loopneuron/        # config, logging_utils, model, hooks, data, atlas, contexts, metrics, steering, screen, prereg,
+                       # confirm, experiments, judge, audit, replicate, llm, prompts, autointerp, stats, sanity,
+                       # plots, viewer, reporting, publish
+tests/                 # pytest unit tests (hooks vs manual SwiGLU, KV cache, top-k vs brute force, stats, steering logic)
+data/prompts/          # discovery / confirm / reserve prompt splits (WikiText-103 test stems)
+results/Ouro-1.4B/     # all result JSONs (atlas.pt and token caches are gitignored; published on Hugging Face)
+figures/               # all figures (generated by the report phase)
+reports/               # summary, pre-registration, per-experiment reports, generated tables
+docs/                  # methodology, setup, neuron viewer (docs/viewer/)
+paper/                 # Typst source + PDF (build: uv run python paper/build.py)
+logs/                  # timestamped phase logs incl. every LLM prompt/output
 ```
 
 ## Related work

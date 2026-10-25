@@ -1,0 +1,6126 @@
+[
+ {
+  "layer": 7,
+  "neuron": 2133,
+  "explanations": {
+   "0": "The model latents consistently target the final digit or trailing characters of numerical sequences, acting as markers for the termination of data fields such as distances, times, or scientific values.",
+   "3": "The model highlights the final digits of numerical sequences, including decimals, page numbers, and identifiers, indicating a pattern where the least significant characters are deemed critical for the representation of value or reference."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.625,
+    "tpr": 0.25,
+    "tnr": 1.0,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.8333333333333333,
+    "tpr": 0.6666666666666666,
+    "tnr": 1.0,
+    "n": 10
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.8333333333333333,
+    "tpr": 0.6666666666666666,
+    "tnr": 1.0,
+    "n": 10
+   },
+   "3": {
+    "balanced_acc": 0.6875,
+    "tpr": 0.5,
+    "tnr": 0.875,
+    "n": 16
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.4,
+   "tpr": 0.0,
+   "tnr": 0.8,
+   "n": 10
+  }
+ },
+ {
+  "layer": 5,
+  "neuron": 5110,
+  "explanations": {
+   "0": "The identified latents serve as structural delimiters for spatial trajectories, binary logical pairs, and the initiation of procedural or interrogative clauses, effectively marking the boundaries of movement, choice, and action within the text.",
+   "3": "The model prioritizes tokens that denote active effort, consequential outcomes, or emotional/structural transitions, often selecting verbs and nouns that summarize the core action or state of a sentence segment."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.625,
+    "tpr": 0.5,
+    "tnr": 0.75,
+    "n": 10
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.75,
+    "tnr": 0.25,
+    "n": 16
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 0.0,
+   "tnr": 1.0,
+   "n": 16
+  }
+ },
+ {
+  "layer": 0,
+  "neuron": 5316,
+  "explanations": {
+   "0": "The text latents commonly represent concepts of established fact, fixed authority, and specific identification. The patterns indicate a focus on terms that define boundaries (sovereignty), conclude investigations (determined), or specify unique entities (proper nouns), reflecting a linguistic tendency to anchor statements in concrete, unchangeable realities.",
+   "3": "The highlighted tokens represent essential function words such as articles, prepositions, and conjunctions that serve as syntactic connectors within the sentences. These markers delineate noun phrases, prepositional phrases, and clauses, indicating that the model prioritizes the structural integrity and semantic coherence provided by these grammatical elements. The pattern reflects a focus on how these small words establish relationships between entities and actions, ensuring the correct parsing and flow of meaning in the text."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 1.0,
+    "tnr": 0.0,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.5625,
+    "tpr": 0.875,
+    "tnr": 0.25,
+    "n": 16
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 1.0,
+    "tnr": 0.0,
+    "n": 16
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 0.0,
+   "tnr": 1.0,
+   "n": 6
+  }
+ },
+ {
+  "layer": 1,
+  "neuron": 1680,
+  "explanations": {
+   "0": "The highlighted tokens are specific, concrete nouns or noun phrases representing tangible objects, materials, or distinct organizations that serve as central semantic anchors within their sentences.",
+   "3": "The identified latents correspond to proper nouns and specific compound terms containing the word \"good,\" such as \"Goodwill,\" \"Goodbye,\" \"Goodrich,\" and \"Goodfellow.\" In these instances, the token is essential for defining the specific name of an entity, event, or person, distinguishing it from generic adjectival usage. The analysis reveals a pattern where the model assigns high importance to these tokens when they function as critical components of named entities within the text."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.125,
+    "tnr": 0.875,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.6666666666666666,
+    "tpr": 0.3333333333333333,
+    "tnr": 1.0,
+    "n": 6
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.4375,
+    "tpr": 0.125,
+    "tnr": 0.75,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 6
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 0.0,
+   "tnr": 1.0,
+   "n": 10
+  }
+ },
+ {
+  "layer": 2,
+  "neuron": 515,
+  "explanations": {
+   "0": "The text latents commonly associated with the examples involve the concept of \"Future\" or \"future,\" which is frequently used to denote upcoming developments, plans, or historical judgments. The patterns indicate that these tokens are crucial when they introduce forward-looking statements, such as future extensions, efforts, missions, seminars, or directions, signaling a shift towards what is yet to come in various contexts like technology, society, and strategy.",
+   "3": "The text latents commonly associated with these examples center on the concept of \"future\" as a pivotal factor in decision-making, strategic planning, and the assessment of technological or policy viability. The pattern reveals that the term functions as a semantic anchor, linking current actions to long-term outcomes across diverse domains such as employment, media, energy, and environmental preservation."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.875,
+    "tpr": 0.875,
+    "tnr": 0.875,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.9375,
+    "tpr": 1.0,
+    "tnr": 0.875,
+    "n": 16
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.9375,
+    "tpr": 0.875,
+    "tnr": 1.0,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.8125,
+    "tpr": 0.75,
+    "tnr": 0.875,
+    "n": 16
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 0.0,
+   "tnr": 1.0,
+   "n": 16
+  }
+ },
+ {
+  "layer": 3,
+  "neuron": 2961,
+  "explanations": {
+   "0": "The text latents consistently describe infrared radiation as a critical component in scientific observation, highlighting its role in greenhouse effects, thermal emission detection from celestial and nuclear sources, and its integration with visible light for advanced imaging and atmospheric analysis.",
+   "3": "The text latents consistently identify infrared radiation as a critical physical phenomenon characterized by its absorption by specific materials, its emission as heat, and its utility in spectroscopic analysis and atmospheric monitoring."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 1.0,
+    "tpr": 1.0,
+    "tnr": 1.0,
+    "n": 10
+   },
+   "3": {
+    "balanced_acc": 0.6666666666666666,
+    "tpr": 0.3333333333333333,
+    "tnr": 1.0,
+    "n": 10
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.6666666666666666,
+    "tpr": 0.3333333333333333,
+    "tnr": 1.0,
+    "n": 10
+   },
+   "3": {
+    "balanced_acc": 1.0,
+    "tpr": 1.0,
+    "tnr": 1.0,
+    "n": 10
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 0.0,
+   "tnr": 1.0,
+   "n": 16
+  }
+ },
+ {
+  "layer": 7,
+  "neuron": 5042,
+  "explanations": {
+   "0": "The identified latents correspond to the trailing digits of years (specifically from the early 2000s to the 2020s) that appear at the end of date sequences in diverse contexts including scientific citations, event schedules, and observational reports.",
+   "3": "The examples demonstrate a consistent pattern where the model identifies the final digits of a four-digit year as the most critical information. Specifically, the marked tokens always correspond to the last one or two digits of a year (e.g., '94', '23', '16'), indicating that the precise year is the key temporal anchor for the context. This suggests the model prioritizes exact dating over broader timeframes like decades or centuries when processing factual or news-related text."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.9375,
+    "tpr": 1.0,
+    "tnr": 0.875,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 10
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.875,
+    "tpr": 0.875,
+    "tnr": 0.875,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.5625,
+    "tpr": 0.125,
+    "tnr": 1.0,
+    "n": 16
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 0.0,
+   "tnr": 1.0,
+   "n": 16
+  }
+ },
+ {
+  "layer": 1,
+  "neuron": 4401,
+  "explanations": {
+   "0": "The highlighted tokens are concrete nouns representing physical entities, locations, or specific states such as \"ashore,\" \"feed,\" \"floor,\" and \"lactation.\" These words function as anchors in the narrative, denoting tangible objects or settings that ground the described actions and environments.",
+   "3": "The highlighted tokens consistently mark states of authenticity, correctness, or specific functional roles. Words like \"true,\" \"fast,\" and \"called\" denote adherence to a standard or expected outcome, while terms like \"in,\" \"put,\" \"crossed,\" and \"writing\" specify the precise location, action, or category required for a process to be valid or complete. The pattern suggests these latents highlight the critical boundaries where an entity's identity, quality, or operational role is defined or confirmed."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.5625,
+    "tpr": 0.125,
+    "tnr": 1.0,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.625,
+    "tpr": 0.25,
+    "tnr": 1.0,
+    "n": 16
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 16
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.4,
+   "tpr": 0.4,
+   "tnr": 0.4,
+   "n": 10
+  }
+ },
+ {
+  "layer": 0,
+  "neuron": 2709,
+  "explanations": {
+   "0": "The highlighted tokens consistently denote specific actions, states, or classifications that describe functional mechanisms, technical attributes, or processes of change within scientific and technical contexts.",
+   "3": "The identified latents represent high-information anchors that ground the text in specific physical realities (substances, locations), precise temporal boundaries, or critical logical operators that define the scope and direction of actions and judgments."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 6
+   },
+   "3": {
+    "balanced_acc": 0.25,
+    "tpr": 0.375,
+    "tnr": 0.125,
+    "n": 16
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": NaN,
+    "n": 0
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 0.0,
+   "tnr": 1.0,
+   "n": 16
+  }
+ },
+ {
+  "layer": 7,
+  "neuron": 3982,
+  "explanations": {
+   "0": "The highlighted tokens consistently serve as the subject of conditional clauses, acting as the pivotal antecedent that establishes the premise for a subsequent logical consequence or hypothetical scenario.",
+   "3": "The text latents common in the examples indicate that the phrase \"If it\" serves as a rhetorical device to assert that the validity of a subject is determined solely by its tangible performance or existence in reality, overriding theoretical constraints or external expectations. The pattern highlights a pragmatic worldview where the condition \"it works,\" \"it moves,\" or \"it is\" is the definitive proof of worth, function, or truth."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": NaN,
+    "n": 0
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 10
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 10
+   },
+   "3": {
+    "balanced_acc": NaN,
+    "n": 0
+   }
+  },
+  "shuffled": {
+   "balanced_acc": NaN,
+   "n": 0
+  }
+ },
+ {
+  "layer": 5,
+  "neuron": 2080,
+  "explanations": {
+   "0": "The identified latents represent key semantic anchors that define specific temporal intervals, operational states, or abstract resources within the text. These tokens consistently mark transitions to concrete conditions or mechanisms, serving as the focal point for subsequent instructions or descriptions regarding activities, services, or system behaviors.",
+   "3": "The marked tokens consistently represent morphological suffixes or specific delimiters that define grammatical function, proper noun boundaries, or quantitative units. In technical contexts, sequences like \"libus\" are highlighted to denote specific library namespaces, while in general text, suffixes such as \"-ing\" and possessive markers \"'s\" are emphasized to clarify action continuity and ownership. Percentage symbols are also frequently marked to isolate numerical metrics within lists."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 10
+   },
+   "3": {
+    "balanced_acc": 0.5833333333333334,
+    "tpr": 0.16666666666666666,
+    "tnr": 1.0,
+    "n": 10
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 10
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 10
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 0.0,
+   "tnr": 1.0,
+   "n": 16
+  }
+ },
+ {
+  "layer": 3,
+  "neuron": 216,
+  "explanations": {
+   "0": "The analyzed text consistently associates the concept of \"exile\" with themes of displacement, historical identity, and legal status. Key patterns include the term serving as a marker for significant historical transitions (such as the return from biblical exile), a subject of legal protection against arbitrary detention, and a metaphor for alienation and suffering within social or political narratives. The importance of the token is highest when it defines a specific era, a violation of rights, or a foundational element of a community's collective memory.",
+   "3": "The text latents commonly describe states of forced displacement, removal from authority, or isolation, specifically highlighting concepts like exile, banishment, and wilderness. These patterns emerge in contexts involving historical figures who are expelled from their homes, territories, or positions due to political conflict, treason, or tyranny, emphasizing involuntary separation and the hardships of such removal."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 1.0,
+    "tpr": 1.0,
+    "tnr": 1.0,
+    "n": 10
+   },
+   "3": {
+    "balanced_acc": NaN,
+    "n": 0
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": NaN,
+    "n": 0
+   },
+   "3": {
+    "balanced_acc": 1.0,
+    "tpr": 1.0,
+    "tnr": 1.0,
+    "n": 10
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.6875,
+   "tpr": 0.5,
+   "tnr": 0.875,
+   "n": 16
+  }
+ },
+ {
+  "layer": 6,
+  "neuron": 1597,
+  "explanations": {
+   "0": "The highlighted tokens are primarily determiners and classifiers that act as essential grammatical anchors, linking preceding causal or descriptive clauses to the specific subjects or categories that follow. Their importance lies in completing the syntactic structure required to define the outcome of a cause or to classify an entity within a specific context.",
+   "3": "The highlighted tokens consistently mark the onset of a primary verb phrase or the beginning of a direct answer within a sentence structure. They function as structural anchors that signal a transition from contextual background to the core action or informational payload of the statement."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 16
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 6
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 0.0,
+   "tnr": 1.0,
+   "n": 6
+  }
+ },
+ {
+  "layer": 7,
+  "neuron": 3724,
+  "explanations": {
+   "0": "The highlighted tokens primarily serve as determiners and prepositions that anchor the semantic scope of sentences by specifying quantity, direction, or relational boundaries. Patterns indicate a strong reliance on these words to transition from abstract concepts to concrete, bounded instances, ensuring precise definitions of what is being examined, compared, or referenced.",
+   "3": "The identified text latents represent transitional markers that initiate focused discourse, signaling a shift from general context to specific analysis, detailed explanation, or direct engagement with a particular subject matter."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 10
+   },
+   "3": {
+    "balanced_acc": 0.625,
+    "tpr": 0.375,
+    "tnr": 0.875,
+    "n": 16
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.3333333333333333,
+    "tpr": 0.0,
+    "tnr": 0.6666666666666666,
+    "n": 10
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 0.125,
+   "tnr": 0.875,
+   "n": 16
+  }
+ },
+ {
+  "layer": 1,
+  "neuron": 5252,
+  "explanations": {
+   "0": "The model consistently selects tokens representing concrete entities (e.g., \"people\", \"individuals\") and temporal markers (e.g., \"day\") that serve as central anchors for summarizing content, categorizing subjects, or grounding narratives in specific times and identities.",
+   "3": "The analysis reveals a consistent pattern where important tokens function as semantic anchors for time, agency, and specific entities. Tokens such as \"during,\" \"daily,\" and \"to\" mark temporal boundaries and the initiation of actions, while nouns like \"person,\" \"people,\" and \"African Americans\" identify the agents or subjects central to the narrative. This suggests that the model prioritizes information that defines when events occur, who is involved, and the specific scope of activities described."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": NaN,
+    "n": 0
+   },
+   "3": {
+    "balanced_acc": 0.7,
+    "tpr": 0.4,
+    "tnr": 1.0,
+    "n": 10
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.5625,
+    "tpr": 0.125,
+    "tnr": 1.0,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.6875,
+    "tpr": 0.625,
+    "tnr": 0.75,
+    "n": 16
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 0.0,
+   "tnr": 1.0,
+   "n": 16
+  }
+ },
+ {
+  "layer": 6,
+  "neuron": 2036,
+  "explanations": {
+   "0": "The identified latents function as syntactic and semantic pivot points that signal the negation or redefinition of a preceding proposition. They consistently appear at the boundary where an initial statement or analogy is explicitly contrasted with a subsequent correction, distinction, or counter-argument, marking the transition from an expected logical flow to a refined or opposing reality.",
+   "3": "The identified tokens represent linguistic markers of negation, distinction, and contrast, specifically functioning to deny expectations, differentiate concepts, or mark boundaries where anticipated outcomes fail."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 10
+   },
+   "3": {
+    "balanced_acc": 0.6,
+    "tpr": 0.2,
+    "tnr": 1.0,
+    "n": 10
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.6,
+    "tpr": 0.2,
+    "tnr": 1.0,
+    "n": 10
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 10
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 0.0,
+   "tnr": 1.0,
+   "n": 16
+  }
+ },
+ {
+  "layer": 6,
+  "neuron": 5416,
+  "explanations": {
+   "0": "The text latents associated with the selected tokens converge on the concept of \"race\" as a pivotal subject matter spanning historical, legal, and fictional domains, where it serves to define group identity, justify systemic structures, or characterize sentient beings.",
+   "3": "The text latents commonly represent abstract nouns that function as categorical identifiers for groups (e.g., race, species) or procedural guides for actions and decisions (e.g., course, way, schedules). These tokens appear in contexts requiring the definition of social or biological entities, the formulation of strategic plans, or the specification of consumer criteria, serving as central anchors for the surrounding narrative or informational content."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.8125,
+    "tpr": 0.75,
+    "tnr": 0.875,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.625,
+    "tpr": 0.5,
+    "tnr": 0.75,
+    "n": 16
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.6875,
+    "tpr": 0.375,
+    "tnr": 1.0,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.8125,
+    "tpr": 0.875,
+    "tnr": 0.75,
+    "n": 16
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 0.0,
+   "tnr": 1.0,
+   "n": 10
+  }
+ },
+ {
+  "layer": 1,
+  "neuron": 2118,
+  "explanations": {
+   "0": "The text latents commonly describe states of entrapment, obstruction, or immobility caused by external physical forces or systemic failures.",
+   "3": "The text latents commonly describe states of obstruction, blockage, or halted flow where a substance or entity accumulates behind a point of restriction, such as traffic backing up, blood stagnating, or vessels being stranded."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.8333333333333333,
+    "tpr": 0.6666666666666666,
+    "tnr": 1.0,
+    "n": 10
+   },
+   "3": {
+    "balanced_acc": 0.9,
+    "tpr": 0.8,
+    "tnr": 1.0,
+    "n": 6
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": NaN,
+    "n": 0
+   },
+   "3": {
+    "balanced_acc": 0.8333333333333333,
+    "tpr": 0.6666666666666666,
+    "tnr": 1.0,
+    "n": 10
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.4375,
+   "tpr": 0.0,
+   "tnr": 0.875,
+   "n": 16
+  }
+ },
+ {
+  "layer": 6,
+  "neuron": 5264,
+  "explanations": {
+   "0": "The identified latents consistently mark the grammatical subject or core entity of a sentence, frequently appearing adjacent to the verb \"to be\" to initiate a clause that defines the entity's nature, status, or function.",
+   "3": "The highlighted tokens consistently mark the final digit of numerical sequences (such as years or counts) and the terminal letter of specific proper nouns or technical terms, serving as delimiters for quantitative values and the completion of lexical units."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": NaN,
+    "n": 0
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 6
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": NaN,
+    "n": 0
+   },
+   "3": {
+    "balanced_acc": 0.5625,
+    "tpr": 0.375,
+    "tnr": 0.75,
+    "n": 16
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 0.0,
+   "tnr": 1.0,
+   "n": 10
+  }
+ },
+ {
+  "layer": 5,
+  "neuron": 2640,
+  "explanations": {
+   "0": "The model prioritizes tokens representing large numerical quantities (often ending in '000') and specific discourse markers that signal argumentation structure or summary conclusions.",
+   "3": "The highlighted tokens consistently represent specific proper nouns, technical terms, or entity identifiers that serve as the primary subject or focal point of the surrounding text. These include geographical names, medical conditions, mathematical concepts, and specific object titles, indicating a pattern where the model isolates key semantic anchors that define the context of the sentence."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": NaN,
+    "n": 0
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 10
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 10
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 1.0,
+    "tnr": 0.0,
+    "n": 10
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 0.0,
+   "tnr": 1.0,
+   "n": 10
+  }
+ },
+ {
+  "layer": 2,
+  "neuron": 3100,
+  "explanations": {
+   "0": "The analyzed text latents reveal a strong semantic association with the concept of \"development\" as a fundamental driver of progress. Across various contexts ranging from software engineering and resource management to social welfare and infrastructure, the term consistently denotes an active, ongoing process of creation, improvement, or evolution. The pattern suggests that within these contexts, development is the primary mechanism through which potential is realized, systems are refined, and new capabilities are established.",
+   "3": "The analysis reveals a strong pattern where the token sequence corresponding to \"development\" and its derivatives is consistently marked as important across varied contexts. These instances span domains such as biology, economics, military strategy, and data science, suggesting that the underlying latent representation prioritizes the core concept of \"development\" as a fundamental semantic unit, irrespective of its specific application or grammatical variation."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.875,
+    "tpr": 0.875,
+    "tnr": 0.875,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 1.0,
+    "tpr": 1.0,
+    "tnr": 1.0,
+    "n": 16
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.9375,
+    "tpr": 0.875,
+    "tnr": 1.0,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.875,
+    "tpr": 0.875,
+    "tnr": 0.875,
+    "n": 16
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.375,
+   "tpr": 0.0,
+   "tnr": 0.75,
+   "n": 16
+  }
+ },
+ {
+  "layer": 4,
+  "neuron": 2195,
+  "explanations": {
+   "0": "The text latents commonly represent scalar coefficients, constants, or amplitude parameters that define the scale, magnitude, or proportionality of mathematical functions, particularly in sinusoidal, quadratic, and regularization contexts.",
+   "3": "The text latents common in the examples are scalar coefficients or parameters that define the magnitude, scaling, or constant offset of mathematical functions, frequently appearing in contexts describing function behavior, symmetry, convergence, or general form characteristics."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.6875,
+    "tpr": 0.625,
+    "tnr": 0.75,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.8125,
+    "tpr": 0.75,
+    "tnr": 0.875,
+    "n": 16
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.5,
+    "tnr": 0.5,
+    "n": 6
+   },
+   "3": {
+    "balanced_acc": 0.75,
+    "tpr": 0.75,
+    "tnr": 0.75,
+    "n": 16
+   }
+  },
+  "shuffled": {
+   "balanced_acc": NaN,
+   "n": 0
+  }
+ },
+ {
+  "layer": 7,
+  "neuron": 4535,
+  "explanations": {
+   "0": "The text latents common in the examples are words that serve as the focal point of analogies or similes, specifically functioning as the noun or noun phrase that completes a comparison to make an abstract concept more concrete and understandable.",
+   "3": "The text latents reveal a strong pattern where the word \"like\" functions as a critical pivot point for constructing analogies. These analogies consistently map abstract, technical, or complex subjects (such as quantum mechanics, genetic transmission, or statistical sets) onto tangible, everyday, or visual concepts (such as superheroes, perfume sprays, or family scrapbooks) to enhance comprehension and illustrate the nature of the subject being described."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 10
+   },
+   "3": {
+    "balanced_acc": NaN,
+    "n": 0
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": NaN,
+    "n": 0
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 10
+   }
+  },
+  "shuffled": {
+   "balanced_acc": NaN,
+   "n": 0
+  }
+ },
+ {
+  "layer": 5,
+  "neuron": 2233,
+  "explanations": {
+   "0": "The highlighted tokens consistently represent the final return values or exit codes at the conclusion of conditional logic blocks and function scopes across multiple programming languages, signaling the end of a control flow decision.",
+   "3": "The identified latents represent the conclusion of code execution blocks or logical sequences, frequently appearing at the end of functions, conditional statements, or assignments to signal completion or return values."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.6875,
+    "tpr": 0.375,
+    "tnr": 1.0,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": NaN,
+    "n": 0
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 6
+   },
+   "3": {
+    "balanced_acc": 0.4,
+    "tpr": 0.4,
+    "tnr": 0.4,
+    "n": 10
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 0.0,
+   "tnr": 1.0,
+   "n": 10
+  }
+ },
+ {
+  "layer": 6,
+  "neuron": 1735,
+  "explanations": {
+   "0": "The highlighted tokens consistently function as structural delimiters that separate individual items within a list or sequence, appearing at the boundaries between distinct elements to mark transitions without adding semantic content.",
+   "3": "The text latents common in the examples indicate a strong preference for selecting the middle or final term in a sequence of three, particularly when the sequence follows an ordinal progression (e.g., first, second, third) or a logical contrast (e.g., absence, presence). These tokens serve to complete a tripartite structure, emphasizing the central or concluding element of the enumeration."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 16
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.5625,
+    "tpr": 0.125,
+    "tnr": 1.0,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 16
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.4375,
+   "tpr": 0.25,
+   "tnr": 0.625,
+   "n": 16
+  }
+ },
+ {
+  "layer": 2,
+  "neuron": 205,
+  "explanations": {
+   "0": "The model prioritizes tokens that denote large numerical scales (e.g., \"billion\") and critical functional words (e.g., \"all,\" \"by\") that define the scope of actions or the subject matter of the sentence.",
+   "3": "The model assigns high importance to tokens representing specific numerical quantities, precise code syntax boundaries, and critical verbs or prepositions that define the scope or outcome of an action."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.6875,
+    "tpr": 0.5,
+    "tnr": 0.875,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.4375,
+    "tpr": 0.375,
+    "tnr": 0.5,
+    "n": 16
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.125,
+    "tnr": 0.875,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.6875,
+    "tpr": 1.0,
+    "tnr": 0.375,
+    "n": 16
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5625,
+   "tpr": 0.125,
+   "tnr": 1.0,
+   "n": 16
+  }
+ },
+ {
+  "layer": 0,
+  "neuron": 2128,
+  "explanations": {
+   "0": "The text latents commonly represent states of heavy burden, saturation, or authoritative control, with \"laden\" indicating physical weight or excess and \"dominion\" or \"devoid\" signaling power dynamics or specific exclusions.",
+   "3": "The highlighted tokens represent essential mathematical and statistical terminology used to define variables, functions, and methodological concepts in technical writing, particularly within survival analysis and time-dependent modeling contexts."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.6666666666666667,
+    "tpr": 0.5,
+    "tnr": 0.8333333333333334,
+    "n": 10
+   },
+   "3": {
+    "balanced_acc": 0.5625,
+    "tpr": 0.125,
+    "tnr": 1.0,
+    "n": 16
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 10
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 10
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 0.0,
+   "tnr": 1.0,
+   "n": 16
+  }
+ },
+ {
+  "layer": 3,
+  "neuron": 4854,
+  "explanations": {
+   "0": "The text latents commonly associated with these examples represent the semantic concept of \"passive transportation\" or \"facilitated movement.\" The pattern indicates that the target word is used to describe a journey where the subject is carried by a vehicle, track, or system, covering contexts ranging from literal physical travel and mechanical operation to metaphorical economic behaviors and biological migration.",
+   "3": "The text latents commonly represent the action of traveling or being transported, specifically focusing on the verb forms \"ride,\" \"riding,\" and \"rides.\" These instances appear in contexts describing movement via various modes of transportation, including buses, boats, motorcycles, trains, limousines, and even fantastical creatures like unicorns. The pattern indicates a strong association between these specific word forms and the concept of transit, whether practical, historical, or imaginative."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.75,
+    "tpr": 0.5,
+    "tnr": 1.0,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.6666666666666667,
+    "tpr": 0.5,
+    "tnr": 0.8333333333333334,
+    "n": 10
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.6875,
+    "tpr": 0.375,
+    "tnr": 1.0,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 1.0,
+    "tpr": 1.0,
+    "tnr": 1.0,
+    "n": 6
+   }
+  },
+  "shuffled": {
+   "balanced_acc": NaN,
+   "n": 0
+  }
+ },
+ {
+  "layer": 4,
+  "neuron": 821,
+  "explanations": {
+   "0": "The text latents consistently identify \"webmasters\" as the primary agents interacting with search engine systems to manage site visibility, prevent algorithmic manipulation, and adhere to technical directives regarding crawling and linking.",
+   "3": "The highlighted tokens consistently identify the central semantic entity or focal point of the sentence, such as specific objects, roles, concepts, or numerical values, which serve as the primary subject or object of the surrounding context."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 10
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 6
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 6
+   },
+   "3": {
+    "balanced_acc": NaN,
+    "n": 0
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 0.0,
+   "tnr": 1.0,
+   "n": 10
+  }
+ },
+ {
+  "layer": 5,
+  "neuron": 1559,
+  "explanations": {
+   "0": "The text latents commonly associated with these examples center on the verb \"wrestle\" and its conjugated forms, which serve as the focal point for describing both physical contests and metaphorical struggles for victory, truth, or social change. The surrounding context consistently elaborates on the specific nature of these struggles, involving historical figures, legendary exploits, or societal challenges, thereby framing the action of wrestling as a dynamic force driving narrative outcomes.",
+   "3": "The text latents commonly represent physical combat, competitive struggle, or metaphorical conflict, frequently appearing in contexts involving historical narratives, legends, or political metaphors where struggle is a defining element."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.75,
+    "tpr": 0.5,
+    "tnr": 1.0,
+    "n": 10
+   },
+   "3": {
+    "balanced_acc": 0.6875,
+    "tpr": 0.5,
+    "tnr": 0.875,
+    "n": 16
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.625,
+    "tpr": 0.25,
+    "tnr": 1.0,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.9166666666666667,
+    "tpr": 1.0,
+    "tnr": 0.8333333333333334,
+    "n": 10
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.3125,
+   "tpr": 0.0,
+   "tnr": 0.625,
+   "n": 16
+  }
+ },
+ {
+  "layer": 1,
+  "neuron": 2081,
+  "explanations": {
+   "0": "The text latents common in the examples are days of the week and the auxiliary verb \"has,\" which serve as temporal anchors for the release of news reports and studies.",
+   "3": "The examples demonstrate a pattern where important tokens are concentrated around the attribution of claims to authoritative sources (such as \"researchers\" or \"study\") and the articulation of definitive conclusions, warnings, or specific statistical findings within news contexts."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 10
+   },
+   "3": {
+    "balanced_acc": 0.9,
+    "tpr": 1.0,
+    "tnr": 0.8,
+    "n": 10
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 10
+   },
+   "3": {
+    "balanced_acc": 0.9,
+    "tpr": 0.8,
+    "tnr": 1.0,
+    "n": 10
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 0.0,
+   "tnr": 1.0,
+   "n": 16
+  }
+ },
+ {
+  "layer": 7,
+  "neuron": 973,
+  "explanations": {
+   "0": "The highlighted tokens consistently demarcate mathematical expressions, code snippets, or logical clauses that serve as the primary subject of calculation or definition within the surrounding text.",
+   "3": "The text latents common in the examples indicate that the selected tokens serve as delimiters for the second option in multiple-choice questions, typically marking the start of an alternative answer labeled 'b' or 'b>>'. These patterns appear in contexts involving academic testing, mathematical equations, and logical reasoning tasks, where the marker distinguishes the second choice from the first and the question stem."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.9,
+    "tpr": 0.8,
+    "tnr": 1.0,
+    "n": 10
+   },
+   "3": {
+    "balanced_acc": 0.625,
+    "tpr": 0.25,
+    "tnr": 1.0,
+    "n": 16
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.6875,
+    "tpr": 0.375,
+    "tnr": 1.0,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 10
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 0.0,
+   "tnr": 1.0,
+   "n": 10
+  }
+ },
+ {
+  "layer": 7,
+  "neuron": 3589,
+  "explanations": {
+   "0": "The highlighted tokens consistently mark points of agency, possession, or specific quantification, such as \"own\" indicating self-referential actions, \"of\" introducing measured content, and \"is\" serving as a critical copula in definitions. Additionally, single letters like \"z\" frequently identify the start of specific proper nouns, particularly drug names, distinguishing general categories from precise entities.",
+   "3": "The text latents commonly denote specific spatial positions relative to an observer, the concept of the self, and the condition of statistical or logical independence."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 6
+   },
+   "3": {
+    "balanced_acc": NaN,
+    "n": 0
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 6
+   },
+   "3": {
+    "balanced_acc": NaN,
+    "n": 0
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 0.0,
+   "tnr": 1.0,
+   "n": 16
+  }
+ },
+ {
+  "layer": 0,
+  "neuron": 1872,
+  "explanations": {
+   "0": "The highlighted latents primarily consist of proper nouns identifying specific individuals, locations, and titles, as well as key technical terms defining unique properties, materials, or biological mechanisms. These tokens serve to anchor the text to distinct entities or critical concepts essential for precise semantic understanding.",
+   "3": "The text latents commonly describe mobile genetic elements such as transposons and their derivatives, emphasizing their ability to move within genomes, infect DNA, and cause structural variations like repeated sequences. The patterns also highlight the distinction between coding and non-coding regions, the presence of viral or phage-derived sequences, and the concept of genome plasticity driven by these mobile elements across diverse species."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.375,
+    "tpr": 0.25,
+    "tnr": 0.5,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 6
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.875,
+    "tnr": 0.125,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 16
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.9,
+   "tpr": 0.8,
+   "tnr": 1.0,
+   "n": 10
+  }
+ },
+ {
+  "layer": 6,
+  "neuron": 5098,
+  "explanations": {
+   "0": "The identified latents function as semantic anchors that define specific categories, actions, or parameters, distinguishing precise technical or logical concepts from general discourse.",
+   "3": "The highlighted tokens represent high-information-content nouns, verbs, or technical prefixes that serve as the primary semantic anchors of their sentences, such as \"Hunting,\" \"Contract,\" and \"Chrom,\" which define the core subject matter or action being described."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 1.0,
+    "tnr": 0.0,
+    "n": 6
+   },
+   "3": {
+    "balanced_acc": 0.4375,
+    "tpr": 0.375,
+    "tnr": 0.5,
+    "n": 16
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 1.0,
+    "tnr": 0.0,
+    "n": 6
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.5,
+    "tnr": 0.5,
+    "n": 16
+   }
+  },
+  "shuffled": {
+   "balanced_acc": NaN,
+   "n": 0
+  }
+ },
+ {
+  "layer": 0,
+  "neuron": 4721,
+  "explanations": {
+   "0": "The highlighted tokens are high-importance factual anchors, specifically proper nouns, scientific terminology, and institutional acronyms, which ground the text in specific historical, biological, or technical realities.",
+   "3": "The highlighted tokens are primarily prepositions and conjunctions that act as essential syntactic bridges, connecting abstract concepts to their modifiers or consequences to maintain logical flow and semantic coherence in complex sentences."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.5,
+    "tnr": 0.5,
+    "n": 10
+   },
+   "3": {
+    "balanced_acc": 0.5625,
+    "tpr": 0.25,
+    "tnr": 0.875,
+    "n": 16
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.29166666666666663,
+    "tpr": 0.3333333333333333,
+    "tnr": 0.25,
+    "n": 10
+   },
+   "3": {
+    "balanced_acc": 0.5625,
+    "tpr": 0.625,
+    "tnr": 0.5,
+    "n": 16
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 0.0,
+   "tnr": 1.0,
+   "n": 10
+  }
+ },
+ {
+  "layer": 2,
+  "neuron": 3077,
+  "explanations": {
+   "0": "The text latents common in the examples are discourse markers used to introduce illustrative instances or concrete scenarios that clarify abstract concepts, definitions, or arguments. These markers function to bridge the gap between theoretical statements and practical application by signaling that a specific case study or demonstration is about to follow, thereby grounding explanations in reality to make complex ideas more accessible.",
+   "3": "The text latents commonly identify the boundaries of parenthetical expressions, examples, and clarifying clauses, often triggered by transitional phrases or specific punctuation marks that introduce non-essential information within a sentence."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.625,
+    "tpr": 0.25,
+    "tnr": 1.0,
+    "n": 10
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.5416666666666667,
+    "tpr": 0.25,
+    "tnr": 0.8333333333333334,
+    "n": 10
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 16
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.6666666666666666,
+   "tpr": 0.3333333333333333,
+   "tnr": 1.0,
+   "n": 6
+  }
+ },
+ {
+  "layer": 6,
+  "neuron": 1933,
+  "explanations": {
+   "0": "The identified latents serve as boundary markers for spatial or temporal conditions, logical emphasis points, and specific categorical identifiers within structured text, functioning to isolate key terms or denote context shifts.",
+   "3": "The text latents commonly represent critical mathematical operators, chemical symbols, and spatial prepositions that define structural or semantic boundaries within equations and descriptive logic."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 10
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 6
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": NaN,
+    "n": 0
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 10
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 0.0,
+   "tnr": 1.0,
+   "n": 16
+  }
+ },
+ {
+  "layer": 5,
+  "neuron": 4978,
+  "explanations": {
+   "0": "The text latents consistently identify fundamental mathematical frameworks and quantitative parameters, specifically highlighting \"Euclidean\" space as a standard geometric reference for embeddings and norms, while also isolating critical limits like \"infinity\" and specific physical metrics such as the \"number\" (Reynolds) and statistical properties like \"distributed\" variables.",
+   "3": "The text latents consistently highlight specific scientific and mathematical terminology, primarily focusing on dimensionless numbers like Reynolds and Rayleigh used to define fluid dynamics regimes, and geometric spaces such as Hilbert and Riemannian spaces that establish the theoretical framework for mathematical theorems."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 10
+   },
+   "3": {
+    "balanced_acc": 1.0,
+    "tpr": 1.0,
+    "tnr": 1.0,
+    "n": 10
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 16
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 0.0,
+   "tnr": 1.0,
+   "n": 10
+  }
+ },
+ {
+  "layer": 5,
+  "neuron": 930,
+  "explanations": {
+   "0": "The text latents common in the examples are linguistic markers that introduce illustrative examples, typically preceding words like \"like\" or \"as\" to provide specific instances of a general statement.",
+   "3": "The highlighted tokens consistently represent the core semantic entities\u2014such as specific nouns, technical terms, or proper nouns\u2014that serve as the primary subjects, objects, or defining concepts within each sentence. These selections anchor the meaning of the text by identifying the most critical information regarding biological classifications, historical data, mathematical definitions, or institutional names."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 10
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 1.0,
+    "tnr": 0.0,
+    "n": 10
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.4375,
+    "tpr": 0.0,
+    "tnr": 0.875,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 10
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 0.0,
+   "tnr": 1.0,
+   "n": 6
+  }
+ },
+ {
+  "layer": 4,
+  "neuron": 1603,
+  "explanations": {
+   "0": "The highlighted tokens consistently mark specific indices or signs within mathematical variables (e.g., $V_{2}$, $I_{2}$, $W^{+}$, $T_{+}$) to distinguish distinct physical quantities, states, or modes in scientific equations. These markers serve as critical identifiers that define the unique identity of a variable within a formula, separating it from generic counterparts or other parameters in the same expression.",
+   "3": "The highlighted tokens represent critical variables, numerical coefficients, mathematical operators, and conditional qualifiers that define the logical structure of scientific and mathematical equations."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.75,
+    "tpr": 0.5,
+    "tnr": 1.0,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.875,
+    "tpr": 0.75,
+    "tnr": 1.0,
+    "n": 16
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.7083333333333333,
+    "tpr": 0.75,
+    "tnr": 0.6666666666666666,
+    "n": 10
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.75,
+   "tpr": 0.875,
+   "tnr": 0.625,
+   "n": 16
+  }
+ },
+ {
+  "layer": 6,
+  "neuron": 5106,
+  "explanations": {
+   "0": "The examples reveal a consistent pattern where the token \"of\" is marked as highly important when it serves as a grammatical bridge connecting a noun to its specific modifier, scope, or definition. This structure is prevalent in contexts involving quantities, severity levels, lists, and conceptual relationships, indicating that the model relies on this preposition to establish precise semantic boundaries and logical connections between ideas.",
+   "3": "The text latents commonly associated with these examples represent specific quantitative measures (e.g., counts, percentages, amounts), categorical structures (e.g., lists), and methodological descriptors (e.g., how something is done). These patterns suggest a focus on precise, measurable data points and structural frameworks used to describe changes, expansions, or comparisons in scientific, policy, and operational contexts."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.875,
+    "tpr": 1.0,
+    "tnr": 0.75,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": NaN,
+    "n": 6
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": NaN,
+    "n": 6
+   },
+   "3": {
+    "balanced_acc": 0.75,
+    "tpr": 0.5,
+    "tnr": 1.0,
+    "n": 16
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.375,
+   "tpr": 0.5,
+   "tnr": 0.25,
+   "n": 16
+  }
+ },
+ {
+  "layer": 7,
+  "neuron": 4653,
+  "explanations": {
+   "0": "The identified latents represent syntactic connectors and delimiters that structure discourse by introducing quotations, attributing actions to agents, establishing logical conditions, or marking transitions between clauses.",
+   "3": "The highlighted tokens consistently delimit specific, information-dense entities such as anatomical structures, technical components, official documents, and structural dividers, effectively isolating the core semantic units that define the subject matter of each sentence."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 10
+   },
+   "3": {
+    "balanced_acc": 0.5625,
+    "tpr": 0.875,
+    "tnr": 0.25,
+    "n": 16
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.625,
+    "tnr": 0.375,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.375,
+    "tnr": 0.625,
+    "n": 16
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 1.0,
+   "tnr": 0.0,
+   "n": 16
+  }
+ },
+ {
+  "layer": 7,
+  "neuron": 5631,
+  "explanations": {
+   "0": "The identified latents are function words that structurally mark relationships of contrast, concession, and sufficiency, specifically appearing in phrases like \"despite,\" \"in spite of,\" \"even after,\" \"sufficient to,\" and \"enough to\" to pivot the logical flow of the sentence.",
+   "3": "The identified latents correspond to syntactic boundaries and high-information-content words that define clause endings, negation, temporal references, and interrogative subjects, indicating that the model prioritizes tokens essential for grammatical coherence and semantic resolution."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.8125,
+    "tpr": 0.625,
+    "tnr": 1.0,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.375,
+    "tpr": 0.25,
+    "tnr": 0.5,
+    "n": 16
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.75,
+    "tpr": 0.5,
+    "tnr": 1.0,
+    "n": 6
+   },
+   "3": {
+    "balanced_acc": 0.625,
+    "tpr": 0.75,
+    "tnr": 0.5,
+    "n": 16
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 0.0,
+   "tnr": 1.0,
+   "n": 16
+  }
+ },
+ {
+  "layer": 4,
+  "neuron": 4934,
+  "explanations": {
+   "0": "The text latents associated with these examples represent the semantic concept of \"seizing\" or \"snatching,\" describing rapid, forceful acquisition or capture of objects, people, or attention.",
+   "3": "The model latents associated with these tokens represent a semantic cluster of forceful acquisition and dominance. They specifically encode actions where an agent takes control of resources, territory, or power, often characterized by opportunism or aggression. The patterns indicate that these words are triggered by contexts involving conflict, political maneuvering, and the transfer of ownership or authority."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.75,
+    "tpr": 0.5,
+    "tnr": 1.0,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.9375,
+    "tpr": 0.875,
+    "tnr": 1.0,
+    "n": 16
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.9375,
+    "tpr": 0.875,
+    "tnr": 1.0,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.5625,
+    "tpr": 0.125,
+    "tnr": 1.0,
+    "n": 16
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 0.0,
+   "tnr": 1.0,
+   "n": 10
+  }
+ },
+ {
+  "layer": 1,
+  "neuron": 663,
+  "explanations": {
+   "0": "The text latents commonly represent specific entities, roles, or locations within institutional and civic contexts, such as \"commissioners,\" \"school district,\" \"university community,\" and \"legislature.\" These patterns suggest that the model identifies and emphasizes proper nouns or titles associated with governance, education, and organizational structures, often marking the core subject of a sentence or clause.",
+   "3": "The highlighted tokens serve as critical anchors for time, location, and specific entities, grounding abstract text in concrete details to ensure precise interpretation of instructions and narratives."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.75,
+    "tpr": 0.625,
+    "tnr": 0.875,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 1.0,
+    "tpr": 1.0,
+    "tnr": 1.0,
+    "n": 6
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 1.0,
+    "tpr": 1.0,
+    "tnr": 1.0,
+    "n": 6
+   },
+   "3": {
+    "balanced_acc": 0.625,
+    "tpr": 0.75,
+    "tnr": 0.5,
+    "n": 16
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 0.0,
+   "tnr": 1.0,
+   "n": 10
+  }
+ },
+ {
+  "layer": 4,
+  "neuron": 2489,
+  "explanations": {
+   "0": "The latents commonly represent formal organizational entities, official mandates, and strategic frameworks such as academies, institutions, programs, and tasks.",
+   "3": "The highlighted tokens consistently mark the structural boundary where a concept is introduced or elaborated, typically serving as the head of a prepositional phrase or a verb of definition that connects a subject to its descriptive clause or proper name."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": NaN,
+    "n": 0
+   },
+   "3": {
+    "balanced_acc": 0.5625,
+    "tpr": 0.25,
+    "tnr": 0.875,
+    "n": 16
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.8125,
+    "tpr": 0.75,
+    "tnr": 0.875,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 10
+   }
+  },
+  "shuffled": {
+   "balanced_acc": NaN,
+   "n": 0
+  }
+ },
+ {
+  "layer": 2,
+  "neuron": 607,
+  "explanations": {
+   "0": "The identified latents represent definitive factual answers, specific statistics, or critical qualifiers that directly resolve the posed questions, serving as the primary informational core of the text.",
+   "3": "The identified latents represent the essential factual predicates and specific data points required to directly answer the preceding questions, functioning as the core informational units that resolve the query."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.8,
+    "tpr": 0.8,
+    "tnr": 0.8,
+    "n": 10
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 10
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.7,
+    "tpr": 0.4,
+    "tnr": 1.0,
+    "n": 10
+   },
+   "3": {
+    "balanced_acc": 1.0,
+    "tpr": 1.0,
+    "tnr": 1.0,
+    "n": 10
+   }
+  },
+  "shuffled": {
+   "balanced_acc": NaN,
+   "n": 0
+  }
+ },
+ {
+  "layer": 4,
+  "neuron": 5000,
+  "explanations": {
+   "0": "The highlighted tokens consistently denote the second variable in a tuple unpacking assignment, typically representing test data, test predictions, or secondary mathematical outputs like eigenvalues and random coordinates.",
+   "3": "The highlighted tokens consistently mark the start of variable assignment statements, specifically the left-hand side of the equals sign where new variables are being defined or unpacked. These instances frequently involve unpacking tuples or lists or splitting data structures into training and testing sets. The pattern indicates a focus on the syntactic point where values are bound to identifiers, often preceding the actual source of the data on the right-hand side."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": NaN,
+    "n": 0
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 10
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": NaN,
+    "n": 0
+   },
+   "3": {
+    "balanced_acc": 0.875,
+    "tpr": 0.75,
+    "tnr": 1.0,
+    "n": 10
+   }
+  },
+  "shuffled": {
+   "balanced_acc": NaN,
+   "n": 0
+  }
+ },
+ {
+  "layer": 1,
+  "neuron": 615,
+  "explanations": {
+   "0": "The highlighted tokens consistently identify the abbreviation \"PC\" as a distinct category of personal computing devices, frequently used in comparative contexts against other platforms like Macs or mobile systems to denote general-purpose hardware.",
+   "3": "The analysis reveals that the model's latent space strongly associates the fragments \"pc\", \"arc\", and \"doll\" with the concepts of \"Personal Computer\" and \"parcel post\". Specifically, \"pc\" is consistently identified as a key component of the term \"Personal Computer\", while \"arc\" and \"doll\" appear as significant fragments within the phrase \"parcel post\", often occurring in contexts describing small quantities or specific postal services. This suggests a pattern where the model treats these specific substrings as critical semantic anchors for technology and logistics terminology, sometimes leading to the isolation of these fragments even when they are"
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.75,
+    "tpr": 0.5,
+    "tnr": 1.0,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.625,
+    "tpr": 0.25,
+    "tnr": 1.0,
+    "n": 16
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.625,
+    "tpr": 0.25,
+    "tnr": 1.0,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.875,
+    "tpr": 0.75,
+    "tnr": 1.0,
+    "n": 16
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 0.0,
+   "tnr": 1.0,
+   "n": 10
+  }
+ },
+ {
+  "layer": 15,
+  "neuron": 5112,
+  "explanations": {
+   "0": "The identified patterns indicate that the model assigns high importance to tokens specifying the manner of an action (e.g., \"softly\", \"quietly\", \"carefully\") or the specific action itself (e.g., \"call\", \"roll\", \"play\") within instructional or narrative contexts. These tokens serve as crucial constraints for the described behavior, ensuring the correct execution of a task or the maintenance of safety.",
+   "3": "The highlighted tokens function as critical instructional markers that define the agent, manner, or specific action required within procedural narratives. They consistently appear to pivot the text from general context to precise execution, ensuring the reader understands the necessary conditions or steps for the task at hand."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 10
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 10
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.6875,
+    "tpr": 0.375,
+    "tnr": 1.0,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 16
+   }
+  },
+  "shuffled": {
+   "balanced_acc": NaN,
+   "n": 0
+  }
+ },
+ {
+  "layer": 8,
+  "neuron": 1118,
+  "explanations": {
+   "0": "The highlighted tokens are predominantly plural nouns representing specific materials, biological entities, technical components, or categorical terms that serve as central subjects or objects in their respective contexts.",
+   "3": "The highlighted tokens are exclusively plural nouns that serve as central semantic anchors, defining categories, entities, or concepts within technical, scientific, and descriptive contexts. They appear in sentences discussing specifications, classifications, lists, or generalizations, indicating that the model prioritizes plural forms to establish the scope and subject matter of the text."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.5625,
+    "tpr": 0.375,
+    "tnr": 0.75,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.625,
+    "tnr": 0.375,
+    "n": 16
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.625,
+    "tnr": 0.375,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 1.0,
+    "tnr": 0.0,
+    "n": 10
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.4375,
+   "tpr": 0.0,
+   "tnr": 0.875,
+   "n": 16
+  }
+ },
+ {
+  "layer": 8,
+  "neuron": 269,
+  "explanations": {
+   "0": "The highlighted tokens represent logical connectors, quantifiers, and syntactic boundaries that define conditional relationships, specificity, and clause separation within the text.",
+   "3": "The text latents common in the examples represent conditional logic markers that establish a prerequisite relationship between a proposed action or state and a specific condition. These markers signal that the preceding context is valid or actionable only if the subsequent condition is met, effectively structuring the sentence as a dependency where the outcome relies on the fulfillment of the introduced scenario."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.5625,
+    "tpr": 0.125,
+    "tnr": 1.0,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 1.0,
+    "tpr": 1.0,
+    "tnr": 1.0,
+    "n": 6
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.625,
+    "tpr": 0.75,
+    "tnr": 0.5,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 16
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 0.0,
+   "tnr": 1.0,
+   "n": 10
+  }
+ },
+ {
+  "layer": 14,
+  "neuron": 1118,
+  "explanations": {
+   "0": "The identified tokens represent critical structural elements in mathematical and scientific notation, specifically focusing on indices, logical delimiters, and quantifiers that define the scope, boundaries, and specific instances of variables within formal expressions.",
+   "3": "The identified latents primarily mark the boundaries of prepositional phrases, specifically those initiated by \"to\" or \"of,\" which are essential for defining relationships, mappings, or attributes in technical and mathematical text. These positions serve as structural anchors that help the model parse logical connections between subjects and their properties or targets."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.75,
+    "tpr": 0.5,
+    "tnr": 1.0,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 16
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.875,
+    "tpr": 0.75,
+    "tnr": 1.0,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.625,
+    "tnr": 0.375,
+    "n": 16
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5625,
+   "tpr": 0.125,
+   "tnr": 1.0,
+   "n": 16
+  }
+ },
+ {
+  "layer": 8,
+  "neuron": 1252,
+  "explanations": {
+   "0": "The highlighted tokens primarily function as contextual anchors that define the scope of demographic statistics, historical narratives, or mathematical derivations. Specifically, \"under\" consistently introduces age thresholds in population data, while \"the\" and \"this\" link events or figures to specific temporal or spatial references. In mathematical expressions, \"=>\" serves as an operator denoting derivation or equality. These tokens are critical for establishing the precise boundaries and logical flow of the information presented.",
+   "3": "The model consistently highlights prepositional phrases indicating time periods or specific conditions, such as \"in the evening,\" \"during menstrual cycles,\" and \"during the heat of the day,\" suggesting a focus on situational qualifiers that define the scope or timing of actions or states."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.5625,
+    "tpr": 0.125,
+    "tnr": 1.0,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.625,
+    "tpr": 0.5,
+    "tnr": 0.75,
+    "n": 16
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 16
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 1.0,
+   "tnr": 0.0,
+   "n": 10
+  }
+ },
+ {
+  "layer": 14,
+  "neuron": 18,
+  "explanations": {
+   "0": "The identified latents consistently mark the terminal noun phrases or clauses that serve as the semantic objects of preceding prepositions and verbs, functioning as critical anchors for syntactic completion and argument realization.",
+   "3": "The identified tokens are predominantly concrete nouns or noun phrases that serve as the semantic anchors of their respective sentences, representing the specific objects, concepts, or entities that are the primary focus of the surrounding context."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.625,
+    "tpr": 0.25,
+    "tnr": 1.0,
+    "n": 6
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 6
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 6
+   },
+   "3": {
+    "balanced_acc": 0.4375,
+    "tpr": 0.625,
+    "tnr": 0.25,
+    "n": 16
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 0.0,
+   "tnr": 1.0,
+   "n": 16
+  }
+ },
+ {
+  "layer": 13,
+  "neuron": 2282,
+  "explanations": {
+   "0": "The highlighted tokens are primarily relational words like \"of,\" \"to,\" and \"but\" that serve as essential syntactic connectors. They establish specific relationships such as attribution (defining a name), function (describing a role), or contrast (comparing options), thereby clarifying the semantic link between the subject and the following noun phrase.",
+   "3": "The common latent pattern across these examples is the identification of tokens that serve as explicit markers for labeling, attribution, or functional utility. Words such as \"name,\" \"given,\" \"used,\" and \"useful\" act as semantic pivots that connect a subject to its definition, origin, or purpose. These tokens frequently appear in contexts where an entity is being categorized, described, or evaluated, signaling a shift from the entity itself to the properties or designations assigned to it."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.5625,
+    "tpr": 0.375,
+    "tnr": 0.75,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.8,
+    "tpr": 0.6,
+    "tnr": 1.0,
+    "n": 10
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 10
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.2,
+    "tnr": 0.8,
+    "n": 10
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 0.0,
+   "tnr": 1.0,
+   "n": 16
+  }
+ },
+ {
+  "layer": 10,
+  "neuron": 28,
+  "explanations": {
+   "0": "The text latents common in the examples are indefinite articles and pronouns that introduce abstract concepts, hypothetical scenarios, or general principles, serving as linguistic anchors to shift discourse from specific instances to universal categories for formulating broad rules or definitions.",
+   "3": "The highlighted tokens are primarily indefinite articles and singular pronouns that serve to introduce specific, countable entities within the text. They function as critical anchors that define the subject matter, shifting the focus from abstract concepts to concrete instances such as individuals, objects, or singular actions. Their presence is essential for establishing the grammatical structure that allows the surrounding text to describe specific attributes, roles, or symbolic meanings of these introduced items."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.6875,
+    "tpr": 0.75,
+    "tnr": 0.625,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.625,
+    "tpr": 0.625,
+    "tnr": 0.625,
+    "n": 16
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.6875,
+    "tpr": 0.625,
+    "tnr": 0.75,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.5625,
+    "tpr": 0.75,
+    "tnr": 0.375,
+    "n": 16
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 0.0,
+   "tnr": 1.0,
+   "n": 10
+  }
+ },
+ {
+  "layer": 13,
+  "neuron": 4026,
+  "explanations": {
+   "0": "The common latent pattern involves the token \"that\" acting as a subordinator to introduce a clause that specifies an observed result, conclusion, or state of affairs. This usage consistently follows verbs of perception or inference (e.g., \"appears,\" \"see,\" \"suggests\") or introductory phrases, serving to formally link the premise to the specific factual content being reported.",
+   "3": "The highlighted sequences consistently appear at the junction where descriptive context or data presentation concludes and analytical action or conclusion begins. They function as linguistic bridges that signal a shift from stating facts to interpreting results, initiating a procedure, or focusing on a specific metric."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.6875,
+    "tpr": 0.375,
+    "tnr": 1.0,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": NaN,
+    "n": 0
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 6
+   },
+   "3": {
+    "balanced_acc": 0.75,
+    "tpr": 0.875,
+    "tnr": 0.625,
+    "n": 16
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 0.0,
+   "tnr": 1.0,
+   "n": 6
+  }
+ },
+ {
+  "layer": 15,
+  "neuron": 3223,
+  "explanations": {
+   "0": "The highlighted tokens consistently demarcate proper nouns, technical identifiers, and structural headers, serving as anchors for specific entities like organization names, academic titles, course codes, and list introductions.",
+   "3": "The identified latents consistently isolate the core semantic unit required to resolve the immediate task, such as the subject of a question, a critical variable in an expression, or a specific answer choice, effectively filtering out surrounding context."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.4375,
+    "tpr": 0.375,
+    "tnr": 0.5,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 10
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 1.0,
+    "tnr": 0.0,
+    "n": 6
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 10
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 0.0,
+   "tnr": 1.0,
+   "n": 16
+  }
+ },
+ {
+  "layer": 10,
+  "neuron": 2909,
+  "explanations": {
+   "0": "The identified latents consistently mark the boundaries between distinct semantic units, functioning as structural delimiters that separate narrative clauses from subsequent dialogue, attributions, or abrupt topic shifts.",
+   "3": "The identified tokens function as discourse markers that signal transitions, dismissals, or emphatic conclusions within the text, serving as structural anchors for narrative flow rather than carrying primary semantic weight regarding the subject matter."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 6
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 16
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": NaN,
+    "n": 0
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 6
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 0.0,
+   "tnr": 1.0,
+   "n": 16
+  }
+ },
+ {
+  "layer": 13,
+  "neuron": 4861,
+  "explanations": {
+   "0": "The highlighted tokens serve as relational markers that establish inclusion or connection between a primary subject and a subsequent group or region, effectively defining the scope of the subject by linking it to its constituent parts or associated entities.",
+   "3": "The highlighted tokens are verbs or participles indicating inclusion, such as \"embracing,\" \"encompassing,\" \"including,\" \"comprising,\" and \"consisting of.\" They consistently describe the action of defining the boundaries or scope of a geographical area, administrative entity, or conceptual group by specifying what it contains or covers."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": NaN,
+    "n": 0
+   },
+   "3": {
+    "balanced_acc": 0.75,
+    "tpr": 0.5,
+    "tnr": 1.0,
+    "n": 16
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 10
+   },
+   "3": {
+    "balanced_acc": NaN,
+    "n": 0
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 0.0,
+   "tnr": 1.0,
+   "n": 10
+  }
+ },
+ {
+  "layer": 9,
+  "neuron": 5471,
+  "explanations": {
+   "0": "The text latents common in the examples indicate that the selected tokens function as structural delimiters for contrastive or corrective clauses. They consistently appear at the transition points where a statement is negated, a hypothesis is refuted, or a logical pivot occurs from a premise to an exception. These markers highlight the specific linguistic elements responsible for shifting the argumentative direction of the sentence.",
+   "3": "The identified latents consistently mark the end of a clause or sentence, frequently appearing immediately before or within closing punctuation marks like periods, commas, or exclamation points. These tokens function as syntactic boundary indicators that signal the conclusion of a complete idea, often coinciding with the resolution of a counter-argument, the final item in a list, or the end of a corrective statement. The patterns suggest a strong association between these latents and the structural closure of discourse, where the preceding text typically sets up a premise or expectation that is finalized by the marked segment."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 6
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 10
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 6
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 6
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 0.0,
+   "tnr": 1.0,
+   "n": 16
+  }
+ },
+ {
+  "layer": 15,
+  "neuron": 4894,
+  "explanations": {
+   "0": "The text latents consistently identify critical action verbs, transitional particles, and state changes that mark the initiation, completion, or pivotal moments within procedural and descriptive narratives.",
+   "3": "The highlighted tokens consistently function as syntactic boundaries marking the immediate transition from a preparatory state to an active execution or consequential event. They appear precisely where a process initiates, a condition is met, or a logical step concludes to begin the next, serving as critical connectors in procedural and causal narratives."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 16
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 16
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 0.0,
+   "tnr": 1.0,
+   "n": 10
+  }
+ },
+ {
+  "layer": 10,
+  "neuron": 1270,
+  "explanations": {
+   "0": "The model prioritizes tokens that function as semantic anchors, specifically those indicating visual references (links, images), states of being (are, is), or scope modifiers (bit). These selections highlight points where the text directs attention to external resources or defines specific conditions, suggesting a focus on actionable or descriptive elements that ground the sentence's meaning.",
+   "3": "The identified latents are discourse markers and syntactic connectors that primarily serve to introduce contrastive relationships, specify agents or participants, and denote visual representations of data."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.5625,
+    "tpr": 0.125,
+    "tnr": 1.0,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 10
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.5625,
+    "tpr": 0.125,
+    "tnr": 1.0,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.5625,
+    "tpr": 0.125,
+    "tnr": 1.0,
+    "n": 16
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 0.0,
+   "tnr": 1.0,
+   "n": 16
+  }
+ },
+ {
+  "layer": 12,
+  "neuron": 889,
+  "explanations": {
+   "0": "The highlighted tokens consistently function as temporal markers that signal a shift in narrative time, the onset of a new phase, or the duration of an action. They frequently appear immediately following introductory clauses or time references to bridge the setup with the subsequent event or consequence, acting as syntactic anchors for temporal progression.",
+   "3": "The highlighted tokens consistently function as temporal or progressive markers that signal a shift from a static state to a subsequent development. They frequently appear after a subject or clause to bridge the gap between an initial condition and a later event, often indicating the passage of time (e.g., weeks, years) or the continuation of a process (e.g., \"went on\", \"progressed\"). These tokens serve as critical narrative anchors that transition the text from description to dynamic evolution."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.6875,
+    "tpr": 0.5,
+    "tnr": 0.875,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 1.0,
+    "tpr": 1.0,
+    "tnr": 1.0,
+    "n": 10
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.9,
+    "tpr": 1.0,
+    "tnr": 0.8,
+    "n": 10
+   },
+   "3": {
+    "balanced_acc": 0.5625,
+    "tpr": 0.125,
+    "tnr": 1.0,
+    "n": 16
+   }
+  },
+  "shuffled": {
+   "balanced_acc": NaN,
+   "n": 0
+  }
+ },
+ {
+  "layer": 14,
+  "neuron": 2228,
+  "explanations": {
+   "0": "The text latents commonly represent specific U.S. government and military institutions, such as the House, Air Force, Army, and Intelligence Community. The pattern indicates a focus on formal organizational entities within political and defense contexts.",
+   "3": "The text latents common in the examples are proper nouns and possessive markers that identify specific government bodies, military organizations, and international institutions. The pattern indicates a focus on attributing statements to authoritative entities or citing official sources within formal documentation."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.9375,
+    "tpr": 0.875,
+    "tnr": 1.0,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": NaN,
+    "n": 0
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.6666666666666666,
+    "tpr": 0.3333333333333333,
+    "tnr": 1.0,
+    "n": 6
+   },
+   "3": {
+    "balanced_acc": 0.6875,
+    "tpr": 1.0,
+    "tnr": 0.375,
+    "n": 16
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 0.0,
+   "tnr": 1.0,
+   "n": 10
+  }
+ },
+ {
+  "layer": 11,
+  "neuron": 3470,
+  "explanations": {
+   "0": "The highlighted tokens act as causal transition markers that introduce the logical consequence or result of the preceding clause, effectively linking a premise to its outcome within the sentence structure.",
+   "3": "The identified latents represent logical connectors and causal markers that establish sequential relationships, reciprocal effects, and consequences within the text, emphasizing how one concept drives or reinforces another."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 6
+   },
+   "3": {
+    "balanced_acc": 0.75,
+    "tpr": 0.5,
+    "tnr": 1.0,
+    "n": 16
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": NaN,
+    "n": 0
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 0.0,
+   "tnr": 1.0,
+   "n": 10
+  }
+ },
+ {
+  "layer": 13,
+  "neuron": 5443,
+  "explanations": {
+   "0": "The text latents common in the examples are comparative conjunctions and adverbs that signal equivalence or similarity in degree between two entities or propositions. The identified pattern is the use of these markers to construct balanced clauses that assert one condition is equal to another, often within arguments involving logic, measurement, or qualitative assessment.",
+   "3": "The text latents common in the examples are comparative modifiers that define the relationship of equality or inequality between two subjects, emphasizing degrees of validity, reliability, speed, or popularity."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.625,
+    "tpr": 0.25,
+    "tnr": 1.0,
+    "n": 16
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.625,
+    "tpr": 0.25,
+    "tnr": 1.0,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.5625,
+    "tpr": 0.125,
+    "tnr": 1.0,
+    "n": 16
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 0.0,
+   "tnr": 1.0,
+   "n": 10
+  }
+ },
+ {
+  "layer": 11,
+  "neuron": 1962,
+  "explanations": {
+   "0": "The highlighted tokens consistently introduce a specific geographical location, institutional setting, or contextual domain that anchors the subsequent clause, typically appearing at the start of a sentence or after a transition to localize the narrative scope before elaborating on specific events or actors within that context.",
+   "3": "The highlighted tokens consistently appear at the start of clauses or phrases that introduce new subjects, specific entities, or shifts in narrative focus, serving as critical anchors for maintaining sentence coherence and tracking information flow."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": NaN,
+    "n": 0
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 16
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 10
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 6
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 0.0,
+   "tnr": 1.0,
+   "n": 10
+  }
+ },
+ {
+  "layer": 12,
+  "neuron": 5316,
+  "explanations": {
+   "0": "The text latents commonly associated with these examples represent the concept of a peak value, upper boundary, or optimal threshold. These patterns emerge in scientific and technical contexts to denote the highest measurable quantity or the most extreme condition relevant to a specific analysis, such as maximum temperature, injury severity, or efficiency.",
+   "3": "The text latents associated with the selected tokens consistently represent the concept of an upper limit, optimal state, or peak magnitude. Across the examples, \"maximum\" functions as a critical threshold in statistical optimization (e.g., likelihood, entropy), physical constraints (e.g., power, sensitivity), and qualitative assessments of effort or intensity. The common pattern is the identification of the highest possible value or most intense condition within a given context."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.8,
+    "tpr": 0.6,
+    "tnr": 1.0,
+    "n": 10
+   },
+   "3": {
+    "balanced_acc": 0.9375,
+    "tpr": 0.875,
+    "tnr": 1.0,
+    "n": 16
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.9,
+    "tpr": 0.8,
+    "tnr": 1.0,
+    "n": 10
+   },
+   "3": {
+    "balanced_acc": 0.6875,
+    "tpr": 0.5,
+    "tnr": 0.875,
+    "n": 16
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 0.0,
+   "tnr": 1.0,
+   "n": 10
+  }
+ },
+ {
+  "layer": 11,
+  "neuron": 3310,
+  "explanations": {
+   "0": "The important tokens consistently represent fundamental ecological and biological concepts such as \"balance,\" \"pressure,\" \"breeding,\" \"instinct,\" \"life,\" \"rate,\" and \"subjects.\" These words function as critical anchors that define the core variables, mechanisms, or outcomes within the contexts of evolution, environmental adaptation, and scientific experimentation.",
+   "3": "The highlighted tokens represent core biological and ecological mechanisms such as instinct, balance, natural selection, and evolution, which serve as fundamental explanatory frameworks for organismal behavior, adaptation, and ecosystem stability."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.75,
+    "tpr": 0.5,
+    "tnr": 1.0,
+    "n": 10
+   },
+   "3": {
+    "balanced_acc": NaN,
+    "n": 0
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 10
+   },
+   "3": {
+    "balanced_acc": 0.5625,
+    "tpr": 0.125,
+    "tnr": 1.0,
+    "n": 16
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 0.0,
+   "tnr": 1.0,
+   "n": 16
+  }
+ },
+ {
+  "layer": 14,
+  "neuron": 2632,
+  "explanations": {
+   "0": "The highlighted tokens represent the core semantic anchors of the sentences, typically functioning as the direct object, the subject of a clause, or a specific proper noun that defines the immediate context. These selections prioritize words that carry the most significant informational content or narrative weight, distinguishing the main entity or concept from surrounding descriptive or functional text.",
+   "3": "The common pattern involves the selection of specific determiners or demonstrative pronouns that immediately precede nouns representing critical actions, objects, or concepts within a narrative. These tokens function to emphasize the significance of the following noun phrase, often marking a turning point, a specific command, or a major discovery in the text."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 16
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.625,
+    "tpr": 0.5,
+    "tnr": 0.75,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 16
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5625,
+   "tpr": 0.875,
+   "tnr": 0.25,
+   "n": 16
+  }
+ },
+ {
+  "layer": 12,
+  "neuron": 556,
+  "explanations": {
+   "0": "The analysis reveals a strong pattern where punctuation marks (periods, commas, parentheses) are consistently identified as important when they act as structural delimiters for significant text units. These markers frequently appear at the boundaries of sentences, citation abbreviations, parenthetical clauses, and proper nouns, indicating that the model prioritizes tokens that define the scope and grammatical structure of information segments.",
+   "3": "The highlighted tokens consistently demarcate specific proper nouns, technical terms, or distinct conceptual entities such as geographical locations, biological species, chemical compounds, and structural document components. These selections function as key anchors that define the scope of the surrounding context, distinguishing unique identifiers from general descriptive language."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 1.0,
+    "tnr": 0.0,
+    "n": 10
+   },
+   "3": {
+    "balanced_acc": 0.5625,
+    "tpr": 0.375,
+    "tnr": 0.75,
+    "n": 16
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": NaN,
+    "n": 0
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 10
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 1.0,
+   "tnr": 0.0,
+   "n": 16
+  }
+ },
+ {
+  "layer": 10,
+  "neuron": 1363,
+  "explanations": {
+   "0": "The highlighted tokens primarily function as connectors within prepositional phrases or relative clauses, signaling the introduction of supplementary information, examples, or contextual details that elaborate on the preceding statement.",
+   "3": "The highlighted tokens are primarily functional words that define the grammatical structure and logical relationships within the sentences. They include copulas like \"is\" for definition, negations like \"not\", prepositions like \"in\" and \"on\" for context, articles like \"the\" for specificity, auxiliary verbs like \"has\" and \"having\" for state and action, and conjunctions like \"that\" for clause introduction. These elements are essential for establishing the syntactic framework that allows the surrounding content to be understood correctly."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 10
+   },
+   "3": {
+    "balanced_acc": 0.625,
+    "tpr": 1.0,
+    "tnr": 0.25,
+    "n": 16
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.625,
+    "tpr": 1.0,
+    "tnr": 0.25,
+    "n": 16
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 0.0,
+   "tnr": 1.0,
+   "n": 16
+  }
+ },
+ {
+  "layer": 14,
+  "neuron": 4724,
+  "explanations": {
+   "0": "The text latents represent a semantic cluster of actions involving forceful suppression, expulsion, or dismantling, typically modifying verbs that describe the elimination or reduction of a preceding noun or concept.",
+   "3": "The examples highlight the token \"squ\" as a critical latent feature representing the root of diverse words related to conflict, force, and movement."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.5625,
+    "tpr": 0.125,
+    "tnr": 1.0,
+    "n": 16
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 10
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 16
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 0.0,
+   "tnr": 1.0,
+   "n": 16
+  }
+ },
+ {
+  "layer": 12,
+  "neuron": 1401,
+  "explanations": {
+   "0": "The text latents commonly associated with these examples represent the syntactic markers for asynchronous execution (`await`) and iteration (`in`), indicating a pattern where the model identifies critical control flow elements responsible for handling non-blocking operations and looping through data structures.",
+   "3": "The text latents commonly associated with these examples are the keywords `async`, `await`, and `in`, which serve as structural markers for asynchronous programming patterns. These tokens specifically delineate the start of asynchronous function definitions, the suspension of execution to await external data (like JSON responses), and the iteration over data sequences, highlighting a consistent emphasis on non-blocking data retrieval and processing workflows."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": NaN,
+    "n": 0
+   },
+   "3": {
+    "balanced_acc": 0.7,
+    "tpr": 0.4,
+    "tnr": 1.0,
+    "n": 10
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.7,
+    "tpr": 0.4,
+    "tnr": 1.0,
+    "n": 10
+   },
+   "3": {
+    "balanced_acc": NaN,
+    "n": 0
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 1.0,
+   "tnr": 0.0,
+   "n": 16
+  }
+ },
+ {
+  "layer": 10,
+  "neuron": 309,
+  "explanations": {
+   "0": "The highlighted tokens serve as fundamental grammatical connectors and quantifiers that stabilize sentence structure and define logical relationships. They frequently appear as auxiliary verb suffixes, indefinite quantifiers, or prepositions that bridge clauses, ensuring semantic coherence and proper tense or aspect in diverse contexts ranging from technical descriptions to casual conversation.",
+   "3": "The highlighted tokens represent critical syntactic and logical connectors, including punctuation and conjunctions, that segment text into coherent semantic units and establish relationships such as cause-effect, enumeration, and clause separation."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.375,
+    "tpr": 0.5,
+    "tnr": 0.25,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.375,
+    "tpr": 0.5,
+    "tnr": 0.25,
+    "n": 16
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 6
+   },
+   "3": {
+    "balanced_acc": 0.625,
+    "tpr": 0.25,
+    "tnr": 1.0,
+    "n": 16
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.625,
+   "tpr": 0.5,
+   "tnr": 0.75,
+   "n": 16
+  }
+ },
+ {
+  "layer": 12,
+  "neuron": 5462,
+  "explanations": {
+   "0": "The identified latents function as discourse markers that delimit parenthetical insertions, interruptions, or contrasting clauses. They consistently appear at the transition points where the main narrative flow is paused to introduce exceptions, concessions, clarifications, or shifts in perspective, effectively framing the enclosed text as supplementary or modifying information relative to the primary statement.",
+   "3": "The identified latents consistently mark the end of a complete thought or argument, serving as transition points that signal a shift in topic, perspective, or narrative focus. They appear at the boundary where a coherent idea concludes and new information is introduced, highlighting their role in structuring discourse and managing the flow of conversation."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.6875,
+    "tpr": 0.375,
+    "tnr": 1.0,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.75,
+    "tpr": 0.875,
+    "tnr": 0.625,
+    "n": 16
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 16
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 0.0,
+   "tnr": 1.0,
+   "n": 10
+  }
+ },
+ {
+  "layer": 15,
+  "neuron": 525,
+  "explanations": {
+   "0": "The highlighted tokens consistently mark the onset of a new clause or phrase that elaborates on the preceding context, functioning as syntactic bridges to introduce specific details, results, or lists. These latents signal a transition from a premise to the core informational payload, often appearing before verbs of measurement or nouns introducing new concepts.",
+   "3": "The common pattern involves tokens that initiate or complete relative clauses and prepositional phrases, serving as critical syntactic connectors that link antecedents to descriptive details or actions within the text."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 6
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 6
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 10
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 0.0,
+   "tnr": 1.0,
+   "n": 16
+  }
+ },
+ {
+  "layer": 11,
+  "neuron": 4356,
+  "explanations": {
+   "0": "The highlighted tokens are primarily determiners and demonstratives that act as the pivotal syntactic link in comparative structures, introducing the specific noun phrase or clause that completes an analogy or similarity statement.",
+   "3": "The text latents common in the examples are comparative relational markers that define similarity, equivalence, or analogy between two entities. The identified patterns show that specific tokens (e.g., \"similar to,\" \"what,\" \"how,\" \"like,\" \"unlike\") are crucial for establishing the semantic link where a current observation is aligned with a known reference, serving as the pivot points for expressing resemblance or correspondence."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 10
+   },
+   "3": {
+    "balanced_acc": 0.5625,
+    "tpr": 0.375,
+    "tnr": 0.75,
+    "n": 16
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 10
+   },
+   "3": {
+    "balanced_acc": 0.7916666666666667,
+    "tpr": 0.8333333333333334,
+    "tnr": 0.75,
+    "n": 10
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5625,
+   "tpr": 0.25,
+   "tnr": 0.875,
+   "n": 16
+  }
+ },
+ {
+  "layer": 13,
+  "neuron": 4843,
+  "explanations": {
+   "0": "The text latents consistently identify proper nouns, particularly surnames and place names, serving as critical anchors for named entity recognition within diverse contexts such as historical events, institutions, and geographical references.",
+   "3": "The text latents commonly represent the initial segment of proper names, particularly surnames, highlighting the model's ability to identify the onset of specific entities within diverse contexts such as biographies, citations, and historical narratives."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.8,
+    "tnr": 0.2,
+    "n": 10
+   },
+   "3": {
+    "balanced_acc": 0.75,
+    "tpr": 0.75,
+    "tnr": 0.75,
+    "n": 16
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.8,
+    "tpr": 1.0,
+    "tnr": 0.6,
+    "n": 10
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 10
+   }
+  },
+  "shuffled": {
+   "balanced_acc": NaN,
+   "n": 0
+  }
+ },
+ {
+  "layer": 10,
+  "neuron": 4612,
+  "explanations": {
+   "0": "The model selects tokens that represent high-information-density concepts, including specific numerical values, key technical terms, critical actions, and structural boundaries that define the semantic core of the sentence.",
+   "3": "The identified latents correspond to restrictive demonstrative pronouns and relative clauses that narrow the scope of a preceding noun phrase to a specific subset or instance. These tokens consistently function to bridge a general statement with a specific elaboration, defining the nature, origin, or extent of the subject matter immediately following them."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.375,
+    "tpr": 0.75,
+    "tnr": 0.0,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 16
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 1.0,
+    "tnr": 0.0,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 6
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 0.0,
+   "tnr": 1.0,
+   "n": 16
+  }
+ },
+ {
+  "layer": 9,
+  "neuron": 5620,
+  "explanations": {
+   "0": "The highlighted tokens are primarily determiners (such as \"a\", \"the\") and the copula verb \"is\", which serve to introduce or assert the existence of a specific noun phrase. These words act as critical syntactic anchors that shift the focus from the preceding context to the specific subject being discussed, whether it be a historical claim, a mathematical dimension, a political assertion, or a scientific principle. Their importance lies in their grammatical role in establishing the topic of the clause and their semantic function in validating or describing the subsequent information.",
+   "3": "The text latents common in the examples are auxiliary verbs and copulas that define states, identities, or occurrences, acting as grammatical bridges between subjects and their predicates to assert existence or describe actions."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 10
+   },
+   "3": {
+    "balanced_acc": 0.625,
+    "tpr": 0.75,
+    "tnr": 0.5,
+    "n": 10
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.625,
+    "tpr": 0.75,
+    "tnr": 0.5,
+    "n": 10
+   },
+   "3": {
+    "balanced_acc": 0.375,
+    "tpr": 0.25,
+    "tnr": 0.5,
+    "n": 10
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 0.0,
+   "tnr": 1.0,
+   "n": 6
+  }
+ },
+ {
+  "layer": 11,
+  "neuron": 2034,
+  "explanations": {
+   "0": "The model highlights specific character sequences within proper nouns, primarily focusing on the surname \"Swan\" and its phonetic or orthographic variations (such as Swarup, Swaroopa, Swen, Swarich, Swarraton, Swinburne) as well as the acronym \"SWEEP\". This pattern suggests the model prioritizes entity recognition, isolating these names from surrounding descriptive text, dates, or contextual information to identify key subjects or authors.",
+   "3": "The highlighted sequences consistently mark the initial syllables or letter clusters of proper nouns, specifically surnames and place names, indicating a pattern where the model identifies the onset of significant named entities within the text."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 10
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 6
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.625,
+    "tpr": 0.25,
+    "tnr": 1.0,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 16
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 0.0,
+   "tnr": 1.0,
+   "n": 10
+  }
+ },
+ {
+  "layer": 12,
+  "neuron": 3663,
+  "explanations": {
+   "0": "The common latent pattern involves tokens that initiate dependent clauses or infinitive phrases, functioning as syntactic bridges to express purpose, consequence, alignment, or modification relative to the preceding context.",
+   "3": "The common latent pattern involves tokens that function as connectors indicating purpose (e.g., \"to\"), reflexive agents (e.g., \"yourself\", \"themselves\"), or specific targets (e.g., \"a\", \"it\", \"that\"). These elements are crucial for defining the direction, beneficiary, or goal of the described action, ensuring the sentence structure explicitly links the subject's behavior to its intended result or specific focus."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": NaN,
+    "n": 0
+   },
+   "3": {
+    "balanced_acc": NaN,
+    "n": 0
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": NaN,
+    "n": 0
+   },
+   "3": {
+    "balanced_acc": NaN,
+    "n": 0
+   }
+  },
+  "shuffled": {
+   "balanced_acc": NaN,
+   "n": 0
+  }
+ },
+ {
+  "layer": 9,
+  "neuron": 4570,
+  "explanations": {
+   "0": "The examples reveal a pattern where important tokens are those that demarcate specific information units, such as citation ranges, parenthetical notes, list items, and metadata headers, as well as transitional phrases that introduce definitions or descriptions.",
+   "3": "The highlighted tokens consistently demarcate clauses or phrases that introduce contrast, specific limitations, precise locations, or concluding summaries, often acting as logical pivots that shift focus to core evidentiary data or critical results."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.5625,
+    "tpr": 0.125,
+    "tnr": 1.0,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": NaN,
+    "n": 0
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": NaN,
+    "n": 0
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 16
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.4,
+   "tpr": 0.2,
+   "tnr": 0.6,
+   "n": 10
+  }
+ },
+ {
+  "layer": 9,
+  "neuron": 2057,
+  "explanations": {
+   "0": "The highlighted tokens consistently serve as linguistic anchors that bind specific actions, objects, or findings to their immediate context or antecedents. The definite article \"the\" is frequently selected to pinpoint a singular, previously established entity, ensuring the reader's focus remains on the precise subject. Possessive pronouns like \"their\" are used to explicitly link outcomes or findings back to a specific group mentioned earlier, clarifying agency. Additionally, the adverb \"just\" emphasizes temporal immediacy, connecting the current narrative step directly to the most recent event. Collectively, these words function as critical semantic bridges that maintain textual coherence",
+   "3": "The text latents commonly emphasize possessive pronouns and action verbs that link subjects to their specific experiences, responsibilities, or outcomes, thereby establishing agency, ownership, or the state of an activity within the narrative."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.375,
+    "tnr": 0.625,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.4375,
+    "tpr": 0.125,
+    "tnr": 0.75,
+    "n": 16
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.625,
+    "tpr": 0.875,
+    "tnr": 0.375,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.4375,
+    "tpr": 0.0,
+    "tnr": 0.875,
+    "n": 16
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 0.125,
+   "tnr": 0.875,
+   "n": 16
+  }
+ },
+ {
+  "layer": 11,
+  "neuron": 3691,
+  "explanations": {
+   "0": "The highlighted tokens function as structural delimiters that define temporal boundaries, logical scopes, or narrative pivots. They frequently appear after conjunctions or prepositions to mark the end of a duration, the onset of a new state, or the emphasis of a recurring event, thereby anchoring the semantic weight of the surrounding clause.",
+   "3": "The highlighted tokens represent critical syntactic and semantic delimiters that define the scope, timing, location, or magnitude of the surrounding text. They frequently appear as prepositions, temporal qualifiers, or numerical digits that are essential for accurately interpreting the specific conditions, measurements, or relationships described in the sentences."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.6875,
+    "tpr": 0.5,
+    "tnr": 0.875,
+    "n": 16
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 10
+   },
+   "3": {
+    "balanced_acc": 0.6,
+    "tpr": 0.2,
+    "tnr": 1.0,
+    "n": 10
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 0.0,
+   "tnr": 1.0,
+   "n": 10
+  }
+ },
+ {
+  "layer": 12,
+  "neuron": 246,
+  "explanations": {
+   "0": "The identified latents function as pivotal relational markers that define the scope, nature, or state of the surrounding entities, effectively anchoring abstract concepts to specific attributes or conditions within the sentence structure.",
+   "3": "The identified latents correspond to punctuation marks and short, semantically dense words that act as critical delimiters for parsing sentence structure and defining the scope of key technical terms or clauses."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 1.0,
+    "tnr": 0.0,
+    "n": 16
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.625,
+    "tpr": 0.5,
+    "tnr": 0.75,
+    "n": 16
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 0.0,
+   "tnr": 1.0,
+   "n": 10
+  }
+ },
+ {
+  "layer": 10,
+  "neuron": 1952,
+  "explanations": {
+   "0": "The identified latents correspond to high-frequency function words and short particles that act as syntactic glue, ensuring grammatical coherence and logical flow between content-bearing tokens.",
+   "3": "The selected tokens primarily function as grammatical anchors that introduce defining characteristics, specific contexts, or states of being. The most prevalent pattern involves the indefinite article \"a\" preceding nouns that establish a central concept or role, while the preposition \"in\" consistently marks specific locations or contexts. Furthermore, the modal \"may\" and the copula \"are\" are highlighted when they denote possibility or the state of existence for particular subjects, serving as crucial structural elements that link the sentence's subject to its defining attributes or outcomes."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 6
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.8,
+    "tnr": 0.2,
+    "n": 10
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 10
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.25,
+    "tnr": 0.75,
+    "n": 16
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 0.0,
+   "tnr": 1.0,
+   "n": 10
+  }
+ },
+ {
+  "layer": 12,
+  "neuron": 5072,
+  "explanations": {
+   "0": "The highlighted tokens consistently initiate prepositional phrases or clauses that specify the agent, cause, or means of an action mentioned in the preceding text, serving as a grammatical bridge to explain how or by whom an event occurs.",
+   "3": "The highlighted tokens consistently mark specific data fields such as proper names, numerical values, units of measurement, and descriptive attributes, often appearing at the boundaries of distinct information units to delineate labels from their corresponding values or definitions."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.3125,
+    "tpr": 0.5,
+    "tnr": 0.125,
+    "n": 16
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 10
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 16
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 1.0,
+   "tnr": 0.0,
+   "n": 10
+  }
+ },
+ {
+  "layer": 9,
+  "neuron": 3330,
+  "explanations": {
+   "0": "The highlighted tokens consistently represent the core subject matter or specific context of the surrounding text, typically appearing as the object of a preposition or the target of an action. These include medical entities (patients, clinical), demographic settings (schools, user), and abstract domains (political, water demand), indicating a focus on nouns that define the primary scope of the narrative.",
+   "3": "The highlighted tokens represent specific entities, proper nouns, dates, and sentence delimiters that serve as critical anchors for semantic meaning and syntactic structure within the text."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.5625,
+    "tpr": 0.125,
+    "tnr": 1.0,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 1.0,
+    "tnr": 0.0,
+    "n": 6
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 10
+   },
+   "3": {
+    "balanced_acc": 0.375,
+    "tpr": 0.5,
+    "tnr": 0.25,
+    "n": 16
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 0.0,
+   "tnr": 1.0,
+   "n": 16
+  }
+ },
+ {
+  "layer": 10,
+  "neuron": 2488,
+  "explanations": {
+   "0": "The highlighted tokens consistently mark the specific entity or state directly implicated in a consequence, risk, or functional outcome, frequently appearing as possessive pronouns denoting vulnerability, adjectives describing operational status, or prepositions linking an entity to a source of failure.",
+   "3": "The highlighted tokens consistently mark possessive pronouns (\"their\") or imperative directives (\"your\") that establish a direct syntactic link between a subject and its attributes, belongings, or required actions, serving as critical anchors for defining relationships within the narrative structure."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.625,
+    "tpr": 0.25,
+    "tnr": 1.0,
+    "n": 16
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 10
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 16
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.4375,
+   "tpr": 0.0,
+   "tnr": 0.875,
+   "n": 16
+  }
+ },
+ {
+  "layer": 13,
+  "neuron": 2360,
+  "explanations": {
+   "0": "The text latents commonly associated with the selected examples represent the morphological root \"comb\" when it appears as part of compound words like \"combiner,\" \"combinatorial,\" or \"combino.\" These patterns emerge across diverse domains including engineering, physics, and general knowledge, where the term signifies concepts of aggregation, synthesis, or structured arrangement. The model prioritizes this token sequence to capture the core semantic meaning of combining or merging elements within a system or description.",
+   "3": "The text latents associated with the selected tokens indicate that the sequence \"comb\" serves as a versatile morphological root appearing in contexts ranging from behavioral descriptions (combative) and technical systems (combustion, combiner) to software commands (combo) and document references. The pattern suggests that the model identifies this substring as a high-salience feature for distinguishing specific vocabulary items related to mixing, burning, or joining, regardless of the surrounding semantic domain."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.9375,
+    "tpr": 0.875,
+    "tnr": 1.0,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.9,
+    "tpr": 0.8,
+    "tnr": 1.0,
+    "n": 10
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 10
+   },
+   "3": {
+    "balanced_acc": 0.875,
+    "tpr": 0.75,
+    "tnr": 1.0,
+    "n": 16
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.75,
+   "tpr": 0.625,
+   "tnr": 0.875,
+   "n": 16
+  }
+ },
+ {
+  "layer": 8,
+  "neuron": 4941,
+  "explanations": {
+   "0": "The identified latents function as structural markers that initiate prepositional phrases or specific grammatical dependencies, primarily signaling the introduction of an object, beneficiary, or temporal duration following a preceding action or subject.",
+   "3": "The text latents commonly represent functional words that define the direction, scope, or capability of an action or state, serving as critical anchors for syntactic dependencies and logical flow."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": NaN,
+    "n": 0
+   },
+   "3": {
+    "balanced_acc": NaN,
+    "n": 0
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": NaN,
+    "n": 0
+   },
+   "3": {
+    "balanced_acc": NaN,
+    "n": 0
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 1.0,
+   "tnr": 0.0,
+   "n": 16
+  }
+ },
+ {
+  "layer": 9,
+  "neuron": 3436,
+  "explanations": {
+   "0": "The important tokens consistently mark the primary subject or focal object within a sentence, often appearing where a specific entity is introduced, contrasted, or defined. These latents serve as the semantic anchor for the surrounding context, highlighting the key noun or noun phrase that the sentence is primarily about.",
+   "3": "The examples highlight a strong pattern where the model selects articles (\"the\", \"a\") and demonstratives (\"these\") immediately preceding nouns. These tokens are essential for defining the specificity of the noun phrase and maintaining grammatical coherence, often marking the introduction of a central subject or object in the sentence."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 10
+   },
+   "3": {
+    "balanced_acc": 0.375,
+    "tpr": 0.25,
+    "tnr": 0.5,
+    "n": 16
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.25,
+    "tpr": 0.25,
+    "tnr": 0.25,
+    "n": 16
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 0.0,
+   "tnr": 1.0,
+   "n": 16
+  }
+ },
+ {
+  "layer": 12,
+  "neuron": 1622,
+  "explanations": {
+   "0": "The selected tokens primarily function as discourse markers that signal shifts in focus, contrast, or the introduction of specific subsets. Words like \"with,\" \"to,\" \"also,\" and \"but\" explicitly mark additive or contrasting relationships, while \"the\" often specifies a particular entity or scale that narrows the scope of the preceding statement. These latents highlight the model's tendency to select words that structurally organize information by delineating boundaries and refining the subject of the sentence.",
+   "3": "The identified text latents primarily function as enumerative connectors, specifically the conjunction \"and\" and the pronoun \"those,\" which are critical for structuring lists and defining collective groups within descriptive sentences. These tokens consistently appear at the boundaries of sequences to introduce final items or specify subsets, highlighting their role in maintaining grammatical coherence during enumeration."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 1.0,
+    "tnr": 0.0,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 10
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.5625,
+    "tpr": 0.375,
+    "tnr": 0.75,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": NaN,
+    "n": 0
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 0.0,
+   "tnr": 1.0,
+   "n": 16
+  }
+ },
+ {
+  "layer": 8,
+  "neuron": 5387,
+  "explanations": {
+   "0": "The identified latents correspond to functional words such as articles, prepositions, and quotation marks that introduce or modify specific nouns, phrases, or quoted terms, highlighting their critical role in defining scope, establishing grammatical relationships, and anchoring sentence meaning.",
+   "3": "The highlighted tokens primarily mark syntactic boundaries for comparisons, alternatives, and enumerations, serving as critical pivots that structure the logical flow between premises and conclusions or distinct categories within the text."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 1.0,
+    "tnr": 0.0,
+    "n": 6
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 6
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 1.0,
+    "tnr": 0.0,
+    "n": 6
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 6
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5416666666666666,
+   "tpr": 0.3333333333333333,
+   "tnr": 0.75,
+   "n": 10
+  }
+ },
+ {
+  "layer": 13,
+  "neuron": 2066,
+  "explanations": {
+   "0": "The highlighted tokens are primarily determiners (like \"a\", \"the\") and prepositions (like \"on\", \"from\", \"of\", \"in\") that introduce specific noun phrases to define the scope or attribute of a concept. They serve as critical linguistic anchors that narrow the focus of the sentence, ensuring the reader understands the precise category, source, or nature of the information being discussed, such as the specific type of exam, the data source, or the resulting effect.",
+   "3": "The identified patterns indicate that the model prioritizes tokens that establish semantic relationships of origin, composition, and agency, specifically prepositions like \"from,\" \"of,\" and \"by\" alongside the indefinite article \"an\" when introducing noun phrases that define the source or scope of an action or object."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.375,
+    "tpr": 0.5,
+    "tnr": 0.25,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.4375,
+    "tpr": 0.0,
+    "tnr": 0.875,
+    "n": 16
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.8125,
+    "tpr": 0.875,
+    "tnr": 0.75,
+    "n": 16
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 0.0,
+   "tnr": 1.0,
+   "n": 16
+  }
+ },
+ {
+  "layer": 18,
+  "neuron": 2319,
+  "explanations": {
+   "0": "The text latents consistently identify the Roman Empire as a pivotal historical entity, frequently appearing in contexts describing its territorial expansion, administrative structure, cultural influence, and political evolution. The patterns indicate a strong focus on the Empire's role as a unifying force across diverse regions, from provincial communities to military enclosures, while also contrasting its legacy with other historical powers like Persia or the Byzantine Empire. The emphasis is on the Empire's pervasive presence in governance, religion, and daily life throughout antiquity.",
+   "3": "The highlighted tokens primarily consist of proper nouns (names of emperors, provinces, legions, and inscriptions) and specific temporal markers that anchor historical narratives. These tokens function as critical identifiers, ensuring the precise naming of actors and locations within the context of Roman history, while surrounding function words often frame these entities to establish the scope of the described events."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 1.0,
+    "tpr": 1.0,
+    "tnr": 1.0,
+    "n": 6
+   },
+   "3": {
+    "balanced_acc": 0.8125,
+    "tpr": 0.625,
+    "tnr": 1.0,
+    "n": 16
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.9375,
+    "tpr": 0.875,
+    "tnr": 1.0,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.5625,
+    "tpr": 0.125,
+    "tnr": 1.0,
+    "n": 16
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 0.0,
+   "tnr": 1.0,
+   "n": 16
+  }
+ },
+ {
+  "layer": 17,
+  "neuron": 3466,
+  "explanations": {
+   "0": "The text latents commonly represent the binary digits 0 and 1, which serve as the foundational units for encoding information in digital systems, logic circuits, and quantum states.",
+   "3": "The analyzed text demonstrates that specific binary digits (0 and 1) serve as critical latents for defining logical states, data encoding, and control mechanisms in digital and quantum systems. The digit '0' consistently represents a specific logical low state, a bit position for indexing, or a condition for division, while '1' denotes the alternative high state, the presence of a set bit, or an active signal. These tokens are essential for distinguishing between two-state systems, such as voltage levels, spin orientations, and binary numerical values, where their precise configuration determines system behavior and information integrity."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 1.0,
+    "tpr": 1.0,
+    "tnr": 1.0,
+    "n": 6
+   },
+   "3": {
+    "balanced_acc": NaN,
+    "n": 0
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.8,
+    "tpr": 0.6,
+    "tnr": 1.0,
+    "n": 10
+   },
+   "3": {
+    "balanced_acc": 1.0,
+    "tpr": 1.0,
+    "tnr": 1.0,
+    "n": 6
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 0.375,
+   "tnr": 0.625,
+   "n": 16
+  }
+ },
+ {
+  "layer": 16,
+  "neuron": 2149,
+  "explanations": {
+   "0": "The text latents commonly associated with these examples represent the grammatical category of nouns, encompassing their morphological variations (plural forms, gendered endings), syntactic functions (subjects, objects, modifiers), and contextual constraints (usage in specific languages like Warlpiri or Japanese, or structured formats like haiku).",
+   "3": "The text latents commonly associated with these examples center on the grammatical classification of \"noun\" and its variations, including collective, proper, and plural forms. The patterns reveal a strong focus on defining noun characteristics, such as capitalization rules, subject-verb agreement, and semantic roles like denoting groups or abstract entities."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 1.0,
+    "tnr": 0.0,
+    "n": 10
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 1.0,
+    "tnr": 0.0,
+    "n": 10
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 1.0,
+    "tnr": 0.0,
+    "n": 10
+   },
+   "3": {
+    "balanced_acc": 0.6875,
+    "tpr": 1.0,
+    "tnr": 0.375,
+    "n": 16
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 0.0,
+   "tnr": 1.0,
+   "n": 10
+  }
+ },
+ {
+  "layer": 19,
+  "neuron": 1284,
+  "explanations": {
+   "0": "The analysis reveals a strong pattern where the model identifies tokens representing precise quantitative data (e.g., \"km\", \"kilometers\") and pivotal semantic concepts (e.g., \"crimes\", \"keep\") as highly important. These tokens serve as the primary anchors for understanding the scale of described events and the essence of legal or functional obligations, suggesting the model prioritizes information that defines magnitude and core meaning over surrounding context.",
+   "3": "The examples reveal a pattern where the model highlights the definite article \"the\" and the noun \"crimes\" to emphasize specific, formally defined entities and serious legal charges within technical documentation and historical legal narratives."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.8125,
+    "tpr": 0.625,
+    "tnr": 1.0,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.5625,
+    "tpr": 0.125,
+    "tnr": 1.0,
+    "n": 16
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.6875,
+    "tpr": 0.375,
+    "tnr": 1.0,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.6875,
+    "tpr": 0.375,
+    "tnr": 1.0,
+    "n": 16
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 0.0,
+   "tnr": 1.0,
+   "n": 16
+  }
+ },
+ {
+  "layer": 17,
+  "neuron": 2276,
+  "explanations": {
+   "0": "The text latents commonly describe systems characterized by high intricacy and multidimensionality. The primary pattern involves the use of \"complex\" to denote entities with numerous interacting components that defy simple explanation. A secondary pattern highlights structural breadth through terms like \"multi-way,\" \"multi-jurisdictional,\" and \"multi-level,\" indicating operations or states spanning multiple axes. Additionally, specific technical terms like \"multip\" (referring to higher-order properties) and \"is\" (denoting established states) appear in contexts requiring precise, non-trivial descriptions of scientific or engineering systems.",
+   "3": "The text latents commonly describe the intricacies and counterintuitive properties of high-dimensional probability distributions and complex systems, frequently emphasizing terms like \"complicated,\" \"complex,\" and specific dimensional constraints."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.875,
+    "tpr": 0.75,
+    "tnr": 1.0,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.6875,
+    "tpr": 0.5,
+    "tnr": 0.875,
+    "n": 16
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.6875,
+    "tpr": 0.5,
+    "tnr": 0.875,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.875,
+    "tpr": 0.75,
+    "tnr": 1.0,
+    "n": 16
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 0.0,
+   "tnr": 1.0,
+   "n": 10
+  }
+ },
+ {
+  "layer": 16,
+  "neuron": 4182,
+  "explanations": {
+   "0": "The identified latents consistently mark the onset of high-information-density words, specifically the beginning of proper nouns, technical terms, and key modifiers that define the semantic core of their respective phrases. These patterns highlight the model's focus on capturing the initial segments of words that introduce specific entities, such as disease names, botanical genera, or distinct narrative actions, distinguishing them from general context.",
+   "3": "The highlighted tokens are all prefixes of significant proper nouns, scientific terms, and descriptive adjectives, such as \"sep\" from sepulture, \"scab\" from scabrous, and \"Sab\" from Sabine. This pattern suggests that the model identifies the start of these specific lexical items as critical for understanding the text, likely due to their role in defining unique entities or precise meanings that are often truncated at token boundaries."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.5625,
+    "tpr": 0.125,
+    "tnr": 1.0,
+    "n": 16
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 6
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5625,
+   "tpr": 1.0,
+   "tnr": 0.125,
+   "n": 16
+  }
+ },
+ {
+  "layer": 17,
+  "neuron": 2238,
+  "explanations": {
+   "0": "The highlighted tokens represent critical numerical values, mathematical constants, or structural delimiters (such as domain separators in URLs) that define specific thresholds, identities, or calculation parameters within their respective contexts.",
+   "3": "The identified latents correspond to the definite article \"the\" and the indefinite article \"a\" when used as determiners directly before a noun. This pattern suggests the model prioritizes tokens that establish the grammatical structure of noun phrases across various domains, from technical specifications to demographic data."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.625,
+    "tpr": 0.5,
+    "tnr": 0.75,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.125,
+    "tpr": 0.25,
+    "tnr": 0.0,
+    "n": 16
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.75,
+    "tpr": 0.75,
+    "tnr": 0.75,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.3125,
+    "tpr": 0.625,
+    "tnr": 0.0,
+    "n": 16
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 0.0,
+   "tnr": 1.0,
+   "n": 10
+  }
+ },
+ {
+  "layer": 17,
+  "neuron": 113,
+  "explanations": {
+   "0": "The highlighted tokens are primarily articles and determiners that introduce specific nouns, frequently appearing at the start of a list item or a descriptive clause to establish grammatical specificity and separate distinct entities within a sentence.",
+   "3": "The highlighted tokens consistently mark specific architectural features or anatomical landmarks, serving to define or locate a particular component within a broader structural description."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 10
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 10
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 10
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 10
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 0.0,
+   "tnr": 1.0,
+   "n": 6
+  }
+ },
+ {
+  "layer": 18,
+  "neuron": 2949,
+  "explanations": {
+   "0": "The text latents commonly describe plant traits related to environmental tolerance (drought, frost, soil drainage) and aesthetic features (fragrance, color, beauty), serving as key descriptors for cultivation suitability and ornamental value.",
+   "3": "The text latents commonly found in the examples are the verb \"is\" and the conjunction \"that,\" which function to define plant characteristics and introduce descriptive clauses regarding growth conditions, appearance, and utility."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.9375,
+    "tpr": 0.875,
+    "tnr": 1.0,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.875,
+    "tpr": 0.75,
+    "tnr": 1.0,
+    "n": 10
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.875,
+    "tpr": 0.75,
+    "tnr": 1.0,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.75,
+    "tpr": 0.5,
+    "tnr": 1.0,
+    "n": 16
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 0.625,
+   "tnr": 0.375,
+   "n": 16
+  }
+ },
+ {
+  "layer": 18,
+  "neuron": 3213,
+  "explanations": {
+   "0": "The text latents commonly emphasize precise quantitative metrics, temporal boundaries, and categorical classifications to anchor abstract descriptions in measurable realities.",
+   "3": "The highlighted tokens are primarily functional words\u2014specifically articles, prepositions, conjunctions, and demonstrative adjectives\u2014that serve to link clauses, define relationships between entities, and establish the scope or standard of the text. Their importance lies in their role as syntactic glue that ensures grammatical correctness and semantic precision, particularly in technical and legal contexts where ambiguity must be minimized."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": NaN,
+    "n": 0
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 1.0,
+    "tnr": 0.0,
+    "n": 10
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": NaN,
+    "n": 0
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 1.0,
+    "tnr": 0.0,
+    "n": 10
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 0.0,
+   "tnr": 1.0,
+   "n": 16
+  }
+ },
+ {
+  "layer": 20,
+  "neuron": 1946,
+  "explanations": {
+   "0": "The model highlights simple, countable nouns or noun phrases, frequently preceded by the indefinite article \"a\" or appearing as standalone items in lists. These tokens consistently refer to physical objects, tools, or accessories that serve a specific function or are being introduced as examples within the text.",
+   "3": "The highlighted tokens consistently function as lexical anchors for specific objects or descriptors within enumerative or descriptive lists, frequently marking the start of a new item, a list separator, or a key attribute of a noun."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.625,
+    "tpr": 0.375,
+    "tnr": 0.875,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 16
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 16
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.0,
+   "tpr": 0.0,
+   "tnr": 0.0,
+   "n": 6
+  }
+ },
+ {
+  "layer": 20,
+  "neuron": 3089,
+  "explanations": {
+   "0": "The examples reveal a strong latent pattern centered on the act of writing and the resulting written artifacts. The selected tokens frequently denote the verb of inscription (e.g., \"wrote\", \"write\"), the noun representing the document or text (e.g., \"Constitution\", \"inscriptions\", \"letters\"), or the prepositional phrases linking the action to the medium (e.g., \"upon\", \"down\", \"which\"). This suggests the model identifies tokens that are critical for establishing the context of textual creation, recording, or the authority derived from written records.",
+   "3": "The text latents commonly represent proper nouns, specific titles, and key legal or historical terms that serve as anchors for factual assertions. These markers often denote authoritative sources, specific religious or legal concepts, or foundational documents. The surrounding context typically explains the origin, definition, or ruling associated with these specific entities, indicating that the model prioritizes precise attribution and the identification of named entities when generating explanatory or definitional content."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 6
+   },
+   "3": {
+    "balanced_acc": 0.75,
+    "tpr": 1.0,
+    "tnr": 0.5,
+    "n": 10
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.625,
+    "tpr": 0.25,
+    "tnr": 1.0,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": NaN,
+    "n": 0
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 0.0,
+   "tnr": 1.0,
+   "n": 10
+  }
+ },
+ {
+  "layer": 20,
+  "neuron": 4644,
+  "explanations": {
+   "0": "The highlighted tokens predominantly represent concrete nouns, often referring to weapons, tools, or specific physical objects that serve as the primary agents or instruments within the described actions or scenarios.",
+   "3": "The model prioritizes tokens that establish agency, specify tools, or define immediate syntactic relationships, indicating a focus on the precise actors and instruments involved in described actions."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.75,
+    "tpr": 0.5,
+    "tnr": 1.0,
+    "n": 10
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 10
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.75,
+    "tpr": 0.5,
+    "tnr": 1.0,
+    "n": 10
+   },
+   "3": {
+    "balanced_acc": 0.4583333333333333,
+    "tpr": 0.6666666666666666,
+    "tnr": 0.25,
+    "n": 10
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.4,
+   "tpr": 0.0,
+   "tnr": 0.8,
+   "n": 10
+  }
+ },
+ {
+  "layer": 19,
+  "neuron": 3286,
+  "explanations": {
+   "0": "The text latents commonly emphasize precise numerical quantities, units of measurement, and core scientific or methodological concepts such as imaging, similarities, and commonalities, which serve to quantify data or define categorical relationships within the context of the sentences.",
+   "3": "The model prioritizes tokens representing specific numerical values and fundamental grammatical classifiers that define categories or relationships, indicating a focus on extracting precise factual data and structural logic from scientific, historical, and mathematical contexts."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.625,
+    "tnr": 0.375,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 16
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 1.0,
+    "tnr": 0.0,
+    "n": 6
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.25,
+    "tnr": 0.75,
+    "n": 16
+   }
+  },
+  "shuffled": {
+   "balanced_acc": NaN,
+   "n": 0
+  }
+ },
+ {
+  "layer": 22,
+  "neuron": 448,
+  "explanations": {
+   "0": "The highlighted tokens consistently denote specific entities, agents, or structural components that serve as the primary subjects, sources, or focal points of the surrounding discourse. These include geographical locations, administrative bodies, demographic groups, and abstract concepts acting as the core topic. The pattern indicates that the model identifies and highlights nouns or noun phrases that anchor the sentence's meaning, often distinguishing the actor, the setting, or the central theme from the surrounding descriptive actions or modifiers.",
+   "3": "The important tokens consistently denote the specific domain, stakeholder group, or contextual scope (such as population, government, local, or environment) that defines the boundaries or target of the described action or phenomenon."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 10
+   },
+   "3": {
+    "balanced_acc": 0.5833333333333333,
+    "tpr": 0.5,
+    "tnr": 0.6666666666666666,
+    "n": 10
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.125,
+    "tnr": 0.875,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.8333333333333333,
+    "tpr": 1.0,
+    "tnr": 0.6666666666666666,
+    "n": 10
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 0.0,
+   "tnr": 1.0,
+   "n": 16
+  }
+ },
+ {
+  "layer": 18,
+  "neuron": 3151,
+  "explanations": {
+   "0": "The text latents commonly represent fundamental mathematical variables, constants, and logical symbols used in algebraic equations, set theory, and number theory definitions.",
+   "3": "The highlighted tokens represent the central semantic anchors of their respective sentences, typically serving as the main subject, the agent of an action, or the defining noun of a concept. These words are essential for understanding the core message, distinguishing the specific entity or condition from others, and maintaining the logical flow of the text."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.2,
+    "tnr": 0.8,
+    "n": 10
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 16
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.125,
+    "tnr": 0.875,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 10
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 0.0,
+   "tnr": 1.0,
+   "n": 16
+  }
+ },
+ {
+  "layer": 19,
+  "neuron": 5410,
+  "explanations": {
+   "0": "The marked tokens consistently identify critical nouns or prepositions that serve as semantic anchors for technical concepts, infrastructure components, or mathematical variables, defining the core subject matter or specific mechanism within each context.",
+   "3": "The text latents common in the examples indicate a focus on the continuity of power or status (retained, had, are) and the specific identification of nuclear safety infrastructure and agencies (Nuclear)."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 10
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 10
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 10
+   },
+   "3": {
+    "balanced_acc": 0.5625,
+    "tpr": 0.125,
+    "tnr": 1.0,
+    "n": 16
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 0.0,
+   "tnr": 1.0,
+   "n": 10
+  }
+ },
+ {
+  "layer": 21,
+  "neuron": 5367,
+  "explanations": {
+   "0": "The common latents describe mechanisms and outcomes of cognitive and physiological modification, specifically focusing on how external agents direct attention, alter states of consciousness, or develop mental skills.",
+   "3": "The text latents commonly describe the intensity, quality, and modification of cognitive focus and mental states, emphasizing how attention is directed, sustained, or altered by external stimuli and internal processes."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": NaN,
+    "n": 0
+   },
+   "3": {
+    "balanced_acc": 0.8125,
+    "tpr": 0.625,
+    "tnr": 1.0,
+    "n": 16
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 1.0,
+    "tpr": 1.0,
+    "tnr": 1.0,
+    "n": 6
+   },
+   "3": {
+    "balanced_acc": NaN,
+    "n": 0
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 0.0,
+   "tnr": 1.0,
+   "n": 16
+  }
+ },
+ {
+  "layer": 17,
+  "neuron": 5540,
+  "explanations": {
+   "0": "The identified latents function as critical semantic anchors that structure arguments around themes of change, innovation, and contrast. They predominantly appear as conjunctions linking opposing or complementary concepts, negation markers indicating resistance to established norms, and prepositions denoting the mechanism or outcome of an action. These tokens are essential for defining the logical flow of texts discussing evolution, values, and strategic direction.",
+   "3": "The examples reveal a consistent pattern where specific tokens mark the directional stance toward change, contrasting resistance (e.g., resisting, fearing, unwilling) with acceptance or promotion (e.g., spirit of, committed to, facilitates). These markers define the tension between maintaining established traditions and pursuing innovation."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.75,
+    "tpr": 0.5,
+    "tnr": 1.0,
+    "n": 16
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 6
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 16
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 0.0,
+   "tnr": 1.0,
+   "n": 16
+  }
+ },
+ {
+  "layer": 21,
+  "neuron": 2781,
+  "explanations": {
+   "0": "The text latents commonly involve determiners and verbs that signal preparedness, safety, or active resistance, such as \"a\" for envisioned improvements, \"it\" for readiness, and imperative forms like \"stand\" or \"be\" for vigilance.",
+   "3": "The highlighted tokens are primarily indefinite articles and adjectives that function to introduce or modify noun phrases, defining goals, states, locations, or characteristics within the text."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 10
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 6
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.6666666666666666,
+    "tpr": 0.3333333333333333,
+    "tnr": 1.0,
+    "n": 10
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 16
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 0.0,
+   "tnr": 1.0,
+   "n": 10
+  }
+ },
+ {
+  "layer": 23,
+  "neuron": 2449,
+  "explanations": {
+   "0": "The analysis reveals a strong pattern where the model identifies core legal and civic principles as the most significant tokens. Specifically, the text latents associated with \"innocent,\" \"the rights,\" \"the Constitution,\" and superlatives like \"the most\" are consistently marked as crucial. These tokens function as the primary semantic anchors that define the subject matter, ensuring the accurate transmission of fundamental legal standards and constitutional guarantees over secondary procedural details.",
+   "3": "The highlighted tokens consistently represent functional words and punctuation marks that serve as syntactic connectors, indicating that the model prioritizes grammatical structure and local coherence over semantic content."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.6875,
+    "tpr": 0.375,
+    "tnr": 1.0,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 10
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": NaN,
+    "n": 0
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 16
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 0.0,
+   "tnr": 1.0,
+   "n": 10
+  }
+ },
+ {
+  "layer": 21,
+  "neuron": 3051,
+  "explanations": {
+   "0": "The identified latents correspond to key data sources and structural components essential for phylogenetic analysis, such as gene sequences, alignment files, morphological traits, and resulting tree structures like dendrograms.",
+   "3": "The text latents common in the examples are prepositions and articles that function as critical semantic bridges in scientific descriptions of phylogenetics. These tokens consistently link core concepts like \"tree,\" \"analysis,\" and \"data\" to their specific origins, methods, or structural attributes, indicating that the model prioritizes these connectors to define the relationship between evolutionary subjects and their analytical frameworks."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": NaN,
+    "n": 0
+   },
+   "3": {
+    "balanced_acc": 0.5625,
+    "tpr": 0.25,
+    "tnr": 0.875,
+    "n": 16
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": NaN,
+    "n": 0
+   },
+   "3": {
+    "balanced_acc": 0.6875,
+    "tpr": 0.375,
+    "tnr": 1.0,
+    "n": 16
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 0.0,
+   "tnr": 1.0,
+   "n": 10
+  }
+ },
+ {
+  "layer": 19,
+  "neuron": 4573,
+  "explanations": {
+   "0": "The important tokens are primarily proper nouns and specific relational markers that identify characters, groups, and pivotal narrative moments, serving as essential anchors for the story's identity and plot structure.",
+   "3": "The highlighted tokens consistently denote the agent or instrument performing an action within a passive voice context or describing the cause of an event. They appear immediately following verbs indicating death, defeat, or significant change, serving to identify who or what executed the action upon the subject."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.875,
+    "tpr": 0.875,
+    "tnr": 0.875,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.5625,
+    "tpr": 0.25,
+    "tnr": 0.875,
+    "n": 16
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.8125,
+    "tpr": 0.875,
+    "tnr": 0.75,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 16
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 0.0,
+   "tnr": 1.0,
+   "n": 16
+  }
+ },
+ {
+  "layer": 19,
+  "neuron": 3716,
+  "explanations": {
+   "0": "The text latents commonly identify critical technical concepts related to signal processing, timing, and system synchronization, specifically highlighting terms like \"sampling,\" \"synchronization,\" \"signal,\" and \"timed\" which denote precise control points in engineering and networking contexts.",
+   "3": "The highlighted tokens primarily serve as grammatical anchors that instantiate singular technical entities or define states of uniformity within complex systems. The token \"a\" repeatedly introduces specific mechanisms, signals, or actions, grounding abstract concepts into countable instances. Meanwhile, \"same\" and \"are\" function to establish system-wide consistency or describe sequential states, respectively. Collectively, these words act as essential bridges that connect high-level technical descriptions to concrete, operational realities."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.625,
+    "tpr": 0.25,
+    "tnr": 1.0,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 1.0,
+    "tnr": 0.0,
+    "n": 10
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.6666666666666667,
+    "tpr": 0.5,
+    "tnr": 0.8333333333333334,
+    "n": 10
+   },
+   "3": {
+    "balanced_acc": 0.375,
+    "tpr": 0.5,
+    "tnr": 0.25,
+    "n": 16
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 0.4,
+   "tnr": 0.6,
+   "n": 10
+  }
+ },
+ {
+  "layer": 17,
+  "neuron": 2523,
+  "explanations": {
+   "0": "The text latents common in the examples are causal connectors that explicitly link an observed phenomenon to its underlying source or reason. The pattern identified is the use of specific verbs and phrases (such as \"originated,\" \"attributed,\" \"caused,\" \"due,\" and \"rested\") to establish a definitive cause-and-effect relationship, thereby grounding the narrative logic by assigning responsibility or origin to a specific outcome across diverse domains like science, history, and economics.",
+   "3": "The identified latents are causal connectors that attribute an effect to a specific cause, mechanism, or source."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": NaN,
+    "n": 0
+   },
+   "3": {
+    "balanced_acc": NaN,
+    "n": 0
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": NaN,
+    "n": 0
+   },
+   "3": {
+    "balanced_acc": NaN,
+    "n": 0
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 0.0,
+   "tnr": 1.0,
+   "n": 16
+  }
+ },
+ {
+  "layer": 19,
+  "neuron": 4609,
+  "explanations": {
+   "0": "The common latent pattern across the examples is the selection of tokens that explicitly denote the event of marriage, union, or the specific act of getting married. These tokens serve as the central subject of the surrounding context, which discusses cultural traditions, logistical arrangements, religious ceremonies, and historical accounts of nuptials. The importance assigned to these words suggests a focus on the core concept of the marital event rather than peripheral details like participants, locations, or timing.",
+   "3": "The text latents commonly found in the examples center on the core concept of the wedding event, the specific identity of the bride, and the temporal or procedural markers that define the ceremony's context. These elements collectively establish the social, legal, or ritualistic framework of marriage across various cultural and historical narratives."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.9166666666666667,
+    "tpr": 0.8333333333333334,
+    "tnr": 1.0,
+    "n": 10
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 10
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": NaN,
+    "n": 0
+   },
+   "3": {
+    "balanced_acc": 0.9166666666666667,
+    "tpr": 0.8333333333333334,
+    "tnr": 1.0,
+    "n": 10
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 0.375,
+   "tnr": 0.625,
+   "n": 16
+  }
+ },
+ {
+  "layer": 18,
+  "neuron": 2141,
+  "explanations": {
+   "0": "The model identifies tokens that serve as delimiters for quoted content, song titles, direct speech, and specific technical values or units. These latents consistently mark the boundaries of discrete semantic entities, isolating titles, names, and numerical data from the surrounding narrative context.",
+   "3": "The identified latents consistently highlight critical semantic anchors including the boundaries of quoted text, specific numerical values, and proper nouns. These tokens function as precise delimiters for factual data and distinct linguistic units essential for maintaining sentence integrity and meaning."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.75,
+    "tpr": 1.0,
+    "tnr": 0.5,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.6875,
+    "tpr": 0.875,
+    "tnr": 0.5,
+    "n": 16
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.6875,
+    "tpr": 1.0,
+    "tnr": 0.375,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.6875,
+    "tpr": 1.0,
+    "tnr": 0.375,
+    "n": 16
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 0.0,
+   "tnr": 1.0,
+   "n": 16
+  }
+ },
+ {
+  "layer": 22,
+  "neuron": 2608,
+  "explanations": {
+   "0": "The text latents commonly involve national identifiers, superlative adjectives, and punctuation marks that define the scope of historical events, comparative statements, and narrative structure.",
+   "3": "The text latents commonly involve comparative or superlative modifiers (e.g., \"more,\" \"low,\" \"old\") that describe changes in quality, cost, efficiency, or reliability within a context of evaluation or contrast."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.6666666666666667,
+    "tpr": 0.5,
+    "tnr": 0.8333333333333334,
+    "n": 10
+   },
+   "3": {
+    "balanced_acc": 0.5416666666666667,
+    "tpr": 0.25,
+    "tnr": 0.8333333333333334,
+    "n": 10
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 10
+   },
+   "3": {
+    "balanced_acc": 0.875,
+    "tpr": 0.75,
+    "tnr": 1.0,
+    "n": 6
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5833333333333334,
+   "tpr": 0.16666666666666666,
+   "tnr": 1.0,
+   "n": 10
+  }
+ },
+ {
+  "layer": 21,
+  "neuron": 855,
+  "explanations": {
+   "0": "The identified latents correspond to the initial letter of a surname or proper noun situated within a citation or formal text, typically marking the beginning of a name that follows a comma or space.",
+   "3": "The model identifies proper nouns, specifically surnames of authors or recipients, often capturing the initial segment of the name before a hyphen or space, as well as specific punctuation marks like colons that introduce functional definitions."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": NaN,
+    "n": 0
+   },
+   "3": {
+    "balanced_acc": 0.6,
+    "tpr": 0.6,
+    "tnr": 0.6,
+    "n": 10
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.8,
+    "tpr": 0.6,
+    "tnr": 1.0,
+    "n": 10
+   },
+   "3": {
+    "balanced_acc": NaN,
+    "n": 0
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 0.0,
+   "tnr": 1.0,
+   "n": 16
+  }
+ },
+ {
+  "layer": 18,
+  "neuron": 1219,
+  "explanations": {
+   "0": "The highlighted tokens are predominantly nouns or noun phrases that serve as the semantic core of their respective clauses, often acting as the direct object of a verb or the object of a preposition. They consistently mark the endpoint of a syntactic unit or the introduction of a specific entity, emphasizing the most critical information within the sentence structure.",
+   "3": "The identified tokens represent the semantic focal points of their respective contexts, typically serving as the primary subject, object, or referent that carries the most critical information within the sentence structure."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 6
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 1.0,
+    "tnr": 0.0,
+    "n": 6
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 1.0,
+    "tnr": 0.0,
+    "n": 16
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 0.0,
+   "tnr": 1.0,
+   "n": 16
+  }
+ },
+ {
+  "layer": 23,
+  "neuron": 1745,
+  "explanations": {
+   "0": "The highlighted tokens consistently mark the core subject nouns or proper nouns that define specific medical conditions, legal concepts, or historical entities, as well as the definite article \"the\" when it introduces a critical concept. These selections indicate a focus on the most semantically dense words that serve as the primary identifier for a definition or a specific named entity within the text.",
+   "3": "The identified latents consistently highlight word suffixes that are crucial for grammatical agreement (e.g., plural markers) or carry essential semantic meaning (e.g., specific chemical groups or abstract concepts), serving as key anchors for syntactic parsing and semantic interpretation across diverse languages."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": NaN,
+    "n": 0
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 16
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.6875,
+    "tpr": 0.5,
+    "tnr": 0.875,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 16
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.20833333333333331,
+   "tpr": 0.25,
+   "tnr": 0.16666666666666666,
+   "n": 10
+  }
+ },
+ {
+  "layer": 21,
+  "neuron": 4673,
+  "explanations": {
+   "0": "The identified tokens serve as structural connectors that link two distinct semantic units within a sentence, often marking transitions between contrasting ideas, sequential events, or related categories. Their presence is crucial for maintaining logical coherence, as they signal the relationship between the preceding context and the following clause, ensuring the model correctly interprets the flow of information from one concept to another.",
+   "3": "The text latents common in the examples are words that function as crucial semantic anchors, specifically those defining scope, establishing connections, indicating sequence, or specifying agency. These tokens transform general statements into precise assertions by highlighting the extent of a phenomenon, the nature of a relationship between concepts, or the specific context in which an event occurs."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 1.0,
+    "tnr": 0.0,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 1.0,
+    "tnr": 0.0,
+    "n": 16
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.375,
+    "tpr": 0.25,
+    "tnr": 0.5,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 1.0,
+    "tnr": 0.0,
+    "n": 16
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.25,
+   "tpr": 0.125,
+   "tnr": 0.375,
+   "n": 16
+  }
+ },
+ {
+  "layer": 19,
+  "neuron": 233,
+  "explanations": {
+   "0": "The highlighted tokens consistently represent definitive spatial anchors or central entities, such as specific locations, celestial bodies, or origins, which serve as the primary reference points for describing relationships of distance, direction, or containment within the text.",
+   "3": "The highlighted tokens are primarily functional words (determiners, pronouns, prepositions) that serve as essential grammatical anchors for establishing spatial, temporal, and logical relationships within the text. Their significance indicates that the model depends on these elements to maintain syntactic coherence and accurately interpret the context of surrounding information, especially when describing scientific facts, geographical locations, or narrative progression."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 10
+   },
+   "3": {
+    "balanced_acc": 0.625,
+    "tpr": 0.25,
+    "tnr": 1.0,
+    "n": 16
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.75,
+    "tnr": 0.25,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 16
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 0.0,
+   "tnr": 1.0,
+   "n": 16
+  }
+ },
+ {
+  "layer": 23,
+  "neuron": 2886,
+  "explanations": {
+   "0": "The highlighted tokens represent the terminal characters or substrings of the last author's surname in various academic citation lists, frequently appearing immediately before punctuation marks or at the end of the name sequence.",
+   "3": "The model identifies and highlights specific character sequences within proper names, particularly focusing on the middle or end portions of surnames and given names in lists of authors and contributors. These selections target distinctive character combinations that define individual identities within academic or professional contexts."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": NaN,
+    "n": 0
+   },
+   "3": {
+    "balanced_acc": NaN,
+    "n": 0
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 6
+   },
+   "3": {
+    "balanced_acc": NaN,
+    "n": 0
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 0.0,
+   "tnr": 1.0,
+   "n": 16
+  }
+ },
+ {
+  "layer": 21,
+  "neuron": 3128,
+  "explanations": {
+   "0": "The text latents commonly describe technological mediums like software and computer-based systems, logical connectors for alternatives, and actions of departure.",
+   "3": "The highlighted tokens serve as essential semantic anchors that define the nature of statistical metrics, specify technical tools or mediums, and clarify the properties of variables or results within the context of data analysis and scientific reporting."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": NaN,
+    "n": 0
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 16
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.5833333333333334,
+    "tpr": 0.16666666666666666,
+    "tnr": 1.0,
+    "n": 10
+   },
+   "3": {
+    "balanced_acc": 0.5416666666666666,
+    "tpr": 0.3333333333333333,
+    "tnr": 0.75,
+    "n": 10
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 0.0,
+   "tnr": 1.0,
+   "n": 10
+  }
+ },
+ {
+  "layer": 23,
+  "neuron": 3307,
+  "explanations": {
+   "0": "The text latents common in the examples are possessive markers and demonstrative pronouns that attribute specific stances, beliefs, or actions to particular agents, often marking the boundary between the subject and their specific viewpoint or historical record.",
+   "3": "The highlighted tokens consistently serve as attributive markers that specify the source, ownership, or ideological alignment of a position, policy, or argument. They frequently modify nouns representing entities or abstract concepts to explicitly link the surrounding text to a specific actor or perspective, thereby clarifying agency within complex narratives."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.125,
+    "tnr": 0.875,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 16
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 1.0,
+    "tnr": 0.0,
+    "n": 10
+   },
+   "3": {
+    "balanced_acc": 0.5625,
+    "tpr": 0.125,
+    "tnr": 1.0,
+    "n": 16
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.6875,
+   "tpr": 0.875,
+   "tnr": 0.5,
+   "n": 16
+  }
+ },
+ {
+  "layer": 16,
+  "neuron": 2427,
+  "explanations": {
+   "0": "The identified latents consistently highlight tokens that serve as syntactic or semantic anchors, specifically marking the conclusion of clauses, the resolution of prepositional phrases, or the introduction of new subjects. These patterns indicate a focus on structural boundaries where the model assigns higher importance to the completion of a thought or the transition between distinct ideas.",
+   "3": "The important tokens consistently mark the specific subjects, temporal boundaries, and logical connectors that define the scope and causality of reported findings, statistics, or qualitative observations."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.3,
+    "tpr": 0.0,
+    "tnr": 0.6,
+    "n": 10
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 10
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.8,
+    "tnr": 0.2,
+    "n": 10
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 1.0,
+   "tnr": 0.0,
+   "n": 6
+  }
+ },
+ {
+  "layer": 23,
+  "neuron": 4731,
+  "explanations": {
+   "0": "The highlighted tokens are primarily prepositions and articles that serve to introduce specific examples, categories, or comparative elements, acting as essential grammatical bridges that define the scope of preceding statements and link them to subsequent details.",
+   "3": "The highlighted tokens consistently initiate noun phrases or prepositional phrases that serve as modifiers or complements, introducing specific entities, categories, or conditions essential to the sentence's meaning."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 6
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.375,
+    "tpr": 0.25,
+    "tnr": 0.5,
+    "n": 16
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.6,
+   "tpr": 0.2,
+   "tnr": 1.0,
+   "n": 10
+  }
+ },
+ {
+  "layer": 19,
+  "neuron": 321,
+  "explanations": {
+   "0": "The text latents commonly encode the semantic concepts of \"occurrence\" and \"influence,\" specifically when these terms refer to the tracking, recording, or erasing of instances in technical contexts, or when they denote factors shaping strategies and outcomes in ecological and financial domains.",
+   "3": "The text latents commonly associated with the examples are the semantic roots of academic and logical terminology, specifically focusing on the concepts of citation, formal gatherings, causal reasoning, and derived outcomes. The patterns indicate a strong emphasis on the structural components of scholarly discourse, where the identification of words like \"reference,\" \"conference,\" \"influence,\" \"inference,\" and \"consequence\" serves as a marker for the text's engagement with documentation, event reporting, and logical analysis."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.5625,
+    "tpr": 0.125,
+    "tnr": 1.0,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.375,
+    "tpr": 0.0,
+    "tnr": 0.75,
+    "n": 6
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 6
+   },
+   "3": {
+    "balanced_acc": 0.5833333333333334,
+    "tpr": 0.16666666666666666,
+    "tnr": 1.0,
+    "n": 10
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 1.0,
+   "tnr": 0.0,
+   "n": 6
+  }
+ },
+ {
+  "layer": 20,
+  "neuron": 5480,
+  "explanations": {
+   "0": "The important tokens consistently represent the central subject, defining adjective, or critical quantifier that anchors the semantic meaning of the sentence, such as \"money,\" \"black hole,\" \"luminous,\" or \"much.\" These latents capture the most information-dense elements required to understand the main argument or factual claim.",
+   "3": "The important tokens consistently mark specific entities, precise values, or critical qualifiers that define the scope, identity, or magnitude of the surrounding context, serving as essential anchors for semantic precision in both technical and narrative descriptions."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": NaN,
+    "n": 0
+   },
+   "3": {
+    "balanced_acc": NaN,
+    "n": 0
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": NaN,
+    "n": 0
+   },
+   "3": {
+    "balanced_acc": NaN,
+    "n": 0
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 0.0,
+   "tnr": 1.0,
+   "n": 16
+  }
+ },
+ {
+  "layer": 16,
+  "neuron": 1902,
+  "explanations": {
+   "0": "The common latent pattern is the use of negation to explicitly deny a causal or associative link between two concepts, often to correct a misconception or clarify that a superficial similarity is irrelevant to the actual subject matter.",
+   "3": "The model frequently selects tokens that negate inherent connections, essential qualities, or fundamental attributes between distinct concepts, serving to debunk misconceptions or clarify definitions by asserting that no intrinsic link or shared essence exists between the subjects being compared."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": NaN,
+    "n": 0
+   },
+   "3": {
+    "balanced_acc": 0.8333333333333333,
+    "tpr": 0.6666666666666666,
+    "tnr": 1.0,
+    "n": 10
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.75,
+    "tpr": 0.5,
+    "tnr": 1.0,
+    "n": 10
+   },
+   "3": {
+    "balanced_acc": NaN,
+    "n": 0
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 0.0,
+   "tnr": 1.0,
+   "n": 16
+  }
+ },
+ {
+  "layer": 23,
+  "neuron": 3431,
+  "explanations": {
+   "0": "The text latents commonly mark the initial letter of proper nouns and acronyms (e.g., Gartner, GCSE) and the verb \"plan\" when it signifies a critical preparatory action, serving as semantic anchors that introduce specific theorems, cultural concepts, or logistical necessities.",
+   "3": "The highlighted tokens represent specific proper nouns, geographical locations, academic levels, and technical terms that serve as key identifiers within their contexts, indicating a pattern where the model prioritizes semantic specificity and entity recognition over generic functional words."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 10
+   },
+   "3": {
+    "balanced_acc": 0.625,
+    "tpr": 0.25,
+    "tnr": 1.0,
+    "n": 16
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 10
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 10
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 0.0,
+   "tnr": 1.0,
+   "n": 16
+  }
+ },
+ {
+  "layer": 17,
+  "neuron": 3106,
+  "explanations": {
+   "0": "The highlighted tokens consistently demarcate proper nouns, specific dates, and technical identifiers, indicating a pattern where the model isolates entities with high semantic specificity from surrounding generic text.",
+   "3": "The highlighted tokens consistently demarcate the boundaries of specific semantic units, including prepositional phrases, compound nouns, appositives, and punctuation-delimited clauses. These delimiters are critical for the model to accurately parse sentence structure, identify the full extent of named entities or descriptive phrases, and distinguish between distinct logical components such as titles, lists, or conditional statements."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.7,
+    "tpr": 0.4,
+    "tnr": 1.0,
+    "n": 10
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 1.0,
+    "tnr": 0.0,
+    "n": 10
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 10
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 10
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 0.0,
+   "tnr": 1.0,
+   "n": 16
+  }
+ },
+ {
+  "layer": 23,
+  "neuron": 3848,
+  "explanations": {
+   "0": "The highlighted tokens primarily serve to anchor factual assertions by specifying spatial or temporal locations (e.g., \"on\"), establishing superlatives or primary causes (e.g., \"most\"), and linking specific instances to broader contexts or mechanisms (e.g., \"part,\" \"in\"). These elements function to define the scope, duration, and causal relationships within the text.",
+   "3": "The identified latents consistently mark the syntactic boundaries of prepositional phrases, appearing immediately before or after articles and prepositions that introduce contextual details regarding location, time, or manner. These tokens function as structural connectors that link main clauses to their modifying elements, highlighting the linguistic mechanisms used to elaborate on actions and subjects with specific conditions or settings."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.75,
+    "tpr": 0.5,
+    "tnr": 1.0,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 6
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": NaN,
+    "n": 0
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 10
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 0.0,
+   "tnr": 1.0,
+   "n": 10
+  }
+ },
+ {
+  "layer": 16,
+  "neuron": 3017,
+  "explanations": {
+   "0": "The text latents emphasize personal agency and ownership in health, consistently linking individuals to their bodies, mental states, and wellness through possessive pronouns to reinforce the idea of active responsibility.",
+   "3": "The text latents commonly emphasize the personalization of health concepts by linking general well-being to specific body parts, individual agency, and the integration of physical, mental, and emotional states."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 1.0,
+    "tpr": 1.0,
+    "tnr": 1.0,
+    "n": 16
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.875,
+    "tpr": 0.75,
+    "tnr": 1.0,
+    "n": 6
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 0.0,
+   "tnr": 1.0,
+   "n": 16
+  }
+ },
+ {
+  "layer": 22,
+  "neuron": 3323,
+  "explanations": {
+   "0": "The identified latents consistently mark the translation of objective conditions into subjective human experiences, specifically focusing on the intensity of symptoms, the nature of physical sensations, and the individual directly affected by those states.",
+   "3": "The highlighted tokens consistently mark the subject's internal state or the intensity of a negative physical or emotional reaction, such as sickness, discomfort, or unfitness, often serving as intensifiers or reflexive links between an external cause and the resulting feeling."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.6875,
+    "tpr": 0.375,
+    "tnr": 1.0,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 16
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 10
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 16
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 0.0,
+   "tnr": 1.0,
+   "n": 10
+  }
+ },
+ {
+  "layer": 18,
+  "neuron": 235,
+  "explanations": {
+   "0": "The text latents commonly describe mathematical or computational constraints where an operation becomes undefined or invalid, specifically focusing on division by zero, singular matrices, and domain errors.",
+   "3": "The text latents common in the examples describe conditions leading to undefined states, division by zero, or invalid parameters that trigger errors."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.6875,
+    "tpr": 0.375,
+    "tnr": 1.0,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.8333333333333333,
+    "tpr": 1.0,
+    "tnr": 0.6666666666666666,
+    "n": 10
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 1.0,
+    "tpr": 1.0,
+    "tnr": 1.0,
+    "n": 10
+   },
+   "3": {
+    "balanced_acc": 0.875,
+    "tpr": 0.75,
+    "tnr": 1.0,
+    "n": 16
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.5,
+   "tpr": 1.0,
+   "tnr": 0.0,
+   "n": 6
+  }
+ },
+ {
+  "layer": 20,
+  "neuron": 2941,
+  "explanations": {
+   "0": "The identified latents function as structural delimiters that frame the core subject or predicate of a sentence, signaling the onset or termination of a distinct logical unit, such as a new argument, a list item, or a specific definition.",
+   "3": "The selected tokens consistently represent the definite article \"the\" or \"The,\" which serves as a critical syntactic pivot to introduce specific subjects or initiate new clauses. Across diverse contexts ranging from economic policy and historical narratives to scientific analysis and religious texts, this token functions to anchor the reader's attention to the primary topic of the sentence. The uniform high importance score indicates that the model identifies the definite article as a key marker for thematic focus and structural definition within the text."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.25,
+    "tpr": 0.0,
+    "tnr": 0.5,
+    "n": 6
+   },
+   "3": {
+    "balanced_acc": 0.75,
+    "tpr": 1.0,
+    "tnr": 0.5,
+    "n": 16
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.4375,
+    "tpr": 0.0,
+    "tnr": 0.875,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.75,
+    "tpr": 0.625,
+    "tnr": 0.875,
+    "n": 16
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.4375,
+   "tpr": 0.0,
+   "tnr": 0.875,
+   "n": 16
+  }
+ },
+ {
+  "layer": 18,
+  "neuron": 1327,
+  "explanations": {
+   "0": "The examples reveal a strong semantic clustering around the mechanisms of disease transmission and infection, with high importance placed on terms like \"transmitted,\" \"infection,\" and specific vectors such as mosquitoes or direct contact. A secondary, distinct pattern emerges in technical contexts involving the prefix \"multi-\" to describe complex data structures and classification tasks.",
+   "3": "The text latents associated with the selected tokens represent the concept of \"multi-\" or \"multiple\" in technical and mathematical contexts. These patterns emerge when the text describes systems, variables, or operations that involve more than one dimension, entity, or component, such as multicore processing, multichannel signals, multiline text, multivariable calculus, and multilinear operators. The presence of these tokens signals a shift from singular or simple cases to generalized, complex, or composite structures."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.125,
+    "tnr": 0.875,
+    "n": 16
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 6
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.75,
+    "tpr": 1.0,
+    "tnr": 0.5,
+    "n": 6
+   },
+   "3": {
+    "balanced_acc": NaN,
+    "n": 0
+   }
+  },
+  "shuffled": {
+   "balanced_acc": NaN,
+   "n": 0
+  }
+ },
+ {
+  "layer": 20,
+  "neuron": 5341,
+  "explanations": {
+   "0": "The identified latents consistently precede words that initiate prepositional phrases or relative clauses, serving as the trigger for explanatory modifiers that specify causes, locations, structural changes, or agents within the sentence structure.",
+   "3": "The highlighted tokens consistently function as grammatical introducers for specific agents, causes, or entities that define the core subject of the following clause. They appear immediately before nouns or relative pronouns that attribute responsibility, describe a mechanism, or specify a type, serving as critical pivot points where the text transitions from general context to a precise explanation or consequence."
+  },
+  "same_loop": {
+   "0": {
+    "balanced_acc": NaN,
+    "n": 0
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 6
+   }
+  },
+  "cross_loop": {
+   "0": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 6
+   },
+   "3": {
+    "balanced_acc": 0.5,
+    "tpr": 0.0,
+    "tnr": 1.0,
+    "n": 6
+   }
+  },
+  "shuffled": {
+   "balanced_acc": 0.6,
+   "tpr": 0.2,
+   "tnr": 1.0,
+   "n": 10
+  }
+ }
+]
