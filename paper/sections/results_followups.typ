@@ -5,20 +5,21 @@ These analyses use 60 held-out prompts, 1 sample each.
 1.4–3.7× the largest off-diagonal entry (@fig:spec). The smallest margin pairs the forum "accepted answer" neuron with
 the programming concept, an overlap that is plausible for Q&A text.
 
-*Dose-response.* $Delta C$ rises with $alpha$ and then plateaus, as the sandwich-norm bound predicts (dips of at most
-0.011, inside the CIs, make the rise not strictly monotone).
-Neurons with larger $c^* \/ max|a|$ (2.2–2.6) keep rising up to $alpha = 8$–$16$; those near 1 plateau from
-$alpha approx 2$–$4$. Clamping to the opposite sign does not steer toward the concept ($|Delta C| <= 0.04$; four of twelve conditions have
-a small negative effect whose CI excludes 0), so each concept lives on one pole.
+*Dose-response.* $Delta C$ rises with $alpha$ and then levels off for four of six neurons, qualitatively as the
+sandwich-norm bound predicts; no curve was fitted (dips of at most 0.011, inside the CIs, make the rise not strictly
+monotone). Neurons with larger $c^* \/ max|a|$ (2.2–2.6) are still rising at $alpha = 16$; those near 1 plateau from
+$alpha approx 2$–$8$. Clamping to the opposite sign does not steer toward the concept ($|Delta C| <= 0.04$; four of twelve conditions have
+a small negative effect whose CI excludes 0), consistent with each concept being carried by one pole.
 Perplexity ratio exceeds 2 for most neurons at $alpha >= 4$.
 
 *Loop locus (H2).* Clamping a single loop barely steers: $Delta C <= 0.043$, against 0.13–0.17 for all four loops, for
 the five confirmed neurons. The four single-loop effects sum to −2% to 30% of the all-loop effect for four of them (76% for L13 N1680).
 - Steering in a looped model is therefore strongly super-additive across loops. One injection is largely undone by the
-  following loops, consistent with self-repair @nesiacel2026recurrent @mcgrath2023hydra.
+  following loops, consistent with self-repair (suggested for Ouro by @nesiacel2026recurrent; shown for feedforward
+  models by @mcgrath2023hydra).
 - The exploratory if-statement neuron is the exception. Its last loop alone gives 56% of the full effect
   ($Delta C = 0.176$, $p = 1.7 times 10^(-10)$), while loops 1–3 give nothing, matching the last-loop advantage reported
-  for residual-direction steering of Ouro @nesiacel2026recurrent.
+  for residual-direction steering of Ouro-1.4B-Thinking @nesiacel2026recurrent.
 - Clamping at loop 4 moves the final hidden state most (relative displacement 0.20–0.47, against 0.12–0.23 at loops 1–3).
 
 *Test-time loops (H3).* Clamping at every loop while running $T = 1..8$:
@@ -60,7 +61,7 @@ sensitive evidence.
   contain function words and punctuation (the non-duality neuron's list is almost only function words), so this is a
   peak-context vocabulary rather than a curated concept vocabulary.
 - *Self-repair ratio.* A clamp at loop 1, 2 or 3 leaves 33–78% of its immediate residual displacement at the output
-  (six neurons, including the exploratory one), while a clamp at loop 4 leaves 67–126% (above 100% for four of six). Later loops thus actively shrink earlier injections, quantifying the
+  (six neurons, including the exploratory one), while a clamp at loop 4 leaves 67–126% (above 100% for four of six). Later loops thus shrink earlier injections, quantifying the
   super-additivity above.
 - *Silencing.* Holding a neuron at 0 during generation does not change the concept score ($|Delta C| <= 0.005$).
 - *Saturation in $T$.* Next-token KL saturates with the number of loops ($tau approx 2$–$4$ loops, $R^2 = 0.90$–$0.99$, five confirmed neurons),
