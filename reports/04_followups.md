@@ -95,6 +95,23 @@ Each neuron is set to 0 at all loops on its held-out top contexts (atlas ranks 2
 - L6 N3344: ablation *improves* prediction (z = −8.9). The neuron is sufficient to steer toward its concept but works against the actual continuations in its top contexts.
 - L13 N1680: no necessity effect.
 
+## 6. LLM judge (secondary, pre-registered)
+- **Setup:** a local Qwen3.5-9B with the AxBench concept and fluency templates (0–2). It rated continuations of the first 50 confirm prompts, unsteered and steered at each neuron's pre-registered α. Each continuation was judged in its own call, in shuffled order, so the judge was blind to condition.
+- **Files:** `results/Ouro-1.4B/llm_judge.json` and `llm_judge_texts.json` (all continuations). The log has every judge prompt and output.
+
+| neuron | concept rating unsteered → steered | one-sided Wilcoxon p (Holm) | fluency unsteered → steered [95% CI of Δ] |
+|---|---|---|---|
+| L18 N3066 − | 0.00 → 0.26 | 0.0031 (0.0062) | 1.50 → 1.14 [−0.60, −0.12] |
+| L13 N1680 + | 0.00 → 0.24 | 0.00067 (0.0027) | 1.50 → 1.12 [−0.60, −0.16] |
+| L4 N2104 + | 0.02 → 0.26 | 0.00067 (0.0027) | 1.50 → 1.17 [−0.54, −0.13] |
+| L6 N3344 − | 0.00 → 0.06 | 0.042 (0.042) | 1.50 → 0.90 [−0.86, −0.34] |
+| L18 N1735 − | 0.00 → 0.36 | 0.00014 (0.0007) | 1.50 → 1.10 [−0.63, −0.16] |
+
+- The judge agrees with the embedding metric for all five neurons: the concept rating increases, and all pass Holm.
+- It is strict (ratings are rarely above 0), so absolute values are low.
+- The forum-answer neuron, the most abstract concept, is weakest by this measure.
+- Fluency drops by 0.33–0.60 points on the 0–2 scale, consistent with the perplexity ratios.
+
 ## Learnings
 - **Steering effect and necessity can come apart** (L6 N3344, L13 N1680). Sufficiency (steering) and necessity (ablation) should be reported separately.
 - **Steering requires repeated injection.** A looped model mostly undoes a single-loop injection of one neuron, so neuron steering in looped models should clamp at every loop.
