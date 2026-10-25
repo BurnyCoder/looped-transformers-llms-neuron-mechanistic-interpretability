@@ -27,7 +27,7 @@ from loopneuron.model import load_model
 
 PHASES = ["setup_check", "build_atlas", "screen_candidates", "validate_candidates", "label_candidates", "preregister",
           "confirm_steering",
-          "followups", "llm_judge", "audit", "extras", "replicate", "report", "publish"]
+          "followups", "llm_judge", "audit", "extras", "replicate", "replicate_fresh", "report", "publish"]
 
 
 class Ctx:
@@ -305,6 +305,21 @@ def replicate(c: Ctx) -> None:
                                                   for r in focus}, **res})
 
 
+def replicate_fresh(c: Ctx) -> None:
+    """Replication on Ouro-1.4B-Thinking with FRESH prompts (the unused reserve split) and fresh seeds."""
+    from loopneuron.confirm import confirm
+
+    scr, pre = c.read("screen.json"), c.read("candidates.json")
+    cands = [{k: r[k] for k in ("key", "layer", "neuron", "pole", "alpha")} for r in _focus(c, exploratory=False)]
+    c.free_model()
+    model, _ = load_model(c.s.repl_model_id, c.s.repl_model_revision, ut_steps=c.s.ut_steps)
+    prompts = c.prompts("reserve")[: pre["n_prompts"]]  # never used before (no second confirmatory round was needed)
+    res = confirm(model, c.tok, c.atlas, c.chunks("atlas"), cands, scr["u"], scr["rand_mean"], prompts, c.s.ut_steps,
+                  pre["seed"] + 6000, pre["k"], pre["n_tokens"], 20, c.log, c.out, "replication_fresh_examples.jsonl")
+    c.write("replication_fresh.json", {"model": c.s.repl_model_id, "revision": c.s.repl_model_revision,
+                                       "prompt_split": "reserve", **res})
+
+
 def report(c: Ctx) -> None:
     """Figures from results JSON + HTML viewer pages for every screened candidate."""
     from loopneuron.plots import all_figures
@@ -331,6 +346,16 @@ def report(c: Ctx) -> None:
                     c.s.ut_steps, info, vdir / f)
         entries.append((f, f'L{cand["layer"]} N{cand["neuron"]} {"+" if cand["pole"] == 0 else "-"}: {cand.get("label", "")}'))
     index_page(entries, vdir / "index.html")
+    from loopneuron import contexts as cx
+    from loopneuron.plots import neuron_loops
+
+    for r in [r for r in conf.values() if r.get("significant")]:  # static per-loop heatmap of each confirmed neuron
+        s, p, _, _ = cx.neuron_entries(c.atlas, r["layer"], r["pole"], r["neuron"], k=1)[0]
+        acts = cx.token_activations(c.model, c.chunks("atlas"), [s], r["layer"], r["neuron"], c.s.ut_steps)[0]
+        lo, hi = max(0, p - 20), min(c.s.seq_len, p + 6)
+        toks = [c.tok.decode([t]) for t in c.chunks("atlas")[s, lo:hi].tolist()]
+        neuron_loops(toks, acts[:, lo:hi], f'L{r["layer"]} N{r["neuron"]} {"+" if r["pole"] == 0 else "−"}: '
+                     f'activation per loop on its top context', base / "figures" / f'neuron_loops_{r["key"]}.png')
 
 
 HF_DATASET = "BurnyCoder/ouro-1.4b-neuron-atlas"
