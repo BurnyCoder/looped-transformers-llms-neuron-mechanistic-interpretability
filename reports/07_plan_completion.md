@@ -10,20 +10,20 @@ Each set uses 100 confirm prompts, k = 1 sample, and seeds 5234, 6234 and 7234, 
 | neuron | ΔC, seed set 1 | ΔC, seed set 2 | ΔC, seed set 3 | largest p (Wilcoxon) |
 |---|---|---|---|---|
 | L18 N3066 − | 0.141 | 0.165 | 0.155 | 1.7e-11 |
-| L13 N1680 + | 0.151 | 0.132 | 0.153 | 9.1e-14 |
+| L13 N1680 + | 0.150 | 0.132 | 0.153 | 9.1e-14 |
 | L4 N2104 + | 0.129 | 0.136 | 0.139 | 7.5e-15 |
 | L6 N3344 − | 0.181 | 0.160 | 0.158 | 9.1e-16 |
 | L18 N1735 − | 0.119 | 0.113 | 0.113 | 2.9e-08 |
 
-The effect is stable across sampling seeds. The spread between seed sets is 0.006–0.024 ΔC, against effects of 0.11–0.18. All 15 tests give p ≤ 2.9e-8. Bootstrap CIs are in `extras.json`.
+The effect is stable across sampling seeds. The spread between seed sets is 0.007–0.024 ΔC, against effects of 0.11–0.18. All 15 tests give p ≤ 2.9e-8. Bootstrap CIs are in `extras.json`.
 
 ## 2. Dose α = 0 (neuron held at 0 during generation; 60 prompts)
-ΔC = −0.001, +0.001, +0.002, −0.001 and −0.005 for the five neurons, with all p ≥ 0.38.
+ΔC = −0.001, +0.000, +0.002, −0.000 and −0.005 for the five neurons (all |ΔC| ≤ 0.005), with all p ≥ 0.38.
 
 Silencing a neuron does not reduce the concept score on these neutral prompts. This is expected, since the unsteered continuations carry almost none of the concept. The steering effect comes from turning the neuron *up*, and the opposite-sign clamps in [Experiment 4](04_followups.md) agree.
 
 ## 3. Concept-token probability shift (teacher-forced)
-**Keywords** are the 20 tokens most over-represented within ±3 tokens of the neuron's top-40 atlas peaks, relative to 5,000 random windows (smoothed log-odds).
+**Keywords** are up to 20 tokens most over-represented within ±3 tokens of the neuron's top-40 atlas peaks, relative to 5,000 random windows (smoothed log-odds; tokens seen fewer than 3 times near the peaks are skipped, so the lists have 19, 17, 20, 20 and 20 tokens). The lists include function words and punctuation (e.g. " the", ",", "."), so they are a peak-context vocabulary, not a curated concept vocabulary (`extras.json` `concept_tokens[*].keywords`).
 
 **Measurement.** On prompt + unsteered continuation (100 prompts), we compare the mean log of the total next-token probability on those keywords with the neuron clamped vs not.
 
@@ -33,9 +33,9 @@ Silencing a neuron does not reduce the concept score on these neutral prompts. T
 | L13 N1680 + | nothing, being, but, which, one, is, it | +0.45 [0.40, 0.49] | 2.0e-18 |
 | L4 N2104 + | pedagogy, pedagogical, Pedagog, agog, Content, instruction, knowledge | +0.49 [0.44, 0.54] | 2.0e-18 |
 | L6 N3344 − | ikes, Like, ADD, Enter, answers, answer | +0.94 [0.84, 1.04] | 1.9e-18 |
-| L18 N1735 − | orbit, outermost, shell, orbital, s, d | +0.83 [0.75, 0.91] | 1.9e-18 |
+| L18 N1735 − | orbit, outermost, shell, orbital, als, s, d | +0.83 [0.75, 0.91] | 1.9e-18 |
 
-- Clamping one neuron multiplies the probability mass on its concept vocabulary by e^0.45 to e^0.94, i.e. 1.6–2.6×, at every position.
+- Clamping one neuron multiplies the probability mass on its keyword set by e^0.45 to e^0.94, i.e. 1.6–2.6× (a geometric mean over positions and prompts, since Δ is a mean of log-probabilities).
 - This is a direct, LLM-free and embedding-free confirmation of the steering effect at the level of next-token predictions.
 - L13 N1680's keywords are mostly function words ("nothing, being, which, one"). Its top contexts are abstract philosophical prose whose distinctive words are spread out, not concentrated near the peak, so its token-level signal is the least specific.
 
@@ -54,9 +54,9 @@ For a clamp at a single loop t, on 60 prompts, teacher-forced:
 | L18 N1735 − | 0.51 | 0.43 | 0.45 | 1.19 |
 | L19 N3901 − (exploratory) | 0.40 | 0.33 | 0.41 | 1.17 |
 
-- An injection at loops 1–3 shrinks to 33–78% of its size by the time it reaches the output, with the minimum usually at loop 2. An injection at the last loop is kept or amplified (67–126%).
+- An injection at loops 1–3 shrinks to 33–78% of its size by the time it reaches the output, with the minimum usually at loop 2. An injection at the last loop is kept or amplified for 4 of 6 neurons (114–126%); for L4 N2104 and L6 N3344 it still shrinks, to 71% and 67%.
 - This quantifies the self-repair inferred from behavior in [Experiment 4](04_followups.md): later loops actively shrink the perturbation left by an earlier loop.
-- It still leaves a 22–67% residue. The residue is not enough to steer behavior from a single loop, but repeated injection at every loop accumulates.
+- Loops 1–3 still leave 33–78% of the injection (22–67% is removed). The residue is not enough to steer behavior from a single loop, but repeated injection at every loop accumulates.
 
 ## 5. Saturation fit of the T sweep (H3)
 We fit y(T) = a − b·exp(−T/τ) to the T-sweep data (T = 1…8) with `scipy.optimize.curve_fit`.
@@ -70,7 +70,7 @@ We fit y(T) = a − b·exp(−T/τ) to the T-sweep data (T = 1…8) with `scipy.
 | L18 N1735 − | 2.5, 0.99 | 0.34 (degenerate fit) |
 | L19 N3901 − (expl.) | 0.5, 0.97 | 0.31 |
 
-- The **mechanistic effect** (KL) saturates with the number of loops, with a time constant of about 2–4 loops. Clamping at more loops helps, but with diminishing returns.
+- The **mechanistic effect** (KL) saturates with the number of loops, with a time constant of about 2–4 loops for the five confirmed neurons (0.5 for L19 N3901). Clamping at more loops helps, but with diminishing returns.
 - The **behavioral effect** (ΔC) is already near its plateau at T = 1–2, so a saturating curve explains little variance.
 
 ## 6. Interpretability audit: Wilson 95% CIs (H4)
@@ -78,13 +78,13 @@ Share of neurons whose same-loop explanation reaches detection balanced accuracy
 - **loop 1:** 32/128 = 25% [18%, 33%];
 - **loop 4:** 28/135 = 21% [15%, 28%].
 
-The earlier reports said 21% and 19% because they counted unparsable neurons as failures; those reports have been corrected. Goodfire's ≈ 90% "one main job" figure for Qwen3-32B comes from a different procedure, a stronger explainer plus human audits, and is not comparable.
+The earlier reports said 21% and 19% because they counted unparsable neurons as failures; those reports have been corrected. Goodfire's ≈ 90% "one main job" figure for Qwen3-32B comes from Goodfire's "preliminary audits" of that model ([Cammarata 2026](https://already-clean.goodfire.com/)), a different procedure, and is not comparable.
 
 ## 7. Positional-neuron check (planned screening filter, done post hoc)
 For all 10 validated candidates:
 - top-40 peaks span positions 4–255 of the 256-token chunks;
 - 35–38 distinct positions are used;
-- no single position holds more than 7% of the peaks.
+- no single position holds more than 3 of the 40 peaks (7.5%, L6 N3344; `extras.json` `positional`).
 
 None is a positional neuron, so the missing filter did not affect the selection.
 

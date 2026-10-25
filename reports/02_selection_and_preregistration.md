@@ -14,7 +14,7 @@ Only discovery prompts were used: 150 stems, of which 1–25 are for screening a
 4. **Eligibility and K.** A unit is eligible if mean ΔC > 0, median ΔNLL ≤ log 2, and median steered distinct-2 ≥ 0.6. The K = 5 eligible units with the largest validation d_z are kept.
    - K ≤ 5 is forced by the permutation test: the smallest attainable p with R = 100 random neurons is 1/101 = 0.0099, and that must be ≤ 0.05/K.
 5. **Labels.** The local Qwen3.5-9B (llama.cpp) labels the units from their top-20 marked contexts, using the Delphi explainer prompt ([Paulo et al. 2024](https://arxiv.org/abs/2410.13928)). Labels are for documentation and the LLM judge only. The primary metric uses no LLM.
-6. **Power.** One-sided paired test at α = 0.05/5, power 0.9, divided by the Wilcoxon ARE of 0.955, using the validation d_z (0.86–1.18) → 13–22 prompts needed. n = 100 was pre-registered, the floor of the [100, 300] range, so planned power is ≈ 1.0.
+6. **Power.** One-sided paired test at α = 0.05/5, power 0.9, divided by the Wilcoxon asymptotic relative efficiency 3/π ≈ 0.955 under normality ([Hodges & Lehmann 1956](https://doi.org/10.1214/aoms/1177728261)), using the validation d_z (0.86–1.18) → 13–22 prompts needed. n = 100 was pre-registered, the floor of the [100, 300] range, so planned power is ≈ 1.0.
 
 ## Validation results (100 fresh discovery prompts, 1 sample; unsteered median distinct-2 = 0.95)
 | unit | concept (top contexts) | α | mean ΔC | d_z | median ΔNLL | steered distinct-2 | eligible |
@@ -42,7 +42,7 @@ All of this happened *before* any confirmatory prompt was used. The first, guard
 
 ## Learnings
 - **Concept score is gameable.** A high concept score with low perplexity can be pure repetition, so a lexical-diversity guard is necessary. This is the same reason AxBench pairs concept scores with fluency ratings ([Wu et al. 2025](https://arxiv.org/abs/2501.17148)).
-- **Screening is noisy.** At 25 prompts and 1 sample, the same unit and α gave ΔC = +0.035 and −0.004 in two dry runs. Validation on fresh prompts is what makes the power analysis honest.
+- **Screening is noisy.** At 25 prompts, 1 sample and 32 tokens, the screening ΔC of a unit can differ substantially from its 100-prompt validation ΔC at the same α: L18 N3066 went from 0.103 (screen) to 0.210 (validation), L19 N3901 from 0.387 to 0.330 (`screen.json`: `candidates[*].screen` vs `validation`). Validation on fresh prompts is what makes the power analysis honest.
 - **Plan R and K together.** With permutation nulls, the number of null draws must be chosen together with K, or Holm cannot reject even for perfect neurons.
 - **Infrastructure:**
   - Port 8080 was taken by another application, so the LLM server uses 8093.
