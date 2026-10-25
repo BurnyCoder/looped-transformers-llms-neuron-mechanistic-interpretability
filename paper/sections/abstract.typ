@@ -16,12 +16,12 @@ neurons from the same layer, with Holm correction and fluency and degeneracy gua
   $p <= 1.1 times 10^(-15)$, beating 99–100 of 100 random neurons, perplexity ratio $<= 1.83$.
 - The effects are concept-specific, confirmed by a blind LLM judge and by teacher-forced probabilities of
   each neuron's peak-context keywords, stable across three further seed sets, and replicate at identical indices in the reasoning-tuned
-  Ouro-1.4B-Thinking.
+  Ouro-1.4B-Thinking (Wilcoxon criterion fixed before the run; the other replication conditions post hoc).
 
 *Follow-ups (post hoc).*
 - Clamping at any single loop barely steers ($Delta C <= 0.043$ versus 0.13–0.17 for all loops), so steering is strongly
   super-additive across loops, consistent with self-repair.
-- Dose-response saturates, as predicted by the post-MLP RMSNorm.
+- Dose-response levels off for four of six neurons, qualitatively consistent with the bound set by the post-MLP RMSNorm.
 
 *Negative results.*
 - Perplexity-based fluency guards accept degenerate repetitions ("Fib Fib Fib…").

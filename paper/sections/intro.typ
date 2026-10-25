@@ -6,7 +6,8 @@ more computation per token without adding parameters @geiping2025huginn @zhu2025
 - recurrent blocks converge to cyclic fixed points and repeat the "stages of inference" of feedforward models @blayney2026mechanistic;
 - residual-direction steering of Ouro-1.4B-Thinking works best at the last loop, and earlier injections are
   "rotated away" @nesiacel2026recurrent;
-- per-execution-step refusal directions in Ouro-2.6B align from the second pass onward @suiche2026abliterating.
+- per-execution-step refusal directions in Ouro-2.6B align from the second pass onward (a follow-up to a study of
+  Nanbeige4.2-3B) @suiche2026abliterating.
 
 No published study we are aware of works at the level of *individual neurons* in a looped model.
 
