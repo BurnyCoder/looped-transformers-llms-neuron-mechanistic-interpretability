@@ -10,6 +10,8 @@ from pathlib import Path
 
 import numpy as np
 
+from loopneuron import stats
+
 
 def _f(x, nd=3):
     """Fixed-decimal number, or 'n/a' for None/NaN/inf."""
@@ -61,6 +63,38 @@ def ablation_line(ab: dict) -> str:
             f'random same-layer ablations mean {null.mean():.4f} (95th pct {np.quantile(null, 0.95):.4f}); empirical p = {ab["p_null"]:.4f}.')
 
 
+def audit_tests(audit: list, T: int = 4) -> dict:
+    """Paired two-sided Wilcoxon tests on audit.json balanced accuracies (unparsable scores, None/NaN, are dropped).
+
+    same_minus_cross: each explanation (loop 1 and loop T) scored on its own loop minus on the other loop (H4).
+    same_last_minus_shuffled: loop-T explanation minus another neuron's explanation, both on loop-T contexts (chance control).
+    """
+    ba = lambda d: np.nan if d.get("balanced_acc") is None else float(d["balanced_acc"])
+    last = str(T - 1)  # JSON keys of the per-loop dicts are strings ("0", "3")
+    diffs = {"same_minus_cross": [ba(r["same_loop"][t]) - ba(r["cross_loop"][t]) for r in audit for t in ("0", last)],
+             "same_last_minus_shuffled": [ba(r["same_loop"][last]) - ba(r["shuffled"]) for r in audit]}
+    out = {}
+    for name, d in diffs.items():
+        d = np.array(d)[np.isfinite(d)]  # a NaN on either side makes the pair unusable
+        out[name] = {"mean": float(d.mean()), "n": int(len(d)), "p_two_sided": stats.wilcoxon_two_sided(d)}
+    return out
+
+
+def judge_holm(judge: dict) -> dict:
+    """Holm-adjusted one-sided judge concept p-values across the candidate family (llm_judge.json stores raw p)."""
+    return dict(zip(judge, stats.holm([v["p_concept"] for v in judge.values()]).tolist()))
+
+
+def audit_judge_table(audit: list, judge: dict) -> str:
+    """Markdown summary of the audit Wilcoxon tests and the Holm-adjusted LLM-judge concept p-values."""
+    rows = ["| audit comparison (balanced accuracy) | mean paired difference | n pairs | p (two-sided Wilcoxon) |", "|---|---|---|---|"]
+    rows += [f'| {k} | {v["mean"]:+.3f} | {v["n"]} | {v["p_two_sided"]:.2g} |' for k, v in audit_tests(audit).items()]
+    rows += ["", "| neuron | judge concept unsteered -> steered | p (one-sided Wilcoxon) | p (Holm) |", "|---|---|---|---|"]
+    rows += [f'| {k} | {_f(judge[k]["concept_unsteered"], 2)} -> {_f(judge[k]["concept_steered"], 2)} | '
+             f'{judge[k]["p_concept"]:.2g} | {p:.2g} |' for k, p in judge_holm(judge).items()]
+    return "\n".join(rows)
+
+
 def write_tables(res_dir: Path, out_dir: Path) -> list[Path]:
     """Render every table whose results file exists into out_dir (reports/tables/); returns written paths."""
     out_dir.mkdir(parents=True, exist_ok=True)
@@ -95,5 +129,9 @@ def write_tables(res_dir: Path, out_dir: Path) -> list[Path]:
         p.write_text(confirm_table(rep, labels) + "\n\nWeight correspondence: " + json.dumps(rep["correspondence"]) +
                      "\n\nMax activation base vs Thinking: " + json.dumps({"base": rep["base_max_act"], "thinking": rep["thinking_max_act"]}) + "\n",
                      encoding="utf-8")
+        made.append(p)
+    if (res_dir / "audit.json").exists() and (res_dir / "llm_judge.json").exists():
+        p = out_dir / "audit_judge.md"
+        p.write_text(audit_judge_table(rd("audit.json"), rd("llm_judge.json")) + "\n", encoding="utf-8")
         made.append(p)
     return made

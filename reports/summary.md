@@ -14,7 +14,7 @@ For each neuron we found the texts that excite it most. We picked candidates tha
 - "accepted answer" forum talk
 - electron orbitals
 
-Each did this far more than 100 randomly chosen neurons from the same layer, while the text stayed mostly fluent.
+Each did this more strongly than 99 or 100 of 100 randomly chosen neurons from the same layer, while the text stayed mostly fluent.
 
 Forcing a neuron on at only one of the four passes barely works. The model seems to repair a one-off push, so the push has to be repeated at every pass.
 
@@ -50,13 +50,13 @@ No model was trained or fine-tuned in this study. All experiments are inference-
 ## Experiments
 | # | experiment | data | key result | report |
 |---|---|---|---|---|
-| 1 | sanity check + neuron atlas | FineWeb-Edu + OpenWebMath, 8M tokens | loss 4.03 → 2.51 nats from T = 1 → 4; 0 dead neurons; 41% of neurons peak at loop 1, 13% at loop 4 | [01](01_setup_and_atlas.md) |
-| 2 | selection + pre-registration | WikiText-103 test, 125 discovery prompts | 8,000 units → 200 coherent → 10 validated → 5 eligible; distinct-2 guard added before confirmation (repetition has low perplexity) | [02](02_selection_and_preregistration.md) |
+| 1 | sanity check + neuron atlas | FineWeb-Edu + OpenWebMath, 8M tokens | loss 4.03 → 2.51 nats from T = 1 → 4; 0 dead neurons; 41% of neuron poles peak at loop 1, 13% at loop 4 | [01](01_setup_and_atlas.md) |
+| 2 | selection + pre-registration | WikiText-103 test, 125 of the 150 discovery prompts | 8,000 units → 200 coherent → 10 validated → 8 eligible → top 5 by validation d_z; distinct-2 guard added before confirmation (repetition has low perplexity) | [02](02_selection_and_preregistration.md) |
 | 3 | **confirmatory steering test (H1)** | 100 held-out prompts × 3 samples | **5/5 neurons significant**: mean ΔC 0.13–0.18, d_z 0.99–1.61, Holm p_Wilcoxon ≤ 1.1e-15, Holm p_null = 0.0495 (floor), PPL ratio ≤ 1.83 | [03](03_confirmatory_test.md) |
-| 4 | follow-ups (post hoc) + LLM judge (secondary) | 60 / 50 held-out prompts | specific (own concept 1.4–3.8× the largest other); saturating dose-response; single-loop clamps ≤ 0.043 vs all-loop 0.13–0.17 (super-additive); flat in T; 4/6 necessary by ablation (exploratory); blind LLM judge concept 0 → 0.06–0.36 (all Holm p ≤ 0.042), fluency 1.50 → 0.90–1.17 | [04](04_followups.md) |
+| 4 | follow-ups (post hoc) + LLM judge (secondary) | 60 / 50 held-out prompts | specific (own concept 1.4–3.7× the largest other); saturating dose-response; single-loop clamps ≤ 0.043 vs all-loop 0.13–0.17 (super-additive); effect present at T = 1 and not growing with T; 4/6 necessary by ablation (exploratory); blind LLM judge concept 0–0.02 → 0.06–0.36 (all Holm p ≤ 0.042), fluency 1.50 → 0.90–1.17 | [04](04_followups.md) |
 | 5 | loop structure + LLM audit (H4) | 32k held-out tokens; 150 neurons | cross-loop r(1,4) median 0.54; adjacent loops converge (0.65 → 0.84 → 0.94); H4 not supported (same-loop 0.60 vs cross-loop 0.59, p = 0.20; weak explainer) | [05](05_loop_audit.md) |
-| 6 | replication on Ouro-1.4B-Thinking | 100 confirm prompts + 100 fresh reserve prompts | 5/5 replicate in both (confirm prompts: ΔC 0.161–0.180, Holm p ≤ 2.1e-16; fresh prompts: ΔC 0.157–0.179, Holm p ≤ 2.0e-16; each beats 20/20 random neurons); SFT leaves neuron weights nearly unchanged (cos ≥ 0.993 for 99%) | [06](06_replication.md) |
-| 7 | plan-completion analyses (post hoc) | 100 / 60 held-out prompts | effect stable across 3 new seed sets (ΔC 0.11–0.18, p ≤ 2.9e-8); concept-token probability +0.45–0.94 nats (p ≈ 2e-18); single-loop injections at loops 1–3 keep 33–78% of their size at the output vs 67–126% at loop 4 (self-repair); KL saturates in T (τ ≈ 2–4 loops); no positional candidates | [07](07_plan_completion.md) |
+| 6 | replication on Ouro-1.4B-Thinking | 100 confirm prompts + 100 fresh reserve prompts | 5/5 replicate in both (confirm prompts: ΔC 0.161–0.180, Holm p ≤ 2.1e-16; fresh prompts: ΔC 0.157–0.179, Holm p ≤ 2.0e-16; each beats 20/20 random neurons); SFT leaves neuron weights nearly unchanged (cos ≥ 0.993 for 99% of neurons in the four candidate layers) | [06](06_replication.md) |
+| 7 | plan-completion analyses (post hoc) | 100 / 60 held-out prompts | effect stable across 3 new seed sets (ΔC 0.11–0.18, p ≤ 2.9e-8); keyword-set probability +0.45–0.94 nats (p ≈ 2e-18); single-loop injections at loops 1–3 keep 33–78% of their size at the output vs 67–126% at loop 4 (self-repair); KL saturates in T (τ ≈ 2–4 loops); no positional candidates | [07](07_plan_completion.md) |
 
 ## Plan vs. what was executed
 The approved plan is reproduced in spirit in [docs/methodology.md](../docs/methodology.md). Deviations, all decided before the confirmatory data was touched unless marked otherwise:
@@ -64,26 +64,26 @@ The approved plan is reproduced in spirit in [docs/methodology.md](../docs/metho
 | plan item | executed | why |
 |---|---|---|
 | model: originally a <1B model (Parcae) | Ouro-1.4B + Ouro-1.4B-Thinking | user's choice |
-| `transformers==4.54.1` (model card) | 4.57.6 | pinned Ouro revision needs ≥ 4.56 (fails with "`key_cache` has no setter") |
-| atlas: log-binned histograms | threshold-exceedance counts on every 8th batch | histograms tripled atlas time; counts give the same coarse distribution |
+| `transformers==4.54.1` (model card) | 4.57.6 | the pinned Ouro revision includes the KV-cache fix for ≥ 4.56 ([commit 7ea635b](https://huggingface.co/ByteDance/Ouro-1.4B/commit/7ea635ba1575ae9ab4ae1d83d83e16a6e47fe696)) and fails on 4.54.1 ("`key_cache` has no setter") |
+| atlas: log-binned histograms | threshold-exceedance counts on every 8th batch | per-batch histograms were much slower in development (slowdown not logged); counts give the same coarse distribution |
 | screen: drop token-identity **and positional** neurons | token detectors dropped; positional neurons checked post hoc ([Experiment 7](07_plan_completion.md)) | the positional filter was not implemented before selection |
-| screen: α = 4 only, with a concept-token metric | α ∈ {1, 2, 4}; concept score only (concept-token shift computed post hoc for the 5 confirmed neurons) | α = 4 often broke fluency in the dry run |
+| screen: α = 4 only, with a concept-token metric | α ∈ {1, 2, 4}; concept score only (keyword-probability shift computed post hoc for the 5 confirmed neurons) | α = 4 often broke fluency in the dry run |
 | K ≤ 10 | K = 5 | with R = 100 random neurons, Holm cannot reject for K > 5 |
 | decision rule: PPL guard | PPL guard **plus** distinct-2 ≥ 0.6 | repetition has low perplexity; amendment logged in the pre-registration before confirmation |
 | seed sensitivity (3 seed sets), α = 0 dose, self-repair ratio, T-sweep fit, Wilson CIs | run after the main pass, in the plan-completion phase ([Experiment 7](07_plan_completion.md)) | initially missed; added when the plan was re-checked |
 | audit: 300 neurons, every loop, 10 + 10 detection contexts | 150 neurons, loops 1 and 4, 8 + 8 contexts | local-LLM time on an 8 GB laptop GPU |
 | LLM outputs constrained by JSON schema | published text formats parsed with regexes (Delphi `[EXPLANATION]:` and lists, AxBench `Rating: [[n]]`) | keeps the prompts exactly as published |
-| replication: same null R = 100 | R = 20 (descriptive) | keeps the run near 30 minutes; the Wilcoxon test is the replication criterion |
+| replication: same null R = 100 | R = 20 (descriptive; decided after the confirmatory test) | keeps the run near 30 minutes; the Wilcoxon test is the replication criterion (the other replication conditions were written down after the run, see [Experiment 6](06_replication.md)) |
 | one PR per functional unit (7) | 4 PRs | phases were developed and validated together in the dry run |
 | CLI `--model` | the model is set in `.env` | one fewer way to diverge from the pinned revision |
 | power: n = max(100, required) | n = clip(required, 100, 300) | the confirm split has 300 prompts; required n was 13–22, so n = 100 either way |
 | H2 "self-repair ratio = measured effect / direct-path effect" | surviving / injected relative residual displacement for a single-loop clamp ([Experiment 7](07_plan_completion.md)), plus the behavioral super-additivity ratio ([Experiment 4](04_followups.md)) | a "direct path" is not uniquely defined in a looped model; the displacement right after the steered layer is the measurable injection |
-| replication: fresh prompts and fresh seeds | fresh seeds on the confirm prompts (identical inputs across checkpoints), **plus** a second replication on the never-used reserve prompts ([Experiment 6](06_replication.md)) | the reserve split was free because no second confirmatory round was needed |
+| replication: fresh prompts and fresh seeds | (after the confirmatory test) fresh seeds on the confirm prompts (identical inputs across checkpoints), **plus** a second replication on the never-used reserve prompts ([Experiment 6](06_replication.md)) | the reserve split was free because no second confirmatory round was needed |
 | test "clamping to the natural value leaves logits unchanged" | identity edits (scale = 1, add = 0) leave logits bit-identical; clamp ≡ residual add of (c − a)·w is tested separately | a per-position natural-value clamp is the same no-op, checked more simply |
 | `NeuronRecorder` + `NeuronSteerer` | one `NeuronHooks` object (record and edit in the same pre-hook) | one hook per layer avoids ordering bugs between two hooks |
 | viewer "both poles" | one page per candidate pole; token shading shows both signs (teal +, rust −) | candidates are poles; both signs remain visible on every page |
 | disk budget 24.7 GB | the user freed ~50 GB mid-run; VRAM (8 GB) stayed the binding limit | the labeler stayed at Qwen3.5-9B Q4 because of VRAM, not disk |
-| Ouro-2.6B skipped (limitation) | stated in the paper's limitations | weights plus KV cache exceed 8 GB VRAM |
+| Ouro-2.6B skipped (limitation) | stated in the paper's limitations | not attempted: its bf16 checkpoint is 5.3 GB ([model files](https://huggingface.co/ByteDance/Ouro-2.6B/tree/main)) and its KV cache per token is twice Ouro-1.4B's (48 × 4 layer-loops), leaving too little of the 8 GB VRAM for the batched atlas and generation runs used here |
 
 ## What would have falsified H1, and what did not happen
 H1 would have been rejected if no candidate had met *all* of the following after Holm correction:

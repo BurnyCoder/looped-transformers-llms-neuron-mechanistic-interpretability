@@ -2,12 +2,12 @@
 
 **Status:** done. **Data:** `results/Ouro-1.4B/replication.json`, `results/Ouro-1.4B/replication_examples.jsonl`. **Log:** `logs/20261025-023034_replicate.log`.
 
-[Ouro-1.4B-Thinking](https://huggingface.co/ByteDance/Ouro-1.4B-Thinking) is Ouro-1.4B after supervised fine-tuning on about 8.3M reasoning examples (model card). We asked whether the *same neuron indices* still steer the same concepts after post-training. There was no re-selection and no new atlas.
+[Ouro-1.4B-Thinking](https://huggingface.co/ByteDance/Ouro-1.4B-Thinking) is Ouro-1.4B after supervised fine-tuning on about 8.3M reasoning examples (math, code, science, chat; 2 epochs) according to its [model card](https://huggingface.co/ByteDance/Ouro-1.4B-Thinking) and Table 6 of [Zhu et al. 2025](https://arxiv.org/abs/2510.25741). We asked whether the *same neuron indices* still steer the same concepts after post-training. There was no re-selection and no new atlas.
 
 ## Design
 - **Protocol:** identical to the confirmatory test (100 held-out prompts × 3 paired samples, same α, same concept directions from the *base* atlas, same clamp values) with a fresh seed base (+2000).
 - **Smaller null:** the random-neuron null uses R = 20 instead of 100, to keep the run near 30 minutes. With R = 20 the smallest attainable permutation p is 1/21 = 0.048, which cannot pass Holm at K = 5 (0.048 × 5 = 0.24). So the automated `significant` flag in `replication.json` is false for every neuron *by construction*.
-- **Replication criterion (set before running):**
+- **Replication criterion.** The code committed when the run started (commit `842e2cd`, 14 s after the run began; comment in `run_pipeline.replicate`) names the Wilcoxon test vs unsteered as the replication criterion and calls the R = 20 null descriptive. The other three conditions below were first written down in commit `6351da1`, after the run, so they are post hoc. All five neurons meet all four:
   - Holm-adjusted Wilcoxon p < 0.05;
   - the neuron's 50-prompt statistic exceeds all 20 random same-layer neurons;
   - PPL ratio ≤ 2;
@@ -28,7 +28,7 @@ Max activation on the base atlas's top contexts, base → Thinking:
 - L13 N1680: 0.66 → 0.69
 - L4 N2104: 0.57 → 0.57
 - L6 N3344: 0.27 → 0.25
-- L18 N1735: 3.63 → 3.52
+- L18 N1735: 3.625 → 3.516
 
 Post-training barely moves MLP neurons: identities and activation scales are preserved.
 
@@ -45,7 +45,7 @@ Post-training barely moves MLP neurons: identities and activation scales are pre
 - Effects in the post-trained model are similar or larger: ΔC 0.161–0.180 vs 0.127–0.179. They are larger for four neurons; L18 N3066 is 0.171 vs 0.179, within the CIs.
 - Every neuron exceeds all 20 random same-layer neurons and passes both guards.
 - Perplexity ratios are closer to the guard (1.64–1.98) than in the base model (1.58–1.83).
-- The base-model clamp values were reused. They are within ±5.1% of the Thinking model's own maxima, so the intervention strength is comparable.
+- The base-model clamp values were reused. The Thinking maxima differ from the base maxima by at most 5.1% of the base value (L6 N3344: 0.268 → 0.254; 5.4% relative to the Thinking value), so the intervention strength is comparable.
 
 ## Second replication on fresh prompts (reserve split)
 The plan asked for fresh prompts. The confirm prompts above were reused, which keeps the inputs identical across checkpoints. So the protocol was run again on the 100 never-used `reserve` prompts, with seed base +6000. Data: `results/Ouro-1.4B/replication_fresh.json`. Examples: `replication_fresh_examples.jsonl`.
