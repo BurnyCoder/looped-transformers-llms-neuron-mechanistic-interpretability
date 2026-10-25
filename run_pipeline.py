@@ -1,7 +1,7 @@
 """Single entry point: runs the study's named phases in order (see README "What happens when you run it").
 
 Usage:
-  uv run python run_pipeline.py                       # all phases, skipping those whose outputs exist
+  uv run python run_pipeline.py                       # all phases (build_atlas skips if atlas.pt is complete)
   uv run python run_pipeline.py --phase build_atlas   # one phase
   uv run python run_pipeline.py --dry-run             # tiny budgets through every phase (smoke test)
 Global context: each phase is a thin function here that calls modules in src/loopneuron/ and writes results/<model>/.
@@ -51,7 +51,8 @@ class Ctx:
         """Ouro on the GPU via loopneuron.model.load_model (bf16, fixed T, last-loop exit, fast KV cache)."""
         if self._model is None:
             self.log.info("loading %s @ %s (T=%d)", self.s.model_id, self.s.model_revision, self.s.ut_steps)
-            self._model, self._tok = load_model(self.s.model_id, self.s.model_revision, ut_steps=self.s.ut_steps)
+            self._model, self._tok = load_model(self.s.model_id, self.s.model_revision, ut_steps=self.s.ut_steps,
+                                                  min_free_gb=self.s.min_free_gb)
         return self._model
 
     def free_model(self):
@@ -287,16 +288,17 @@ def replicate(c: Ctx) -> None:
 
     scr, pre = c.read("screen.json"), c.read("candidates.json")
     focus = _focus(c, exploratory=False)  # replication tests only confirmatory neurons
+    c.free_model()
+    # load first: load_model's disk guard runs before the Thinking checkpoint is downloaded; _weights then reads the cache
+    model, _ = load_model(c.s.repl_model_id, c.s.repl_model_revision, ut_steps=c.s.ut_steps, min_free_gb=c.s.min_free_gb)
     corr = [neuron_correspondence((c.s.model_id, c.s.model_revision), (c.s.repl_model_id, c.s.repl_model_revision),
                                   r["layer"], [r["neuron"]]) for r in focus]
-    c.free_model()
-    model, _ = load_model(c.s.repl_model_id, c.s.repl_model_revision, ut_steps=c.s.ut_steps)
     chunks = c.chunks("atlas")
     maxes = {r["key"]: max_activation(model, c.atlas, chunks, r, c.s.ut_steps) for r in focus}
     prompts = c.prompts("confirm")[: pre["n_prompts"]]
     cands = [{k: r[k] for k in ("key", "layer", "neuron", "pole", "alpha")} for r in focus]
     # R=20 random neurons: the replication null is descriptive (z-margin), not a Holm-family test, so a smaller R keeps
-    # the run ~1 h instead of ~2.5 h; the Wilcoxon test vs unsteered is the replication criterion.
+    # the run near 30 min (28 min logged) instead of ~2.5 h; the Wilcoxon test vs unsteered is the replication criterion.
     res = confirm(model, c.tok, c.atlas, chunks, cands, scr["u"], scr["rand_mean"], prompts, c.s.ut_steps,
                   pre["seed"] + 2000, pre["k"], pre["n_tokens"], 20, c.log, c.out, "replication_examples.jsonl")
     c.write("replication.json", {"model": c.s.repl_model_id, "revision": c.s.repl_model_revision,
@@ -312,7 +314,7 @@ def replicate_fresh(c: Ctx) -> None:
     scr, pre = c.read("screen.json"), c.read("candidates.json")
     cands = [{k: r[k] for k in ("key", "layer", "neuron", "pole", "alpha")} for r in _focus(c, exploratory=False)]
     c.free_model()
-    model, _ = load_model(c.s.repl_model_id, c.s.repl_model_revision, ut_steps=c.s.ut_steps)
+    model, _ = load_model(c.s.repl_model_id, c.s.repl_model_revision, ut_steps=c.s.ut_steps, min_free_gb=c.s.min_free_gb)
     prompts = c.prompts("reserve")[: pre["n_prompts"]]  # never used before (no second confirmatory round was needed)
     res = confirm(model, c.tok, c.atlas, c.chunks("atlas"), cands, scr["u"], scr["rand_mean"], prompts, c.s.ut_steps,
                   pre["seed"] + 6000, pre["k"], pre["n_tokens"], 20, c.log, c.out, "replication_fresh_examples.jsonl")
