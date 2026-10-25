@@ -21,8 +21,8 @@ Held-out data: 64 FineWeb-Edu chunks of 256 tokens, taken from a parquet shard (
 
 ## Atlas (phase 1)
 - **Neuron definition:** a = silu(gate·x) ⊙ (up·x), read at the input of `down_proj` in all 24 layers × 5,632 neurons = **135,168 neurons**, at each of the 4 loops.
-- **Text:** 8,000,000 tokens (31,250 chunks of 256 tokens), 90% FineWeb-Edu and 10% OpenWebMath, packed with EOS separators.
-- **What is stored:** top-40 contexts per neuron and pole (maximum over positions × loops) and top-20 contexts per loop. Moments are computed on every 8th batch (987,840 tokens per layer and loop).
+- **Text:** 8,000,000 tokens (31,250 chunks of 256 tokens), packed with EOS separators. Documents are drawn from FineWeb-Edu with probability 0.9 and from OpenWebMath with probability 0.1 (`datasets.interleave_datasets`); the resulting token share was not measured.
+- **What is stored:** top-40 contexts per neuron and pole (maximum over positions 4–255 × loops; the first 4 positions of every chunk are skipped) and top-20 contexts per loop. Moments are computed on every 8th batch (987,840 tokens per layer and loop).
 - **Runtime:** 72.5 min, ≈ 1,840 tokens/s on average on an RTX 5070 Laptop GPU (the log's last progress line reads 1,839 tok/s; 8,000,000 tokens / 72.5 min = 1,839 tok/s).
 - **Dead neurons:** none (max |a| ≥ 10⁻³ for all 135,168). Median max |a| is 0.64 (1st percentile 0.025, 99th 6.94). Source: `atlas.pt` keys `dead` and `top_v`.
 
@@ -31,7 +31,7 @@ Held-out data: 64 FineWeb-Edu chunks of 256 tokens, taken from a parquet shard (
 |---|---|---|---|---|
 | share of neuron poles whose strongest context is at this loop (both poles pooled) | 0.410 | 0.297 | 0.167 | 0.127 |
 
-| top-20 context overlap (Jaccard), mean over layers | loop 1 vs 2 | loop 2 vs 3 | loop 3 vs 4 | loop 1 vs 4 |
+| top-20 context overlap (Jaccard of chunk ids, positive pole, 500 random alive neurons per layer), mean over layers | loop 1 vs 2 | loop 2 vs 3 | loop 3 vs 4 | loop 1 vs 4 |
 |---|---|---|---|---|
 | | 0.137 | 0.276 | 0.446 | 0.01–0.19 by layer (0.01 at layer 0, highest at layer 19, 0.14 at layer 23) |
 
@@ -41,3 +41,4 @@ Interpretation: hedged and descriptive. The contexts that drive a neuron hardest
 - **transformers version.** The [model card](https://huggingface.co/ByteDance/Ouro-1.4B) recommends `transformers<4.56`, but the pinned Ouro revision already contains the KV-cache fix for ≥ 4.56 ([commit 7ea635b](https://huggingface.co/ByteDance/Ouro-1.4B/commit/7ea635ba1575ae9ab4ae1d83d83e16a6e47fe696), "Update Ouro Cache"). It fails on 4.54.1 with "`key_cache` has no setter" (`Cache.key_cache` is a read-only property in transformers 4.54), so we use 4.57.6.
 - **Statistics overhead.** Computing the full statistics on every batch made the atlas much slower in development runs (the exact slowdown was not logged). Top-k needs every batch; moments do not, so they are subsampled with whole batches, which keeps them unbiased.
 - **Download size.** WikiText's default `load_dataset` call downloads the 300 MB train split. We load the 0.7 MB test parquet directly.
+- **Prompt/atlas overlap.** None of the 750 WikiText prompt stems occurs verbatim in the 8M atlas tokens (a hash lookup has no false negatives, so 0 hits is exact). Check: hash every 12-token window of `cache/tokens_atlas.npy` (`numpy.lib.stride_tricks.sliding_window_view`) and look up each stem's `ids` from `data/prompts/*.jsonl`.

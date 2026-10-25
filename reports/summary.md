@@ -32,7 +32,7 @@ Forcing a neuron on at only one of the four passes barely works. The model seems
 | random same-layer null | the same intervention applied to 100 random neurons from the candidate's layer, scored with the candidate's u |
 | Holm | step-down correction controlling family-wise error across the 5 candidates |
 | d_z | mean paired difference / SD of paired differences |
-| distinct-2 | unique bigrams / bigrams; low values mean repetitive, degenerate text |
+| distinct-2 | unique / total bigrams of one continuation (a per-text variant of distinct-n, [Li et al. 2016](https://arxiv.org/abs/1510.03055)); low values mean repetitive, degenerate text |
 | PPL ratio | perplexity of the steered continuation / unsteered continuation, both scored by the unsteered model |
 | super-additive | the effect of clamping all loops together exceeds the sum of single-loop effects |
 
@@ -42,7 +42,7 @@ Forcing a neuron on at only one of the four passes barely works. The model seems
 | [ByteDance/Ouro-1.4B](https://huggingface.co/ByteDance/Ouro-1.4B) @ `574fa66` | object of study | 24-layer decoder, d = 2048, MHA-16, SwiGLU 5632, sandwich RMSNorm, early-exit gate | 1.4B | 7.7T tokens (web, code, math, long-context; model card) | 4 (shared weights) | 135,168 | atlas, selection, confirmatory test, follow-ups, audit |
 | [ByteDance/Ouro-1.4B-Thinking](https://huggingface.co/ByteDance/Ouro-1.4B-Thinking) @ `3aaa222` | replication | same as Ouro-1.4B | 1.4B | Ouro-1.4B + SFT on ~8.3M reasoning examples (math, code, science, chat; 2 epochs; model card) | 4 | 135,168 | replication of the 5 neurons |
 | [Qwen3.5-9B Q4_K_M GGUF](https://huggingface.co/unsloth/Qwen3.5-9B-GGUF) via [llama.cpp](https://github.com/ggml-org/llama.cpp) b11854 | labeler / judge | hybrid-attention decoder (Qwen3.5) | 9B (4-bit) | n/a | – | – | explanations, detection scoring, AxBench judge |
-| [BAAI/bge-small-en-v1.5](https://huggingface.co/BAAI/bge-small-en-v1.5) | primary embedder | BERT-small encoder | 33M | n/a | – | – | concept score |
+| [BAAI/bge-small-en-v1.5](https://huggingface.co/BAAI/bge-small-en-v1.5) | primary embedder | 12-layer BERT encoder (hidden 384) | 33M | n/a | – | – | concept score |
 | [all-MiniLM-L6-v2](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2) | robustness embedder | MiniLM encoder | 23M | n/a | – | – | secondary concept score |
 
 No model was trained or fine-tuned in this study. All experiments are inference-time interventions.
@@ -53,7 +53,7 @@ No model was trained or fine-tuned in this study. All experiments are inference-
 | 1 | sanity check + neuron atlas | FineWeb-Edu + OpenWebMath, 8M tokens | loss 4.03 → 2.51 nats from T = 1 → 4; 0 dead neurons; 41% of neuron poles peak at loop 1, 13% at loop 4 | [01](01_setup_and_atlas.md) |
 | 2 | selection + pre-registration | WikiText-103 test, 125 of the 150 discovery prompts | 8,000 units → 200 coherent → 10 validated → 8 eligible → top 5 by validation d_z; distinct-2 guard added before confirmation (repetition has low perplexity) | [02](02_selection_and_preregistration.md) |
 | 3 | **confirmatory steering test (H1)** | 100 held-out prompts × 3 samples | **5/5 neurons significant**: mean ΔC 0.13–0.18, d_z 0.99–1.61, Holm p_Wilcoxon ≤ 1.1e-15, Holm p_null = 0.0495 (floor), PPL ratio ≤ 1.83 | [03](03_confirmatory_test.md) |
-| 4 | follow-ups (post hoc) + LLM judge (secondary) | 60 / 50 held-out prompts | specific (own concept 1.4–3.7× the largest other); saturating dose-response; single-loop clamps ≤ 0.043 vs all-loop 0.13–0.17 (super-additive); effect present at T = 1 and not growing with T; 4/6 necessary by ablation (exploratory); blind LLM judge concept 0–0.02 → 0.06–0.36 (all Holm p ≤ 0.042), fluency 1.50 → 0.90–1.17 | [04](04_followups.md) |
+| 4 | follow-ups (post hoc) + LLM judge (secondary) | 60 / 50 held-out prompts | specific (own concept 1.4–3.7× the largest other); dose-response levels off for 4/6 neurons; single-loop clamps ≤ 0.043 vs all-loop 0.13–0.17 (super-additive); effect present at T = 1 and not growing with T; 4/6 necessary by ablation (exploratory); blind LLM judge concept 0–0.02 → 0.06–0.36 (all Holm p ≤ 0.042), fluency 1.50 → 0.90–1.17 | [04](04_followups.md) |
 | 5 | loop structure + LLM audit (H4) | 32k held-out tokens; 150 neurons | cross-loop r(1,4) median 0.54; adjacent loops converge (0.65 → 0.84 → 0.94); H4 not supported (same-loop 0.60 vs cross-loop 0.59, p = 0.20; weak explainer) | [05](05_loop_audit.md) |
 | 6 | replication on Ouro-1.4B-Thinking | 100 confirm prompts + 100 fresh reserve prompts | 5/5 replicate in both (confirm prompts: ΔC 0.161–0.180, Holm p ≤ 2.1e-16; fresh prompts: ΔC 0.157–0.179, Holm p ≤ 2.0e-16; each beats 20/20 random neurons); SFT leaves neuron weights nearly unchanged (cos ≥ 0.993 for 99% of neurons in the four candidate layers, ≥ 0.996 for the five neurons) | [06](06_replication.md) |
 | 7 | plan-completion analyses (post hoc) | 100 / 60 held-out prompts | effect stable across 3 new seed sets (ΔC 0.11–0.18, p ≤ 2.9e-8); keyword-set probability +0.45–0.94 nats (p ≈ 2e-18); single-loop injections at loops 1–3 keep 33–78% of their size at the output vs 67–126% at loop 4 (self-repair); KL saturates in T (τ ≈ 2–4 loops); no positional candidates | [07](07_plan_completion.md) |
@@ -72,9 +72,9 @@ The approved plan is reproduced in spirit in [docs/methodology.md](../docs/metho
 | decision rule: PPL guard | PPL guard **plus** distinct-2 ≥ 0.6 | repetition has low perplexity; amendment logged in the pre-registration before confirmation |
 | seed sensitivity (3 seed sets), α = 0 dose, self-repair ratio, T-sweep fit, Wilson CIs | run after the main pass, in the plan-completion phase ([Experiment 7](07_plan_completion.md)) | initially missed; added when the plan was re-checked |
 | audit: 300 neurons, every loop, 10 + 10 detection contexts | 150 neurons, loops 1 and 4, 8 + 8 contexts | local-LLM time on an 8 GB laptop GPU |
-| LLM outputs constrained by JSON schema | published text formats parsed with regexes (Delphi `[EXPLANATION]:` and lists, AxBench `Rating: [[n]]`) | keeps the prompts exactly as published |
+| LLM outputs constrained by JSON schema | published text formats parsed with regexes (Delphi `[EXPLANATION]:` and lists, AxBench `Rating: [[n]]`) | keeps the published prompt wording (system prompts and AxBench templates verbatim; Delphi few-shot examples decoded from GPT-2 byte-level BPE; no Delphi explainer few-shot demonstrations) |
 | replication: same null R = 100 | R = 20 (descriptive; decided after the confirmatory test) | keeps the run near 30 minutes; the Wilcoxon test is the replication criterion (the other replication conditions were written down after the run, see [Experiment 6](06_replication.md)) |
-| one PR per functional unit (7) | 4 PRs | phases were developed and validated together in the dry run |
+| one PR per functional unit (7) | 8 PRs (#1–#8), grouped by development stage rather than one per unit: pipeline and results (#1–#4), plan audit (#5), fact-checks (#6–#8) | phases were developed and validated together in the dry run |
 | CLI `--model` | the model is set in `.env` | one fewer way to diverge from the pinned revision |
 | power: n = max(100, required) | n = clip(required, 100, 300) | the confirm split has 300 prompts; required n was 13–22, so n = 100 either way |
 | H2 "self-repair ratio = measured effect / direct-path effect" | surviving / injected relative residual displacement for a single-loop clamp ([Experiment 7](07_plan_completion.md)), plus the behavioral super-additivity ratio ([Experiment 4](04_followups.md)) | a "direct path" is not uniquely defined in a looped model; the displacement right after the steered layer is the measurable injection |

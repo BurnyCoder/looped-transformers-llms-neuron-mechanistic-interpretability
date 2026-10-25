@@ -36,9 +36,9 @@ Steering clamps the activation to α × max|a|. The MLP write is RMS-normalized 
 | L19 N3901 − (expl.) | 1.07 | 0.054 / 0.201 / 0.313 / 0.334 / 0.362 / 0.365 | −0.005 / −0.002 | 1.01 (repetition) |
 
 - **ΔC rises with α and then levels off for four of six neurons**; L4 N2104 and L6 N3344 are still rising at α = 16. The rise is not strictly monotone (dips of ≤ 0.011, inside the CIs, e.g. L18 N3066 0.324 → 0.313 from α = 4 to 8). This is qualitatively as predicted: the effect stops growing once the clamped neuron dominates its layer's MLP write.
-  - Neurons with a larger c*/max saturate at a larger α: L4 N2104 and L6 N3344 (c*/max 2.2–2.6) keep rising until α = 8–16, while L18 N3066, L18 N1735 and L19 N3901 (c*/max 0.8–1.1) plateau from α ≈ 2–4.
+  - Neurons with a larger c*/max saturate at a larger α: L4 N2104 and L6 N3344 (c*/max 2.2–2.6) are still rising at α = 16, while L18 N3066, L18 N1735 and L19 N3901 (c*/max 0.8–1.1) plateau from α ≈ 2–8 (L18 N1735 still gains 0.021 from α = 4 to 8).
   - We did not fit a quantitative curve, so this is a hedged, qualitative confirmation.
-- **Clamping to the opposite sign does not steer toward the concept** (|ΔC| ≤ 0.04). Four of the twelve opposite-sign conditions have a small *negative* effect whose 95% CI excludes 0 (L4 N2104 at α = −1, L13 N1680 at −4, L18 N1735 at −1 and −4). The concept is carried by one pole.
+- **Clamping to the opposite sign does not steer toward the concept** (|ΔC| ≤ 0.04). Four of the twelve opposite-sign conditions have a small *negative* effect whose 95% CI excludes 0 (L4 N2104 at α = −1, L13 N1680 at −4, L18 N1735 at −1 and −4). This is consistent with the concept being carried by one pole.
 - **Perplexity ratio rises with α**, past the guard of 2 for most neurons at α ≥ 4.
   - Exception: the if-statement neuron's ratio *falls* to ≈ 1.0, because its output becomes the repetitive "ififif…".
   - This is the failure mode the distinct-2 guard catches.
@@ -56,10 +56,10 @@ At the confirmatory α, clamped at all loops or at a single loop:
 | L19 N3901 − (expl.) | 0.313 [0.285, 0.343] | −0.012 | −0.002 | −0.013 | **0.176 [0.141, 0.214]** | 0.150 |
 
 - **Behavioral effects are strongly super-additive across loops.** For four of five confirmed neurons, the four single-loop effects together give −2% to 30% of the all-loop effect, and no single loop alone reaches ΔC 0.05.
-  - A single injection is mostly undone by the following loops. This is consistent with the "rotated away / self-repair" observation of [nesiacel (2026)](https://www.lesswrong.com/posts/rzcJMpnehFBD686gj/) and with self-repair in feedforward models ([McGrath et al. 2023](https://arxiv.org/abs/2307.15771)).
+  - A single injection is mostly undone by the following loops. Behaviorally this matches the last-loop advantage of [nesiacel (2026)](https://www.lesswrong.com/posts/rzcJMpnehFBD686gj/), who reports early injections being "rotated away" and suggests self-repair, and it is consistent with self-repair in feedforward models ([McGrath et al. 2023](https://arxiv.org/abs/2307.15771)).
   - Mechanistically, a last-loop injection displaces the final state most: relative displacement 0.20–0.47 at loop 4 vs 0.12–0.23 at loops 1–3.
   - Next-token KL is largest at loop 1 or loop 4, and U-shaped for 4 of 6 neurons.
-- **Exception (exploratory neuron):** for L19 N3901, clamping only at loop 4 gives 56% of the all-loop effect (p = 1.7e-10), while loops 1–3 alone give nothing. This matches the "last loop is most effective" finding for residual-direction steering of Ouro.
+- **Exception (exploratory neuron):** for L19 N3901, clamping only at loop 4 gives 56% of the all-loop effect (p = 1.7e-10), while loops 1–3 alone give nothing. This matches the "last loop is most effective" finding for residual-direction steering of Ouro-1.4B-Thinking.
 - **Verdict on H2** ("later loops matter more"): only partly supported. The last loop is the most effective single loop for 3 of 6 neurons (L18 N3066, L6 N3344, L19 N3901); L13 N1680 is most affected at loop 1. For five of six neurons no single loop suffices.
 - ![loop locus](../figures/loop_locus_19_3901_1.png)
 
@@ -115,4 +115,4 @@ Each neuron is set to 0 at all loops on its held-out top contexts (atlas ranks 2
 ## Learnings
 - **Steering effect and necessity can come apart** (L6 N3344, L13 N1680). Sufficiency (steering) and necessity (ablation) should be reported separately.
 - **Steering requires repeated injection.** A looped model mostly undoes a single-loop injection of one neuron, so neuron steering in looped models should clamp at every loop.
-- **Saturation follows from the sandwich RMSNorm.** Very large clamps buy little concept and cost a lot of fluency, so α between 1 and 4 × max is the useful range.
+- **Saturation is consistent with the sandwich RMSNorm bound** (qualitatively; no curve was fitted, and two neurons still rise at α = 16). Very large clamps buy little concept and cost a lot of fluency, so α between 1 and 4 × max is the useful range here.
