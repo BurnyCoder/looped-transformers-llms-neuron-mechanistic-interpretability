@@ -43,7 +43,7 @@ Random same-layer neurons clamped at the same relative α undergo the same takeo
 For every neuron the atlas stores:
 - **Top-k contexts per pole.** k = 40 overall, using the maximum over positions × loops and recording the loop of the maximum. Separately, k = 20 per loop.
 - **Per-loop summaries.** The mean, the mean of |a|, and the firing frequency, defined as the fraction of tokens with |a| above 10% of the neuron's running maximum.
-- **Histogram.** A log-binned histogram of |a|.
+- **Exceedance counts.** For each sign, the number of tokens with |a| above each of 8 thresholds (0.01 … 30), a coarse activation distribution. Moments and exceedances are computed on every 8th batch (987,840 tokens per layer and loop); top-k uses every batch.
 - **Dead flag.** A neuron is flagged dead if its max |a| stays below 1e-3.
 
 Streaming top-k works per batch. Each sequence is reduced to its maximum per neuron, then merged with the running top-k by `torch.topk` over the concatenation. Unit tests check this against brute force.
@@ -81,17 +81,17 @@ Streaming top-k works per batch. Each sequence is reduced to its maximum per neu
 - **Replication.** Same protocol on Ouro-1.4B-Thinking with seed base +2000 and R = 20. With R = 20 the null is descriptive: 1/21 cannot pass Holm at K = 5. Replication criterion: Holm Wilcoxon p < 0.05, the neuron beats all random neurons, and both guards pass.
 
 ## 8. Loop dynamics
-- **H2 (loop locus).** Clamp only at loop t ∈ {1, 2, 3, 4}. Prior residual-direction steering of Ouro-1.4B-Thinking found the last loop most effective, and found that earlier injections get "rotated away" ([nesiacel 2026](https://www.lesswrong.com/posts/rzcJMpnehFBD686gj/a-recurrent-llm-is-quite-easy-to-interpret-but-complex-to)). We test whether this holds for single neurons. We also measure how much of the injected direction w_i survives at the final norm.
+- **H2 (loop locus).** Clamp only at loop t ∈ {1, 2, 3, 4}. Prior residual-direction steering of Ouro-1.4B-Thinking found the last loop most effective, and found that earlier injections get "rotated away" ([nesiacel 2026](https://www.lesswrong.com/posts/rzcJMpnehFBD686gj/a-recurrent-llm-is-quite-easy-to-interpret-but-complex-to)). We test whether this holds for single neurons. We also measure the next-token KL divergence and the relative displacement of the final hidden state that each single-loop clamp causes.
 - **H3 (test-time loops).** Clamp at all loops while varying T ∈ {1..8}. T > 4 is extrapolation beyond training ([Zhu et al. 2025](https://arxiv.org/abs/2510.25741)).
 
 ## 9. Interpretability audit (H4)
-- Sample 300 alive neurons, stratified by layer tercile.
-- For each neuron and each loop, the local LLM writes an explanation from 20 top examples at that loop. It uses the Delphi explainer format, with the peak token marked ([Paulo et al. 2024](https://arxiv.org/abs/2410.13928)).
-- **Detection score.** The LLM reads 10 held-out activating contexts and 10 random contexts, and decides for each one whether the explanation applies. The score is the balanced accuracy.
+- Sample 150 alive neurons, 50 per layer tercile, positive pole.
+- For each neuron, at loop 1 and at loop 4, the local LLM writes an explanation from that loop's top-12 examples. It uses the Delphi explainer format, with the peak token marked ([Paulo et al. 2024](https://arxiv.org/abs/2410.13928)).
+- **Detection score.** The LLM reads 8 held-out activating contexts (ranks 13–20 at the loop) and 8 random contexts, and decides for each one whether the explanation applies. The score is the balanced accuracy.
 - **Controls:**
   - same loop vs cross loop (the loop-1 explanation scored on loop-4 examples);
   - a shuffled explanation, taken from another neuron, as a chance baseline.
-- **Reporting.** Fractions come with Wilson CIs, and stages are compared with Fisher exact tests.
+- **Reporting.** Mean balanced accuracy with 95% CIs. Same-loop vs cross-loop and same-loop vs shuffled are compared with paired two-sided Wilcoxon tests. Separately, every neuron's same-token Pearson correlation between loops is computed on 32,256 held-out tokens.
 
 ## 10. Replication
 [Ouro-1.4B-Thinking](https://huggingface.co/ByteDance/Ouro-1.4B-Thinking) has the same architecture. We first check that neuron identity is preserved, using the per-neuron cosine of the gate, up and down weight vectors between the two checkpoints. We then re-run the confirmatory protocol for the significant neuron(s) on fresh prompts and seeds.
