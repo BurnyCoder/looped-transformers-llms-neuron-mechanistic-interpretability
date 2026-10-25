@@ -40,6 +40,24 @@ Delphi explanations written by the local Qwen3.5-9B from 12 examples per loop de
 chance (balanced accuracy 0.60 vs 0.50 for shuffled explanations, $p = 1.4 times 10^(-7)$). However, they transfer
 across loops as well as within a loop (same 0.60, cross 0.59; paired difference +0.012, $p = 0.20$, $n = 240$).
 
-H4 (loop-specific explanations) is therefore not supported. Only about 20% of neurons reach balanced accuracy $>= 0.75$,
+H4 (loop-specific explanations) is therefore not supported. Only 25% (loop 1, Wilson 95% CI 18–33%) and 21% (loop 4,
+CI 15–28%) of neurons reach balanced accuracy $>= 0.75$,
 so the weak explainer limits how sensitive this test can be, and the activation correlations above are the more
 sensitive evidence.
+
+== Robustness and mechanism (plan-completion analyses, post hoc)
+- *Seed sensitivity.* Re-running the confirmatory comparison with three new seed sets (100 prompts, 1 sample each)
+  gives $Delta C = 0.11$–$0.18$ for every neuron in every set ($p <= 2.9 times 10^(-8)$). The spread across seed sets is
+  0.006–0.024.
+- *Concept-token shift.* Teacher-forced on unsteered continuations, clamping a neuron raises the next-token probability
+  mass on its concept vocabulary by 0.45–0.94 nats ($approx 1.6$–$2.6 times$, all $p approx 2 times 10^(-18)$). The
+  vocabulary consists of tokens over-represented around its atlas peaks, e.g. "sounds, vowel" for phonetics,
+  "pedagogy, instruction" for pedagogy, "orbital, shell, outermost" for orbitals.
+- *Self-repair ratio.* A clamp at loop 1, 2 or 3 leaves 33–78% of its immediate residual displacement at the output,
+  while a clamp at loop 4 leaves 67–126%. Later loops thus actively shrink earlier injections, quantifying the
+  super-additivity above.
+- *Silencing.* Holding a neuron at 0 during generation does not change the concept score ($|Delta C| <= 0.005$).
+- *Saturation in $T$.* Next-token KL saturates with the number of loops ($tau approx 2$–$4$ loops, $R^2 = 0.90$–$0.99$),
+  while the concept effect is already near its plateau at $T = 1$–$2$.
+- *Positional neurons.* None of the 10 validated candidates is positional (no position holds more than 7% of the top-40
+  peaks).

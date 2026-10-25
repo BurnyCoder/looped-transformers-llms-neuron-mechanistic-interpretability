@@ -18,7 +18,8 @@ from loopneuron import contexts as cx
 
 
 def _weights(repo: str, rev: str, layer: int) -> dict[str, torch.Tensor]:
-    path = hf_hub_download(repo, "model.safetensors", revision=rev)
+    """gate/up/down weight matrices of one layer, read lazily from the checkpoint's safetensors file."""
+    path =hf_hub_download(repo, "model.safetensors", revision=rev)
     with safe_open(path, framework="pt") as f:
         return {n: f.get_tensor(f"model.layers.{layer}.mlp.{n}.weight").float() for n in ("gate_proj", "up_proj", "down_proj")}
 

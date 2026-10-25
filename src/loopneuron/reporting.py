@@ -12,11 +12,13 @@ import numpy as np
 
 
 def _f(x, nd=3):
+    """Fixed-decimal number, or 'n/a' for None/NaN/inf."""
     return "n/a" if x is None or (isinstance(x, float) and not np.isfinite(x)) else f"{x:.{nd}f}"
 
 
 def confirm_table(conf: dict, labels: dict[str, str]) -> str:
-    rows = ["| neuron (layer, index, pole) | alpha | concept (Qwen3.5 label, shortened) | mean Delta C [95% CI] | d_z | rank-biserial | "
+    """Markdown table of the confirmatory (or replication) results, one row per candidate."""
+    rows =["| neuron (layer, index, pole) | alpha | concept (Qwen3.5 label, shortened) | mean Delta C [95% CI] | d_z | rank-biserial | "
             "p Wilcoxon (Holm) | p random-neuron null (Holm) | null mean / q95 | PPL ratio | steered distinct-2 | MiniLM Delta C | decision |",
             "|---|---|---|---|---|---|---|---|---|---|---|---|---|"]
     for r in conf["results"]:
@@ -31,7 +33,8 @@ def confirm_table(conf: dict, labels: dict[str, str]) -> str:
 
 
 def dose_table(dose: dict) -> str:
-    rows = ["| alpha | clamp value | mean Delta C [95% CI] | p Wilcoxon | PPL ratio |", "|---|---|---|---|---|"]
+    """Markdown dose-response table plus the measured saturation scale."""
+    rows =["| alpha | clamp value | mean Delta C [95% CI] | p Wilcoxon | PPL ratio |", "|---|---|---|---|---|"]
     for r in dose["rows"]:
         rows.append(f'| {r["alpha"]} | {_f(r["clamp"], 2)} | {_f(r["mean_dC"])} [{_f(r["ci95"][0])}, {_f(r["ci95"][1])}] | '
                     f'{r["p_wilcoxon"]:.1e} | {_f(r["ppl_ratio_median"], 2)} |')
@@ -42,7 +45,8 @@ def dose_table(dose: dict) -> str:
 
 
 def locus_table(ll: dict, key: str = "loops") -> str:
-    rows = [f"| {key} | mean Delta C [95% CI] | p Wilcoxon | next-token KL | final-state displacement | PPL ratio |",
+    """Markdown table for loop-locus (key='loops') or T-sweep (key='T') rows."""
+    rows =[f"| {key} | mean Delta C [95% CI] | p Wilcoxon | next-token KL | final-state displacement | PPL ratio |",
             "|---|---|---|---|---|---|"]
     for r in ll["rows"]:
         rows.append(f'| {r[key]} | {_f(r["mean_dC"])} [{_f(r["ci95"][0])}, {_f(r["ci95"][1])}] | {r["p_wilcoxon"]:.1e} | '
@@ -51,12 +55,14 @@ def locus_table(ll: dict, key: str = "loops") -> str:
 
 
 def ablation_line(ab: dict) -> str:
+    """One-sentence summary of the zero-ablation necessity test."""
     null = np.array(ab["null"])
-    return (f'Zero-ablation on {ab["n_contexts"]} held-out top contexts: next-token NLL +{ab["nll_increase"]:.4f} nats vs '
+    return (f'Zero-ablation on {ab["n_contexts"]} held-out top contexts: next-token NLL change {ab["nll_increase"]:+.4f} nats vs '
             f'random same-layer ablations mean {null.mean():.4f} (95th pct {np.quantile(null, 0.95):.4f}); empirical p = {ab["p_null"]:.4f}.')
 
 
 def write_tables(res_dir: Path, out_dir: Path) -> list[Path]:
+    """Render every table whose results file exists into out_dir (reports/tables/); returns written paths."""
     out_dir.mkdir(parents=True, exist_ok=True)
     rd = lambda n: json.loads((res_dir / n).read_text(encoding="utf-8"))
     made = []

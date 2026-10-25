@@ -26,6 +26,7 @@ def explain(llm, examples: list[tuple[str, float]], max_act: float, tag: str = "
 
 
 def _parse_list(text: str, n: int) -> list[int] | None:
+    """First bracketed 0/1 list in a Delphi detection reply; truncated to n entries, None if too short or absent."""
     m = re.search(r"\[([01,\s]*)\]", text)
     if not m:
         return None
