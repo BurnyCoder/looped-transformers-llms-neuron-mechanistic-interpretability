@@ -11,7 +11,10 @@ from __future__ import annotations
 import sys
 
 import torch
+from huggingface_hub import try_to_load_from_cache
 from transformers import AutoModelForCausalLM, AutoTokenizer
+
+from loopneuron.config import disk_guard
 
 
 def set_ut_steps(model, ut_steps: int) -> None:
@@ -53,8 +56,15 @@ def _fast_update(self, key_states, value_states, layer_idx, cache_kwargs=None):
     return self.key_cache[layer_idx], self.value_cache[layer_idx]
 
 
-def load_model(model_id: str, revision: str, ut_steps: int = 4, device: str = "cuda", dtype=torch.bfloat16):
-    """Return (model, tokenizer): bf16, eval mode, fixed T, last-loop exit, SDPA attention, fast KV cache."""
+def load_model(model_id: str, revision: str, ut_steps: int = 4, device: str = "cuda", dtype=torch.bfloat16,
+               min_free_gb: float = 3.0):
+    """Return (model, tokenizer): bf16, eval mode, fixed T, last-loop exit, SDPA attention, fast KV cache.
+
+    If the weights are not in the local HF cache yet, `disk_guard` first checks that the ~2.9 GB download leaves
+    at least `min_free_gb` free (huggingface_hub.try_to_load_from_cache returns a path only for cached files).
+    """
+    if not isinstance(try_to_load_from_cache(model_id, "model.safetensors", revision=revision), str):
+        disk_guard(3.0, min_free_gb)  # raises before downloading if the disk would get too full
     tok = AutoTokenizer.from_pretrained(model_id, revision=revision)
     model, info = AutoModelForCausalLM.from_pretrained(
         model_id, revision=revision, trust_remote_code=True, dtype=dtype, attn_implementation="sdpa",

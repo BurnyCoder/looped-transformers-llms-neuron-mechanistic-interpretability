@@ -47,9 +47,22 @@ Post-training barely moves MLP neurons: identities and activation scales are pre
 - Perplexity ratios are closer to the guard (1.64–1.98) than in the base model (1.58–1.83).
 - The base-model clamp values were reused. They are within ±5.1% of the Thinking model's own maxima, so the intervention strength is comparable.
 
+## Second replication on fresh prompts (reserve split)
+The plan asked for fresh prompts. The confirm prompts above were reused, which keeps the inputs identical across checkpoints. So the protocol was run again on the 100 never-used `reserve` prompts, with seed base +6000. Data: `results/Ouro-1.4B/replication_fresh.json`. Examples: `replication_fresh_examples.jsonl`.
+
+| neuron | ΔC [95% CI] | d_z | Holm p_Wilcoxon | beats random neurons | PPL ratio | steered distinct-2 | MiniLM ΔC |
+|---|---|---|---|---|---|---|---|
+| L18 N3066 − | 0.175 [0.152, 0.199] | 1.46 | 2.8e-17 | 20/20 | 1.84 | 0.89 | 0.247 |
+| L13 N1680 + | 0.179 [0.154, 0.203] | 1.44 | 1.1e-17 | 20/20 | 1.82 | 0.90 | 0.227 |
+| L4 N2104 + | 0.165 [0.147, 0.182] | 1.80 | 1.1e-17 | 20/20 | 1.82 | 0.90 | 0.224 |
+| L6 N3344 − | 0.168 [0.150, 0.188] | 1.69 | 1.1e-17 | 20/20 | 1.88 | 0.77 | 0.123 |
+| L18 N1735 − | 0.157 [0.132, 0.184] | 1.18 | 2.0e-16 | 20/20 | 1.97 | 0.89 | 0.217 |
+
+All five neurons replicate on fresh prompts as well. The same caveat applies to the automated `significant` flag: it reads false because R = 20 cannot pass Holm.
+
 ## Interpretation and limits
 - **Supported (systematic, for these 5 neurons):** concept-steering neurons found in the base looped model keep both their weights and their steering function through reasoning SFT. This makes them stable units of analysis across the base and post-trained checkpoints.
-- **Prompts.** The same confirmatory prompts were reused, with fresh sampling seeds, on a different model. The replication is therefore across checkpoints, not across prompt sets.
+- **Prompts.** The first replication reused the confirmatory prompts (identical inputs across checkpoints). The second used the fresh reserve prompts. Both replicate.
 - **Chat formatting.** The Thinking model was prompted with raw text stems (no chat template), matching the base protocol. Its behavior in chat format was not tested.
 
 ## Learnings

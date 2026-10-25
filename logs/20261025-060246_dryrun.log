@@ -1,0 +1,5 @@
+2026-10-25 06:02:46,154 | INFO    | loopneuron.dryrun | log file: C:\Users\Happy\Documents\projects\looped-transformers-llms-neuron-mechanistic-interpretability\logs\20261025-060246_dryrun.log
+2026-10-25 06:02:46,155 | INFO    | loopneuron.dryrun | === phase: report ===
+2026-10-25 06:02:53,893 | INFO    | loopneuron.dryrun | figures: ['loss_by_T.png', 'loop_structure.png', 'confirm_effects.png', 'null_histogram.png', 'specificity.png', 'dose_2_2908_0.png', 'loop_locus_2_2908_0.png', 't_sweep_2_2908_0.png', 'audit.png']
+2026-10-25 06:02:53,922 | INFO    | loopneuron.dryrun | tables: ['confirm.md', 'specificity.md', 'followups_2_2908_0.md', 'replication.md']
+2026-10-25 06:02:53,927 | INFO    | loopneuron.dryrun | loading ByteDance/Ouro-1.4B @ 574fa66cb8bf5abdc979642d01cf2b79b16bfab1 (T=4)

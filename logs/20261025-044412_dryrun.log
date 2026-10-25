@@ -1,0 +1,283 @@
+2026-10-25 04:44:12,012 | INFO    | loopneuron.dryrun | log file: C:\Users\Happy\Documents\projects\looped-transformers-llms-neuron-mechanistic-interpretability\logs\20261025-044412_dryrun.log
+2026-10-25 04:44:12,012 | INFO    | loopneuron.dryrun | === phase: setup_check ===
+2026-10-25 04:44:12,014 | INFO    | loopneuron.dryrun | loading ByteDance/Ouro-1.4B @ 574fa66cb8bf5abdc979642d01cf2b79b16bfab1 (T=4)
+2026-10-25 04:44:16,015 | INFO    | loopneuron.dryrun | environment: {'gpu': 'NVIDIA GeForce RTX 5070 Laptop GPU', 'vram_gb': 8.55, 'compute_capability': '12.0', 'torch': '2.14.1+cu130', 'disk_free_gb': 42.4}
+2026-10-25 04:44:16,015 | INFO    | loopneuron.dryrun | state dict: all keys matched
+2026-10-25 04:44:18,315 | INFO    | loopneuron.dryrun | held-out loss T=1: 4.0295 nats (ppl 56.23)
+2026-10-25 04:44:21,722 | INFO    | loopneuron.dryrun | held-out loss T=2: 2.8261 nats (ppl 16.88)
+2026-10-25 04:44:26,697 | INFO    | loopneuron.dryrun | held-out loss T=3: 2.5433 nats (ppl 12.72)
+2026-10-25 04:44:33,246 | INFO    | loopneuron.dryrun | held-out loss T=4: 2.5081 nats (ppl 12.28)
+2026-10-25 04:44:41,286 | INFO    | loopneuron.dryrun | held-out loss T=5: 2.5557 nats (ppl 12.88)
+2026-10-25 04:44:50,925 | INFO    | loopneuron.dryrun | held-out loss T=6: 2.5474 nats (ppl 12.77)
+2026-10-25 04:45:02,140 | INFO    | loopneuron.dryrun | held-out loss T=7: 2.5554 nats (ppl 12.88)
+2026-10-25 04:45:14,974 | INFO    | loopneuron.dryrun | held-out loss T=8: 2.5620 nats (ppl 12.96)
+2026-10-25 04:45:16,669 | INFO    | loopneuron.dryrun | default early-exit path disagrees with fixed last-loop exit on 0.0000 of positions
+2026-10-25 04:45:28,454 | INFO    | loopneuron.dryrun | SAMPLE prompt='Harris announced he would be stepping down as rabbi in '
+  continuation='2021, he was asked by the congregation to stay on as a visiting rabbi.\n\n"I was asked to be the rabbi for the next three years," he said. "I was very happy to do that."\n'
+2026-10-25 04:45:28,454 | INFO    | loopneuron.dryrun | SAMPLE prompt="Gloire's wooden hull was modelled on that of a"
+  continuation=' ship which was wrecked in the early 17th century. In 1988, the wreck of the Gloire was discovered in 130 m of water off the coast of Mauritania. This ship is the'
+2026-10-25 04:45:28,454 | INFO    | loopneuron.dryrun | SAMPLE prompt="Many of the residents' original grievances were addressed with the passing"
+  continuation=" of the new zoning law.  \nB. The new zoning law has reduced traffic congestion in the area.  \nC. The residents' opposition to the new zoning law was based on misinformation.  \nD. The new zoning law"
+2026-10-25 04:45:28,454 | INFO    | loopneuron.dryrun | SAMPLE prompt='On the morning of September 1, 3rd Battalion'
+  continuation=', 1st Battalion, 22nd Infantry Regiment, 25th Infantry Division, was ordered to take the village of Kernville, 4.5 miles south of the village of La Fosse.\n\nAs'
+2026-10-25 04:45:28,456 | INFO    | loopneuron.dryrun | === phase: build_atlas ===
+2026-10-25 04:45:28,917 | INFO    | loopneuron.dryrun | atlas exists: C:\Users\Happy\Documents\projects\looped-transformers-llms-neuron-mechanistic-interpretability\results\Ouro-1.4B-dryrun\atlas.pt
+2026-10-25 04:45:28,917 | INFO    | loopneuron.dryrun | === phase: screen_candidates ===
+2026-10-25 04:45:38,539 | INFO    | loopneuron.dryrun | profiling 120 units (60 neurons x 2 poles)
+2026-10-25 04:45:39,722 | INFO    | loopneuron.dryrun | token-detector filter kept 117/120; steering top 4 by coherence (min coherence 0.507)
+2026-10-25 04:46:01,086 | INFO    | loopneuron.dryrun | screen 3/12 conditions done
+2026-10-25 04:46:12,053 | INFO    | loopneuron.dryrun | screen 6/12 conditions done
+2026-10-25 04:46:22,869 | INFO    | loopneuron.dryrun | screen 9/12 conditions done
+2026-10-25 04:46:33,679 | INFO    | loopneuron.dryrun | screen 12/12 conditions done
+2026-10-25 04:46:33,680 | INFO    | loopneuron.dryrun | screen L22 N839 pole1 coh=0.529 | {1.0: (-0.0126, -0.012), 2.0: (0.0072, -0.006), 4.0: (-0.0033, -0.032)}
+2026-10-25 04:46:33,680 | INFO    | loopneuron.dryrun | screen L20 N4994 pole1 coh=0.520 | {1.0: (-0.0046, 0.0), 2.0: (0.0035, -0.018), 4.0: (0.0038, 0.021)}
+2026-10-25 04:46:33,681 | INFO    | loopneuron.dryrun | screen L3 N5043 pole0 coh=0.513 | {1.0: (-0.0044, -0.011), 2.0: (-0.0021, -0.001), 4.0: (0.002, 0.086)}
+2026-10-25 04:46:33,681 | INFO    | loopneuron.dryrun | screen L2 N2908 pole0 coh=0.507 | {1.0: (-0.0036, 0.0), 2.0: (0.0232, 0.36), 4.0: (0.1007, 0.905)}
+2026-10-25 04:46:33,681 | INFO    | loopneuron.dryrun | CANDIDATE L2 N2908 pole0 alpha=2.0 dC=0.0232 coherence=0.507 | 2021, while Berman, a veteran of the congregation, is expected to continue serving for some time."
+
+Here, the same.
+
+2026-10-25 04:46:33,681 | INFO    | loopneuron.dryrun | CANDIDATE L22 N839 pole1 alpha=2.0 dC=0.0072 coherence=0.529 | 2021, while his wife, Susan, will continue as a congregational leader. Harris, a retired medical doctor, has served the congregation since 
+2026-10-25 04:46:33,681 | INFO    | loopneuron.dryrun | CANDIDATE L20 N4994 pole1 alpha=4.0 dC=0.0038 coherence=0.520 | 2013. He was succeeded by Rabbi Eitan Katzar, who had served as assistant rabbi for three years.
+
+In 201
+2026-10-25 04:46:33,681 | INFO    | loopneuron.dryrun | CANDIDATE L3 N5043 pole0 alpha=4.0 dC=0.0020 coherence=0.513 | 2013. He was succeeded by Rabbi Eitan Bar-Yosef.
+
+Question: What is the name of the synagogue where the Jewish
+2026-10-25 04:46:33,692 | INFO    | loopneuron.dryrun | wrote C:\Users\Happy\Documents\projects\looped-transformers-llms-neuron-mechanistic-interpretability\results\Ouro-1.4B-dryrun\screen.json
+2026-10-25 04:46:33,692 | INFO    | loopneuron.dryrun | === phase: validate_candidates ===
+2026-10-25 04:47:41,717 | INFO    | loopneuron.dryrun | VALIDATE 2_2908_0 alpha=2.0 mean dC=0.0282 dz=0.412 median dNLL=0.238 distinct2=0.91 (unsteered 0.95) | ' the film "The Incredibles", playing the role of Fiona.\n2006 Boulter starred in the film "Toy Story 3".\n2006 Boulter starred in the film "'
+2026-10-25 04:48:08,355 | INFO    | loopneuron.dryrun | VALIDATE 22_839_1 alpha=2.0 mean dC=-0.0070 dz=-0.155 median dNLL=0.024 distinct2=0.94 (unsteered 0.95) | ' the film "The Invention of Lying," directed by Ron Howard. The movie follows a man named Gelfgott who invented a language where he says the opposite of what he means. In the film, Boulter plays the'
+2026-10-25 04:48:36,234 | INFO    | loopneuron.dryrun | VALIDATE 20_4994_1 alpha=4.0 mean dC=-0.0051 dz=-0.137 median dNLL=0.003 distinct2=0.94 (unsteered 0.95) | ' the film "The Incredible Hulk" and also appeared in the TV series "The Flash" and "The Good Fight."\nIn 2009 she starred in the film "The American President" and also appeared in'
+2026-10-25 04:49:03,561 | INFO    | loopneuron.dryrun | VALIDATE 3_5043_0 alpha=4.0 mean dC=0.0041 dz=0.093 median dNLL=0.087 distinct2=0.94 (unsteered 0.95) | ' the film "The Incredible Shrinking Man".\n\nBoulter is also known for his role as the main antagonist in the TV series "The Walking Dead".\n\nBoulter\'s favorite movie is "The Shawsh'
+2026-10-25 04:49:03,572 | INFO    | loopneuron.dryrun | wrote C:\Users\Happy\Documents\projects\looped-transformers-llms-neuron-mechanistic-interpretability\results\Ouro-1.4B-dryrun\screen.json
+2026-10-25 04:49:03,572 | INFO    | loopneuron.dryrun | === phase: label_candidates ===
+2026-10-25 04:49:22,093 | INFO    | loopneuron.dryrun | llama-server ready: C:\Users\Happy\Documents\projects\looped-transformers-llms-neuron-mechanistic-interpretability\tools\llama.cpp\llama-server.exe -m C:\Users\Happy\Documents\projects\looped-transformers-llms-neuron-mechanistic-interpretability\cache\gguf\Qwen3.5-9B-Q4_K_M.gguf -ngl 99 -c 16384 --port 8093 --jinja -np 1
+2026-10-25 04:49:27,231 | INFO    | loopneuron.dryrun | LLM CALL 1 explain L2N2908p0
+--- PROMPT ---
+[system]
+You are a meticulous AI researcher conducting an important investigation into patterns found in language. Your task is to analyze text and provide an explanation that thoroughly encapsulates possible patterns found in it.
+Guidelines:
+
+You will be given a list of text examples on which special words are selected and between delimiters like <<this>>. If a sequence of consecutive tokens all are important, the entire sequence of tokens will be contained between delimiters <<just like this>>. How important each token is for the behavior is listed after each example in parentheses.
+
+- Try to produce a concise final description. Simply describe the text latents that are common in the examples, and what patterns you found.
+- If the examples are uninformative, you don't need to mention them. Don't focus on giving examples of important tokens, but try to summarize the patterns found in the examples.
+- Do not mention the marker tokens (<< >>) in your explanation.
+- Do not make lists of possible explanations. Keep your explanations short and concise.
+- The last line of your response must be the formatted explanation, using [EXPLANATION]:
+
+[user]
+Example 1:  as long as the number of draws is much smaller than the number of balls in the urn. I leave it as<< an>> exercise to calculate the expectation value of the (10)
+Example 2: 8.
+| Issue 40 |
+Volume VII Number 40
+October 7-13,<< >>1999
+New Bay Times (6)
+Example 3:  stable, relative to physically coated polymer films. Water flow also adds to the brush layer's movement, making it extremely difficult<< for>> bacteria and other colloidal matter to anchor (5)
+Example 4:  of p, but as long as the tosses are independent the formula still applies. The binomial distribution also applies to<< problems>> involving drawing balls from urns: it (4)
+Example 5: am Cohen, UCLA professor of chemical and biomolecular engineering and a corresponding author of the study. "It wasn't practical<< for>> large-scale commercialization because thousands of meters (4)
+Example 6:  licenses. Keeping track of how many licenses you own, and how many copies you've actually installed, is a tedious,<< difficult>> task. Many volume licensing programs provide an (4)
+Example 7:  the benefits in terms of cost and convenience are significant. Also, not-for-profits sometimes qualify for it with very<< small>> initial purchases.
+Some of the benefits (4)
+Example 8: in metabolite called PGE-M could predict the effectiveness of a COX-2 inhibitor in patients with non-<<small>> cell lung cancer. This suggests, Mor (3)
+Example 9:  physical quantities in heat transfer. For instance, electric field is analogous to temperature gradient.
+
+I want to know which<< physical>> quantity in heat transfer is analogous to Ind (3)
+Example 10: ble between a nostalgia-infused yearning for their children to play and fear that time spent playing is time lost to more<< practical>> pursuits. Alarming headlines about U. (3)
+Example 11:  that school officials are hacking away at recess to make room for an increasingly crammed curriculum. Psychologists complain that oversched<<uled>> kids have no time left for the real (2)
+Example 12:  default 1).
+• parity: none | odd | event (by default none).
+
+## Appendix¶<<
+>>
+The goal of this section is to (2)
+Example 13:  acquire a new set of licenses for each new server you build that runs Windows. Therefore, per server mode works for some<< small>> organisations with one or two servers and limited (2)
+Example 14:  a short paper about series. The other is the paper about statistics communicated by Richard Price. (The statistics paper may be<< accessible>> on a long-term basis because it (2)
+Example 15:  you anything, but that's not always the case – in this instance the word free is making no assertion whatsoever about the<< price>> of the software. Proprietary software (2)
+Example 16:  Virtualization Calculator. For TechSoup<< Stock>> products, see the product description for more (2)
+Example 17: , leading to clogging and membrane damage. This scaling and fouling places higher energy demands on the pumping system and necessitates<< costly>> cleanup and membrane replacement.
+The new (2)
+Example 18:  perform certain activities which would otherwise constitute an infringement under copyright law. The software license usually answers questions such as:
+The<< price>> of the software and the licensing fees, (2)
+Example 19: 's Guide to the Microsoft eOpen Web Site.
+Always check TechSoup<< Stock>> first to see if there's a volume (2)
+Example 20: 
+tiny-tim
+
+how?
+
+5<<.>> May 12, 20 (2)
+--- OUTPUT ---
+The selected tokens consistently highlight specific attributes of nouns or concepts within their respective contexts, primarily focusing on quantitative descriptors (e.g., "small", "costly", "physical"), temporal markers (e.g., "1999"), and structural or categorical labels (e.g., "problems", "Appendix"). These words serve to define the scope, nature, or specific instance of the subject matter being discussed, often acting as key qualifiers that distinguish the described scenario from general statements.
+
+[EXPLANATION]: The highlighted tokens represent specific qualifiers, temporal markers, or categorical labels that define the scope, nature, or instance of the subject matter within each context.
+--- END ---
+2026-10-25 04:49:27,231 | INFO    | loopneuron.dryrun | LABEL L2 N2908 pole0: The highlighted tokens represent specific qualifiers, temporal markers, or categorical labels that define the scope, nature, or instance of the subject matter within each context.
+2026-10-25 04:49:33,937 | INFO    | loopneuron.dryrun | LLM CALL 2 explain L22N839p1
+--- PROMPT ---
+[system]
+You are a meticulous AI researcher conducting an important investigation into patterns found in language. Your task is to analyze text and provide an explanation that thoroughly encapsulates possible patterns found in it.
+Guidelines:
+
+You will be given a list of text examples on which special words are selected and between delimiters like <<this>>. If a sequence of consecutive tokens all are important, the entire sequence of tokens will be contained between delimiters <<just like this>>. How important each token is for the behavior is listed after each example in parentheses.
+
+- Try to produce a concise final description. Simply describe the text latents that are common in the examples, and what patterns you found.
+- If the examples are uninformative, you don't need to mention them. Don't focus on giving examples of important tokens, but try to summarize the patterns found in the examples.
+- Do not mention the marker tokens (<< >>) in your explanation.
+- Do not make lists of possible explanations. Keep your explanations short and concise.
+- The last line of your response must be the formatted explanation, using [EXPLANATION]:
+
+[user]
+Example 1: 2008 DataCenter edition on a server with two processors, you need a separate license for each processor. SQL<< Server>> 2008 works the same (10)
+Example 2:  their computing devices (for example, laptops, desktop computers, smartphones, PDAs, etc.). We'll focus on Microsoft<< server>> products, but similar issues can arise with (10)
+Example 3:  services on your Windows-based servers, you can obtain CALs to cover their licensing requirements. However, the External Connect<<or>> License (ECL) is a second (9)
+Example 4:  of print, but sometimes available from Alibris.<|endoftext|>RWJF Priority: Use pricing strategies—both incentives<< and>> disincentives—to promote the (9)
+Example 5:  organisation. This TS license is in addition to your Windows Server CALs.
+Microsoft's System Centre products (a line<< of>> enterprise-level administrative software packages) use (8)
+Example 6:  TechSoup's Guide to System Center Products and Licensing and Microsoft's white paper on Systems Center licensing.
+Some Microsoft<< server>> products have two client licensing modes, standard (8)
+Example 7:  situation.
+Choosing a licensing mode for your Windows Server CALs: With Windows Server 2003 and Windows<< Server>> 2008, you use (7)
+Example 8: st user will be denied access. However, in per server mode, each CAL is tied to a particular instance of Windows<< Server>>, and you have to acquire a new (7)
+Example 9:  from an evolutionary perspective, to what extent play is a luxury that can be dispensed with when there are too many other<< competing>> claims on the growing brain, and to (6)
+Example 10:  see A Quick Guide to Discounted Software Programs.
+Pay close attention to the options and licensing requirements when you acquire<< server>>-based software. You might need two (5)
+Example 11: TeR) Center, is currently carrying out specific studies to test the performance of the new membrane's fouling properties under<< field>> conditions.
+"We work directly with (5)
+Example 12: s 3.0 License.
+The latest version of Microsoft Office Professional Plus is an integrated collection of programs, servers<<,>> and services designed to work together to enable (5)
+Example 13:  Designs Deadline Oct. 15-Create your favorite nature scene out<< of>> clay or on paper to win prizes. (4)
+Example 14:  not always the case – in this instance the word free is making no assertion whatsoever about the price of the software. Pro<<pri>>etary software puts more restrictions and limits on (4)
+Example 15:  sign a contract to seal the agreement, that contract usually replaces or supersedes the EULA.
+Most major vendors of<< proprietary>> software offer some type of bulk purchasing and (4)
+Example 16: This section details advanced configuration for users who wish to integrate custom test suites in their<< build>> flow.
+
+The MicroEJ (4)
+Example 17: 
+
+1. May 12, 2013
+
+tapan_ydv
+
+Hi,<<
+>>
+I understand that some physical quantities in (4)
+Example 18:  classroom.
+I have been teaching seventh- and eighth-grade language arts in Delaware for the past five years. I<< grew>> up in Long Island, New York, (4)
+Example 19: -jpf-emb.xml.file}" commonProperties="${microej.kf.launch.<<property>>file}"
+testsuiteResultProperty=" (4)
+Example 20:  country.
+Bolivia wants to amend a UN drugs treaty that bans chewing coca, which is an ancient tradition in<< the>> Andes.
+But the US has said (4)
+--- OUTPUT ---
+The selected tokens consistently highlight specific nouns and prepositions that function as critical anchors for defining technical scope, licensing constraints, and contextual boundaries. The most frequent pattern involves the word "server" (and its variations like "servers"), which acts as a primary classifier for software licensing modes, distinguishing between per-processor and per-instance requirements in enterprise environments. Closely related are terms like "proprietary," "field," and "build," which define the nature of the software (restricted vs. open), the testing environment, and the development workflow, respectively. Additionally, the prepositions "of" and "and" frequently appear to delineate compound concepts or list components within these technical definitions, while "the" and "in" serve to ground abstract concepts in specific contexts or locations. These tokens collectively shape the semantic meaning by specifying the exact domain, legal framework, or operational setting of the text.
+
+[EXPLANATION]: The text latents commonly found in the examples are specific nouns and prepositions that define technical scope, licensing constraints, and contextual boundaries. The most frequent pattern involves the word "server," which acts as a primary classifier for software licensing modes, distinguishing between per-processor and per-instance requirements. Closely related are terms like "proprietary," "field," and "build," which define the nature of the software, the testing environment, and the development workflow. Additionally, prepositions like "of" and "and" frequently appear to delineate compound concepts or list components,
+--- END ---
+2026-10-25 04:49:33,937 | INFO    | loopneuron.dryrun | LABEL L22 N839 pole1: The text latents commonly found in the examples are specific nouns and prepositions that define technical scope, licensing constraints, and contextual boundaries. The most frequent pattern involves the word "server," which acts as a primary classifier for software licensing modes, distinguishing between per-processor and per-instance requirements. Closely related are terms like "proprietary," "field," and "build," which define the nature of the software, the testing environment, and the development workflow. Additionally, prepositions like "of" and "and" frequently appear to delineate compound concepts or list components,
+2026-10-25 04:49:38,258 | INFO    | loopneuron.dryrun | LLM CALL 3 explain L20N4994p1
+--- PROMPT ---
+[system]
+You are a meticulous AI researcher conducting an important investigation into patterns found in language. Your task is to analyze text and provide an explanation that thoroughly encapsulates possible patterns found in it.
+Guidelines:
+
+You will be given a list of text examples on which special words are selected and between delimiters like <<this>>. If a sequence of consecutive tokens all are important, the entire sequence of tokens will be contained between delimiters <<just like this>>. How important each token is for the behavior is listed after each example in parentheses.
+
+- Try to produce a concise final description. Simply describe the text latents that are common in the examples, and what patterns you found.
+- If the examples are uninformative, you don't need to mention them. Don't focus on giving examples of important tokens, but try to summarize the patterns found in the examples.
+- Do not mention the marker tokens (<< >>) in your explanation.
+- Do not make lists of possible explanations. Keep your explanations short and concise.
+- The last line of your response must be the formatted explanation, using [EXPLANATION]:
+
+[user]
+Example 1: . This TS license is in addition to your Windows Server CALs.
+Microsoft's System Centre products (a line of<< enterprise>>-level administrative software packages) use a (10)
+Example 2:  the options and licensing requirements when you acquire server-based software. You might need two different types of license – one for<< the>> server software itself, and a set of (10)
+Example 3:  you may not have the right to copy and redistribute the software. In other words, freeware is proprietary software. Share<<ware>> is even more restrictive. In effect (9)
+Example 4:  is a second option in this scenario. The ECL covers all use by authenticated external users, but it's a lot<< more>> expensive than a CAL, so only get (8)
+Example 5:  the SerialTraceAnalyzer task:
+
+• port: the comm port to open.
+• baudrate:<< serial>> baudrate (by default 9 (7)
+Example 6: , shareware is trial software. You can use it for a limited<< amount>> of time (usually 30 or (7)
+Example 7:  don't require any client licenses. Read the product description at CTXchange if you're looking for the details about licensing<< a>> particular application.
+User CALs: (7)
+Example 8: ditions and Client Access Licenses for more information.
+With virtualisation technologies, multiple operating systems can run simultaneously on a<< single>> physical server. Every time you install a (7)
+Example 9:  of two licensing modes: per seat or per server. You make this decision when you're<< installing>> your Windows Server products, not when you (7)
+Example 10: chester and King James II by Susan Holloway Scott. Novel about Katherine Sedley, a royal mistress forced to make the<< most>> perilous of choices: to remain loyal to (6)
+Example 11:  contractors, clients, and anyone else who uses the software in question) or their<< computing>> devices (for example, laptops, desktop (6)
+Example 12:  answer is no.
+Well, me neither. So I had five of the leaves analyzed. I had found the leaves<< from>> an oak, a beech, a (6)
+Example 13: : Device CALs allow access to all instances of a particular server application from a single device (for example, a desktop<< computer>>, a laptop, etc.) in your (6)
+Example 14: 't practical for large-scale commercialization because thousands of meters of membranes could not be synthesized in a vacuum chamber. It's<< too>> costly. But now, with the advent (6)
+Example 15:  of flow (current) through the wheel due to the effects of inertia, but, given time, a constant flowing stream<< will>> pass mostly unimpeded through the (6)
+Example 16: ) for each installed copy of the program. On the other hand, volume licenses provide you with a single, organisation-<<wide>> activation code, which makes it much easier (6)
+Example 17: immolation.
+The three sources by Indian men and one by an Indian woman illustrate the diversity of their attitudes toward sat<<i>>. The Marathi source illuminates the material (6)
+Example 18:  which would otherwise constitute an infringement under copyright law. The software license usually answers questions such as:
+The price of the<< software>> and the licensing fees, if any, (6)
+Example 19:  tags, failing if the success tag is not found.
+• The SerialTraceAnalyzer will analyze the data from a<< serial>> connection.
+
+Here is the common (6)
+Example 20:  to amend a UN drugs treaty that bans chewing coca, which is an ancient tradition in the Andes.
+But the<< US>> has said it will veto the amendment because (5)
+--- OUTPUT ---
+The selected tokens consistently highlight specific nouns, adjectives, or verbs that denote critical constraints, classifications, or defining characteristics within a technical or narrative context. In technical passages, these markers identify key licensing terms (e.g., "enterprise," "server," "software"), specific hardware interfaces (e.g., "serial," "computer"), and restrictive quantifiers (e.g., "single," "too," "most"). In narrative contexts, they pinpoint pivotal choices or significant entities (e.g., "most," "US"). The common pattern is the selection of words that carry the highest informational density regarding rules, limitations, or central subject matter.
+
+[EXPLANATION]: The highlighted tokens consistently mark words that define critical constraints, classifications, or pivotal entities within the text. In technical contexts, these are terms specifying licensing types, hardware interfaces, or restrictive quantities, while in narrative contexts, they denote significant choices or key subjects.
+--- END ---
+2026-10-25 04:49:38,258 | INFO    | loopneuron.dryrun | LABEL L20 N4994 pole1: The highlighted tokens consistently mark words that define critical constraints, classifications, or pivotal entities within the text. In technical contexts, these are terms specifying licensing types, hardware interfaces, or restrictive quantities, while in narrative contexts, they denote significant choices or key subjects.
+2026-10-25 04:49:41,532 | INFO    | loopneuron.dryrun | LLM CALL 4 explain L3N5043p0
+--- PROMPT ---
+[system]
+You are a meticulous AI researcher conducting an important investigation into patterns found in language. Your task is to analyze text and provide an explanation that thoroughly encapsulates possible patterns found in it.
+Guidelines:
+
+You will be given a list of text examples on which special words are selected and between delimiters like <<this>>. If a sequence of consecutive tokens all are important, the entire sequence of tokens will be contained between delimiters <<just like this>>. How important each token is for the behavior is listed after each example in parentheses.
+
+- Try to produce a concise final description. Simply describe the text latents that are common in the examples, and what patterns you found.
+- If the examples are uninformative, you don't need to mention them. Don't focus on giving examples of important tokens, but try to summarize the patterns found in the examples.
+- Do not mention the marker tokens (<< >>) in your explanation.
+- Do not make lists of possible explanations. Keep your explanations short and concise.
+- The last line of your response must be the formatted explanation, using [EXPLANATION]:
+
+[user]
+Example 1:  job of describing the differences between products, so we'll focus on the common threads in this article.
+Moreover, Microsoft<< often>> lets you license a single server application in (10)
+Example 2:  learn trust, empathy and social skills when their most frequent playing is done online. Brown told her that while video games do<< have>> some play value, a true sense of (7)
+Example 3: -NoDerivs 3.0 License.
+The latest version of Microsoft Office Professional Plus is an integrated collection<< of>> programs, servers, and services designed to (6)
+Example 4: 's Guide to System Center Products and Licensing and Microsoft's white paper on Systems Center licensing.
+Some Microsoft server products<< have>> two client licensing modes, standard and enterprise (6)
+Example 5:  find at TechSoup, search for "volume licensing not-for-profits software" or just "not-for-<<profits>> software." For example, when we have (6)
+Example 6:  difficult task. Many volume licensing programs provide an online account which is automatically updated when you obtain or activate a copy of that<< company>>'s software. These accounts can also coordinate (5)
+Example 7:  to install and run most server applications usually comes bundled with the software<< itself>>. So you can install and run most (5)
+Example 8:  software (usually small utilities at sites such as Tucows.com) that you can download and install without paying. However<<,>> you don't have the right to view (5)
+Example 9:  use of COX inhibitors will reduce the incidence of the disease.<|endoftext|>Discover the cosmos! Each day a different image or<< photograph>> of our fascinating universe is featured, along (5)
+Example 10:  or a Device CAL in either mode. Per seat mode is the default mode, and the one used most frequently. The<< description>> of User CALs and Device CALs (5)
+Example 11:  Agreement (EULA).
+When you acquire software yourself, directly from a vendor or retailer, or directly from the vendor<<'s>> Web site, you usually have to indicate (5)
+Example 12:  that will access Terminal Services in your organisation. This TS license is in addition to your Windows Server CALs.
+Microsoft<<'s>> System Centre products (a line of enterprise (4)
+Example 13:  Woods Tues. Oct. 12 (10:30-noon)-Hike with a r<<anger>> to a clearing in the woods. Listen (4)
+Example 14:  to be the loss of play in their children's lives. Their concern came, no doubt, from the recent deluge<< of>> eulogies to play . Educators (4)
+Example 15:  as an important strategy in the movement to reverse the childhood obesity epidemic. For example, when healthy foods like fruits and vegetables<< are>> more affordable, children are less likely to (4)
+Example 16:  children being damaged by staring at computer screens and video games? Are they missing something when fantasy play is populated with characters from<< Hollywood>>'s imagination and not their own? Most (4)
+Example 17:  will help to support the continued operation and improvement of the Royalty.nu site.
+James II by John Miller.<< Biography>> from the Yale English Monarch (4)
+Example 18:  about client licensing:
+The licensing scenarios described in this section arise less frequently, and are too complex to cover completely in<< this>> article, so they're described briefly below (4)
+Example 19:  in 1936, are very rapidly metabolized, or broken down, making measurement in the blood difficult.<< Researchers>> at Vanderbilt led by John Oates, (4)
+Example 20:  for the bishops led to widespread welcome for William of Orange's invasion.
+The Making of King James II by John C<<allow>> is about the formative years of the fallen (4)
+--- OUTPUT ---
+The selected tokens consistently function as determiners, possessive markers, or introductory conjunctions that immediately precede or modify a noun phrase, thereby establishing the grammatical relationship between the subject and the object of the sentence. These latents highlight the structural role of words like "of," "the," "this," and possessive suffixes in defining scope, ownership, and categorization within technical and descriptive contexts.
+
+[EXPLANATION]: The identified tokens are primarily functional words that serve as determiners, possessive markers, or introductory conjunctions, establishing the grammatical relationship between subjects and objects by defining scope, ownership, or categorization within the sentence structure.
+--- END ---
+2026-10-25 04:49:41,532 | INFO    | loopneuron.dryrun | LABEL L3 N5043 pole0: The identified tokens are primarily functional words that serve as determiners, possessive markers, or introductory conjunctions, establishing the grammatical relationship between subjects and objects by defining scope, ownership, or categorization within the sentence structure.
+2026-10-25 04:49:42,744 | INFO    | loopneuron.dryrun | wrote C:\Users\Happy\Documents\projects\looped-transformers-llms-neuron-mechanistic-interpretability\results\Ouro-1.4B-dryrun\screen.json
+2026-10-25 04:49:42,746 | INFO    | loopneuron.dryrun | === phase: preregister ===

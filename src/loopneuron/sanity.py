@@ -12,6 +12,7 @@ Global context: first phase of run_pipeline.py; later phases assume these checks
 from __future__ import annotations
 
 import json
+import shutil
 
 import numpy as np
 import torch
@@ -47,8 +48,13 @@ def default_exit_disagreement(model, chunks: np.ndarray, T: int) -> float:
 
 def setup_check(model, tok, eval_chunks: np.ndarray, prompts: list[dict], T: int, out_path, log,
                 max_T: int = 8, n_eval: int = 64) -> dict:
-    """Run the three sanity checks and save a JSON summary."""
-    res = {"loading_info": model.loading_info, "loss_by_T": {}}
+    """Run the sanity checks (environment, state dict, loss vs T, exit path, samples) and save a JSON summary."""
+    props = torch.cuda.get_device_properties(0)  # GPU name / VRAM (https://pytorch.org/docs/stable/cuda.html)
+    res = {"environment": {"gpu": props.name, "vram_gb": round(props.total_memory / 1e9, 2),
+                           "compute_capability": f"{props.major}.{props.minor}", "torch": torch.__version__,
+                           "disk_free_gb": round(shutil.disk_usage(out_path.parent.parent).free / 1e9, 1)},
+           "loading_info": model.loading_info, "loss_by_T": {}}
+    log.info("environment: %s", res["environment"])
     bad = {k: v for k, v in model.loading_info.items() if v}
     log.info("state dict: %s", "all keys matched" if not bad else f"PROBLEMS {bad}")
     for t in range(1, max_T + 1):

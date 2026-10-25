@@ -1,0 +1,19 @@
+2026-10-25 04:05:31,808 | INFO    | loopneuron.replicate_fresh | log file: C:\Users\Happy\Documents\projects\looped-transformers-llms-neuron-mechanistic-interpretability\logs\20261025-040531_replicate_fresh.log
+2026-10-25 04:05:31,808 | INFO    | loopneuron.replicate_fresh | === phase: replicate_fresh ===
+2026-10-25 04:05:48,721 | INFO    | loopneuron.replicate_fresh | confirm: 100 prompts x 3 samples x 48 tokens, 5 candidates, R=20
+2026-10-25 04:14:35,810 | INFO    | loopneuron.replicate_fresh | null generations done for layer 18 pole 1 alpha 1.0 (20 neurons)
+2026-10-25 04:14:36,720 | INFO    | loopneuron.replicate_fresh | CONFIRM 18_3066_1 alpha=1.0 meanDC=0.1753 CI=[0.1518 0.1987] p_wil=1.40e-17 p_null=0.0476 ppl_ratio=1.84 robust=0.2467
+2026-10-25 04:20:29,867 | INFO    | loopneuron.replicate_fresh | null generations done for layer 13 pole 0 alpha 1.0 (20 neurons)
+2026-10-25 04:20:30,748 | INFO    | loopneuron.replicate_fresh | CONFIRM 13_1680_0 alpha=1.0 meanDC=0.1786 CI=[0.1543 0.2029] p_wil=2.63e-18 p_null=0.0476 ppl_ratio=1.82 robust=0.2269
+2026-10-25 04:26:38,456 | INFO    | loopneuron.replicate_fresh | null generations done for layer 4 pole 0 alpha 2.0 (20 neurons)
+2026-10-25 04:26:39,337 | INFO    | loopneuron.replicate_fresh | CONFIRM 4_2104_0 alpha=2.0 meanDC=0.1646 CI=[0.1472 0.1825] p_wil=2.13e-18 p_null=0.0476 ppl_ratio=1.82 robust=0.2236
+2026-10-25 04:32:31,813 | INFO    | loopneuron.replicate_fresh | null generations done for layer 6 pole 1 alpha 4.0 (20 neurons)
+2026-10-25 04:32:32,707 | INFO    | loopneuron.replicate_fresh | CONFIRM 6_3344_1 alpha=4.0 meanDC=0.1684 CI=[0.1495 0.1878] p_wil=3.67e-18 p_null=0.0476 ppl_ratio=1.88 robust=0.1233
+2026-10-25 04:38:12,180 | INFO    | loopneuron.replicate_fresh | null generations done for layer 18 pole 1 alpha 2.0 (20 neurons)
+2026-10-25 04:38:13,070 | INFO    | loopneuron.replicate_fresh | CONFIRM 18_1735_1 alpha=2.0 meanDC=0.1574 CI=[0.1317 0.1842] p_wil=2.00e-16 p_null=0.0476 ppl_ratio=1.97 robust=0.2175
+2026-10-25 04:38:13,530 | INFO    | loopneuron.replicate_fresh | DECISION 18_3066_1: not significant (holm p_wil=2.79e-17, holm p_null=0.2381, ppl=1.84, distinct2=0.89)
+2026-10-25 04:38:13,530 | INFO    | loopneuron.replicate_fresh | DECISION 13_1680_0: not significant (holm p_wil=1.07e-17, holm p_null=0.2381, ppl=1.82, distinct2=0.90)
+2026-10-25 04:38:13,530 | INFO    | loopneuron.replicate_fresh | DECISION 4_2104_0: not significant (holm p_wil=1.07e-17, holm p_null=0.2381, ppl=1.82, distinct2=0.90)
+2026-10-25 04:38:13,530 | INFO    | loopneuron.replicate_fresh | DECISION 6_3344_1: not significant (holm p_wil=1.10e-17, holm p_null=0.2381, ppl=1.88, distinct2=0.77)
+2026-10-25 04:38:13,530 | INFO    | loopneuron.replicate_fresh | DECISION 18_1735_1: not significant (holm p_wil=2.00e-16, holm p_null=0.2381, ppl=1.97, distinct2=0.89)
+2026-10-25 04:38:13,541 | INFO    | loopneuron.replicate_fresh | wrote C:\Users\Happy\Documents\projects\looped-transformers-llms-neuron-mechanistic-interpretability\results\Ouro-1.4B\replication_fresh.json

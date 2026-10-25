@@ -109,6 +109,21 @@ def test_state_dict_fully_loaded(ouro):
 
 
 @pytest.mark.gpu
+def test_default_exit_path_matches_last_loop(ouro):
+    """The model's default early-exit path (threshold 1.0) picks the same next tokens as our fixed last-loop exit."""
+    model, tok, T = ouro
+    ids = tok(TEXT, return_tensors="pt").input_ids.cuda()
+    with torch.no_grad():
+        fixed = model(ids).logits.argmax(-1)
+        model.early_exit_step = None  # restore the default exit logic for this comparison
+        try:
+            default = model(ids, exit_threshold=1.0).logits.argmax(-1)
+        finally:
+            model.early_exit_step = T - 1
+    assert (fixed == default).float().mean().item() >= 0.99
+
+
+@pytest.mark.gpu
 def test_forward_deterministic(ouro):
     model, tok, T = ouro
     ids = tok(TEXT, return_tensors="pt").input_ids.cuda()

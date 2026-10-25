@@ -55,7 +55,7 @@ No model was trained or fine-tuned in this study. All experiments are inference-
 | 3 | **confirmatory steering test (H1)** | 100 held-out prompts × 3 samples | **5/5 neurons significant**: mean ΔC 0.13–0.18, d_z 0.99–1.61, Holm p_Wilcoxon ≤ 1.1e-15, Holm p_null = 0.0495 (floor), PPL ratio ≤ 1.83 | [03](03_confirmatory_test.md) |
 | 4 | follow-ups (post hoc) + LLM judge (secondary) | 60 / 50 held-out prompts | specific (own concept 1.4–3.8× the largest other); saturating dose-response; single-loop clamps ≤ 0.043 vs all-loop 0.13–0.17 (super-additive); flat in T; 4/6 necessary by ablation (exploratory); blind LLM judge concept 0 → 0.06–0.36 (all Holm p ≤ 0.042), fluency 1.50 → 0.90–1.17 | [04](04_followups.md) |
 | 5 | loop structure + LLM audit (H4) | 32k held-out tokens; 150 neurons | cross-loop r(1,4) median 0.54; adjacent loops converge (0.65 → 0.84 → 0.94); H4 not supported (same-loop 0.60 vs cross-loop 0.59, p = 0.20; weak explainer) | [05](05_loop_audit.md) |
-| 6 | replication on Ouro-1.4B-Thinking | 100 held-out prompts | 5/5 replicate (ΔC 0.161–0.180, Holm p ≤ 2.1e-16, each beats 20/20 random neurons); SFT leaves neuron weights nearly unchanged (cos ≥ 0.993 for 99%) | [06](06_replication.md) |
+| 6 | replication on Ouro-1.4B-Thinking | 100 confirm prompts + 100 fresh reserve prompts | 5/5 replicate in both (confirm prompts: ΔC 0.161–0.180, Holm p ≤ 2.1e-16; fresh prompts: ΔC 0.157–0.179, Holm p ≤ 2.0e-16; each beats 20/20 random neurons); SFT leaves neuron weights nearly unchanged (cos ≥ 0.993 for 99%) | [06](06_replication.md) |
 | 7 | plan-completion analyses (post hoc) | 100 / 60 held-out prompts | effect stable across 3 new seed sets (ΔC 0.11–0.18, p ≤ 2.9e-8); concept-token probability +0.45–0.94 nats (p ≈ 2e-18); single-loop injections at loops 1–3 keep 33–78% of their size at the output vs 67–126% at loop 4 (self-repair); KL saturates in T (τ ≈ 2–4 loops); no positional candidates | [07](07_plan_completion.md) |
 
 ## Plan vs. what was executed
@@ -76,6 +76,14 @@ The approved plan is reproduced in spirit in [docs/methodology.md](../docs/metho
 | replication: same null R = 100 | R = 20 (descriptive) | keeps the run near 30 minutes; the Wilcoxon test is the replication criterion |
 | one PR per functional unit (7) | 4 PRs | phases were developed and validated together in the dry run |
 | CLI `--model` | the model is set in `.env` | one fewer way to diverge from the pinned revision |
+| power: n = max(100, required) | n = clip(required, 100, 300) | the confirm split has 300 prompts; required n was 13–22, so n = 100 either way |
+| H2 "self-repair ratio = measured effect / direct-path effect" | surviving / injected relative residual displacement for a single-loop clamp ([Experiment 7](07_plan_completion.md)), plus the behavioral super-additivity ratio ([Experiment 4](04_followups.md)) | a "direct path" is not uniquely defined in a looped model; the displacement right after the steered layer is the measurable injection |
+| replication: fresh prompts and fresh seeds | fresh seeds on the confirm prompts (identical inputs across checkpoints), **plus** a second replication on the never-used reserve prompts ([Experiment 6](06_replication.md)) | the reserve split was free because no second confirmatory round was needed |
+| test "clamping to the natural value leaves logits unchanged" | identity edits (scale = 1, add = 0) leave logits bit-identical; clamp ≡ residual add of (c − a)·w is tested separately | a per-position natural-value clamp is the same no-op, checked more simply |
+| `NeuronRecorder` + `NeuronSteerer` | one `NeuronHooks` object (record and edit in the same pre-hook) | one hook per layer avoids ordering bugs between two hooks |
+| viewer "both poles" | one page per candidate pole; token shading shows both signs (teal +, rust −) | candidates are poles; both signs remain visible on every page |
+| disk budget 24.7 GB | the user freed ~50 GB mid-run; VRAM (8 GB) stayed the binding limit | the labeler stayed at Qwen3.5-9B Q4 because of VRAM, not disk |
+| Ouro-2.6B skipped (limitation) | stated in the paper's limitations | weights plus KV cache exceed 8 GB VRAM |
 
 ## What would have falsified H1, and what did not happen
 H1 would have been rejected if no candidate had met *all* of the following after Holm correction:
