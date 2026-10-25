@@ -15,6 +15,10 @@ use one forward pre-hook per `down_proj`; the loop index is the per-layer call c
 Unit tests check the hook against a manual SwiGLU recomputation at every loop, confirm that identity edits leave the
 logits bit-identical, and confirm that cached decoding matches full forward passes.
 
+#figure(image("../../figures/ouro_neuron_diagram.svg", width: 100%),
+  caption: [Object of study. Ouro-1.4B applies one 24-layer stack four times; every SwiGLU neuron is read and steered at
+  the input of `down_proj`, once per loop, through a forward pre-hook.]) <fig:arch>
+
 == Neuron atlas
 We stream 8M tokens: FineWeb-Edu @penedo2024fineweb (90%) plus OpenWebMath @paster2023openwebmath (10%), packed into
 256-token chunks. For every neuron and pole we keep the top-40 contexts, taking the maximum over positions and

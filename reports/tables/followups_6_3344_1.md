@@ -34,4 +34,4 @@ Saturation scale c* per loop (median ||W_down a|| / ||w_i||): [0.81, 0.63, 0.57,
 | 8 | 0.200 [0.165, 0.233] | 8.7e-11 | 1.034 | 0.596 | 1.90 |
 
 ### Ablation
-Zero-ablation on 19 held-out top contexts: next-token NLL +-0.0712 nats vs random same-layer ablations mean 0.0012 (95th pct 0.0141); empirical p = 1.0000.
+Zero-ablation on 19 held-out top contexts: next-token NLL change -0.0712 nats vs random same-layer ablations mean 0.0012 (95th pct 0.0141); empirical p = 1.0000.
