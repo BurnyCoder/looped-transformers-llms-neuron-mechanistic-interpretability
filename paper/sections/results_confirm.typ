@@ -31,8 +31,9 @@
 ) <tab:confirm>
 
 #figure(image("../../figures/confirm_effects.png", width: 95%),
-  caption: [Mean $Delta C$ with 95% bootstrap CIs (blue) and the 95th percentile of the random same-layer neuron null
-  (orange tick) for each candidate.]) <fig:confirm>
+  caption: [Mean $Delta C$ (100 prompts × 3 samples) with 95% bootstrap CIs (blue) and the 95th percentile of the
+  random same-layer neuron null (orange tick; the null statistic uses the first 50 prompts, sample 0) for each
+  candidate.]) <fig:confirm>
 
 Steered text visibly carries the concepts. The examples below are the second confirmatory prompt, sample 0 (chosen from
 the first three prompts for visible concept content; the eight stored prompts per neuron are in `confirm_examples.jsonl`):

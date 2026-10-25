@@ -30,14 +30,14 @@ The loop is `for current_ut in range(total_ut_steps): for layer in layers: h = l
 The neuron's write to the residual stream is `post_attention_layernorm_2(W_down a)`. This write is RMS-normalized *after* the MLP.
 
 **Prediction (sandwich-norm saturation).** Clamp a_i to c, so that W_down a = c·w_i + r, where r is the contribution of the other neurons. As |c| → ∞, the write tends to `γ ⊙ sign(c)·w_i / rms(w_i)`, where γ is the norm gain. Two consequences follow:
-1. The steering strength per layer per loop is bounded, so the dose-response must plateau. The crossover scale is c\* ≈ ‖r‖/‖w_i‖. We measure it as the median over unsteered tokens of ‖W_down a‖/‖w_i‖ (`experiments.saturation_scale`), since the unclamped MLP output approximates r.
+1. The steering strength per layer per loop is bounded, so the dose-response is predicted to plateau. The crossover scale is c\* ≈ ‖r‖/‖w_i‖. We measure it as the median over unsteered tokens of ‖W_down a‖/‖w_i‖ (`experiments.saturation_scale`), since the unclamped MLP output approximates r.
 2. A very large clamp also suppresses the rest of that layer's MLP output (a "takeover" effect).
 
 Random same-layer neurons clamped at the same relative α undergo the same takeover. That makes them the right null for separating *concept-specific* effects from *generic MLP-takeover* effects.
 
 ## 3. Data
-- **Atlas corpus.** FineWeb-Edu ([Penedo et al. 2024](https://arxiv.org/abs/2406.17557); one parquet shard, `sample/10BT/000_00000`) and OpenWebMath ([Paster et al. 2023](https://arxiv.org/abs/2310.06786); one shard, `train-00000`), streamed with `datasets` (`streaming=True`), are tokenized with Ouro's tokenizer, joined with an `<|endoftext|>` separator (id 0) after each document, and packed into 256-token chunks. Held-out text for the setup check and cross-loop correlations comes from another FineWeb-Edu shard (`013_00000`). Ouro's pre-training mix includes web, code and math ([model card](https://huggingface.co/ByteDance/Ouro-1.4B)), so this text is in distribution. We use 8M tokens. Goodfire used 100M tokens for Qwen3-32B ([Cammarata 2026](https://already-clean.goodfire.com/)); our smaller budget is a stated limitation.
-- **Prompt corpus.** WikiText-103 *test* paragraphs ([Merity et al. 2016](https://arxiv.org/abs/1609.07843)) are truncated to exactly 12 tokens. Equal lengths let us batch without padding. The prompts are split once with a fixed seed into disjoint discovery (150), confirmatory (300) and reserve (300) sets.
+- **Atlas corpus.** FineWeb-Edu ([Penedo et al. 2024](https://arxiv.org/abs/2406.17557); one parquet shard, `sample/10BT/000_00000`) and OpenWebMath ([Paster et al. 2023](https://arxiv.org/abs/2310.06786); one shard, `train-00000`), streamed with `datasets` (`streaming=True`) and interleaved per document with probabilities 0.9 / 0.1 (`interleave_datasets`; the token share was not measured), are tokenized with Ouro's tokenizer, joined with an `<|endoftext|>` separator (id 0) after each document, and packed into 256-token chunks. Held-out text for the setup check and cross-loop correlations comes from another FineWeb-Edu shard (`013_00000`). Ouro's pre-training mix includes web, code and math ([model card](https://huggingface.co/ByteDance/Ouro-1.4B)), so this text is in distribution. We use 8M tokens. Goodfire used 100M tokens for Qwen3-32B ([Cammarata 2026](https://already-clean.goodfire.com/)); our smaller budget is a stated limitation.
+- **Prompt corpus.** WikiText-103 *test* paragraphs ([Merity et al. 2016](https://arxiv.org/abs/1609.07843)) are truncated to exactly 12 tokens. Equal lengths let us batch without padding. None of the 750 stems occurs verbatim in the 8M atlas tokens (exact 12-token search). The prompts are split once with a fixed seed into disjoint discovery (150), confirmatory (300) and reserve (300) sets.
 
 ## 4. Atlas statistics
 For every neuron the atlas stores:
@@ -60,7 +60,7 @@ Streaming top-k works per batch. Each sequence is reduced to its maximum per neu
 - **Fluency guard.** We compute the perplexity of the steered continuation under the *unsteered* model. Within each prompt the score is the ratio steered/unsteered, and across prompts we take the median.
 - **Secondary metrics:**
   - An AxBench-style blind LLM judge ([Wu et al. 2025](https://arxiv.org/abs/2501.17148)) scores concept and fluency from 0 to 2, writing its explanation before the score. The order of conditions is shuffled.
-  - The distinct-2 repetition rate ([Li et al. 2016](https://arxiv.org/abs/1510.03055)).
+  - distinct-2, the unique / total bigrams of each continuation (lexical diversity; a per-text variant of distinct-n from [Li et al. 2016](https://arxiv.org/abs/1510.03055), who compute it over all responses).
   - ΔC computed with [all-MiniLM-L6-v2](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2), as a robustness check on the embedder.
 
 ## 7. Statistics
@@ -91,12 +91,12 @@ Streaming top-k works per batch. Each sequence is reduced to its maximum per neu
   - a positional-neuron check of the validated candidates.
 
 ## 8. Loop dynamics
-- **H2 (loop locus).** Clamp only at loop t ∈ {1, 2, 3, 4}. Prior residual-direction steering of Ouro-1.4B-Thinking found the last loop most effective, and found that earlier injections get "rotated away" ([nesiacel 2026](https://www.lesswrong.com/posts/rzcJMpnehFBD686gj/a-recurrent-llm-is-quite-easy-to-interpret-but-complex-to)). We test whether this holds for single neurons. We also measure the next-token KL divergence and the relative displacement of the final hidden state that each single-loop clamp causes.
+- **H2 (loop locus).** Clamp only at loop t ∈ {1, 2, 3, 4}. Prior residual-direction steering of Ouro-1.4B-Thinking found the last loop most effective, and found that earlier injections leave the residual stream perturbed but "rotated away" from the concept ([nesiacel 2026](https://www.lesswrong.com/posts/rzcJMpnehFBD686gj/a-recurrent-llm-is-quite-easy-to-interpret-but-complex-to)). We test whether this holds for single neurons. We also measure the next-token KL divergence and the relative displacement of the final hidden state that each single-loop clamp causes.
 - **H3 (test-time loops).** Clamp at all loops while varying T ∈ {1..8}. T > 4 is extrapolation beyond training ([Zhu et al. 2025](https://arxiv.org/abs/2510.25741)).
 
 ## 9. Interpretability audit (H4)
 - Sample 150 alive neurons, 50 per layer tercile, positive pole.
-- For each neuron, at loop 1 and at loop 4, the local LLM writes an explanation from that loop's top-12 examples. It uses the Delphi explainer format, with the peak token marked ([Paulo et al. 2024](https://arxiv.org/abs/2410.13928)).
+- For each neuron, at loop 1 and at loop 4, the local LLM writes an explanation from that loop's top-12 examples. It uses the Delphi explainer system prompt with the peak token marked `<<like this>>` and one 0–10 activation level per example; Delphi's few-shot demonstrations and per-token activation lists are not used ([Paulo et al. 2024](https://arxiv.org/abs/2410.13928)).
 - **Detection score.** The LLM reads 8 held-out activating contexts (ranks 13–20 at the loop) and 8 random contexts, and decides for each one whether the explanation applies. The score is the balanced accuracy.
 - **Controls:**
   - same loop vs cross loop (the loop-1 explanation scored on loop-4 examples);

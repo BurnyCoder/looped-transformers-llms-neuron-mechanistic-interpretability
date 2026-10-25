@@ -7,8 +7,9 @@
 On the mechanistic side, Blayney et al. @blayney2026mechanistic find that recurrent blocks converge to cyclic fixed points, at which
 attention-head behavior stabilizes, and that they repeat feedforward-like stages of inference. Blog-length studies
 intervene on Ouro with residual-stream directions. One finds a last-loop steering advantage and apparent self-repair in
-Ouro-1.4B-Thinking @nesiacel2026recurrent. Another finds that per-pass refusal directions in Ouro-2.6B converge from the
-second pass onward and that projecting them out removes refusal @suiche2026abliterating. A study of a frozen 2.6B looped
+Ouro-1.4B-Thinking @nesiacel2026recurrent. Another, mainly about Nanbeige4.2-3B, finds in a follow-up on Ouro-2.6B that
+per-pass refusal directions converge from the second pass onward and that steering along the refusal direction removes
+refusal @suiche2026abliterating. A study of a frozen 2.6B looped
 model (Ouro-RLTT) finds that internal readouts give validated decision-level gains, but that directional steering is
 negative and generative control yields no gain @kirin2026introspection. Self-repair after ablations is also known in feedforward models
 @mcgrath2023hydra.

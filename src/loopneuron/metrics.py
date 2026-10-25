@@ -6,7 +6,8 @@ Local:
   Embedder: BAAI/bge-small-en-v1.5 (https://huggingface.co/BAAI/bge-small-en-v1.5) via sentence-transformers
   (https://www.sbert.net/); robustness embedder: sentence-transformers/all-MiniLM-L6-v2.
 - Fluency guard: perplexity of the continuation under the *unsteered* model given the prompt.
-- distinct-2: unique bigrams / bigrams (Li et al. 2016, https://arxiv.org/abs/1510.03055) for repetition confounds.
+- distinct-2: unique / total bigrams of one continuation, a per-text variant of the distinct-n diversity score of
+  Li et al. 2016 (https://arxiv.org/abs/1510.03055, computed there over all responses); low = repetitive text.
 - Concept-token mass: log of total next-token probability on the neuron's keyword tokens (teacher-forced).
 Global context: screening and the confirmatory test compute these for every (prompt, sample, condition).
 """

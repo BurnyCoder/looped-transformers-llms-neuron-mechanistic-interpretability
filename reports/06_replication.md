@@ -1,13 +1,13 @@
 # Experiment 6: Replication on Ouro-1.4B-Thinking
 
-**Status:** done. **Data:** `results/Ouro-1.4B/replication.json`, `results/Ouro-1.4B/replication_examples.jsonl`. **Log:** `logs/20261025-023034_replicate.log`.
+**Status:** done. **Data:** `results/Ouro-1.4B/replication.json`, `results/Ouro-1.4B/replication_examples.jsonl`. **Logs:** `logs/20261025-023034_replicate.log`, `logs/20261025-040531_replicate_fresh.log`. **Tables:** [tables/replication.md](tables/replication.md), [tables/replication_fresh.md](tables/replication_fresh.md).
 
 [Ouro-1.4B-Thinking](https://huggingface.co/ByteDance/Ouro-1.4B-Thinking) is Ouro-1.4B after supervised fine-tuning on about 8.3M reasoning examples (math, code, science, chat; 2 epochs) according to its [model card](https://huggingface.co/ByteDance/Ouro-1.4B-Thinking) and Table 6 of [Zhu et al. 2025](https://arxiv.org/abs/2510.25741). We asked whether the *same neuron indices* still steer the same concepts after post-training. There was no re-selection and no new atlas.
 
 ## Design
 - **Protocol:** identical to the confirmatory test (100 held-out prompts × 3 paired samples, same α, same concept directions from the *base* atlas, same clamp values) with a fresh seed base (+2000).
 - **Smaller null:** the random-neuron null uses R = 20 instead of 100, to keep the run near 30 minutes. With R = 20 the smallest attainable permutation p is 1/21 = 0.048, which cannot pass Holm at K = 5 (0.048 × 5 = 0.24). So the automated `significant` flag in `replication.json` is false for every neuron *by construction*.
-- **Replication criterion.** The code committed when the run started (commit `842e2cd`, 14 s after the run began; comment in `run_pipeline.replicate`) names the Wilcoxon test vs unsteered as the replication criterion and calls the R = 20 null descriptive. The other three conditions below were first written down in commit `6351da1`, after the run, so they are post hoc. All five neurons meet all four:
+- **Replication criterion.** A comment in `run_pipeline.replicate`, first committed in `75c50a7` (01:55:54 CEST, about 35 min before the run started at 02:30:34 CEST per the log) and unchanged at `842e2cd` (the commit made 14 s after the run began), names the Wilcoxon test vs unsteered as the replication criterion and calls the R = 20 null descriptive. The other three conditions below were first written down in commit `6351da1`, after the run, so they are post hoc. All five neurons meet all four:
   - Holm-adjusted Wilcoxon p < 0.05;
   - the neuron's 50-prompt statistic exceeds all 20 random same-layer neurons;
   - PPL ratio ≤ 2;
@@ -23,7 +23,7 @@ Cosine between base and Thinking weights of each neuron (gate row, up row, down 
 | 4 | 0.995 / 0.997 / 0.998 | N2104: 0.996 / 0.998 / 0.998 |
 | 6 | 0.995 / 0.996 / 0.998 | N3344: 0.996 / 0.997 / 0.997 |
 
-Max activation on the base atlas's top contexts, base → Thinking:
+Max activation, base → Thinking. The base value is the atlas maximum (positions 4–255); the Thinking value is the maximum recomputed over all positions and loops of the same top-40 chunks (`replicate.max_activation`):
 - L18 N3066: 4.06 → 4.13
 - L13 N1680: 0.66 → 0.69
 - L4 N2104: 0.57 → 0.57

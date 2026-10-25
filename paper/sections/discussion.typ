@@ -37,9 +37,11 @@ model and reasoning post-training, and it is specific to each neuron's own conce
 repeated injection, at every pass through the shared weights, changes behavior. Steering a neuron at all four loops
 works well, while for four of the five confirmed neurons any single loop is nearly inert (for L13 N1680, single-loop
 effects are small but non-zero). Mechanistically, an injection at loops 1–3 keeps only 33–78% of its size by the
-time it reaches the output. This resembles the "rotated away" behavior reported for residual
-directions in Ouro @nesiacel2026recurrent and is consistent with the convergence of the residual stream across loops
-(median same-token activation correlation between consecutive loops rises from 0.65 to 0.94).
+time it reaches the output. Behaviorally this matches the last-loop advantage reported for residual directions in
+Ouro-1.4B-Thinking @nesiacel2026recurrent, but the mechanism differs: there, early perturbations persist and are rotated
+away from the concept direction, while here the injected displacement itself shrinks. It is also consistent with the
+convergence of activations across loops (median same-token activation correlation between consecutive loops rises from
+0.65 to 0.94).
 
 The exception, the if-statement neuron, acts mainly at the last loop. That suggests the location of the effect depends
 on the neuron: some concepts are written late, close to the output, while others are maintained throughout.
@@ -51,8 +53,8 @@ difference (same-loop 0.60 vs cross-loop 0.59). With explainers this weak, activ
 instrument.
 
 *Fluency guards must catch repetition.* Concept scores can be maximized by degenerate repetition, which a language model
-finds *easy* to predict. Perplexity-based fluency guards therefore pass exactly the worst outputs. A lexical-diversity
-guard, or an LLM fluency judge as in AxBench @wu2025axbench, is necessary.
+finds *easy* to predict. Perplexity-based fluency guards can therefore pass degenerate outputs. A lexical-diversity
+guard, or an LLM fluency judge as in AxBench @wu2025axbench, is needed alongside them.
 
 = Limitations
 - *Scope.* One looped model family (Ouro-1.4B and its Thinking variant) and 5 confirmed neurons, chosen for steerability
@@ -75,8 +77,9 @@ guard, or an LLM fluency judge as in AxBench @wu2025axbench, is necessary.
 In Ouro-1.4B, a looped transformer that applies its 24 layers four times, we built a 135k-neuron atlas and ran a
 pre-registered, paired steering test with random same-layer neuron nulls. All five pre-registered neurons (phonetics,
 non-duality, pedagogy, forum answers, electron orbitals) steer generation toward their concept with large,
-statistically significant effects. They are specific to their own concepts, saturate with clamp strength as the
-sandwich norm predicts, and replicate in the reasoning-tuned Ouro-1.4B-Thinking.
+statistically significant effects. They are specific to their own concepts, level off with clamp strength for four of
+six neurons (qualitatively consistent with the sandwich-norm bound), and replicate in the reasoning-tuned
+Ouro-1.4B-Thinking.
 
 Steering a neuron in a looped model requires clamping it at every loop. Single-loop interventions are mostly undone by
 the following loops. Neurons are largely reused across loops, but not identically: their same-token activation
