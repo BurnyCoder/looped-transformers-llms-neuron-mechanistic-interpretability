@@ -37,12 +37,12 @@ Example (confirm prompt 2, sample 0):
 | LLM judge (secondary) | blind AxBench-style 0–2 ratings by local Qwen3.5-9B, 50 prompts | concept 0–0.02 → 0.06–0.36 (all 5 Holm p ≤ 0.042); fluency 1.50 → 0.90–1.17 |
 | Robustness (post hoc) | 3 new seed sets; teacher-forced keyword probability | stable (ΔC 0.11–0.18 in every seed set, p ≤ 2.9e-8); clamping raises the probability of each neuron's peak-context keywords 1.6–2.6× (p ≈ 2e-18) ([report](reports/07_plan_completion.md)) |
 | Self-repair (post hoc) | residual displacement kept at the output after a single-loop clamp | loops 1–3 keep 33–78%; loop 4 keeps 67–126% |
-| H3: more test-time loops? | clamp at all loops for T = 1…8 | effect already present at T = 1 (70–99% of the T = 4 effect) and not growing systematically with T; next-token KL grows with T |
+| H3: more test-time loops? | clamp at all loops for T = 1…8 | effect already present at T = 1 (70–99% of the T = 4 effect for the 5 confirmed neurons) and not growing systematically with T; next-token KL grows with T |
 | Necessity | zero-ablation vs 100 random ablations | 4 of 6 neurons needed for their own contexts (unadjusted p = 0.0099; exploratory); 2 neurons steer but are not necessary |
 | Loop structure (descriptive) | where each neuron peaks; top-context overlap across loops | 41% of neuron poles peak at loop 1 vs 13% at loop 4; top-20 contexts at loop 1 vs loop 4 overlap only 1–19% (Jaccard) |
 | Cross-loop function (descriptive) | same-token activation correlation, loop 1 vs 4 | median r = 0.54; adjacent loops converge (0.65 → 0.84 → 0.94); layer 0 ≈ 0 ([report](reports/05_loop_audit.md)) |
 | H4: are looped neurons "loop-polysemantic"? | same-loop vs cross-loop detection of local-LLM explanations | **not supported** (0.60 vs 0.59, paired two-sided Wilcoxon p = 0.20); the explainer is weak (0.60 vs 0.50 chance) |
-| Replication on Ouro-1.4B-Thinking | same neuron indices; fresh seeds on the confirm prompts, and again on 100 fresh reserve prompts | **5/5 replicate in both** (ΔC 0.16–0.18, Holm p ≤ 2.1e-16, each beats 20/20 random neurons; part of the replication criterion was set after the run); weights nearly unchanged by SFT (per-neuron cos ≥ 0.993 for 99% of neurons in the candidate layers, ≥ 0.996 for the five neurons) ([report](reports/06_replication.md)) |
+| Replication on Ouro-1.4B-Thinking | same neuron indices; fresh seeds on the confirm prompts, and again on 100 fresh reserve prompts | **5/5 replicate in both** (ΔC 0.16–0.18, Holm p ≤ 2.2e-16, each beats 20/20 random neurons; part of the replication criterion was set after the run); weights nearly unchanged by SFT (per-neuron cos ≥ 0.993 for 99% of neurons in the candidate layers, ≥ 0.996 for the five neurons) ([report](reports/06_replication.md)) |
 
 <p align="center">
 <img src="figures/confirm_effects.png" width="49%" alt="Confirmatory test: mean concept-score change with 95% CIs for the five neurons, far above the random same-layer neuron null"/>
