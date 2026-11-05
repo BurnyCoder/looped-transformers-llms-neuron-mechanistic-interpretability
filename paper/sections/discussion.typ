@@ -10,7 +10,7 @@ Reasoning SFT barely moves the MLP neurons:
 All five neurons steer the post-trained model with similar or larger effects:
 - $Delta C = 0.161$–$0.180$, against $0.127$–$0.179$ in the base model (larger for four neurons; for L18 N3066 it is
   0.171 against 0.179, within the confidence intervals);
-- Holm-adjusted Wilcoxon $p <= 2.1 times 10^(-16)$;
+- Holm-adjusted Wilcoxon $p <= 2.2 times 10^(-16)$;
 - each neuron exceeds all 20 random same-layer neurons;
 - the PPL ratio is at most 1.98.
 
@@ -20,7 +20,7 @@ the "beats all 20" and guard conditions were written down after the run.
 
 A second replication on 100 never-used prompts (the reserve split) gives the same picture:
 - $Delta C = 0.157$–$0.179$;
-- Holm-adjusted Wilcoxon $p <= 2.0 times 10^(-16)$;
+- Holm-adjusted Wilcoxon $p <= 2.1 times 10^(-16)$;
 - each neuron again beats all 20 random neurons;
 - the PPL ratio is at most 1.97.
 
